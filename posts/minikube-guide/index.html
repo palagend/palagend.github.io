@@ -60,7 +60,7 @@ cat download-kubernetes.sh
 
 <meta itemprop="datePublished" content="2018-12-18T20:09:44&#43;08:00" />
 <meta itemprop="dateModified" content="2018-12-18T20:09:44&#43;08:00" />
-<meta itemprop="wordCount" content="307">
+<meta itemprop="wordCount" content="313">
 
 
 
@@ -279,7 +279,10 @@ done
 
 <h2 id="其他">其他</h2>
 
-<p>如果安装失败,请清理<code>/etc/kubernetes</code>,<code>/var/lib/minikube</code>,<code>~/.minikube</code></p>
+<p>如果安装失败,请清理旧文件,命令如下:</p>
+
+<pre><code>sudo rm -rf /etc/kubernetes /var/lib/minikube ~/.minikube
+</code></pre>
 <ul class="pa0">
   
 </ul>
