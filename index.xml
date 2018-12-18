@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>My New Hugo Site</title>
+    <title>坂の下の別れ</title>
     <link>https://palagend.github.io/</link>
-    <description>Recent content on My New Hugo Site</description>
+    <description>Recent content on 坂の下の別れ</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>zh-CN</language>
     <lastBuildDate>Tue, 18 Dec 2018 20:09:44 +0800</lastBuildDate>
     
 	<atom:link href="https://palagend.github.io/index.xml" rel="self" type="application/rss+xml" />
