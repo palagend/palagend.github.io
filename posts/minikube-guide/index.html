@@ -60,7 +60,7 @@ cat download-kubernetes.sh
 
 <meta itemprop="datePublished" content="2018-12-18T20:09:44&#43;08:00" />
 <meta itemprop="dateModified" content="2018-12-18T20:09:44&#43;08:00" />
-<meta itemprop="wordCount" content="294">
+<meta itemprop="wordCount" content="307">
 
 
 
@@ -246,12 +246,18 @@ docker rmi registry.cn-hangzhou.aliyuncs.com/google_containers/kubernetes-dashbo
 <pre><code>#!/bin/bash
 #export http_proxy=http://172.19.210.34:7777
 #export https_proxy=$http_proxy
+export MINIKUBE_WANTUPDATENOTIFICATION=false
+export MINIKUBE_WANTREPORTERRORPROMPT=false
+export MINIKUBE_HOME=$HOME
+export CHANGE_MINIKUBE_NONE_USER=true
+mkdir -p $HOME/.kube
+touch $HOME/.kube/config
+
+export KUBECONFIG=$HOME/.kube/config
 
 mkdir -p ~/.minikube/config &amp;&amp; \
 echo '{
-    &quot;WantReportErrorPrompt&quot;: false,
-    &quot;WantUpdateNotification&quot;: false,
-    &quot;ChangeMinikubeNoneUser&quot;: true,
+    &quot;level&quot;: &quot;0&quot;,
     &quot;kubernetes-version&quot;: &quot;v1.13.1&quot;,
     &quot;vm-driver&quot;: &quot;none&quot;,
     &quot;iso-url&quot;: &quot;https://github.com/kubernetes/minikube/releases/download/v0.31.0/minikube-linux-amd64&quot;
@@ -270,6 +276,10 @@ done
 
 # kubectl commands are now able to interact with Minikube cluster
 </code></pre>
+
+<h2 id="其他">其他</h2>
+
+<p>如果安装失败,请清理<code>/etc/kubernetes</code>,<code>/var/lib/minikube</code>,<code>~/.minikube</code></p>
 <ul class="pa0">
   
 </ul>
