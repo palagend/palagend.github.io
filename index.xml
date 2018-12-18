@@ -6,10 +6,29 @@
     <description>Recent content on My New Hugo Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 06 Dec 2018 20:13:41 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 18 Dec 2018 20:09:44 +0800</lastBuildDate>
     
 	<atom:link href="https://palagend.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>使用minikube在linux上安装单节点k8s集群</title>
+      <link>https://palagend.github.io/posts/minikube-guide/</link>
+      <pubDate>Tue, 18 Dec 2018 20:09:44 +0800</pubDate>
+      
+      <guid>https://palagend.github.io/posts/minikube-guide/</guid>
+      <description>准备好二进制文件 注意本教程使用的版本如下:
+* minikube v0.31.0
+* kubeadm v1.13.1
+* kubelet v1.13.1
+* kubectl v1.13.1
+下载minikube, 下载命令:
+mkdir -p $HOME/.minikube/cache/iso &amp;amp;&amp;amp; \ curl -C - -L# -o $HOME/.minikube/cache/iso/minikube-v0.31.0.iso https://github.com/kubernetes/minikube/releases/download/v0.31.0/minikube-linux-amd64  或者从这里下载源码编译
+借助VPN下载二进制文件: kubeadm, kubelet, kubectl, 下载命令:
+#VERSION=$(curl https://storage.googleapis.com/kubernetes-release/release/stable.txt) mkdir -p $HOME/.minikube/cache/v1.13.1 &amp;amp;&amp;amp; \ cd $HOME/.minikube/cache/v1.13.1 &amp;amp;&amp;amp; \ sudo -E curl -C - -L#O https://storage.googleapis.com/kubernetes-release/release/v1.13.1/bin/linux/amd64/{kubelet,kubeadm,kubectl}  下载kubernetes所需的docker镜像, 脚本内容如下:
+cat download-kubernetes.sh
+#!/bin/bash #本脚本将拉取以下9个images #kube-proxy-amd64:v1.13.1 #kube-controller-manager-amd64:v1.13.1 #kube-scheduler-amd64:v1.13.1 #kube-apiserver-amd64:v1.13.1 #pause-amd64:3.1 #coredns:1.2.6 #etcd-amd64:3.2.24 #kubernetes-dashboard-amd64:v1.10.0 #flannel:v0.10.0-amd64 set -e #运行kubeadm config images list确认指定版本 K8S_VERSION=v1.</description>
+    </item>
     
     <item>
       <title>My First Post</title>
