@@ -35,7 +35,7 @@
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://palagend.github.io/posts/" />
-<meta property="og:updated_time" content="2018-12-18T20:09:44&#43;08:00"/>
+<meta property="og:updated_time" content="2018-12-20T00:55:02&#43;08:00"/>
 
 <meta itemprop="name" content="Posts">
 <meta itemprop="description" content="">
@@ -98,6 +98,96 @@
   <div class="bg-white mb3 pa4 gray overflow-hidden">
     <span class="f6 db">Posts</span>
     <h1 class="f3 near-black">
+      <a href="/posts/minikube-guide-windows/" class="link black dim">
+        在Windows10上利用minikube&#43;hyperv安装单节点k8s集群
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      准备好二进制文件 注意本教程使用的版本如下:
+* minikube v0.31.0
+* kubeadm v1.13.1
+* kubelet v1.13.1
+* kubectl v1.13.1
+下载minikube, 下载命令:
+curl -C - -L# -o $HOME/.local/bin/minikube https://github.com/kubernetes/minikube/releases/download/v0.31.0/minikube-windows-amd64  或者从这里下载源码编译
+借助VPN下载二进制文件: kubeadm, kubelet, kubectl, 下载命令:
+#VERSION=$(curl https://storage.googleapis.com/kubernetes-release/release/stable.txt) mkdir -p $HOME/.minikube/cache/v1.13.1 &amp;&amp; \ cd $HOME/.minikube/cache/v1.13.1 &amp;&amp; \ curl -C - -L#O https://storage.googleapis.com/kubernetes-release/release/v1.13.1/bin/windows/amd64/{kubelet,kubeadm,kubectl}  下载kubernetes所需的docker镜像, 脚本内容如下:
+cat download-kubernetes.sh
+#!/bin/bash #本脚本将拉取以下9个images #kube-proxy-amd64:v1.13.1 #kube-controller-manager-amd64:v1.13.1 #kube-scheduler-amd64:v1.13.1 #kube-apiserver-amd64:v1.13.1 #pause-amd64:3.1 #coredns:1.2.6 #etcd-amd64:3.2.24 #kubernetes-dashboard-amd64:v1.10.0 #flannel:v0.10.0-amd64 set -e #运行kubeadm config images list确认指定版本 K8S_VERSION=v1.13.1 ETCD_VERSION=3.
+    </div>
+  </div>
+</div>
+</div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/posts/docker/" class="link black dim">
+        Docker技术简介
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      Docker技术贯穿CI/CD的整个过程，既是基础的技术，又是重要的技术。这里只是想普及一下Docker的技术， 为后续的CI/CD奠定基础，所以尽量从简单通俗的方式介绍Docker技术
+什么是部署 部署就是将开发的应用程序代码和相关文件放置到服务器的指定位置，使得客户端能够通过网络来使用应用程 序提供的服务。
+传统部署 开发人员在本地设置好的环境下开发并调试程序，成功之后提交编译好的程序给 运维人员；然后运维人员在生产服务器上设置好与本地开发环境一致的环境，并把程序上传到服务器启动程序 ，调式无误后，部署工作就算完成了。
+容器部署 开发人员在本地开发并调试完成后，并不只是把编译好的程序提交给运维人 员，而是先将程序代码和相关文件以及程序所以依赖的环境配置一同打包到一个镜像中（Docker镜像），然后 把这个镜像提交到Docker仓库；运维人员只需要在生产服务器上拉取这个镜像到生产服务器，然后基于这个镜 像拉起一个容器，程序在容器里运行，这个容器里已经包含了程序在本地开发时一致的运行环境。
+容器化部署 vs 传统部署 容器部署和传统部署最显著的不同就是对程序运行时环境（runtime environment）的处理上，前者将运行 时环境与程序本身打包在一起，随程序一起发布、部署。后者是将程序发布，但是程序的环境需要在程序所部 署的地方另外设置。 这种区别可以用”国王的皮鞋“来比喻。
+Docker技术的经济效益 这里的牛皮就是运行环境, 脚是应用程序, 崎岖不平的路面是各种各样的生产服务器。 传统部署就是给所有的服务器蒙上一层“牛皮”,然后让“脚”在上面走(运行)；容器部署则是用“牛 皮”包住程序，在服务器上运行，而不需要对服务器做很多的适配工作。
+传统部署方式，对开发人员来说可能比较省事，程序开发调试完毕就可以扔给运维人员了（光着脚走在牛皮大 道上当然是极好的）；容器部署对于运维人员和管理人员来说是比较省心的，只需要拿到开发人员提交过来的 容器镜像在服务器上运行起来就行了，如果容器出了问题只需要更换为新的容器就可以了。这个代价是要求开发 人员多承担了一道制作皮鞋（容器）的工序。
+但是很明显从整体经济效益和管理成本上来讲，容器部署比传统部署更有优势。
+Docker 上面谈了部署的概念，一直在说容器,这里就来看看容器的庐山真面目Docker。其实Docker并不是什么 新技术，而是对原有成熟技术的包装整合形成的生态系统，这个生态系统对开发部署模式产生了深远影响。
+Docker技术中的一些概念  LXC Dockerfile OCI RunC Containerd Kubernetes  LXC Docker基于LXC技术，对操作系统做了一层虚拟化。 每一个容器就像一个“世外桃源”，彼此之间相互隔离（隔离性）。这些“世外桃源”虽然彼此隔 离，但是都生活在“地球”（共的操作系统内核）上，所以它们并不能无节制地使用资源（资源限制）。 Docker对容器的隔离和资源限制并不是自己实现的而是依赖于LXC提供的namespace和cgroup模块来实现的（拿来主义）。
+Dockerfile OCI &amp; RunC  Open Container Initiative，也就是常说的OCI，是由多家公司共同成立的项目，并由linux基金会进行管理，致力于container runtime的标准的制定和runc的开发等工作
+ container有很多种，而docker是其中的一种container。
+OCI -&gt; RunC : Interface -&gt; Implementation
+下图能够解释RunC和Docker的关系： k8s为了与docker解耦合引入CRI项目： 容器化部署的意识 开发时要有容器部署意识(code,data,conf,lib,doc,log)
+    </div>
+  </div>
+</div>
+</div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/posts/golang-source-code-interpreting/" class="link black dim">
+        Go语言源码分析
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      net/http client.go 结构: Client
+变量: DefaultClient
+接口: RoundTripper
+函数: //TODO
+Client指的是http客户端. 它的默认值是DefaultClient. 其中, DefaultClient以DefaultTransport作为传输层的.
+典型的客户端传输层, 其内部具有缓存的TCP连接, 所以客户端应该优先重用, 而不是重新创建. 使用goroutines可以实现安全的客户端并发请求.
+Client是比RoundTripper(Transport只是RounderTripper的一个实现)更高一级的存在, 用来处理重定向、cookie等HTTP细节.
+ • when forwarding sensitive headers like &ldquo;Authorization&rdquo;, &ldquo;WWW-Authenticate&rdquo;, and &ldquo;Cookie&rdquo; to untrusted targets. These headers will be ignored when following a redirect to a domain that is not a subdomain match or exact match of the initial domain. For example, a redirect from &ldquo;foo.com&rdquo; to either &ldquo;foo.com&rdquo; or &ldquo;sub.
+    </div>
+  </div>
+</div>
+</div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/posts/k8s/" class="link black dim">
+        k8s知识点
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+       kube-proxy的两种转发模式（user space, kernel space） k8s后端服务的四种访问方式（ClusterIP, NodePort, LoadBalance, Ingress） k8s服务的三种端口(port, nodePort, targetPort)  
+    </div>
+  </div>
+</div>
+</div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
       <a href="/posts/minikube-guide/" class="link black dim">
         使用minikube在linux上安装单节点k8s集群
       </a>
@@ -109,11 +199,30 @@
 * kubelet v1.13.1
 * kubectl v1.13.1
 下载minikube, 下载命令:
-mkdir -p $HOME/.minikube/cache/iso &amp;&amp; \ curl -C - -L# -o $HOME/.minikube/cache/iso/minikube-v0.31.0.iso https://github.com/kubernetes/minikube/releases/download/v0.31.0/minikube-linux-amd64  或者从这里下载源码编译
+mkdir -p $HOME/.minikube/cache/iso &amp;&amp; \ curl -C - -L# -o $HOME/.local/bin/minikube https://github.com/kubernetes/minikube/releases/download/v0.31.0/minikube-linux-amd64  或者从这里下载源码编译
 借助VPN下载二进制文件: kubeadm, kubelet, kubectl, 下载命令:
 #VERSION=$(curl https://storage.googleapis.com/kubernetes-release/release/stable.txt) mkdir -p $HOME/.minikube/cache/v1.13.1 &amp;&amp; \ cd $HOME/.minikube/cache/v1.13.1 &amp;&amp; \ sudo -E curl -C - -L#O https://storage.googleapis.com/kubernetes-release/release/v1.13.1/bin/linux/amd64/{kubelet,kubeadm,kubectl}  下载kubernetes所需的docker镜像, 脚本内容如下:
 cat download-kubernetes.sh
 #!/bin/bash #本脚本将拉取以下9个images #kube-proxy-amd64:v1.13.1 #kube-controller-manager-amd64:v1.13.1 #kube-scheduler-amd64:v1.13.1 #kube-apiserver-amd64:v1.13.1 #pause-amd64:3.1 #coredns:1.2.6 #etcd-amd64:3.2.24 #kubernetes-dashboard-amd64:v1.10.0 #flannel:v0.10.0-amd64 set -e #运行kubeadm config images list确认指定版本 K8S_VERSION=v1.
+    </div>
+  </div>
+</div>
+</div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/posts/tech/" class="link black dim">
+        技术白话即《数据结构与算法》读书心得与笔记
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      技和术的区别 解决&rdquo;好&rdquo;问题的能力在于&rdquo;技&rdquo;&ldquo;,解决&rdquo;新&rdquo;问题的能力在于&rdquo;术&rdquo;.解决问题的实力在于&rdquo;技术兼备&rdquo;.
+我们通常所说的掌握xx框架,熟练xx编程语言,xx工具快捷键娴熟,能够快速定位xx问题&hellip;,这些体现的都是“技”的水平,&ldquo;技&rdquo;的水平高,那么在解决已知问题方面会更快,更好,但是面对“新的问题”,“技”的优势就没有那么明显了. 这时候,“术”的优势就显现出来了.
+所谓的“术”,在IT领域,表现为对实际计算问题的抽象能力.实际中的计算需求无穷无尽,有的计算需求已经有对应的程序可解决,“拿来主义”就能搞定.但是有的“新”问题,没有现成的程序可用,就需要运用“术”的能力. 针对新问题,采用成熟的算法和数据结构或者设计新的算法和数据结构,编写程序来解决问题.这也是创新能力集中体现的地方.
+总之“技术兼备”才能有信心应对形形色色的计算需求.
+计算机问题的求解 计算机问题求解,就是利用计算机去解决实际问题.数据结构结构和算法,就是利用计算机去解决实际问题过程中采用的方法. &gt; 人们开发(设计+编码)一个程序,通常是为了解决一个问题,该程序的每次执行能处理该问题的一个实例.
     </div>
   </div>
 </div>

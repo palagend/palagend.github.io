@@ -3,7 +3,32 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://palagend.github.io/posts/minikube-guide-windows/</loc>
+    <lastmod>2018-12-20T00:55:02+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://palagend.github.io/posts/docker/</loc>
+    <lastmod>2018-12-18T20:09:44+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://palagend.github.io/posts/golang-source-code-interpreting/</loc>
+    <lastmod>2018-12-18T20:09:44+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://palagend.github.io/posts/k8s/</loc>
+    <lastmod>2018-12-18T20:09:44+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://palagend.github.io/posts/minikube-guide/</loc>
+    <lastmod>2018-12-18T20:09:44+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://palagend.github.io/posts/tech/</loc>
     <lastmod>2018-12-18T20:09:44+08:00</lastmod>
   </url>
   
@@ -19,7 +44,7 @@
   
   <url>
     <loc>https://palagend.github.io/posts/</loc>
-    <lastmod>2018-12-18T20:09:44+08:00</lastmod>
+    <lastmod>2018-12-20T00:55:02+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -30,7 +55,7 @@
   
   <url>
     <loc>https://palagend.github.io/</loc>
-    <lastmod>2018-12-18T20:09:44+08:00</lastmod>
+    <lastmod>2018-12-20T00:55:02+08:00</lastmod>
     <priority>0</priority>
   </url>
   

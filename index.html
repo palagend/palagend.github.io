@@ -35,7 +35,7 @@
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://palagend.github.io/" />
-<meta property="og:updated_time" content="2018-12-18T20:09:44&#43;08:00"/>
+<meta property="og:updated_time" content="2018-12-20T00:55:02&#43;08:00"/>
 
 <meta itemprop="name" content="坂の下の別れ">
 <meta itemprop="description" content="">
@@ -124,8 +124,8 @@
       
       <div class="blah w-100">
         <h1 class="f3 fw1 athelas mt0 lh-title">
-          <a href="/posts/minikube-guide/" class="color-inherit dim link">
-            使用minikube在linux上安装单节点k8s集群
+          <a href="/posts/minikube-guide-windows/" class="color-inherit dim link">
+            在Windows10上利用minikube&#43;hyperv安装单节点k8s集群
             </a>
         </h1>
         <div class="f6 f5-l lh-copy nested-copy-line-height nested-links">
@@ -135,13 +135,13 @@
 * kubelet v1.13.1
 * kubectl v1.13.1
 下载minikube, 下载命令:
-mkdir -p $HOME/.minikube/cache/iso &amp;&amp; \ curl -C - -L# -o $HOME/.minikube/cache/iso/minikube-v0.31.0.iso https://github.com/kubernetes/minikube/releases/download/v0.31.0/minikube-linux-amd64  或者从这里下载源码编译
+curl -C - -L# -o $HOME/.local/bin/minikube https://github.com/kubernetes/minikube/releases/download/v0.31.0/minikube-windows-amd64  或者从这里下载源码编译
 借助VPN下载二进制文件: kubeadm, kubelet, kubectl, 下载命令:
-#VERSION=$(curl https://storage.googleapis.com/kubernetes-release/release/stable.txt) mkdir -p $HOME/.minikube/cache/v1.13.1 &amp;&amp; \ cd $HOME/.minikube/cache/v1.13.1 &amp;&amp; \ sudo -E curl -C - -L#O https://storage.googleapis.com/kubernetes-release/release/v1.13.1/bin/linux/amd64/{kubelet,kubeadm,kubectl}  下载kubernetes所需的docker镜像, 脚本内容如下:
+#VERSION=$(curl https://storage.googleapis.com/kubernetes-release/release/stable.txt) mkdir -p $HOME/.minikube/cache/v1.13.1 &amp;&amp; \ cd $HOME/.minikube/cache/v1.13.1 &amp;&amp; \ curl -C - -L#O https://storage.googleapis.com/kubernetes-release/release/v1.13.1/bin/windows/amd64/{kubelet,kubeadm,kubectl}  下载kubernetes所需的docker镜像, 脚本内容如下:
 cat download-kubernetes.sh
-#!/bin/bash #本脚本将拉取以下9个images #kube-proxy-amd64:v1.13.1 #kube-controller-manager-amd64:v1.13.1 #kube-scheduler-amd64:v1.13.1 #kube-apiserver-amd64:v1.13.1 #pause-amd64:3.1 #coredns:1.2.6 #etcd-amd64:3.2.24 #kubernetes-dashboard-amd64:v1.10.0 #flannel:v0.10.0-amd64 set -e #运行kubeadm config images list确认指定版本 K8S_VERSION=v1.
+#!/bin/bash #本脚本将拉取以下9个images #kube-proxy-amd64:v1.13.1 #kube-controller-manager-amd64:v1.13.1 #kube-scheduler-amd64:v1.13.1 #kube-apiserver-amd64:v1.13.1 #pause-amd64:3.1 #coredns:1.2.6 #etcd-amd64:3.2.24 #kubernetes-dashboard-amd64:v1.10.0 #flannel:v0.10.0-amd64 set -e #运行kubeadm config images list确认指定版本 K8S_VERSION=v1.13.1 ETCD_VERSION=3.
         </div>
-          <a href="/posts/minikube-guide/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+          <a href="/posts/minikube-guide-windows/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
         
       </div>
     </div>
@@ -158,17 +158,58 @@ cat download-kubernetes.sh
       
       <div class="blah w-100">
         <h1 class="f3 fw1 athelas mt0 lh-title">
-          <a href="/posts/poem/" class="color-inherit dim link">
-            题都城南庄
+          <a href="/posts/docker/" class="color-inherit dim link">
+            Docker技术简介
             </a>
         </h1>
         <div class="f6 f5-l lh-copy nested-copy-line-height nested-links">
-          去年今日此门中，
-人面桃花相映红。
-人面不知何处去，
-桃花依旧笑春分。
+          Docker技术贯穿CI/CD的整个过程，既是基础的技术，又是重要的技术。这里只是想普及一下Docker的技术， 为后续的CI/CD奠定基础，所以尽量从简单通俗的方式介绍Docker技术
+什么是部署 部署就是将开发的应用程序代码和相关文件放置到服务器的指定位置，使得客户端能够通过网络来使用应用程 序提供的服务。
+传统部署 开发人员在本地设置好的环境下开发并调试程序，成功之后提交编译好的程序给 运维人员；然后运维人员在生产服务器上设置好与本地开发环境一致的环境，并把程序上传到服务器启动程序 ，调式无误后，部署工作就算完成了。
+容器部署 开发人员在本地开发并调试完成后，并不只是把编译好的程序提交给运维人 员，而是先将程序代码和相关文件以及程序所以依赖的环境配置一同打包到一个镜像中（Docker镜像），然后 把这个镜像提交到Docker仓库；运维人员只需要在生产服务器上拉取这个镜像到生产服务器，然后基于这个镜 像拉起一个容器，程序在容器里运行，这个容器里已经包含了程序在本地开发时一致的运行环境。
+容器化部署 vs 传统部署 容器部署和传统部署最显著的不同就是对程序运行时环境（runtime environment）的处理上，前者将运行 时环境与程序本身打包在一起，随程序一起发布、部署。后者是将程序发布，但是程序的环境需要在程序所部 署的地方另外设置。 这种区别可以用”国王的皮鞋“来比喻。
+Docker技术的经济效益 这里的牛皮就是运行环境, 脚是应用程序, 崎岖不平的路面是各种各样的生产服务器。 传统部署就是给所有的服务器蒙上一层“牛皮”,然后让“脚”在上面走(运行)；容器部署则是用“牛 皮”包住程序，在服务器上运行，而不需要对服务器做很多的适配工作。
+传统部署方式，对开发人员来说可能比较省事，程序开发调试完毕就可以扔给运维人员了（光着脚走在牛皮大 道上当然是极好的）；容器部署对于运维人员和管理人员来说是比较省心的，只需要拿到开发人员提交过来的 容器镜像在服务器上运行起来就行了，如果容器出了问题只需要更换为新的容器就可以了。这个代价是要求开发 人员多承担了一道制作皮鞋（容器）的工序。
+但是很明显从整体经济效益和管理成本上来讲，容器部署比传统部署更有优势。
+Docker 上面谈了部署的概念，一直在说容器,这里就来看看容器的庐山真面目Docker。其实Docker并不是什么 新技术，而是对原有成熟技术的包装整合形成的生态系统，这个生态系统对开发部署模式产生了深远影响。
+Docker技术中的一些概念  LXC Dockerfile OCI RunC Containerd Kubernetes  LXC Docker基于LXC技术，对操作系统做了一层虚拟化。 每一个容器就像一个“世外桃源”，彼此之间相互隔离（隔离性）。这些“世外桃源”虽然彼此隔 离，但是都生活在“地球”（共的操作系统内核）上，所以它们并不能无节制地使用资源（资源限制）。 Docker对容器的隔离和资源限制并不是自己实现的而是依赖于LXC提供的namespace和cgroup模块来实现的（拿来主义）。
+Dockerfile OCI &amp; RunC  Open Container Initiative，也就是常说的OCI，是由多家公司共同成立的项目，并由linux基金会进行管理，致力于container runtime的标准的制定和runc的开发等工作
+ container有很多种，而docker是其中的一种container。
+OCI -&gt; RunC : Interface -&gt; Implementation
+下图能够解释RunC和Docker的关系： k8s为了与docker解耦合引入CRI项目： 容器化部署的意识 开发时要有容器部署意识(code,data,conf,lib,doc,log)
         </div>
-          <a href="/posts/poem/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+          <a href="/posts/docker/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+        
+      </div>
+    </div>
+  </div>
+</article>
+
+          </div>
+        
+          <div class="relative w-100 mb4">
+            
+<article class="bb b--black-10">
+  <div class="db pv4 ph3 ph0-l no-underline dark-gray">
+    <div class="flex flex-column flex-row-ns">
+      
+      <div class="blah w-100">
+        <h1 class="f3 fw1 athelas mt0 lh-title">
+          <a href="/posts/golang-source-code-interpreting/" class="color-inherit dim link">
+            Go语言源码分析
+            </a>
+        </h1>
+        <div class="f6 f5-l lh-copy nested-copy-line-height nested-links">
+          net/http client.go 结构: Client
+变量: DefaultClient
+接口: RoundTripper
+函数: //TODO
+Client指的是http客户端. 它的默认值是DefaultClient. 其中, DefaultClient以DefaultTransport作为传输层的.
+典型的客户端传输层, 其内部具有缓存的TCP连接, 所以客户端应该优先重用, 而不是重新创建. 使用goroutines可以实现安全的客户端并发请求.
+Client是比RoundTripper(Transport只是RounderTripper的一个实现)更高一级的存在, 用来处理重定向、cookie等HTTP细节.
+ • when forwarding sensitive headers like &ldquo;Authorization&rdquo;, &ldquo;WWW-Authenticate&rdquo;, and &ldquo;Cookie&rdquo; to untrusted targets. These headers will be ignored when following a redirect to a domain that is not a subdomain match or exact match of the initial domain. For example, a redirect from &ldquo;foo.com&rdquo; to either &ldquo;foo.com&rdquo; or &ldquo;sub.
+        </div>
+          <a href="/posts/golang-source-code-interpreting/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
         
       </div>
     </div>
@@ -179,6 +220,41 @@ cat download-kubernetes.sh
         
       </section>
 
+      
+      <section class="w-100">
+        <h1 class="f3">More</h1>
+        
+        
+          <h2 class="f5 fw4 mb4 dib mr3">
+            <a href="/posts/k8s/" class="link black dim">
+              k8s知识点
+            </a>
+          </h2>
+        
+          <h2 class="f5 fw4 mb4 dib mr3">
+            <a href="/posts/minikube-guide/" class="link black dim">
+              使用minikube在linux上安装单节点k8s集群
+            </a>
+          </h2>
+        
+          <h2 class="f5 fw4 mb4 dib mr3">
+            <a href="/posts/tech/" class="link black dim">
+              技术白话即《数据结构与算法》读书心得与笔记
+            </a>
+          </h2>
+        
+          <h2 class="f5 fw4 mb4 dib mr3">
+            <a href="/posts/poem/" class="link black dim">
+              题都城南庄
+            </a>
+          </h2>
+        
+
+        
+        
+          <a href="/posts/" class="link db f6 pa2 br3 bg-mid-gray white dim w4 tc">All Posts</a>
+        
+        </section>
       
 
       </div>

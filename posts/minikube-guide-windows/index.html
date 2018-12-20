@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     
-    <title>坂の下の別れ  | 使用minikube在linux上安装单节点k8s集群</title>
+    <title>坂の下の別れ  | 在Windows10上利用minikube&#43;hyperv安装单节点k8s集群</title>
     <meta name="HandheldFriendly" content="True">
     <meta name="MobileOptimized" content="320">
 
@@ -28,56 +28,56 @@
 
     
 
-    <meta property="og:title" content="使用minikube在linux上安装单节点k8s集群" />
+    <meta property="og:title" content="在Windows10上利用minikube&#43;hyperv安装单节点k8s集群" />
 <meta property="og:description" content="准备好二进制文件 注意本教程使用的版本如下:
 * minikube v0.31.0
 * kubeadm v1.13.1
 * kubelet v1.13.1
 * kubectl v1.13.1
 下载minikube, 下载命令:
-mkdir -p $HOME/.minikube/cache/iso &amp;&amp; \ curl -C - -L# -o $HOME/.local/bin/minikube https://github.com/kubernetes/minikube/releases/download/v0.31.0/minikube-linux-amd64  或者从这里下载源码编译
+curl -C - -L# -o $HOME/.local/bin/minikube https://github.com/kubernetes/minikube/releases/download/v0.31.0/minikube-windows-amd64  或者从这里下载源码编译
 借助VPN下载二进制文件: kubeadm, kubelet, kubectl, 下载命令:
-#VERSION=$(curl https://storage.googleapis.com/kubernetes-release/release/stable.txt) mkdir -p $HOME/.minikube/cache/v1.13.1 &amp;&amp; \ cd $HOME/.minikube/cache/v1.13.1 &amp;&amp; \ sudo -E curl -C - -L#O https://storage.googleapis.com/kubernetes-release/release/v1.13.1/bin/linux/amd64/{kubelet,kubeadm,kubectl}  下载kubernetes所需的docker镜像, 脚本内容如下:
+#VERSION=$(curl https://storage.googleapis.com/kubernetes-release/release/stable.txt) mkdir -p $HOME/.minikube/cache/v1.13.1 &amp;&amp; \ cd $HOME/.minikube/cache/v1.13.1 &amp;&amp; \ curl -C - -L#O https://storage.googleapis.com/kubernetes-release/release/v1.13.1/bin/windows/amd64/{kubelet,kubeadm,kubectl}  下载kubernetes所需的docker镜像, 脚本内容如下:
 cat download-kubernetes.sh
-#!/bin/bash #本脚本将拉取以下9个images #kube-proxy-amd64:v1.13.1 #kube-controller-manager-amd64:v1.13.1 #kube-scheduler-amd64:v1.13.1 #kube-apiserver-amd64:v1.13.1 #pause-amd64:3.1 #coredns:1.2.6 #etcd-amd64:3.2.24 #kubernetes-dashboard-amd64:v1.10.0 #flannel:v0.10.0-amd64 set -e #运行kubeadm config images list确认指定版本 K8S_VERSION=v1." />
+#!/bin/bash #本脚本将拉取以下9个images #kube-proxy-amd64:v1.13.1 #kube-controller-manager-amd64:v1.13.1 #kube-scheduler-amd64:v1.13.1 #kube-apiserver-amd64:v1.13.1 #pause-amd64:3.1 #coredns:1.2.6 #etcd-amd64:3.2.24 #kubernetes-dashboard-amd64:v1.10.0 #flannel:v0.10.0-amd64 set -e #运行kubeadm config images list确认指定版本 K8S_VERSION=v1.13.1 ETCD_VERSION=3." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://palagend.github.io/posts/minikube-guide/" /><meta property="article:published_time" content="2018-12-18T20:09:44&#43;08:00"/>
-<meta property="article:modified_time" content="2018-12-18T20:09:44&#43;08:00"/>
+<meta property="og:url" content="https://palagend.github.io/posts/minikube-guide-windows/" /><meta property="article:published_time" content="2018-12-20T00:55:02&#43;08:00"/>
+<meta property="article:modified_time" content="2018-12-20T00:55:02&#43;08:00"/>
 
-<meta itemprop="name" content="使用minikube在linux上安装单节点k8s集群">
+<meta itemprop="name" content="在Windows10上利用minikube&#43;hyperv安装单节点k8s集群">
 <meta itemprop="description" content="准备好二进制文件 注意本教程使用的版本如下:
 * minikube v0.31.0
 * kubeadm v1.13.1
 * kubelet v1.13.1
 * kubectl v1.13.1
 下载minikube, 下载命令:
-mkdir -p $HOME/.minikube/cache/iso &amp;&amp; \ curl -C - -L# -o $HOME/.local/bin/minikube https://github.com/kubernetes/minikube/releases/download/v0.31.0/minikube-linux-amd64  或者从这里下载源码编译
+curl -C - -L# -o $HOME/.local/bin/minikube https://github.com/kubernetes/minikube/releases/download/v0.31.0/minikube-windows-amd64  或者从这里下载源码编译
 借助VPN下载二进制文件: kubeadm, kubelet, kubectl, 下载命令:
-#VERSION=$(curl https://storage.googleapis.com/kubernetes-release/release/stable.txt) mkdir -p $HOME/.minikube/cache/v1.13.1 &amp;&amp; \ cd $HOME/.minikube/cache/v1.13.1 &amp;&amp; \ sudo -E curl -C - -L#O https://storage.googleapis.com/kubernetes-release/release/v1.13.1/bin/linux/amd64/{kubelet,kubeadm,kubectl}  下载kubernetes所需的docker镜像, 脚本内容如下:
+#VERSION=$(curl https://storage.googleapis.com/kubernetes-release/release/stable.txt) mkdir -p $HOME/.minikube/cache/v1.13.1 &amp;&amp; \ cd $HOME/.minikube/cache/v1.13.1 &amp;&amp; \ curl -C - -L#O https://storage.googleapis.com/kubernetes-release/release/v1.13.1/bin/windows/amd64/{kubelet,kubeadm,kubectl}  下载kubernetes所需的docker镜像, 脚本内容如下:
 cat download-kubernetes.sh
-#!/bin/bash #本脚本将拉取以下9个images #kube-proxy-amd64:v1.13.1 #kube-controller-manager-amd64:v1.13.1 #kube-scheduler-amd64:v1.13.1 #kube-apiserver-amd64:v1.13.1 #pause-amd64:3.1 #coredns:1.2.6 #etcd-amd64:3.2.24 #kubernetes-dashboard-amd64:v1.10.0 #flannel:v0.10.0-amd64 set -e #运行kubeadm config images list确认指定版本 K8S_VERSION=v1.">
+#!/bin/bash #本脚本将拉取以下9个images #kube-proxy-amd64:v1.13.1 #kube-controller-manager-amd64:v1.13.1 #kube-scheduler-amd64:v1.13.1 #kube-apiserver-amd64:v1.13.1 #pause-amd64:3.1 #coredns:1.2.6 #etcd-amd64:3.2.24 #kubernetes-dashboard-amd64:v1.10.0 #flannel:v0.10.0-amd64 set -e #运行kubeadm config images list确认指定版本 K8S_VERSION=v1.13.1 ETCD_VERSION=3.">
 
 
-<meta itemprop="datePublished" content="2018-12-18T20:09:44&#43;08:00" />
-<meta itemprop="dateModified" content="2018-12-18T20:09:44&#43;08:00" />
-<meta itemprop="wordCount" content="313">
+<meta itemprop="datePublished" content="2018-12-20T00:55:02&#43;08:00" />
+<meta itemprop="dateModified" content="2018-12-20T00:55:02&#43;08:00" />
+<meta itemprop="wordCount" content="304">
 
 
 
 <meta itemprop="keywords" content="" />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="使用minikube在linux上安装单节点k8s集群"/>
+<meta name="twitter:title" content="在Windows10上利用minikube&#43;hyperv安装单节点k8s集群"/>
 <meta name="twitter:description" content="准备好二进制文件 注意本教程使用的版本如下:
 * minikube v0.31.0
 * kubeadm v1.13.1
 * kubelet v1.13.1
 * kubectl v1.13.1
 下载minikube, 下载命令:
-mkdir -p $HOME/.minikube/cache/iso &amp;&amp; \ curl -C - -L# -o $HOME/.local/bin/minikube https://github.com/kubernetes/minikube/releases/download/v0.31.0/minikube-linux-amd64  或者从这里下载源码编译
+curl -C - -L# -o $HOME/.local/bin/minikube https://github.com/kubernetes/minikube/releases/download/v0.31.0/minikube-windows-amd64  或者从这里下载源码编译
 借助VPN下载二进制文件: kubeadm, kubelet, kubectl, 下载命令:
-#VERSION=$(curl https://storage.googleapis.com/kubernetes-release/release/stable.txt) mkdir -p $HOME/.minikube/cache/v1.13.1 &amp;&amp; \ cd $HOME/.minikube/cache/v1.13.1 &amp;&amp; \ sudo -E curl -C - -L#O https://storage.googleapis.com/kubernetes-release/release/v1.13.1/bin/linux/amd64/{kubelet,kubeadm,kubectl}  下载kubernetes所需的docker镜像, 脚本内容如下:
+#VERSION=$(curl https://storage.googleapis.com/kubernetes-release/release/stable.txt) mkdir -p $HOME/.minikube/cache/v1.13.1 &amp;&amp; \ cd $HOME/.minikube/cache/v1.13.1 &amp;&amp; \ curl -C - -L#O https://storage.googleapis.com/kubernetes-release/release/v1.13.1/bin/windows/amd64/{kubelet,kubeadm,kubectl}  下载kubernetes所需的docker镜像, 脚本内容如下:
 cat download-kubernetes.sh
-#!/bin/bash #本脚本将拉取以下9个images #kube-proxy-amd64:v1.13.1 #kube-controller-manager-amd64:v1.13.1 #kube-scheduler-amd64:v1.13.1 #kube-apiserver-amd64:v1.13.1 #pause-amd64:3.1 #coredns:1.2.6 #etcd-amd64:3.2.24 #kubernetes-dashboard-amd64:v1.10.0 #flannel:v0.10.0-amd64 set -e #运行kubeadm config images list确认指定版本 K8S_VERSION=v1."/>
+#!/bin/bash #本脚本将拉取以下9个images #kube-proxy-amd64:v1.13.1 #kube-controller-manager-amd64:v1.13.1 #kube-scheduler-amd64:v1.13.1 #kube-apiserver-amd64:v1.13.1 #pause-amd64:3.1 #coredns:1.2.6 #etcd-amd64:3.2.24 #kubernetes-dashboard-amd64:v1.10.0 #flannel:v0.10.0-amd64 set -e #运行kubeadm config images list确认指定版本 K8S_VERSION=v1.13.1 ETCD_VERSION=3."/>
 
   </head>
 
@@ -130,9 +130,9 @@ cat download-kubernetes.sh
           
         POSTS
       </p>
-      <h1 class="f1 athelas mb1">使用minikube在linux上安装单节点k8s集群</h1>
+      <h1 class="f1 athelas mb1">在Windows10上利用minikube&#43;hyperv安装单节点k8s集群</h1>
       
-      <time class="f6 mv4 dib tracked" datetime="2018-12-18T20:09:44&#43;08:00">December 18, 2018</time>      
+      <time class="f6 mv4 dib tracked" datetime="2018-12-20T00:55:02&#43;08:00">December 20, 2018</time>      
       
       
     </header>
@@ -149,8 +149,7 @@ cat download-kubernetes.sh
 
 <p>下载minikube, 下载命令:</p>
 
-<pre><code>mkdir -p $HOME/.minikube/cache/iso &amp;&amp; \
-curl -C - -L# -o $HOME/.local/bin/minikube https://github.com/kubernetes/minikube/releases/download/v0.31.0/minikube-linux-amd64
+<pre><code>curl -C - -L# -o $HOME/.local/bin/minikube https://github.com/kubernetes/minikube/releases/download/v0.31.0/minikube-windows-amd64
 </code></pre>
 
 <p>或者从<a href="https://github.com/palagend/minikube.git">这里</a>下载源码编译</p>
@@ -160,7 +159,7 @@ curl -C - -L# -o $HOME/.local/bin/minikube https://github.com/kubernetes/minikub
 <pre><code>#VERSION=$(curl https://storage.googleapis.com/kubernetes-release/release/stable.txt)
 mkdir -p $HOME/.minikube/cache/v1.13.1 &amp;&amp; \
 cd $HOME/.minikube/cache/v1.13.1 &amp;&amp; \
-sudo -E curl -C - -L#O https://storage.googleapis.com/kubernetes-release/release/v1.13.1/bin/linux/amd64/{kubelet,kubeadm,kubectl}
+curl -C - -L#O https://storage.googleapis.com/kubernetes-release/release/v1.13.1/bin/windows/amd64/{kubelet,kubeadm,kubectl}
 </code></pre>
 
 <p>下载kubernetes所需的docker镜像, 脚本内容如下:<br />
@@ -236,7 +235,7 @@ docker rmi registry.cn-hangzhou.aliyuncs.com/google_containers/kubernetes-dashbo
 
 <p>启动minikube, 命令如下:</p>
 
-<pre><code>sudo -E minikube start --vm-driver none --v 0 --alsologtostderr --kubernetes-version v1.13.1
+<pre><code>minikube start --vm-driver hyperv --hyperv-virtual-switch minikube --v 0 --alsologtostderr --kubernetes-version v1.13.1
 </code></pre>
 
 <h2 id="简便起见-这里提供了一个安装minikube的脚本-脚本内容如下">简便起见, 这里提供了一个安装minikube的脚本, 脚本内容如下:</h2>
@@ -244,7 +243,7 @@ docker rmi registry.cn-hangzhou.aliyuncs.com/google_containers/kubernetes-dashbo
 <p>cat install-minikube.sh</p>
 
 <pre><code>#!/bin/bash
-#export http_proxy=http://172.19.210.34:7777
+#export http_proxy=http://127.0.0.1:7777
 #export https_proxy=$http_proxy
 export MINIKUBE_WANTUPDATENOTIFICATION=false
 export MINIKUBE_WANTREPORTERRORPROMPT=false
@@ -263,7 +262,7 @@ echo '{
     &quot;iso-url&quot;: &quot;https://storage.googleapis.com/minikube/iso/minikube-v0.31.0.iso&quot;
 }' &gt; ~/.minikube/config/config.json
 
-sudo -E minikube start
+minikube start
 
 # this for loop waits until kubectl can access the api server that Minikube has created
 for i in {1..150}; do # timeout for 5 minutes
