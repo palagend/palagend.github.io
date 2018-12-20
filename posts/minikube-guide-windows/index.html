@@ -60,7 +60,7 @@ cat download-kubernetes.sh
 
 <meta itemprop="datePublished" content="2018-12-20T00:55:02&#43;08:00" />
 <meta itemprop="dateModified" content="2018-12-20T00:55:02&#43;08:00" />
-<meta itemprop="wordCount" content="306">
+<meta itemprop="wordCount" content="308">
 
 
 
@@ -259,7 +259,8 @@ mkdir -p ~/.minikube/config &amp;&amp; \
 echo '{
     &quot;level&quot;: &quot;0&quot;,
     &quot;kubernetes-version&quot;: &quot;v1.13.1&quot;,
-    &quot;vm-driver&quot;: &quot;none&quot;,
+    &quot;vm-driver&quot;: &quot;hyperv&quot;,
+    &quot;hyperv-virtual-switch&quot;: &quot;minikube&quot;,
     &quot;iso-url&quot;: &quot;https://storage.googleapis.com/minikube/iso/minikube-v0.31.0.iso&quot;
 }' &gt; ~/.minikube/config/config.json
 
