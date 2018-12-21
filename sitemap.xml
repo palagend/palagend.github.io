@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://palagend.github.io/posts/booklist/</loc>
+    <lastmod>2018-12-21T10:59:47+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://palagend.github.io/posts/minikube-guide-windows/</loc>
     <lastmod>2018-12-20T00:55:02+08:00</lastmod>
   </url>
@@ -38,17 +43,13 @@
   </url>
   
   <url>
-    <loc>https://palagend.github.io/posts/booklist/</loc>
-  </url>
-  
-  <url>
     <loc>https://palagend.github.io/categories/</loc>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://palagend.github.io/posts/</loc>
-    <lastmod>2018-12-20T00:55:02+08:00</lastmod>
+    <lastmod>2018-12-21T10:59:47+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -59,7 +60,7 @@
   
   <url>
     <loc>https://palagend.github.io/</loc>
-    <lastmod>2018-12-20T00:55:02+08:00</lastmod>
+    <lastmod>2018-12-21T10:59:47+08:00</lastmod>
     <priority>0</priority>
   </url>
   
