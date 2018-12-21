@@ -121,5 +121,14 @@ cat download-kubernetes.sh
 桃花依旧笑春分。</description>
     </item>
     
+    <item>
+      <title></title>
+      <link>https://palagend.github.io/posts/booklist/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://palagend.github.io/posts/booklist/</guid>
+      <description>书单 张小龙2018年微信公开课演讲之个人总结</description>
+    </item>
+    
   </channel>
 </rss>

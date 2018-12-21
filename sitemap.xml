@@ -38,6 +38,10 @@
   </url>
   
   <url>
+    <loc>https://palagend.github.io/posts/booklist/</loc>
+  </url>
+  
+  <url>
     <loc>https://palagend.github.io/categories/</loc>
     <priority>0</priority>
   </url>
