@@ -1,33 +1,1015 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Posts on 坂の下の別れ</title>
-    <link>https://palagend.github.io/posts/</link>
-    <description>Recent content in Posts on 坂の下の別れ</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Fri, 21 Dec 2018 10:59:47 +0800</lastBuildDate>
-    
-	<atom:link href="https://palagend.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>书单</title>
-      <link>https://palagend.github.io/posts/booklist/</link>
-      <pubDate>Fri, 21 Dec 2018 10:59:47 +0800</pubDate>
-      
-      <guid>https://palagend.github.io/posts/booklist/</guid>
-      <description>张小龙2018年微信公开课演讲之个人总结
-Linux网络协议栈</description>
-    </item>
-    
-    <item>
-      <title>在Windows10上利用minikube&#43;hyperv安装单节点k8s集群</title>
-      <link>https://palagend.github.io/posts/minikube-guide-windows/</link>
-      <pubDate>Thu, 20 Dec 2018 00:55:02 +0800</pubDate>
-      
-      <guid>https://palagend.github.io/posts/minikube-guide-windows/</guid>
-      <description>准备好二进制文件 注意本教程使用的版本如下:
+    <channel>
+        <title>Posts on 困惑的人生</title>
+        <link>https://palagend.github.io/posts/</link>
+        <description>Recent content in Posts on 困惑的人生</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+        <lastBuildDate>Wed, 06 Nov 2019 19:25:28 +0800</lastBuildDate>
+        <atom:link href="https://palagend.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>李健与孟小蓓的爱情就像信天翁</title>
+            <link>https://palagend.github.io/posts/2019/11/%E6%9D%8E%E5%81%A5%E4%B8%8E%E5%AD%9F%E5%B0%8F%E8%93%93%E7%9A%84%E7%88%B1%E6%83%85%E5%B0%B1%E5%83%8F%E4%BF%A1%E5%A4%A9%E7%BF%81/</link>
+            <pubDate>Wed, 06 Nov 2019 19:25:28 +0800</pubDate>
+            
+            <guid>https://palagend.github.io/posts/2019/11/%E6%9D%8E%E5%81%A5%E4%B8%8E%E5%AD%9F%E5%B0%8F%E8%93%93%E7%9A%84%E7%88%B1%E6%83%85%E5%B0%B1%E5%83%8F%E4%BF%A1%E5%A4%A9%E7%BF%81/</guid>
+            <description>如果说歌手中一定有一个另类，那一定是李健。
+世人皆匆忙，总有几个人不想赶路。
+就如同高晓松说的一般：“我们身边的这一波人都不是当初的模样了，只有李健还是当年那个李健。”
+然而最重要的是他对妻子的痴情与专一，打动了无数人。
+参加《我是歌手》后，
+李健成了无数人心中的偶像，尤其是众多女性眼里的“万人迷”。
+有个记者曾经问他：“你知道么，很多女人都爱你。”
+而当时李健是这么回答的：
+ “我对女人充满了关爱和尊敬，
+但我不会跟女性走得太近，
+也不可能离婚。
+我也喜欢很多女孩子，
+但远远欣赏就够了。
+我们可以欣赏很多人，
+但不一定要去占有她。”
+ 李健出道这么多年，也一直保持着零绯闻的记录。
+活成众人男神的他，从始至终，只钟情于一人，就是那个她10岁时遇见的姑娘——孟小蓓。
+曾经有记者问李健，你们在哪里度的蜜月？
+李健回答：“我一生都在度蜜月”。
+我们羡慕“从前慢，车、马、邮件都慢，一生只爱一个人”的时光时，李健是那个真正溯流而上，去实现它的人。
+李健在自己10岁时就与自己的妻子孟小蓓认识了。
+“郎骑竹马来，绕床弄青梅”，后来那首被王菲一唱而红的《传奇》，就是李健写来形容他跟妻子奇妙的际遇。
+&amp;ldquo;只因为在人群中多看了你一眼，再也没能忘掉你容颜&amp;rdquo;
+那一年他十岁，她五岁。
+无论贫贵富贱，小贝壳都默默的陪在李建身边不离不弃。
+不管是广电总局上班的三年，还是后来在“水木年华”大红大紫的几年，亦或是李健隐退在四合院清贫写歌的那几年。
+两人从来没有出现过裂痕，平淡却很知足。
+小贝壳也成为了李健的精神之柱。
+或许所谓的灵魂伴侣就是这般模样吧。
+之后，李健为她写了很多情歌，《小鸟睡在我身旁》、《一往情深的恋人》、《转眼瞬间》以及《恋人》。
+几乎每张专辑都有一首曲子与小贝壳有关。
+《恋人》：
+“写这首歌的时候，已经是后半夜了，用尽所有的情感专注于它，我的小贝壳被感动的一塌糊涂，可不知为什么脑海里总浮现天鹅的形象。后来才听说，一对天鹅中如果有一只死去，另一只也会随之而去。”
+《小鸟睡在我身旁》：
+“有一天夜里，我看着窗外树上的鸟窝，想里面的小鸟一定睡得很香甜，我身旁的小贝壳也静静地睡着，就像一只小鸟&amp;hellip; &amp;hellip; ”
+《在每个想你的夜里》：
+“写这首歌是在芝加哥，每每听到都会想起那里的冬天，至少能感觉当时空气中的味道。”
+《转眼瞬间》：
+“我不太在意变老，因为见过活得精彩的老人，可我在乎眼中的你，看到你变老，我会伤感&amp;hellip;”
+《凌晨两点》：
+“这是脆弱的时刻，看着窗外的大雾，弹起吉他：我的生活不能没有你……”
+他一生的情歌，都只为她而唱。
+网上曾有个很流行的问题：“怎样才能嫁给李健？”
+有一个很火的答案这样说：
+ 你要会泡茶，养花，煮咖啡，懂摄影，要会弹琴画画还要厨艺好，要会翻译叶芝的诗，会做牛排番茄面、地中海沙拉。要知道玻璃蜥蜴不是蛇，要知道怎么做出清香晶莹最好吃的白米粽，还要成为清华的博士，在路上被星探搭讪。最重要的是，你还要在5岁的时候遇见他。”
+ 这段看似“你在逗我吗？”的段子般的条件，却真实的体现在了两人的婚姻关系中。其实就是李
+他们真正做到了把婚姻活成了诗情画意。
+李健会用“小贝壳”来称呼妻子，妻子会用各种“先生”来指代他，所有的“柴米油盐酱醋茶”都雅成了“ 琴棋书画诗酒茶”。
+李健说， “她是天上掉下来的”。
+“太太最终吸引我的不是容貌，是她说话的方式和内容。”
+翻看小贝壳的微博，会发现，两个人这么多年，如诗一般的始终甜蜜如初。</description>
+            <content type="html"><![CDATA[
+    <img src="https://uploadbeta.com/api/pictures/random/?key=BingEverydayWallpaperPicture"  alt="Bing Everyday"  class="left"  style="border-radius: 8px;"  />
+
+
+
+<p>如果说歌手中一定有一个另类，那一定是李健。</p>
+
+<p>世人皆匆忙，总有几个人不想赶路。</p>
+
+<p>就如同高晓松说的一般：“我们身边的这一波人都不是当初的模样了，只有李健还是当年那个李健。”</p>
+
+<p>然而最重要的是他对妻子的痴情与专一，打动了无数人。</p>
+
+<p><img src="https://s2.ax1x.com/2019/11/06/MiZ0E9.png" alt="" /></p>
+
+<p>参加《我是歌手》后，</p>
+
+<p>李健成了无数人心中的偶像，尤其是众多女性眼里的“万人迷”。</p>
+
+<p>有个记者曾经问他：“你知道么，很多女人都爱你。”</p>
+
+<p>而当时李健是这么回答的：</p>
+
+<blockquote>
+<p>“我对女人充满了关爱和尊敬，<br />
+但我不会跟女性走得太近，<br />
+也不可能离婚。<br />
+我也喜欢很多女孩子，<br />
+但远远欣赏就够了。<br />
+我们可以欣赏很多人，<br />
+但不一定要去占有她。”</p>
+</blockquote>
+
+<p>李健出道这么多年，也一直保持着零绯闻的记录。</p>
+
+<p>活成众人男神的他，从始至终，只钟情于一人，就是那个她10岁时遇见的姑娘——孟小蓓。</p>
+
+<p>曾经有记者问李健，你们在哪里度的蜜月？</p>
+
+<p>李健回答：“我一生都在度蜜月”。</p>
+
+<p>我们羡慕“从前慢，车、马、邮件都慢，一生只爱一个人”的时光时，李健是那个真正溯流而上，去实现它的人。</p>
+
+<p>李健在自己10岁时就与自己的妻子孟小蓓认识了。</p>
+
+<p>“郎骑竹马来，绕床弄青梅”，后来那首被王菲一唱而红的《传奇》，就是李健写来形容他跟妻子奇妙的际遇。</p>
+
+<p>&ldquo;只因为在人群中多看了你一眼，再也没能忘掉你容颜&rdquo;</p>
+
+<p>那一年他十岁，她五岁。</p>
+
+<p><img src="https://s2.ax1x.com/2019/11/06/MieSCq.png" alt="" /></p>
+
+<p>无论贫贵富贱，小贝壳都默默的陪在李建身边不离不弃。</p>
+
+<p>不管是广电总局上班的三年，还是后来在“水木年华”大红大紫的几年，亦或是李健隐退在四合院清贫写歌的那几年。</p>
+
+<p>两人从来没有出现过裂痕，平淡却很知足。</p>
+
+<p>小贝壳也成为了李健的精神之柱。</p>
+
+<p><img src="https://s2.ax1x.com/2019/11/06/MieXQK.png" alt="" /></p>
+
+<p><img src="https://s2.ax1x.com/2019/11/06/MiejsO.png" alt="" /></p>
+
+<p>或许所谓的灵魂伴侣就是这般模样吧。</p>
+
+<p>之后，李健为她写了很多情歌，《小鸟睡在我身旁》、《一往情深的恋人》、《转眼瞬间》以及《恋人》。</p>
+
+<p>几乎每张专辑都有一首曲子与小贝壳有关。</p>
+
+<p>《恋人》：</p>
+
+<p>“写这首歌的时候，已经是后半夜了，用尽所有的情感专注于它，我的小贝壳被感动的一塌糊涂，可不知为什么脑海里总浮现天鹅的形象。后来才听说，一对天鹅中如果有一只死去，另一只也会随之而去。”</p>
+
+<p>《小鸟睡在我身旁》：</p>
+
+<p>“有一天夜里，我看着窗外树上的鸟窝，想里面的小鸟一定睡得很香甜，我身旁的小贝壳也静静地睡着，就像一只小鸟&hellip; &hellip; ”</p>
+
+<p>《在每个想你的夜里》：</p>
+
+<p>“写这首歌是在芝加哥，每每听到都会想起那里的冬天，至少能感觉当时空气中的味道。”</p>
+
+<p>《转眼瞬间》：</p>
+
+<p>“我不太在意变老，因为见过活得精彩的老人，可我在乎眼中的你，看到你变老，我会伤感&hellip;”</p>
+
+<p>《凌晨两点》：</p>
+
+<p>“这是脆弱的时刻，看着窗外的大雾，弹起吉他：我的生活不能没有你……”</p>
+
+<p>他一生的情歌，都只为她而唱。</p>
+
+<p>网上曾有个很流行的问题：“怎样才能嫁给李健？”</p>
+
+<p>有一个很火的答案这样说：</p>
+
+<blockquote>
+<p>你要会泡茶，养花，煮咖啡，懂摄影，要会弹琴画画还要厨艺好，要会翻译叶芝的诗，会做牛排番茄面、地中海沙拉。要知道玻璃蜥蜴不是蛇，要知道怎么做出清香晶莹最好吃的白米粽，还要成为清华的博士，在路上被星探搭讪。最重要的是，你还要在5岁的时候遇见他。”</p>
+</blockquote>
+
+<p>这段看似“你在逗我吗？”的段子般的条件，却真实的体现在了两人的婚姻关系中。其实就是李</p>
+
+<p>他们真正做到了把婚姻活成了诗情画意。</p>
+
+<p><img src="https://s2.ax1x.com/2019/11/06/MimdYR.png" alt="" /></p>
+
+<p>李健会用“小贝壳”来称呼妻子，妻子会用各种“先生”来指代他，所有的“柴米油盐酱醋茶”都雅成了“ 琴棋书画诗酒茶”。</p>
+
+<p>李健说， “她是天上掉下来的”。</p>
+
+<p>“太太最终吸引我的不是容貌，是她说话的方式和内容。”</p>
+
+<p>翻看小贝壳的微博，会发现，两个人这么多年，如诗一般的始终甜蜜如初。</p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>PasteDeploy</title>
+            <link>https://palagend.github.io/posts/2019/10/pastedeploy/</link>
+            <pubDate>Thu, 03 Oct 2019 16:13:20 +0800</pubDate>
+            
+            <guid>https://palagend.github.io/posts/2019/10/pastedeploy/</guid>
+            <description>PasteDeploy 简介 PasteDeploy 是用来发现和配置 WSGI 应用的一个框架，可以方便地从配置文件加载 WSGI 应用。
+PasteDeploy 的安装命令是 pip install PasteDeploy
+PasteDeploy 配置文件 使用 PasteDeploy 都是围绕配置文件展开的，所以了解 PasteDeploy 配置的格式是熟练使用 PasteDeploy 的前提。
+PasteDeploy 的配置文件由若干 section 组成，section 的组成格式如下：
+[type:name]  其中方括号括起来的部分是声明 setion 的起始部分，section 的类型（type）和 section 的名称（name），如：[app:main] 等。section 的 type 可以有：app、composite、filter、pipeline、filter-app 等。
+每个 section 中具体配置项的格式就是基本的 ini 格式：key = value，此外，PasteDeploy 的配置文件中使用 “#” 标注注释。
+在基本了解 PasteDeploy 配置文件的书写格式后，我们不妨看一个实例，来具体了解不同 type 的 section。
+PasteDeploy 中 section 的 type 示例 1：PasteDeploy 配置文件
+[composite:main] use = egg:Paste#urlmap / = home /blog = blog /wiki = wiki /cms = config:cms.</description>
+            <content type="html"><![CDATA[
+
+
+    <img src="https://uploadbeta.com/api/pictures/random/?key=BingEverydayWallpaperPicture"  alt="Bing Everyday"  class="left"  style="border-radius: 8px;"  />
+
+
+
+<h1 id="pastedeploy-简介">PasteDeploy 简介</h1>
+
+<p>PasteDeploy 是用来发现和配置 WSGI 应用的一个框架，可以方便地从配置文件加载 WSGI 应用。</p>
+
+<p>PasteDeploy 的安装命令是 <code>pip install PasteDeploy</code></p>
+
+<h2 id="pastedeploy-配置文件">PasteDeploy 配置文件</h2>
+
+<p>使用 PasteDeploy 都是围绕配置文件展开的，所以了解 PasteDeploy 配置的格式是熟练使用 PasteDeploy 的前提。</p>
+
+<p>PasteDeploy 的配置文件由若干 section 组成，section 的组成格式如下：</p>
+
+<pre><code>[type:name]
+</code></pre>
+
+<p>其中方括号括起来的部分是声明 setion 的起始部分，section 的类型（type）和 section 的名称（name），如：<code>[app:main]</code> 等。section 的 type 可以有：app、composite、filter、pipeline、filter-app 等。</p>
+
+<p>每个 section 中具体配置项的格式就是基本的 ini 格式：key = value，此外，PasteDeploy 的配置文件中使用 “#” 标注注释。</p>
+
+<p>在基本了解 PasteDeploy 配置文件的书写格式后，我们不妨看一个实例，来具体了解不同 type 的 section。</p>
+
+<h3 id="pastedeploy-中-section-的-type">PasteDeploy 中 section 的 type</h3>
+
+<p>示例 1：PasteDeploy 配置文件</p>
+
+<pre><code>[composite:main]
+　　use = egg:Paste#urlmap
+　　/ = home
+　　/blog = blog
+　　/wiki = wiki
+　　/cms = config:cms.ini
+
+[app:home]
+　　use = egg:Paste#static
+　　document_root = %(here)s/htdocs
+
+[app:wiki]
+　　use = call:mywiki.main:application
+　　database = sqlite:/home/me/wiki.db
+
+[filter-app:blog]
+　　use = egg:Authentication#auth
+　　next = blogapp
+　　roles = admin
+　　htpasswd = /home/me/users.htpasswd
+
+[app:blogapp]
+　　use = egg:BlogApp
+　　database = sqlite:/home/me/blog.db
+
+[app:main]
+　　use = egg:MyEgg
+　　filter-with = printdebug
+
+[filter:printdebug]
+　　use = egg:Paste#printdebug
+
+[pipeline:main]
+　　pipeline = filter1 filter2 filter3 app
+</code></pre>
+
+<h4 id="type-composite-组合应用">Type = composite (组合应用)</h4>
+
+<p>顾名思义，组合应用由若干 WSGI 应用组成，composite 为这些应用提供更高一层的分配工作。</p>
+
+<p>我们具体分析示例 1 中的如下部分：</p>
+
+<pre><code>[composite:main]
+use = egg:Paste#urlmap
+/ = home
+/blog = blog
+/wiki = wiki
+/cms = config:cms.ini
+</code></pre>
+
+<p>该段配置文件定义了一个名为 main、类型为 composite 的 section，方括号的声明以下是该 section 的具体配置，遵循 key = value 的统一格式。</p>
+
+<p>Composite 类型的 section 将 URL 请求分配给其他的 WSGI 应用。</p>
+
+<p><code>use = egg:Paste#urlmap</code> 意味着使用 Paste 包中的 urlmap 应用。urlmap 是 Paste 提供的一套通用的 composite 应用，作用就是根据用户请求的 URL 前缀，将用户请求映射到对应的 WSGI 应用上去。这里的 WSGI 应用有：“home”, “blog”, “wiki” 和 “config:cms.ini”。</p>
+
+<p>最后一项仅仅是参考了同一个目录中的另一个文件 &ldquo;cms.ini&rdquo;</p>
+
+<hr />
+
+<p>2.2 Type = app（WSGI应用）
+回到示例1中的下一部分：</p>
+
+<p>[app:home]
+use = egg:Paste#static
+document_root = %(here)s/htdocs</p>
+
+<p>[app:wiki]
+use = call:mywiki.main:application
+database = sqlite:/home/me/wiki.db</p>
+
+<p>app类型的section声明一个具体的WSGI应用。调用哪个python module中的app代码则由的use后的值指定。
+　　这里的 egg:Paste#static 是另一个简单应用，作用仅仅是呈现静态页面。它接收了一个配置项： document_root ，后面的值可以从全局配置DEFAULT中提取，提取方法s是使用变量替换：比如 %(var_name)s 的形式。
+　　这里 %(here)s 的意思是这个示例配置文件所在的目录，因为相对路径在不同服务器中的解释方法不同，出于移植性的考虑，官方文档上推荐当前这种写法。
+　　示例中定义了多个app类型的section，因为PasteDeploy的配置文件中允许定义多个app类型的section，同时要求每个WSGI应用也都应该拥有自己的section。这样，每一个WSGI应用在配置文件中都有一个app类型的section与之对应，默认地，&rdquo;main&rdquo;应用对应于 app:main 或 app 。
+　　应用的具体实现要在section中配置，有两种方法专门用于指出应用对应的代码：使用URI（用use标识）或 直接指向实现代码（用protocol标识）。</p>
+
+<p>2.2.1 使用另一个URI
+采用该方法的特点是指出应用的实现代码的那一条 key = value 配置项采用&rdquo;use&rdquo;作为键，该方法也有许多变种，官方的示例中给出了一些介绍：</p>
+
+<p>[app:myapp]
+use = config:another_config_file.ini#app_name</p>
+
+<h1 id="或任意uri">或任意URI:</h1>
+
+<p>[app:myotherapp]
+use = egg:MyApp</p>
+
+<h1 id="或指明某个模块中的可调用">或指明某个模块中的可调用:</h1>
+
+<p>[app:mythirdapp]
+use = call:my.project:myapplication</p>
+
+<h1 id="甚至是其他的section">甚至是其他的section:</h1>
+
+<p>[app:mylastapp]
+use = myotherapp</p>
+
+<p>最后指向其他的section的那个例子，看起来似乎没有什么意义，似乎只是两个相同的WSGI应用。但是这样的定义允许我们在 [app:mylastapp] 这个应用中定义一些局部的配置项，从而在重用代码的同时覆写它引用的应用配置。</p>
+
+<p>2.2.2 直接指向应用的实现代码
+采用该方法的特点是指出实现代码的那一条 key = value 配置项采用“协议”作为键，所谓“协议”即protocol，告诉PasteDeploy即将加载的对象类型，如：</p>
+
+<p>[app:myapp]
+paste.app_factory = myapp.modulename:app_factory
+1
+2
+该例的protocol paste.app_factory 是一个应用的工厂函数，指明import对象的类型；值 myapp.modulename:app_factory 指明具体加载的模块和方法。
+　　关于PasteDeploy的协议，进而可以定义的工厂函数类型，我们在下文对所有section可选的type有一定的了解后再进行探讨。</p>
+
+<p>2.3　Type = filter（过滤器）
+filter是作用于WSGI应用上的函数或方法，以app为唯一的参数，并返回一个“过滤”后的app。归功于WSGI接口的规范，不同的filter可以依次“过滤”某一app，事实上多个filter处理一个app也就是下文中提到的管道（pipeline）。
+　　在PasteDeploy的配置文件中有多种方法来“过滤”应用，比如示例1中：</p>
+
+<p>[app:main]
+use = egg:MyEgg
+filter-with = printdebug
+[filter:printdebug]
+use = egg:Paste#printdebug</p>
+
+<p>在 [app:main] 的 filter-with 字段指明用来处理该应用的filter，就指定了名为&rdquo;printdebug&rdquo;的filter来处理应用&rdquo;main&rdquo;。在 [filter:printdebug] 中还可以定义新的 filter-with 字段，从而将处理关系延续下去。</p>
+
+<p>2.4 Type = filter-app
+同样是处理应用，在PasteDeploy配置文件中可以有着不同的写法，比如示例1中的下面部分，就是使用filter-app类型的section来声明一个filter：</p>
+
+<p>[filter-app:blog]
+use = egg:Authentication#auth
+next = blogapp
+roles = admin
+htpasswd = /home/me/users.htpasswd</p>
+
+<p>[app:blogapp]
+use = egg:BlogApp
+database = sqlite:/home/me/blog.db</p>
+
+<p>该部分采用了[filter-app:NAME]类型的section声明了一个filter，指定使用的代码，以及要处理的应用： next 字段的值。从而PasteDeploy会自动地将过滤器&rdquo;blog&rdquo;作用在应用&rdquo;blogapp&rdquo;上。</p>
+
+<p>2.5 Type = pipeline
+pipeline便于对一个应用添加多个过滤器，比如示例1中：</p>
+
+<p>[pipeline:main]
+pipeline = filter1 filter2 filter3 app
+1
+2
+就指定了在app上施加三个filter进行处理。
+　　总结起来，想要在某个应用前添加多个filter，共有 [filter-app:…] [pipeline：…] 和 [app:…] filter-with = … 等方法。</p>
+
+<p>3 局部配置与全局配置
+3.1 局部配置与全局配置的格式
+PasteDeploy配置文件的所有配置项均使用 key = value 格式，但是局部配置项和全局配置项定义的位置不同。如：</p>
+
+<p>[app:blog]
+use = egg:MyBlog
+database = mysql://localhost/blogdb
+blogname = This Is My Blog!</p>
+
+<p>[app:otherblog]
+use = blog
+blogname = The other face of my blog</p>
+
+<p>每一个section内设置具体的键值关系，构成这些section自己的局部配置。</p>
+
+<p>为了便于不同的应用读取某些固定的系统信息，PasteDeploy允许设置全局配置变量，所有的全局配置必须放在[DEFAULT]字段下设置，如：</p>
+
+<p>[DEFAULT]
+admin_email = webmaster@example.com</p>
+
+<p>[app:main]
+use = &hellip;
+set admin_email = bob@example.com</p>
+
+<p>注意[DEFAULT]段名是大小写敏感的，因此必须严格大写。</p>
+
+<p>3.2 局部配置和全局配置的覆写
+3.1中的两个例子，实际上展示了局部配置和全局配置的覆写，这里详细介绍，首先看局部配置的覆写：</p>
+
+<p>[app:blog]
+use = egg:MyBlog
+database = mysql://localhost/blogdb
+blogname = This Is My Blog!</p>
+
+<p>[app:otherblog]
+use = blog
+blogname = The other face of my blog</p>
+
+<p>从2.2.1中已经知道，一些section可以直接复用其他section的代码，并定制配置信息，这里 [app:otherblog] 就采用了 [app:blog] 的代码，同时将配置项 blogname 改为自己特定的。
+　　另一方面，应用在本地可以修改全局配置项的值：</p>
+
+<p>[DEFAULT]
+admin_email = webmaster@example.com</p>
+
+<p>[app:main]
+use = &hellip;
+set admin_email = bob@example.com</p>
+
+<p>只需要在要覆写的键前加 set 即可。
+　　至于为什么要探讨局部配置与全局配置，是因为二者在传递给不同类型的factory function时对应的参数不同，这些将在下文详细探讨。</p>
+
+<p>4 实现factory
+本文的第二部分探讨了PasteDeploy中的若干种“协议”，事实上对应了实现时的不同类型，包括 paste.app_factory paste.composite_factory paste.filter_factory paste.server_factory 等。
+　　这些“协议”封装WSGI应用，使其成为app、composite、filter等类型的组件.</p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Openstack Source Code Debug</title>
+            <link>https://palagend.github.io/posts/2019/09/openstack-source-code-debug/</link>
+            <pubDate>Thu, 19 Sep 2019 17:37:08 +0800</pubDate>
+            
+            <guid>https://palagend.github.io/posts/2019/09/openstack-source-code-debug/</guid>
+            <description>由于openstack版本迭代的太快，很多上一个版本还能用的东西，下个版本又不能用了，我开始接触的时候是M版，等我上手之后，P版已经成熟，Q版也可以使用了。因为我需要对keystone的架构重写，所以我首先要解决的问题就是调试源代码，虽然通过各种书籍理论知道了keystone的架构模型，但实际自己去动源代码，也是很难的。
+一开始我参考网上给的调试方法，结果发现，由于版本的更迭，很多东西已经不一样了，比如以前keystone自己通过脚本启动，但现在已经是依靠apache2启动了，所以，开篇之前，说明，我的所以代码都来自P版本，而且因为自己摸索时，经常遇到网上大牛给的方法不够详细，导致我无法进行，所以，我会非常详细的说明每个步骤，每个步骤我都会在P版本测试，如有疑问，欢迎交流。这里大家可以先只装keystone模块，后续需要其它模块的时候再继续装，安装就参照官网方法。我这里采用ubuntu版本的。
+第一篇，我们需要对openstack采用的架构作一个简单的说明，要读懂调试源代码，首先我们要知道openstack的基本架构，而openstack每个模块都差不多，所以当我们理解一个之后，后面都可以很轻松的实现。
+首先，openstack采用WSGI框架，这个大家可参考这篇文章，我觉得是我看过最清晰明了的。然后，还需要了解python paste，可以参考这篇文章。开始之前，请确保自己基本了解了这两个东西，这是继续下去的前提。其中paste后面还会涉及一些东西，到时候我会说，这里就先了解一下。
+好了，当你清楚WSGI框架之后，我们来说说apache和keystone的关系，现在版本的keystone已经不需要自己启动了，都是service apache2 start即可，apache其实就是帮助keystone实现了套接字，也就是帮助keystone监听相应端口，这里对应的配置文件是/etc/apache2/sites-available/keystone.conf，同时必须在/etc/apache2/sites-enabled/中建立同名的链接才能生效。
+才看keystone.conf配置文件：
+Listen 5000 Listen 35357 &amp;lt;VirtualHost *:5000&amp;gt; WSGIScriptAlias / /usr/bin/keystone-wsgi-public WSGIDaemonProcess keystone-public processes=5 threads=1 user=keystone group=keystone display-name=%{GROUP} WSGIProcessGroup keystone-public WSGIApplicationGroup %{GLOBAL} WSGIPassAuthorization On LimitRequestBody 114688 &amp;lt;IfVersion &amp;gt;= 2.4&amp;gt; ErrorLogFormat &amp;quot;%{cu}t %M&amp;quot; &amp;lt;/IfVersion&amp;gt; ErrorLog /var/log/apache2/keystone.log CustomLog /var/log/apache2/keystone_access.log combined &amp;lt;Directory /usr/bin&amp;gt; &amp;lt;IfVersion &amp;gt;= 2.4&amp;gt; Require all granted &amp;lt;/IfVersion&amp;gt; &amp;lt;IfVersion &amp;lt; 2.4&amp;gt; Order allow,deny Allow from all &amp;lt;/IfVersion&amp;gt; &amp;lt;/Directory&amp;gt; &amp;lt;/VirtualHost&amp;gt; &amp;lt;VirtualHost *:35357&amp;gt; WSGIScriptAlias / /usr/bin/keystone-wsgi-admin WSGIDaemonProcess keystone-admin processes=5 threads=1 user=keystone group=keystone display-name=%{GROUP} WSGIProcessGroup keystone-admin WSGIApplicationGroup %{GLOBAL} WSGIPassAuthorization On LimitRequestBody 114688 &amp;lt;IfVersion &amp;gt;= 2.</description>
+            <content type="html"><![CDATA[
+    <img src="https://uploadbeta.com/api/pictures/random/?key=BingEverydayWallpaperPicture"  alt="Bing Everyday"  class="left"  style="border-radius: 8px;"  />
+
+
+
+<p>由于openstack版本迭代的太快，很多上一个版本还能用的东西，下个版本又不能用了，我开始接触的时候是M版，等我上手之后，P版已经成熟，Q版也可以使用了。因为我需要对keystone的架构重写，所以我首先要解决的问题就是调试源代码，虽然通过各种书籍理论知道了keystone的架构模型，但实际自己去动源代码，也是很难的。</p>
+
+<p>一开始我参考网上给的调试方法，结果发现，由于版本的更迭，很多东西已经不一样了，比如以前keystone自己通过脚本启动，但现在已经是依靠apache2启动了，所以，开篇之前，说明，我的所以代码都来自P版本，而且因为自己摸索时，经常遇到网上大牛给的方法不够详细，导致我无法进行，所以，我会非常详细的说明每个步骤，每个步骤我都会在P版本测试，如有疑问，欢迎交流。这里大家可以先只装keystone模块，后续需要其它模块的时候再继续装，安装就参照<a href="https://docs.openstack.org/keystone/pike/install/" target="_blank">官网方法</a>。我这里采用ubuntu版本的。</p>
+
+<p>第一篇，我们需要对openstack采用的架构作一个简单的说明，要读懂调试源代码，首先我们要知道openstack的基本架构，而openstack每个模块都差不多，所以当我们理解一个之后，后面都可以很轻松的实现。</p>
+
+<p>首先，openstack采用WSGI框架，这个大家可参考<a href="https://segmentfault.com/a/1190000003069785" target="_blank">这篇文章</a>，我觉得是我看过最清晰明了的。然后，还需要了解python paste，可以参考<a href="https://blog.csdn.net/li_101357/article/details/52755367" target="_blank">这篇文章</a>。开始之前，请确保自己基本了解了这两个东西，这是继续下去的前提。其中paste后面还会涉及一些东西，到时候我会说，这里就先了解一下。</p>
+
+<p>好了，当你清楚WSGI框架之后，我们来说说apache和keystone的关系，现在版本的keystone已经不需要自己启动了，都是service apache2 start即可，apache其实就是帮助keystone实现了套接字，也就是帮助keystone监听相应端口，这里对应的配置文件是/etc/apache2/sites-available/keystone.conf，同时必须在/etc/apache2/sites-enabled/中建立同名的链接才能生效。</p>
+
+<p>才看keystone.conf配置文件：</p>
+
+<pre><code>Listen 5000
+Listen 35357
+
+&lt;VirtualHost *:5000&gt;
+    WSGIScriptAlias / /usr/bin/keystone-wsgi-public
+    WSGIDaemonProcess keystone-public processes=5 threads=1 user=keystone group=keystone display-name=%{GROUP}
+    WSGIProcessGroup keystone-public
+    WSGIApplicationGroup %{GLOBAL}
+    WSGIPassAuthorization On
+    LimitRequestBody 114688
+
+    &lt;IfVersion &gt;= 2.4&gt;
+      ErrorLogFormat &quot;%{cu}t %M&quot;
+    &lt;/IfVersion&gt;
+
+    ErrorLog /var/log/apache2/keystone.log
+    CustomLog /var/log/apache2/keystone_access.log combined
+
+    &lt;Directory /usr/bin&gt;
+        &lt;IfVersion &gt;= 2.4&gt;
+            Require all granted
+        &lt;/IfVersion&gt;
+        &lt;IfVersion &lt; 2.4&gt;
+            Order allow,deny
+            Allow from all
+        &lt;/IfVersion&gt;
+    &lt;/Directory&gt;
+&lt;/VirtualHost&gt;
+
+&lt;VirtualHost *:35357&gt;
+    WSGIScriptAlias / /usr/bin/keystone-wsgi-admin
+    WSGIDaemonProcess keystone-admin processes=5 threads=1 user=keystone group=keystone display-name=%{GROUP}
+    WSGIProcessGroup keystone-admin
+    WSGIApplicationGroup %{GLOBAL}
+    WSGIPassAuthorization On
+    LimitRequestBody 114688
+
+    &lt;IfVersion &gt;= 2.4&gt;
+      ErrorLogFormat &quot;%{cu}t %M&quot;
+    &lt;/IfVersion&gt;
+
+    ErrorLog /var/log/apache2/keystone.log
+    CustomLog /var/log/apache2/keystone_access.log combined
+
+    &lt;Directory /usr/bin&gt;
+        &lt;IfVersion &gt;= 2.4&gt;
+            Require all granted
+        &lt;/IfVersion&gt;
+        &lt;IfVersion &lt; 2.4&gt;
+            Order allow,deny
+            Allow from all
+        &lt;/IfVersion&gt;
+    &lt;/Directory&gt;
+&lt;/VirtualHost&gt;
+
+Alias /identity /usr/bin/keystone-wsgi-public
+&lt;Location /identity&gt;
+    SetHandler wsgi-script
+    Options +ExecCGI
+
+    WSGIProcessGroup keystone-public
+    WSGIApplicationGroup %{GLOBAL}
+    WSGIPassAuthorization On
+&lt;/Location&gt;
+
+Alias /identity_admin /usr/bin/keystone-wsgi-admin
+&lt;Location /identity_admin&gt;
+    SetHandler wsgi-script
+    Options +ExecCGI
+
+    WSGIProcessGroup keystone-admin
+    WSGIApplicationGroup %{GLOBAL}
+    WSGIPassAuthorization On
+&lt;/Location&gt;
+</code></pre>
+
+<p>这里我们可以看到，apache帮助keystone监听5000和35357端口，一个用于admin访问，一个用于普通用户访问。在这里配置文件中，最重要的是WSGIScriptAlias和Alias后面的第二个路径，它会在apache启动的时候创建各种后续会用到的route处理方法。</p>
+
+<p>这里以/usr/bin/keystone-wsgi-public文件为例讲解，查看该文件</p>
+
+<pre><code>#!/usr/bin/python
+#PBR Generated from u'wsgi_scripts'
+
+import threading
+
+from keystone.server.wsgi import initialize_public_application
+
+if __name__ == &quot;__main__&quot;:
+    import argparse
+    import socket
+    import sys
+    import wsgiref.simple_server as wss
+
+    my_ip = socket.gethostbyname(socket.gethostname())
+
+    parser = argparse.ArgumentParser(
+        description=initialize_public_application.__doc__,
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+        usage='%(prog)s [-h] [--port PORT] [--host IP] -- [passed options]')
+    parser.add_argument('--port', '-p', type=int, default=8000,
+                        help='TCP port to listen on')
+    parser.add_argument('--host', '-b', default='',
+                        help='IP to bind the server to')
+    parser.add_argument('args',
+                        nargs=argparse.REMAINDER,
+                        metavar='-- [passed options]',
+                        help=&quot;'--' is the separator of the arguments used &quot;
+                        &quot;to start the WSGI server and the arguments passed &quot;
+                        &quot;to the WSGI application.&quot;)
+    args = parser.parse_args()
+    if args.args:
+        if args.args[0] == '--':
+            args.args.pop(0)
+        else:
+            parser.error(&quot;unrecognized arguments: %s&quot; % ' '.join(args.args))
+    sys.argv[1:] = args.args
+    server = wss.make_server(args.host, args.port, initialize_public_application())
+
+    print(&quot;*&quot; * 80)
+    print(&quot;STARTING test server keystone.server.wsgi.initialize_public_application&quot;)
+    url = &quot;http://%s:%d/&quot; % (server.server_name, server.server_port)
+    print(&quot;Available at %s&quot; % url)
+    print(&quot;DANGER! For testing only, do not use in production&quot;)
+    print(&quot;*&quot; * 80)
+    sys.stdout.flush()
+
+    server.serve_forever()
+else:
+    application = None
+    app_lock = threading.Lock()
+
+    with app_lock:
+        if application is None:
+            application = initialize_public_application()
+</code></pre>
+
+<p>这里可以看到，如果本文件直接运行，会执行上面，否则执行else，这里的if其实留给我们测试的，它的作用是不依赖apache，帮我们创建好socket，并监听端口，默认8000，而apache启动时，其实会跳过socket的创建，因为apache帮我们做了，所以直接初始化application，关于application，请回忆上面的WSGI。那么，既然知道了这个，我们就可以使用这个脚本，直接调试了。</p>
+
+<p>比如，我直接运行这个脚本，</p>
+
+<p><img src="http://s2.ax1x.com/2019/09/19/nLBD3T.png" alt="img1" />
+ </p>
+
+<p>发现keystone就在8000端口启动了，那么我们尝试访问一下keystone服务，比如申请一个token，重开一个终端，设置用于访问的参数</p>
+
+<pre><code>export OS_PROJECT_DOMAIN_NAME=Default
+
+export OS_USER_DOMAIN_NAME=Default
+export OS_PROJECT_NAME=admin
+export OS_USERNAME=admin
+export OS_PASSWORD=123456
+export OS_AUTH_URL=http://controller:8000/v3
+export OS_IDENTITY_API_VERSION=3
+
+export OS_IMAGE_API_VERSION=2
+</code></pre>
+
+<p>大家应该记得，我们直接安装时，如果要访问，就是设置的这些参数，只是这里端口改为了8000，其余是一样，效果如下：</p>
+
+<p><img src="http://s2.ax1x.com/2019/09/19/nLB58K.png" alt="img2" /></p>
+
+<p>同时查看开启服务的终端</p>
+
+<p><img src="http://s2.ax1x.com/2019/09/19/nLDmxU.png" alt="img3" /></p>
+
+<p>发现接收到了请求，说明如我们猜测一样。那么我们再试试在这个脚本里打上断点，我采用pdb调试，不会的可以参考这篇文章，也可以成功进入。（最开始写的时候用的pdb调试，后来发现不好用个，配置了远程调试，这是后面补的 <a href="https://blog.csdn.net/u012198947/article/details/88988321" target="_blank">https://blog.csdn.net/u012198947/article/details/88988321</a>  ，参考这个使用pycharm远程调试，方便好用）</p>
+
+<p>以一张图来说明：</p>
+
+<p><img src="http://s2.ax1x.com/2019/09/19/nLDGPx.png" alt="img4" /></p>
+
+<p> </p>
+
+<p>可以看出initialize_application就是关键代码（在keystone-wsgi-admin中，叫initialize_admin_application，keystone-wsgi-public中叫initialize_public_application，后面会看到，其实都是执行initialize_application），下篇我们就进入initialize_application</p>
+
+<p>————————————————
+版权声明：本文为CSDN博主「dyplm123」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。
+原文链接：<a href="https://blog.csdn.net/u012198947/article/details/79695870" target="_blank">https://blog.csdn.net/u012198947/article/details/79695870</a></p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Linux /sys目录下各个子目录说明</title>
+            <link>https://palagend.github.io/posts/2019/09/linux-/sys%E7%9B%AE%E5%BD%95%E4%B8%8B%E5%90%84%E4%B8%AA%E5%AD%90%E7%9B%AE%E5%BD%95%E8%AF%B4%E6%98%8E/</link>
+            <pubDate>Thu, 19 Sep 2019 00:00:00 +0000</pubDate>
+            
+            <guid>https://palagend.github.io/posts/2019/09/linux-/sys%E7%9B%AE%E5%BD%95%E4%B8%8B%E5%90%84%E4%B8%AA%E5%AD%90%E7%9B%AE%E5%BD%95%E8%AF%B4%E6%98%8E/</guid>
+            <description>/sys/devices  该目录下是全局设备结构体系，包含所有被发现的注册在各种总线上的各种物理设备。一般来说，所有的物理设备都按其在总线上的拓扑结构来显示，但有两个例外，即platform devices和system devices。platform devices一般是挂在芯片内部的高速或者低速总线上的各种控制器和外设，它们能被CPU直接寻址；system devices不是外设，而是芯片内部的核心结构，比如CPU，timer等，它们一般没有相关的驱动，但是会有一些体系结构相关的代码来配置它们。
+(sys/devices是内核对系统中所有设备的分层次表达模型，也是/sys文件系统管理设备的最重要的目录结构)
+ /sys/dev  该目录下维护一个按照字符设备和块设备的主次号码(major:minor)链接到真是设备(/sys/devices)的符号链接文件。
+ /sys/class  该目录下包含所有注册在kernel里面的设备类型，这是按照设备功能分类的设备模型，每个设备类型表达具有一种功能的设备。每个设备类型子目录下都是这种设备类型的各种具体设备的符号链接，这些链接指向/sys/devices/name下的具体设备。设备类型和设备并没有一一对应的关系，一个物理设备可能具备多种设备类型；一个设备类型只表达具有一种功能的设备，比如：系统所有输入设备都会出现在/sys/class/input之下，而不论它们是以何种总线连接到系统的。(/sys/class也是构成linux统一设备模型的一部分)
+ /sys/block  该目录下的所有子目录代表着系统中当前被发现的所有块设备。按照功能来说放置在/sys/class下会更合适，但由于历史遗留因素而一直存在于/sys/block，但从linux 2.6.22内核开始这部分就已经标记为过去时，只有打开了CONFIG_SYSFS_DEPRECATED配置编译才会有这个目录存在，并且其中的内容在从linux2.6.26版本开始已经正式移到了/sys/class/block，旧的接口/sys/block为了向后兼容而保留存在，但其中的内容已经变为了指向它们在/sys/devices/中真实设备的符号链接文件。
+ /sys/bus  该目录下的每个子目录都是kernel支持并且已经注册了的总线类型。这是内核设备按照总线类型分层放置的目录结构，/sys/devices中的所有设备都是连接于某种总线之下的，bus子目录下的每种具体总线之下可以找到每个具体设备的符号链接，一般来说每个子目录(总线类型)下包含两个子目录，一个是devices，另一个是drivers；其中devices下是这个总线类型下的所有设备，这些设备都是符号链接，它们分别指向真正的设备(/sys/devices/name/下)；而drivers下是所有注册在这个总线上的驱动，每个driver子目录下 是一些可以观察和修改的driver参数。 (它也是构成linux统一设备模型的一部分)
+ /sys/fs  按照设计，该目录用来描述系统中所有的文件系统，包括文件系统本身和按照文件系统分类存放的已挂载点。
+ /sys/kernel  这个目录下存放的是内核中所有可调整的参数
+ /sys/firmware  这里是系统加载固件机制的对用户空间的接口，关于固件有专用于固件加载的一套API，在附录 LDD3 一书中有关于内核支持固件加载机制的更详细的介绍；
+ /sys/module  该目录下有系统中所有的模块信息，不论这些模块是以内联(inlined)方式编译到内核映像文件中还是编译为外模块(.ko文件)，都可能出现在/sys/module中。即module目录下包含了所有的被载入kernel的模块。
+ /sys/power  该目录是系统中的电源选项，对正在使用的power子系统的描述。这个目录下有几个属性文件可以用于控制整个机器的电源状态，如可以向其中写入控制命令让机器关机/重启等等。</description>
+            <content type="html"><![CDATA[<ol>
+<li>/sys/devices</li>
+</ol>
+
+<p>该目录下是全局设备结构体系，包含所有被发现的注册在各种总线上的各种物理设备。一般来说，所有的物理设备都按其在总线上的拓扑结构来显示，但有两个例外，即platform devices和system devices。platform devices一般是挂在芯片内部的高速或者低速总线上的各种控制器和外设，它们能被CPU直接寻址；system devices不是外设，而是芯片内部的核心结构，比如CPU，timer等，它们一般没有相关的驱动，但是会有一些体系结构相关的代码来配置它们。</p>
+
+<p>(sys/devices是内核对系统中所有设备的分层次表达模型，也是/sys文件系统管理设备的最重要的目录结构)</p>
+
+<ol>
+<li>/sys/dev</li>
+</ol>
+
+<p>该目录下维护一个按照字符设备和块设备的主次号码(major:minor)链接到真是设备(/sys/devices)的符号链接文件。</p>
+
+<ol>
+<li>/sys/class</li>
+</ol>
+
+<p>该目录下包含所有注册在kernel里面的设备类型，这是按照设备功能分类的设备模型，每个设备类型表达具有一种功能的设备。每个设备类型子目录下都是这种设备类型的各种具体设备的符号链接，这些链接指向/sys/devices/name下的具体设备。设备类型和设备并没有一一对应的关系，一个物理设备可能具备多种设备类型；一个设备类型只表达具有一种功能的设备，比如：系统所有输入设备都会出现在/sys/class/input之下，而不论它们是以何种总线连接到系统的。(/sys/class也是构成linux统一设备模型的一部分)</p>
+
+<ol>
+<li>/sys/block</li>
+</ol>
+
+<p>该目录下的所有子目录代表着系统中当前被发现的所有块设备。按照功能来说放置在/sys/class下会更合适，但由于历史遗留因素而一直存在于/sys/block，但从linux 2.6.22内核开始这部分就已经标记为过去时，只有打开了CONFIG_SYSFS_DEPRECATED配置编译才会有这个目录存在，并且其中的内容在从linux2.6.26版本开始已经正式移到了/sys/class/block，旧的接口/sys/block为了向后兼容而保留存在，但其中的内容已经变为了指向它们在/sys/devices/中真实设备的符号链接文件。</p>
+
+<ol>
+<li>/sys/bus</li>
+</ol>
+
+<p>该目录下的每个子目录都是kernel支持并且已经注册了的总线类型。这是内核设备按照总线类型分层放置的目录结构，/sys/devices中的所有设备都是连接于某种总线之下的，bus子目录下的每种具体总线之下可以找到每个具体设备的符号链接，一般来说每个子目录(总线类型)下包含两个子目录，一个是devices，另一个是drivers；其中devices下是这个总线类型下的所有设备，这些设备都是符号链接，它们分别指向真正的设备(/sys/devices/name/下)；而drivers下是所有注册在这个总线上的驱动，每个driver子目录下 是一些可以观察和修改的driver参数。 (它也是构成linux统一设备模型的一部分)</p>
+
+<ol>
+<li>/sys/fs</li>
+</ol>
+
+<p>按照设计，该目录用来描述系统中所有的文件系统，包括文件系统本身和按照文件系统分类存放的已挂载点。</p>
+
+<ol>
+<li>/sys/kernel</li>
+</ol>
+
+<p>这个目录下存放的是内核中所有可调整的参数</p>
+
+<ol>
+<li>/sys/firmware</li>
+</ol>
+
+<p>这里是系统加载固件机制的对用户空间的接口，关于固件有专用于固件加载的一套API，在附录 LDD3 一书中有关于内核支持固件加载机制的更详细的介绍；</p>
+
+<ol>
+<li>/sys/module</li>
+</ol>
+
+<p>该目录下有系统中所有的模块信息，不论这些模块是以内联(inlined)方式编译到内核映像文件中还是编译为外模块(.ko文件)，都可能出现在/sys/module中。即module目录下包含了所有的被载入kernel的模块。</p>
+
+<ol>
+<li>/sys/power</li>
+</ol>
+
+<p>该目录是系统中的电源选项，对正在使用的power子系统的描述。这个目录下有几个属性文件可以用于控制整个机器的电源状态，如可以向其中写入控制命令让机器关机/重启等等。</p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>谈谈产品思维和项目思维</title>
+            <link>https://palagend.github.io/posts/2019/07/%E8%B0%88%E8%B0%88%E4%BA%A7%E5%93%81%E6%80%9D%E7%BB%B4%E5%92%8C%E9%A1%B9%E7%9B%AE%E6%80%9D%E7%BB%B4/</link>
+            <pubDate>Fri, 12 Jul 2019 08:23:19 +0800</pubDate>
+            
+            <guid>https://palagend.github.io/posts/2019/07/%E8%B0%88%E8%B0%88%E4%BA%A7%E5%93%81%E6%80%9D%E7%BB%B4%E5%92%8C%E9%A1%B9%E7%9B%AE%E6%80%9D%E7%BB%B4/</guid>
+            <description>产品思维和项目思维本质上是实现客户需求的两种工作/服务模式。传统领域就有这两种服 务模式。餐饮业中肯德基的服务模式采用的就是产品思维， 客户只能在已有的套餐中选择，而不能随意定制。但是像管家式服装定制的服务模式采用 的就是 项目思维，客户能够根据自己的心意随意定制，这种服务成本自然不低。我们通常看到的 现代服务业中，服务模式大多采用的是产品思维，因为这种方式能够降低成本， 提高效率。
+软件工程领域也是同样的道理，以产品思维进行开发/交付，就像是雕琢自己的艺术品， 主人翁意识较强；而以项目思维进行开发/交付，更容易诱发应付交差的情绪，无休止的 打不完的豆豆，容易消磨人的意志。
+以产品思维开发的项目，向客户交付的是标准的产品，我们在解决客户的问题反馈和诉求 时以产品线为单位进行，这样的话，尽管客户种类很多，但我们的关注点只在产品线 ，公司内部常态工作流不会被打断；以项目思维开发的项目，向客户交付的是由客户自己 定义</description>
+            <content type="html"><![CDATA[<p>产品思维和项目思维本质上是实现客户需求的两种工作/服务模式。传统领域就有这两种服
+务模式。餐饮业中肯德基的服务模式采用的就是产品思维，
+客户只能在已有的套餐中选择，而不能随意定制。但是像管家式服装定制的服务模式采用
+的就是
+项目思维，客户能够根据自己的心意随意定制，这种服务成本自然不低。我们通常看到的
+现代服务业中，服务模式大多采用的是产品思维，因为这种方式能够降低成本，
+提高效率。</p>
+
+<p>软件工程领域也是同样的道理，以产品思维进行开发/交付，就像是雕琢自己的艺术品，
+主人翁意识较强；而以项目思维进行开发/交付，更容易诱发应付交差的情绪，无休止的
+打不完的豆豆，容易消磨人的意志。</p>
+
+<p>以产品思维开发的项目，向客户交付的是标准的产品，我们在解决客户的问题反馈和诉求
+时以产品线为单位进行，这样的话，尽管客户种类很多，但我们的关注点只在产品线
+，公司内部常态工作流不会被打断；以项目思维开发的项目，向客户交付的是由客户自己
+定义</p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Openstack Instance Ha Propersal</title>
+            <link>https://palagend.github.io/posts/2019/07/openstack-instance-ha-propersal/</link>
+            <pubDate>Thu, 11 Jul 2019 17:12:47 +0800</pubDate>
+            
+            <guid>https://palagend.github.io/posts/2019/07/openstack-instance-ha-propersal/</guid>
+            <description>This post is a copy from russellbryant
+ In a perfect world, every workload that runs on OpenStack would be a cloud native application that is horizontally scalable and fault tolerant to anything that may cause a VM to go down. However, the reality is quite different. We continue to see a high demand for support of traditional workloads running on top of OpenStack and the HA expectations that come with them.</description>
+            <content type="html"><![CDATA[
+
+
+    <img src="https://uploadbeta.com/api/pictures/random/?key=BingEverydayWallpaperPicture"  alt="Bing Everyday"  class="left"  style="border-radius: 8px;"  />
+
+
+
+<blockquote>
+<p>This post is a copy from <a href="https://blog.russellbryant.net/2014/10/15/openstack-instance-ha-proposal/" target="_blank">russellbryant</a></p>
+</blockquote>
+
+<p>In a perfect world, every workload that runs on OpenStack would be a cloud native application that is horizontally scalable and fault tolerant to anything that may cause a VM to go down.  However, the reality is quite different.  We continue to see a high demand for support of traditional workloads running on top of OpenStack and the HA expectations that come with them.</p>
+
+<p>Traditional applications run on top of OpenStack just fine for the most part.  Some applications come up with availability requirements that a typical OpenStack deployment will not provide automatically.  If a hypervisor goes down, there is nothing in place that tries to rescue VMs that were running there.  There are some features in place that allow manual rescue, but it requires manual intervention from a cloud operator or an external orchestration tool.</p>
+
+<p>This proposal discusses what it would take to provide automated detection of a failed hypervisor and the recovery of the VMs that were running there.  There are some differences to the solution based on what hypervisor you’re using.  I’m primarily concerned with libvirt/KVM, so I assume that for the rest of this post.  Except where libvirt is specifically mentioned, I think everything applies just as well to the use of the xenserver driver.</p>
+
+<p>This topic is raised on a regular basis in the OpenStack community.  There has been pushback against putting this functionality directly in OpenStack.  Regardless of what components are used, I think we need to provide an answer to the question of how this problem should be approached.  I think this is quite achievable today using existing software.</p>
+
+<h2 id="scope">Scope</h2>
+
+<p>This proposal is specific to recovery from infrastructure failures.  There are other types of failures that can affect application availability.  The guest operating system or the application itself could fail.  Recovery from these types of failures is primarily left up to the application developer and/or deployer.</p>
+
+<p>It’s worth noting that the libvirt/KVM driver in OpenStack does contain one feature related to guest operating system failure.  The libvirt-watchdog blueprint was implemented in the Icehouse release of Nova.  This feature allows you to set the hw_watchdog_action property on either the image or flavor.  Valid values include poweroff, reset, pause, and none.  When this is enabled, libvirt will enable the i6300esb watchdog device for the guest and will perform the requested action if the watchdog is triggered.  This may be a helpful component of your strategy for recovery from guest failures.</p>
+
+<h2 id="architecture">Architecture</h2>
+
+<p>A solution to this problem requires a few key components:</p>
+
+<ol>
+<li>Monitoring – A system to detect that a hypervisor has failed.</li>
+<li>Fencing – A system to fence failed compute nodes.</li>
+<li>Recovery – A system to orchestrate the rescue of VMs from the failed hypervisor.</li>
+</ol>
+
+<h2 id="monitoring">Monitoring</h2>
+
+<p>There are a two main requirements for the monitoring component of this solution.</p>
+
+<p>Detect that a host has failed.
+Trigger an automatic response to the failure (Fencing and Recovery).
+It’s often suggested that the solution for this problem should be a part of OpenStack.  Many people have suggested that all of this functionality should be built into Nova.  The problem with putting it in Nova is that it assumes that Nova has proper visibility into the health of the infrastructure that Nova itself is running on.  There is a servicegroup API that does very basic group membership.  In particular, it keeps track of active compute nodes.  However, at best this can only tell you that the nova-compute service is not currently checking in.  There are several potential causes for this that would still leave the guest VMs running just fine.  Getting proper infrastructure visibility into Nova is really a layering violation.  Regardless, it would be a significant scope increase for Nova, and I really don’t expect the Nova team to agree to it.</p>
+
+<p>It has also been proposed that this functionality be added to Heat.  The most fundamental problem with that is that a cloud user should not be required to use Heat to get their VM restarted if something fails.  There have been other proposals to use other (potentially new) OpenStack components for this.  I don’t like that for many of the same reasons I don’t think it should be in Nova.  I think it’s a job for the infrastructure supporting the OpenStack deployment, not OpenStack itself.</p>
+
+<p>Instead of trying to figure out which OpenStack component to put it in, I think we should consider this a feature provided by the infrastructure supporting an OpenStack deployment.  Many OpenStack deployments already use Pacemaker to provide HA for portions of the deployment.  Historically, there have been scaling limits in the cluster stack that made Pacemaker not an option for use with compute nodes since there’s far too many of them.  This limitation is actually in Corosync and not Pacemaker itself.  More recently, Pacemaker has added a new feature called pacemaker_remote, which allows a host to be a part of a Pacemaker cluster, without having to be a part of a Corosync cluster.  It seems like this may be a suitable solution for OpenStack compute nodes.</p>
+
+<p>Many OpenStack deployments may already be using a monitoring solution like Nagios for their compute nodes.  That seems reasonable, as well.</p>
+
+<h2 id="fencing">Fencing</h2>
+
+<p>To recap, fencing is an operation that completely isolates a failed node.  It could be IPMI based where it ensures that the failed node is powered off, for example.  Fencing is important for several reasons.  There are many ways a node can fail, and we must be sure that the node is completely gone before starting the same VM somewhere else.  We don’t want the same VM running twice.  That is certainly not what a user expects.  Worse, since an OpenStack deployment doing automatic evacuation is probably using shared storage, running the same VM twice can result in data corruption, as two VMs will be trying to use the same disks.  Another problem would be having the same IPs on the network twice.</p>
+
+<p>A huge benefit of using Pacemaker for this is that it has built-in integration with fencing, since it’s a key component of any proper HA solution.  If you went with Nagios, fencing integration may be left up to you to figure out.</p>
+
+<h2 id="recovery">Recovery</h2>
+
+<p>Once a failure has been detected and the compute node has been fenced, the evacuation needs to be triggered.  To recap, evacuation is restarting an instance that was running on a failed host by moving it to another host.  Nova provides an API call to evacuate a single instance.  For this to work properly, instance disks should be on shared storage.  Alternatively, they could all be booted from Cinder volumes.  Interestingly, the evacuate API will still run even without either of these things.  The result is just a new VM from the same base image but without any data from the old one.  The only benefit then is that you get a VM back up and running under the same instance UUID.</p>
+
+<p>A common use case with evacuation is “evacuate all instances from a given host”.  Since this is common enough, it was scripted as a feature in the novaclient library.  So, the monitoring tool can trigger this feature provided by novaclient.</p>
+
+<p>If you want this functionality for all VMs in your OpenStack deployment, then we’re in good shape.  Many people have made the additional request that users should be able to request this behavior on a per-instance basis.  This does indeed seem reasonable, but poses an additional question.  How should we let a user indicate to the OpenStack deployment that it would like its instance automatically recovered?</p>
+
+<p>The typical knobs used are image properties and flavor extra-specs.  That would certainly work, but it doesn’t seem quite flexible enough to me.  I don’t think a user should have to create a new image to mark it as “keep this running”.  Flavor extra-specs are fine if you want this for all VMs of a particular flavor or class of flavors.  In either case, the novaclient “evacuate a host” feature would have to be updated to optionally support it.</p>
+
+<p>Another potential solution to this is by using a special tag that would be specified by the user.  There is a proposal up for review right now to provide a simple tagging API for instances in Nova.  For this discussion, let’s say the tag would be automatic-recovery.  We could also update the novaclient feature we’re using with support for “evacuate all instances on this host that have a given tag”.  The monitoring tool would trigger this feature and ask novaclient to evacuate a host of all VMs that were tagged with automatic-recovery.</p>
+
+<h2 id="conclusions-and-next-steps">Conclusions and Next Steps</h2>
+
+<p>Instance HA is clearly something that many deployments would like to provide.  I believe that this could be put together for a deployment today using existing software, Pacemaker in particular.  A next step here is to provide detailed information on how to set this up and also do some testing.</p>
+
+<p>I expect that some people might say, “but I’m already using system Foo (Nagios or whatever) for monitoring my compute nodes”.  You could go this route, as well.  I’m not sure about fencing integration with something like Nagios.  If you skip the use of fencing in this solution, you get to keep the pieces when it breaks.  Aside from that, your monitoring system could trigger the evacuation functionality of novaclient just like Pacemaker would.</p>
+
+<p>Some really nice future development around this would be integration into an OpenStack management UI.  I’d like to have a dashboard of my deployment that shows me any failures that have occurred and what responses have been triggered.  This should be possible since pcsd offers a REST API (WIP) that could export this information.</p>
+
+<p>Lastly, it’s worth thinking about this problem specifically in the context of TripleO.  If you’re deploying OpenStack with OpenStack, should the solution be different?  In that world, all of your baremetal nodes are OpenStack resources via Ironic.  Ceilometer could be used to monitor the status of those resources.  At that point, OpenStack itself does have enough information about the supporting infrastructure to perform this functionality.  Then again, instead of trying to reinvent all of this in OpenStack, we could just use the more general Pacemaker based solution there, as well.</p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Libvirt Xml</title>
+            <link>https://palagend.github.io/posts/2019/06/libvirt-xml/</link>
+            <pubDate>Sat, 29 Jun 2019 18:10:08 +0800</pubDate>
+            
+            <guid>https://palagend.github.io/posts/2019/06/libvirt-xml/</guid>
+            <description>#虚拟化类型为kvm(type=&#39;kvm&#39;)，可选的还有qemu &amp;lt;domain type=&#39;kvm&#39; xmlns:qemu=&#39;http://libvirt.org/schemas/domain/qemu/1.0&#39;&amp;gt; #虚拟机名字 openstack1-1 &amp;lt;name&amp;gt;openstack1-1&amp;lt;/name&amp;gt; #虚拟机预分配内存8388608K,这个是宿主机允许虚拟机使用的最大内存，并不是在虚拟机里用free看到的内存 &amp;lt;memory unit=&#39;KiB&#39;&amp;gt;8388608&amp;lt;/memory&amp;gt; #虚拟机当前定义内存(8388608)，free看到的内存，可以使用virsh setmem调整内存 &amp;lt;currentMemory unit=&#39;KiB&#39;&amp;gt;8388608&amp;lt;/currentMemory&amp;gt; #虚拟机cpu个数 &amp;lt;vcpu placement=&#39;static&#39;&amp;gt;4&amp;lt;/vcpu&amp;gt; &amp;lt;os&amp;gt; #模拟的系统架构x86_64,模拟机器类型rhel6.5 &amp;lt;type arch=&#39;x86_64&#39; machine=&#39;rhel6.5.0&#39;&amp;gt;hvm&amp;lt;/type&amp;gt; #虚拟机开机引导项，hd：硬盘，cdrom：光盘，即先硬盘，后光盘 &amp;lt;boot dev=&#39;hd&#39;/&amp;gt; &amp;lt;boot dev=&#39;cdrom&#39;/&amp;gt; &amp;lt;bootmenu enable=&#39;yes&#39;/&amp;gt; &amp;lt;bios useserial=&#39;yes&#39; rebootTimeout=&#39;0&#39;/&amp;gt; &amp;lt;/os&amp;gt; &amp;lt;features&amp;gt; &amp;lt;acpi/&amp;gt; &amp;lt;apic/&amp;gt; &amp;lt;pae/&amp;gt; &amp;lt;/features&amp;gt; #虚拟机cpu模拟类型，host-model，使用宿主机cpu的所有可使用特性 &amp;lt;cpu mode=&#39;host-model&#39;&amp;gt; &amp;lt;model fallback=&#39;allow&#39;/&amp;gt; &amp;lt;/cpu&amp;gt; &amp;lt;clock offset=&#39;utc&#39;/&amp;gt; &amp;lt;on_poweroff&amp;gt;destroy&amp;lt;/on_poweroff&amp;gt; &amp;lt;on_reboot&amp;gt;restart&amp;lt;/on_reboot&amp;gt; &amp;lt;on_crash&amp;gt;restart&amp;lt;/on_crash&amp;gt; &amp;lt;devices&amp;gt; #运行虚拟机的程序，qemu-kvm，可以在宿主机使用ps -ef | grep qemu-kvm 看到 &amp;lt;emulator&amp;gt;/usr/libexec/qemu-kvm&amp;lt;/emulator&amp;gt; #定义虚拟机磁盘 &amp;lt;disk type=&#39;file&#39; device=&#39;disk&#39;&amp;gt; #虚拟机磁盘为qcow2格式，如果你创建或使用的磁盘是raw格式，需要修改为raw &amp;lt;driver name=&#39;qemu&#39; type=&#39;qcow2&#39; cache=&#39;none&#39;/&amp;gt; #磁盘路径 &amp;lt;source file=&#39;/data/vhosts/jython/openstack/openstack1-1.disk&#39;/&amp;gt; #第一块为vda，第二块就为vdb，不能重复，重复虚拟机启动报错 &amp;lt;target dev=&#39;vda&#39; bus=&#39;virtio&#39;/&amp;gt; &amp;lt;/disk&amp;gt; &amp;lt;controller type=&#39;ide&#39; index=&#39;0&#39;&amp;gt; &amp;lt;/controller&amp;gt; &amp;lt;controller type=&#39;virtio-serial&#39; index=&#39;0&#39;&amp;gt; &amp;lt;/controller&amp;gt; &amp;lt;controller type=&#39;usb&#39; index=&#39;0&#39;&amp;gt; &amp;lt;/controller&amp;gt; #虚拟机网络为桥接模式bridge，桥接网桥为br-ex，要确保网桥br-ex存在，并且能使用 &amp;lt;interface type=&#39;bridge&#39;&amp;gt; &amp;lt;source bridge=&#39;br-ex&#39;/&amp;gt; &amp;lt;model type=&#39;virtio&#39;/&amp;gt; &amp;lt;/interface&amp;gt; #第二张网卡，如果需要多块网卡，就复制多次 &amp;lt;interface type=&#39;bridge&#39;&amp;gt; &amp;lt;source bridge=&#39;br-ex&#39;/&amp;gt; &amp;lt;model type=&#39;virtio&#39;/&amp;gt; &amp;lt;/interface&amp;gt; &amp;lt;console type=&#39;pty&#39;&amp;gt; &amp;lt;/console&amp;gt; &amp;lt;input type=&#39;mouse&#39; bus=&#39;ps2&#39;/&amp;gt; #使用vnc协议，autoport=&#39;yes&#39;:自动分配端口，从5900开始 &amp;lt;graphics type=&#39;vnc&#39; autoport=&#39;yes&#39; listen=&#39;0.</description>
+            <content type="html"><![CDATA[<pre><code>#虚拟化类型为kvm(type='kvm')，可选的还有qemu
+&lt;domain type='kvm' xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0'&gt;
+#虚拟机名字 openstack1-1
+ &lt;name&gt;openstack1-1&lt;/name&gt;
+#虚拟机预分配内存8388608K,这个是宿主机允许虚拟机使用的最大内存，并不是在虚拟机里用free看到的内存
+  &lt;memory unit='KiB'&gt;8388608&lt;/memory&gt;
+#虚拟机当前定义内存(8388608)，free看到的内存，可以使用virsh setmem调整内存
+  &lt;currentMemory unit='KiB'&gt;8388608&lt;/currentMemory&gt;
+#虚拟机cpu个数
+&lt;vcpu placement='static'&gt;4&lt;/vcpu&gt;
+  &lt;os&gt;
+#模拟的系统架构x86_64,模拟机器类型rhel6.5
+    &lt;type arch='x86_64' machine='rhel6.5.0'&gt;hvm&lt;/type&gt;
+#虚拟机开机引导项，hd：硬盘，cdrom：光盘，即先硬盘，后光盘
+    &lt;boot dev='hd'/&gt;
+    &lt;boot dev='cdrom'/&gt;
+    &lt;bootmenu enable='yes'/&gt;
+    &lt;bios useserial='yes' rebootTimeout='0'/&gt;
+  &lt;/os&gt;
+  &lt;features&gt;
+    &lt;acpi/&gt;
+    &lt;apic/&gt;
+    &lt;pae/&gt;
+  &lt;/features&gt;
+#虚拟机cpu模拟类型，host-model，使用宿主机cpu的所有可使用特性
+  &lt;cpu mode='host-model'&gt;
+    &lt;model fallback='allow'/&gt;
+  &lt;/cpu&gt;
+  &lt;clock offset='utc'/&gt;
+  &lt;on_poweroff&gt;destroy&lt;/on_poweroff&gt;
+  &lt;on_reboot&gt;restart&lt;/on_reboot&gt;
+  &lt;on_crash&gt;restart&lt;/on_crash&gt;
+  &lt;devices&gt;
+#运行虚拟机的程序，qemu-kvm，可以在宿主机使用ps -ef | grep qemu-kvm 看到
+    &lt;emulator&gt;/usr/libexec/qemu-kvm&lt;/emulator&gt;
+#定义虚拟机磁盘
+    &lt;disk type='file' device='disk'&gt;
+#虚拟机磁盘为qcow2格式，如果你创建或使用的磁盘是raw格式，需要修改为raw
+      &lt;driver name='qemu' type='qcow2' cache='none'/&gt;
+#磁盘路径
+      &lt;source file='/data/vhosts/jython/openstack/openstack1-1.disk'/&gt;
+#第一块为vda，第二块就为vdb，不能重复，重复虚拟机启动报错
+      &lt;target dev='vda' bus='virtio'/&gt;
+    &lt;/disk&gt;
+    &lt;controller type='ide' index='0'&gt;
+    &lt;/controller&gt;
+    &lt;controller type='virtio-serial' index='0'&gt;
+    &lt;/controller&gt;
+    &lt;controller type='usb' index='0'&gt;
+    &lt;/controller&gt;
+#虚拟机网络为桥接模式bridge，桥接网桥为br-ex，要确保网桥br-ex存在，并且能使用
+    &lt;interface type='bridge'&gt;
+      &lt;source bridge='br-ex'/&gt;
+      &lt;model type='virtio'/&gt;
+    &lt;/interface&gt;
+#第二张网卡，如果需要多块网卡，就复制多次
+    &lt;interface type='bridge'&gt;
+      &lt;source bridge='br-ex'/&gt;
+      &lt;model type='virtio'/&gt;
+    &lt;/interface&gt;
+    &lt;console type='pty'&gt;
+    &lt;/console&gt;
+    &lt;input type='mouse' bus='ps2'/&gt;
+#使用vnc协议，autoport='yes':自动分配端口，从5900开始
+    &lt;graphics type='vnc' autoport='yes' listen='0.0.0.0'&gt;
+      &lt;listen type='address' address='0.0.0.0'/&gt;
+    &lt;/graphics&gt;
+    &lt;video&gt;
+      &lt;model type='cirrus' heads='1'/&gt;
+    &lt;/video&gt;
+#气球内存技术，kvm特性之一
+    &lt;memballoon model='virtio'&gt;
+    &lt;/memballoon&gt;
+  &lt;/devices&gt;
+#下面三行是为了实现多vnc客户端连接，即多个用户使用vnc客户端连接到同一台虚拟机，操作实时同步
+  &lt;qemu:commandline&gt;
+    &lt;qemu:env name='SPICE_DEBUG_ALLOW_MC' value='1'/&gt;
+  &lt;/qemu:commandline&gt;
+&lt;/domain&gt;
+</code></pre>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Ceph Arch</title>
+            <link>https://palagend.github.io/posts/2019/06/ceph-arch/</link>
+            <pubDate>Fri, 28 Jun 2019 11:24:03 +0800</pubDate>
+            
+            <guid>https://palagend.github.io/posts/2019/06/ceph-arch/</guid>
+            <description>Ceph生态系统架构可以划分为四部分：
+*client*：客户端（数据用户）。client向外export出一个POSIX文件系统接口，供应用程序调用，并连接mon/mds/osd，进行元数据及数据交互；最原始的client使用FUSE来实现的，现在写到内核里面了，需要编译一个ceph.ko内核模块才能使用。
+*mon*：集群监视器，其对应的daemon程序为cmon（Ceph Monitor）。mon监视和管理整个集群，对客户端export出一个网络文件系统，客户端可以通过mount -t ceph monitor_ip:/ mount_point命令来挂载Ceph文件系统。根据官方的说法，3个mon可以保证集群的可靠性。
+*mds*：元数据服务器，其对应的daemon程序为cmds（Ceph Metadata Server）。Ceph里可以有多个MDS组成分布式元数据服务器集群，就会涉及到Ceph中动态目录分割来进行负载均衡。
+*osd*：对象存储集群，其对应的daemon程序为cosd（Ceph Object StorageDevice）。osd将本地文件系统封装一层，对外提供对象存储的接口，将数据和元数据作为对象存储。这里本地的文件系统可以是ext2/3，但Ceph认为这些文件系统并不能适应osd特殊的访问模式，它们之前自己实现了ebofs，而现在Ceph转用btrfs。</description>
+            <content type="html"><![CDATA[<p>Ceph生态系统架构可以划分为四部分：</p>
+
+<p>*client*：客户端（数据用户）。client向外export出一个POSIX文件系统接口，供应用程序调用，并连接mon/mds/osd，进行元数据及数据交互；最原始的client使用FUSE来实现的，现在写到内核里面了，需要编译一个ceph.ko内核模块才能使用。</p>
+
+<p>*mon*：集群监视器，其对应的daemon程序为cmon（Ceph Monitor）。mon监视和管理整个集群，对客户端export出一个网络文件系统，客户端可以通过mount -t ceph monitor_ip:/ mount_point命令来挂载Ceph文件系统。根据官方的说法，3个mon可以保证集群的可靠性。</p>
+
+<p>*mds*：元数据服务器，其对应的daemon程序为cmds（Ceph Metadata Server）。Ceph里可以有多个MDS组成分布式元数据服务器集群，就会涉及到Ceph中动态目录分割来进行负载均衡。</p>
+
+<p>*osd*：对象存储集群，其对应的daemon程序为cosd（Ceph Object StorageDevice）。osd将本地文件系统封装一层，对外提供对象存储的接口，将数据和元数据作为对象存储。这里本地的文件系统可以是ext2/3，但Ceph认为这些文件系统并不能适应osd特殊的访问模式，它们之前自己实现了ebofs，而现在Ceph转用btrfs。</p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>书单</title>
+            <link>https://palagend.github.io/posts/2018/12/%E4%B9%A6%E5%8D%95/</link>
+            <pubDate>Fri, 21 Dec 2018 10:59:47 +0800</pubDate>
+            
+            <guid>https://palagend.github.io/posts/2018/12/%E4%B9%A6%E5%8D%95/</guid>
+            <description>张小龙2018年微信公开课演讲之个人总结
+Linux网络协议栈
+网络基础之网络协议篇
+从头搭建OpenStack
+Golang正则表达式
+Open vSwitch
+Linux OOM
+OpenStack metadata
+进程釜底抽薪之后&amp;hellip;
+*nix IPC
+openstack虚拟机迁移
+CGroup
+存储基本概念
+Linux错误码表</description>
+            <content type="html"><![CDATA[<p><a href="http://jasonding.top/2018/01/16/personal/%E5%BC%A0%E5%B0%8F%E9%BE%992018%E5%B9%B4%E5%BE%AE%E4%BF%A1%E5%85%AC%E5%BC%80%E8%AF%BE%E6%BC%94%E8%AE%B2%E4%B9%8B%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93/" target="_blank">张小龙2018年微信公开课演讲之个人总结</a></p>
+
+<p><a href="http://www.cnblogs.com/sammyliu/p/5225623.html" target="_blank">Linux网络协议栈</a></p>
+
+<p><a href="https://www.cnblogs.com/linhaifeng/articles/5937962.html" target="_blank">网络基础之网络协议篇</a></p>
+
+<p><a href="https://www.cnblogs.com/run4life/p/5217766.html" target="_blank">从头搭建OpenStack</a></p>
+
+<p><a href="https://www.cnblogs.com/golove/p/3269099.html" target="_blank">Golang正则表达式</a></p>
+
+<p><a href="https://www.cnblogs.com/wanstack/p/7606416.html" target="_blank">Open vSwitch</a></p>
+
+<p><a href="https://www.cnblogs.com/jjmcao/p/9450383.html" target="_blank">Linux OOM</a></p>
+
+<p><a href="https://www.ibm.com/developerworks/cn/cloud/library/1509_liukg_openstackmeta/" target="_blank">OpenStack metadata</a></p>
+
+<p><a href="https://blog.csdn.net/lqt641/article/details/60899884" target="_blank">进程釜底抽薪之后&hellip;</a></p>
+
+<p><a href="https://www.cnblogs.com/lnlvinso/p/10872512.html" target="_blank">*nix IPC</a></p>
+
+<p><a href="https://www.cnblogs.com/goldsunshine/p/9588017.html" target="_blank">openstack虚拟机迁移</a></p>
+
+<p><a href="https://www.ibm.com/developerworks/cn/linux/1506_cgroup/index.html" target="_blank">CGroup</a></p>
+
+<p><a href="https://blog.csdn.net/liukuan73/article/details/45506441" target="_blank">存储基本概念</a></p>
+
+<p><a href="https://www.cnblogs.com/fhefh/archive/2011/04/16/2018327.html" target="_blank">Linux错误码表</a></p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>在Windows10上利用minikube&#43;hyperv安装单节点k8s集群</title>
+            <link>https://palagend.github.io/posts/2018/12/%E5%9C%A8windows10%E4%B8%8A%E5%88%A9%E7%94%A8minikube-hyperv%E5%AE%89%E8%A3%85%E5%8D%95%E8%8A%82%E7%82%B9k8s%E9%9B%86%E7%BE%A4/</link>
+            <pubDate>Thu, 20 Dec 2018 00:55:02 +0800</pubDate>
+            
+            <guid>https://palagend.github.io/posts/2018/12/%E5%9C%A8windows10%E4%B8%8A%E5%88%A9%E7%94%A8minikube-hyperv%E5%AE%89%E8%A3%85%E5%8D%95%E8%8A%82%E7%82%B9k8s%E9%9B%86%E7%BE%A4/</guid>
+            <description>准备好二进制文件 注意本教程使用的版本如下:
 * minikube v0.31.0
 * kubeadm v1.13.1
 * kubelet v1.13.1
@@ -38,15 +1020,163 @@ curl -C - -L# -o $HOME/.local/bin/minikube https://github.com/kubernetes/minikub
 #VERSION=$(curl https://storage.googleapis.com/kubernetes-release/release/stable.txt) mkdir -p $HOME/.minikube/cache/v1.13.1 &amp;amp;&amp;amp; \ cd $HOME/.minikube/cache/v1.13.1 &amp;amp;&amp;amp; \ curl -C - -L#O https://storage.googleapis.com/kubernetes-release/release/v1.13.1/bin/windows/amd64/{kubelet,kubeadm,kubectl}  下载kubernetes所需的docker镜像, 脚本内容如下:
 cat download-kubernetes.sh
 #!/bin/bash #本脚本将拉取以下9个images #kube-proxy-amd64:v1.13.1 #kube-controller-manager-amd64:v1.13.1 #kube-scheduler-amd64:v1.13.1 #kube-apiserver-amd64:v1.13.1 #pause-amd64:3.1 #coredns:1.2.6 #etcd-amd64:3.2.24 #kubernetes-dashboard-amd64:v1.10.0 #flannel:v0.10.0-amd64 set -e #运行kubeadm config images list确认指定版本 K8S_VERSION=v1.13.1 ETCD_VERSION=3.</description>
-    </item>
-    
-    <item>
-      <title>Docker技术简介</title>
-      <link>https://palagend.github.io/posts/docker/</link>
-      <pubDate>Tue, 18 Dec 2018 20:09:44 +0800</pubDate>
-      
-      <guid>https://palagend.github.io/posts/docker/</guid>
-      <description>Docker技术贯穿CI/CD的整个过程，既是基础的技术，又是重要的技术。这里只是想普及一下Docker的技术， 为后续的CI/CD奠定基础，所以尽量从简单通俗的方式介绍Docker技术
+            <content type="html"><![CDATA[
+
+<h2 id="准备好二进制文件">准备好二进制文件</h2>
+
+<p><strong>注意本教程使用的版本如下:</strong><br />
+* minikube v0.31.0<br />
+* kubeadm v1.13.1<br />
+* kubelet v1.13.1<br />
+* kubectl v1.13.1</p>
+
+<p>下载minikube, 下载命令:</p>
+
+<pre><code>curl -C - -L# -o $HOME/.local/bin/minikube https://github.com/kubernetes/minikube/releases/download/v0.31.0/minikube-windows-amd64
+</code></pre>
+
+<p>或者从<a href="https://github.com/palagend/minikube.git" target="_blank">这里</a>下载源码编译</p>
+
+<p>借助VPN下载二进制文件: kubeadm, kubelet, kubectl, 下载命令:</p>
+
+<pre><code>#VERSION=$(curl https://storage.googleapis.com/kubernetes-release/release/stable.txt)
+mkdir -p $HOME/.minikube/cache/v1.13.1 &amp;&amp; \
+cd $HOME/.minikube/cache/v1.13.1 &amp;&amp; \
+curl -C - -L#O https://storage.googleapis.com/kubernetes-release/release/v1.13.1/bin/windows/amd64/{kubelet,kubeadm,kubectl}
+</code></pre>
+
+<p>下载kubernetes所需的docker镜像, 脚本内容如下:<br />
+cat download-kubernetes.sh</p>
+
+<pre><code>#!/bin/bash
+#本脚本将拉取以下9个images
+#kube-proxy-amd64:v1.13.1
+#kube-controller-manager-amd64:v1.13.1
+#kube-scheduler-amd64:v1.13.1
+#kube-apiserver-amd64:v1.13.1
+#pause-amd64:3.1
+#coredns:1.2.6
+#etcd-amd64:3.2.24
+#kubernetes-dashboard-amd64:v1.10.0
+#flannel:v0.10.0-amd64
+
+set -e
+
+#运行kubeadm config images list确认指定版本
+K8S_VERSION=v1.13.1
+ETCD_VERSION=3.2.24
+DASHBOARD_VERSION=v1.10.0
+FLANNEL_VERSION=v0.10.0-amd64
+DNS_VERSION=1.2.6
+PAUSE_VERSION=3.1
+
+## 拉取images
+docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/kube-apiserver-amd64:$K8S_VERSION
+docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/kube-controller-manager-amd64:$K8S_VERSION
+docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/kube-scheduler-amd64:$K8S_VERSION
+docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/kube-proxy-amd64:$K8S_VERSION
+docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/etcd-amd64:$ETCD_VERSION
+docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/pause-amd64:$PAUSE_VERSION
+docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/coredns:$DNS_VERSION
+docker pull registry.cn-hangzhou.aliyuncs.com/kubernetes_containers/flannel:$FLANNEL_VERSION
+docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/kubernetes-dashboard-amd64:$DASHBOARD_VERSION
+
+## 修改tag
+docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/kube-apiserver-amd64:$K8S_VERSION k8s.gcr.io/kube-apiserver:$K8S_VERSION
+docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/kube-controller-manager-amd64:$K8S_VERSION k8s.gcr.io/kube-controller-manager:$K8S_VERSION
+docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/kube-scheduler-amd64:$K8S_VERSION k8s.gcr.io/kube-scheduler:$K8S_VERSION
+docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/kube-proxy-amd64:$K8S_VERSION k8s.gcr.io/kube-proxy:$K8S_VERSION
+docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/etcd-amd64:$ETCD_VERSION k8s.gcr.io/etcd:$ETCD_VERSION
+docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/pause-amd64:$PAUSE_VERSION k8s.gcr.io/pause:$PAUSE_VERSION
+docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/coredns:$DNS_VERSION k8s.gcr.io/coredns:$DNS_VERSION
+docker tag registry.cn-hangzhou.aliyuncs.com/kubernetes_containers/flannel:$FLANNEL_VERSION quay.io/coreos/flannel:$FLANNEL_VERSION
+docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/kubernetes-dashboard-amd64:$DASHBOARD_VERSION k8s.gcr.io/kubernetes-dashboard:$DASHBOARD_VERSION
+
+## 删除原镜像
+docker rmi registry.cn-hangzhou.aliyuncs.com/google_containers/kube-apiserver-amd64:$K8S_VERSION
+docker rmi registry.cn-hangzhou.aliyuncs.com/google_containers/kube-controller-manager-amd64:$K8S_VERSION
+docker rmi registry.cn-hangzhou.aliyuncs.com/google_containers/kube-scheduler-amd64:$K8S_VERSION
+docker rmi registry.cn-hangzhou.aliyuncs.com/google_containers/kube-proxy-amd64:$K8S_VERSION
+docker rmi registry.cn-hangzhou.aliyuncs.com/google_containers/etcd-amd64:$ETCD_VERSION
+docker rmi registry.cn-hangzhou.aliyuncs.com/google_containers/pause-amd64:$PAUSE_VERSION
+docker rmi registry.cn-hangzhou.aliyuncs.com/google_containers/coredns:$DNS_VERSION
+docker rmi registry.cn-hangzhou.aliyuncs.com/kubernetes_containers/flannel:$FLANNEL_VERSION
+docker rmi registry.cn-hangzhou.aliyuncs.com/google_containers/kubernetes-dashboard-amd64:$DASHBOARD_VERSION
+</code></pre>
+
+<p>新建minikube的配置文件<code>$HOME/.minikube/config/config.json</code>, 内容如下:</p>
+
+<pre><code>{
+    &quot;WantReportErrorPrompt&quot;: false,
+    &quot;WantUpdateNotification&quot;: false,
+    &quot;ChangeMinikubeNoneUser&quot;: true,
+    &quot;kubernetes-version&quot;: &quot;v1.13.1&quot;,
+    &quot;vm-driver&quot;: &quot;hyperv&quot;,
+    &quot;hyperv-virtual-switch&quot;: &quot;minikube&quot;,
+    &quot;iso-url&quot;: &quot;https://storage.googleapis.com/minikube/iso/minikube-v0.31.0.iso&quot;
+}
+</code></pre>
+
+<p>启动minikube, 命令如下:</p>
+
+<pre><code>minikube start --vm-driver hyperv --hyperv-virtual-switch minikube --v 0 --alsologtostderr --kubernetes-version v1.13.1
+</code></pre>
+
+<h2 id="简便起见-这里提供了一个安装minikube的脚本-脚本内容如下">简便起见, 这里提供了一个安装minikube的脚本, 脚本内容如下:</h2>
+
+<p>cat install-minikube.sh</p>
+
+<pre><code>#!/bin/bash
+#export http_proxy=http://127.0.0.1:7777
+#export https_proxy=$http_proxy
+export MINIKUBE_WANTUPDATENOTIFICATION=false
+export MINIKUBE_WANTREPORTERRORPROMPT=false
+export MINIKUBE_HOME=$HOME
+export CHANGE_MINIKUBE_NONE_USER=true
+mkdir -p $HOME/.kube
+touch $HOME/.kube/config
+
+export KUBECONFIG=$HOME/.kube/config
+
+mkdir -p ~/.minikube/config &amp;&amp; \
+echo '{
+    &quot;level&quot;: &quot;0&quot;,
+    &quot;kubernetes-version&quot;: &quot;v1.13.1&quot;,
+    &quot;vm-driver&quot;: &quot;hyperv&quot;,
+    &quot;hyperv-virtual-switch&quot;: &quot;minikube&quot;,
+    &quot;iso-url&quot;: &quot;https://storage.googleapis.com/minikube/iso/minikube-v0.31.0.iso&quot;
+}' &gt; ~/.minikube/config/config.json
+
+minikube start
+
+# this for loop waits until kubectl can access the api server that Minikube has created
+for i in {1..150}; do # timeout for 5 minutes
+	kubectl get po &amp;&gt; /dev/null
+	if [ $? -ne 1 ]; then
+		break
+	fi
+	sleep 2
+done
+
+# kubectl commands are now able to interact with Minikube cluster
+</code></pre>
+
+<h2 id="其他">其他</h2>
+
+<p>如果安装失败,请清理旧文件,命令如下:</p>
+
+<pre><code>sudo rm -rf /etc/kubernetes /var/lib/minikube ~/.minikube
+</code></pre>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Docker技术简介</title>
+            <link>https://palagend.github.io/posts/2018/12/docker%E6%8A%80%E6%9C%AF%E7%AE%80%E4%BB%8B/</link>
+            <pubDate>Tue, 18 Dec 2018 20:09:44 +0800</pubDate>
+            
+            <guid>https://palagend.github.io/posts/2018/12/docker%E6%8A%80%E6%9C%AF%E7%AE%80%E4%BB%8B/</guid>
+            <description>Docker技术贯穿CI/CD的整个过程，既是基础的技术，又是重要的技术。这里只是想普及一下Docker的技术， 为后续的CI/CD奠定基础，所以尽量从简单通俗的方式介绍Docker技术
 什么是部署 部署就是将开发的应用程序代码和相关文件放置到服务器的指定位置，使得客户端能够通过网络来使用应用程 序提供的服务。
 传统部署 开发人员在本地设置好的环境下开发并调试程序，成功之后提交编译好的程序给 运维人员；然后运维人员在生产服务器上设置好与本地开发环境一致的环境，并把程序上传到服务器启动程序 ，调式无误后，部署工作就算完成了。
 容器部署 开发人员在本地开发并调试完成后，并不只是把编译好的程序提交给运维人 员，而是先将程序代码和相关文件以及程序所以依赖的环境配置一同打包到一个镜像中（Docker镜像），然后 把这个镜像提交到Docker仓库；运维人员只需要在生产服务器上拉取这个镜像到生产服务器，然后基于这个镜 像拉起一个容器，程序在容器里运行，这个容器里已经包含了程序在本地开发时一致的运行环境。
@@ -60,15 +1190,149 @@ Dockerfile OCI &amp;amp; RunC  Open Container Initiative，也就是常说的OCI
  container有很多种，而docker是其中的一种container。
 OCI -&amp;gt; RunC : Interface -&amp;gt; Implementation
 下图能够解释RunC和Docker的关系： k8s为了与docker解耦合引入CRI项目： 容器化部署的意识 开发时要有容器部署意识(code,data,conf,lib,doc,log)</description>
-    </item>
-    
-    <item>
-      <title>Go语言源码分析</title>
-      <link>https://palagend.github.io/posts/golang-source-code-interpreting/</link>
-      <pubDate>Tue, 18 Dec 2018 20:09:44 +0800</pubDate>
-      
-      <guid>https://palagend.github.io/posts/golang-source-code-interpreting/</guid>
-      <description>net/http client.go 结构: Client
+            <content type="html"><![CDATA[
+
+<p>Docker技术贯穿CI/CD的整个过程，既是基础的技术，又是重要的技术。这里只是想普及一下Docker的技术，
+为后续的CI/CD奠定基础，所以尽量从简单通俗的方式介绍Docker技术</p>
+
+<hr />
+
+<h2 id="什么是部署">什么是部署</h2>
+
+<p>部署就是将开发的应用程序代码和相关文件放置到服务器的指定位置，使得客户端能够通过网络来使用应用程
+序提供的服务。</p>
+
+<hr />
+
+<h2 id="传统部署">传统部署</h2>
+
+<p>开发人员在本地设置好的环境下开发并调试程序，成功之后提交编译好的程序给
+运维人员；然后运维人员在生产服务器上设置好与本地开发环境一致的环境，并把程序上传到服务器启动程序
+，调式无误后，部署工作就算完成了。</p>
+
+<hr />
+
+<h2 id="容器部署">容器部署</h2>
+
+<hr />
+
+<p>开发人员在本地开发并调试完成后，并不只是把编译好的程序提交给运维人
+员，而是先将程序代码和相关文件以及程序所以依赖的环境配置一同打包到一个镜像中（Docker镜像），然后
+把这个镜像提交到Docker仓库；运维人员只需要在生产服务器上拉取这个镜像到生产服务器，然后基于这个镜
+像拉起一个容器，程序在容器里运行，这个容器里已经包含了程序在本地开发时一致的运行环境。</p>
+
+<hr />
+
+<h2 id="容器化部署-vs-传统部署">容器化部署 vs 传统部署</h2>
+
+<p>容器部署和传统部署最显著的不同就是对程序运行时环境（runtime environment）的处理上，前者将运行
+时环境与程序本身打包在一起，随程序一起发布、部署。后者是将程序发布，但是程序的环境需要在程序所部
+署的地方另外设置。
+这种区别可以用”国王的皮鞋“来比喻。</p>
+
+<hr />
+
+<h2 id="docker技术的经济效益">Docker技术的经济效益</h2>
+
+<p>这里的<strong>牛皮</strong>就是<strong>运行环境</strong>, <strong>脚</strong>是<strong>应用程序</strong>, <strong>崎岖不平的路面</strong>是各种各样的生产服务器。
+<strong>传统部署</strong>就是给所有的服务器蒙上一层“牛皮”,然后让“脚”在上面走(运行)；<strong>容器部署</strong>则是用“牛
+皮”包住程序，在服务器上运行，而不需要对服务器做很多的适配工作。</p>
+
+<hr />
+
+<p>传统部署方式，对开发人员来说可能比较省事，程序开发调试完毕就可以扔给运维人员了（光着脚走在牛皮大
+道上当然是极好的）；容器部署对于运维人员和管理人员来说是比较省心的，只需要拿到开发人员提交过来的
+容器镜像在服务器上运行起来就行了，如果容器出了问题只需要更换为新的容器就可以了。这个代价是要求开发
+人员多承担了一道制作皮鞋（容器）的工序。</p>
+
+<p><strong>但是很明显从整体经济效益和管理成本上来讲，容器部署比传统部署更有优势。</strong></p>
+
+<hr />
+
+<h2 id="docker">Docker</h2>
+
+<p>上面谈了部署的概念，一直在说<strong>容器</strong>,这里就来看看容器的庐山真面目Docker。其实Docker并不是什么
+新技术，而是对原有成熟技术的包装整合形成的生态系统，这个生态系统对开发部署模式产生了深远影响。</p>
+
+<hr />
+
+<h2 id="docker技术中的一些概念">Docker技术中的一些概念</h2>
+
+<ul>
+<li>LXC</li>
+<li>Dockerfile</li>
+<li>OCI RunC Containerd</li>
+<li><del>Kubernetes</del></li>
+</ul>
+
+<hr />
+
+<h3 id="lxc">LXC</h3>
+
+<p><img src="http://s3.51cto.com/wyfs02/M01/59/D0/wKioL1TpsMngc0eRAABiI1fwTec847.jpg" alt="LXC" /><br />
+Docker基于LXC技术，对操作系统做了一层虚拟化。
+每一个容器就像一个“世外桃源”，彼此之间相互隔离（隔离性）。这些“世外桃源”虽然彼此隔
+离，但是都生活在“地球”（共的操作系统内核）上，所以它们并不能无节制地使用资源（资源限制）。
+Docker对容器的隔离和资源限制并不是自己实现的而是依赖于LXC提供的namespace和cgroup模块来实现的（拿来主义）。</p>
+
+<hr />
+
+<h3 id="dockerfile">Dockerfile</h3>
+
+<p><img src="http://s3.51cto.com/wyfs02/M02/59/D4/wKiom1Tpsujj_MwQAAESaE06H8Q505.jpg" alt="Dockerfile" title="Dockerfile" /></p>
+
+<hr />
+
+<h3 id="oci-runc">OCI &amp; RunC</h3>
+
+<blockquote>
+<p>Open Container Initiative，也就是常说的OCI，是由多家公司共同成立的项目，并由linux基金会进行管理，致力于container runtime的标准的制定和runc的开发等工作</p>
+</blockquote>
+
+<p><strong>container有很多种，而docker是其中的一种container。</strong></p>
+
+<p>OCI -&gt; RunC : Interface -&gt; Implementation</p>
+
+<hr />
+
+<p>下图能够解释RunC和Docker的关系：
+<img src="http://xuxinkun.github.io/img/docker-oci-runc-k8s/containerd.png" alt="containerd" /></p>
+
+<hr />
+
+<p>k8s为了与docker解耦合引入CRI项目：
+<img src="http://xuxinkun.github.io/img/docker-oci-runc-k8s/kubelet.png" alt="k8s" /></p>
+
+<hr />
+
+<h2 id="容器化部署的意识">容器化部署的意识</h2>
+
+<p>开发时要有容器部署意识(code,data,conf,lib,doc,log)</p>
+
+<p>应用(app) = 代码(code) + 环境(context)</p>
+
+<hr />
+
+<h2 id="参考链接">参考链接</h2>
+
+<p>要想更全面深入地了解Docker技术可以参考下面这些链接：<br />
+<a href="https://docs.docker.com/" target="_blank">Docker官方文档</a><br />
+<a href="https://linuxcontainers.org/" target="_blank">LXC官方网站</a><br />
+<a href="https://kubernetes.io/" target="_blank">Kubernetes</a><br />
+<a href="https://github.com/opencontainers/runc" target="_blank">RunC</a><br />
+<a href="https://coreos.com/rkt/" target="_blank">RKT</a><br />
+<a href="http://www.docker.org.cn/" target="_blank">Docker中文社区</a><br />
+<a href="https://www.kubernetes.org.cn/" target="_blank">Kubernetes中文社区</a></p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Go语言源码分析</title>
+            <link>https://palagend.github.io/posts/2018/12/go%E8%AF%AD%E8%A8%80%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</link>
+            <pubDate>Tue, 18 Dec 2018 20:09:44 +0800</pubDate>
+            
+            <guid>https://palagend.github.io/posts/2018/12/go%E8%AF%AD%E8%A8%80%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</guid>
+            <description>net/http client.go 结构: Client
 变量: DefaultClient
 接口: RoundTripper
 函数: //TODO
@@ -76,24 +1340,64 @@ Client指的是http客户端. 它的默认值是DefaultClient. 其中, DefaultCl
 典型的客户端传输层, 其内部具有缓存的TCP连接, 所以客户端应该优先重用, 而不是重新创建. 使用goroutines可以实现安全的客户端并发请求.
 Client是比RoundTripper(Transport只是RounderTripper的一个实现)更高一级的存在, 用来处理重定向、cookie等HTTP细节.
  • when forwarding sensitive headers like &amp;ldquo;Authorization&amp;rdquo;, &amp;ldquo;WWW-Authenticate&amp;rdquo;, and &amp;ldquo;Cookie&amp;rdquo; to untrusted targets. These headers will be ignored when following a redirect to a domain that is not a subdomain match or exact match of the initial domain. For example, a redirect from &amp;ldquo;foo.com&amp;rdquo; to either &amp;ldquo;foo.com&amp;rdquo; or &amp;ldquo;sub.</description>
-    </item>
-    
-    <item>
-      <title>k8s知识点</title>
-      <link>https://palagend.github.io/posts/k8s/</link>
-      <pubDate>Tue, 18 Dec 2018 20:09:44 +0800</pubDate>
-      
-      <guid>https://palagend.github.io/posts/k8s/</guid>
-      <description> kube-proxy的两种转发模式（user space, kernel space） k8s后端服务的四种访问方式（ClusterIP, NodePort, LoadBalance, Ingress） k8s服务的三种端口(port, nodePort, targetPort)  </description>
-    </item>
-    
-    <item>
-      <title>使用minikube在linux上安装单节点k8s集群</title>
-      <link>https://palagend.github.io/posts/minikube-guide/</link>
-      <pubDate>Tue, 18 Dec 2018 20:09:44 +0800</pubDate>
-      
-      <guid>https://palagend.github.io/posts/minikube-guide/</guid>
-      <description>准备好二进制文件 注意本教程使用的版本如下:
+            <content type="html"><![CDATA[
+
+<h2 id="net-http">net/http</h2>
+
+<h3 id="client-go">client.go</h3>
+
+<p>结构: Client<br />
+变量: DefaultClient<br />
+接口: RoundTripper<br />
+函数: //TODO</p>
+
+<p><code>Client</code>指的是http客户端. 它的默认值是<code>DefaultClient</code>. 其中,  <code>DefaultClient</code>以<code>DefaultTransport</code>作为传输层的.</p>
+
+<p>典型的客户端传输层, 其内部具有缓存的TCP连接, 所以客户端应该优先重用, 而不是重新创建. 使用<code>goroutines</code>可以实现安全的客户端并发请求.</p>
+
+<p><code>Client</code>是比<code>RoundTripper</code>(<code>Transport</code>只是<code>RounderTripper</code>的一个实现)更高一级的存在, 用来处理重定向、cookie等HTTP细节.</p>
+
+<blockquote>
+<p>• when forwarding sensitive headers like &ldquo;Authorization&rdquo;,
+&ldquo;WWW-Authenticate&rdquo;, and &ldquo;Cookie&rdquo; to untrusted targets.
+These headers will be ignored when following a redirect to a domain
+that is not a subdomain match or exact match of the initial domain.
+For example, a redirect from &ldquo;foo.com&rdquo; to either &ldquo;foo.com&rdquo; or &ldquo;sub.foo.com&rdquo;
+will forward the sensitive headers, but a redirect to &ldquo;bar.com&rdquo; will not.</p>
+
+<p>• when forwarding the &ldquo;Cookie&rdquo; header with a non-nil cookie Jar.
+Since each redirect may mutate the state of the cookie jar,
+a redirect may possibly alter a cookie set in the initial request.
+When forwarding the &ldquo;Cookie&rdquo; header, any mutated cookies will be omitted,
+with the expectation that the Jar will insert those mutated cookies
+with the updated values (assuming the origin matches).
+If Jar is nil, the initial cookies are forwarded without change.</p>
+</blockquote>
+]]></content>
+        </item>
+        
+        <item>
+            <title>k8s知识点</title>
+            <link>https://palagend.github.io/posts/2018/12/k8s%E7%9F%A5%E8%AF%86%E7%82%B9/</link>
+            <pubDate>Tue, 18 Dec 2018 20:09:44 +0800</pubDate>
+            
+            <guid>https://palagend.github.io/posts/2018/12/k8s%E7%9F%A5%E8%AF%86%E7%82%B9/</guid>
+            <description> kube-proxy的两种转发模式（user space, kernel space） k8s后端服务的四种访问方式（ClusterIP, NodePort, LoadBalance, Ingress） k8s服务的三种端口(port, nodePort, targetPort)  </description>
+            <content type="html"><![CDATA[<ul>
+<li>kube-proxy的两种转发模式（user space, kernel space）</li>
+<li>k8s后端服务的四种访问方式（ClusterIP, NodePort, LoadBalance, Ingress）</li>
+<li>k8s服务的三种端口(port, nodePort, targetPort)</li>
+</ul>
+]]></content>
+        </item>
+        
+        <item>
+            <title>使用minikube在linux上安装单节点k8s集群</title>
+            <link>https://palagend.github.io/posts/2018/12/%E4%BD%BF%E7%94%A8minikube%E5%9C%A8linux%E4%B8%8A%E5%AE%89%E8%A3%85%E5%8D%95%E8%8A%82%E7%82%B9k8s%E9%9B%86%E7%BE%A4/</link>
+            <pubDate>Tue, 18 Dec 2018 20:09:44 +0800</pubDate>
+            
+            <guid>https://palagend.github.io/posts/2018/12/%E4%BD%BF%E7%94%A8minikube%E5%9C%A8linux%E4%B8%8A%E5%AE%89%E8%A3%85%E5%8D%95%E8%8A%82%E7%82%B9k8s%E9%9B%86%E7%BE%A4/</guid>
+            <description>准备好二进制文件 注意本教程使用的版本如下:
 * minikube v0.31.0
 * kubeadm v1.13.1
 * kubelet v1.13.1
@@ -104,32 +1408,1929 @@ mkdir -p $HOME/.minikube/cache/iso &amp;amp;&amp;amp; \ curl -C - -L# -o $HOME/.
 #VERSION=$(curl https://storage.googleapis.com/kubernetes-release/release/stable.txt) mkdir -p $HOME/.minikube/cache/v1.13.1 &amp;amp;&amp;amp; \ cd $HOME/.minikube/cache/v1.13.1 &amp;amp;&amp;amp; \ sudo -E curl -C - -L#O https://storage.googleapis.com/kubernetes-release/release/v1.13.1/bin/linux/amd64/{kubelet,kubeadm,kubectl}  下载kubernetes所需的docker镜像, 脚本内容如下:
 cat download-kubernetes.sh
 #!/bin/bash #本脚本将拉取以下9个images #kube-proxy-amd64:v1.13.1 #kube-controller-manager-amd64:v1.13.1 #kube-scheduler-amd64:v1.13.1 #kube-apiserver-amd64:v1.13.1 #pause-amd64:3.1 #coredns:1.2.6 #etcd-amd64:3.2.24 #kubernetes-dashboard-amd64:v1.10.0 #flannel:v0.10.0-amd64 set -e #运行kubeadm config images list确认指定版本 K8S_VERSION=v1.</description>
-    </item>
-    
-    <item>
-      <title>技术白话即《数据结构与算法》读书心得与笔记</title>
-      <link>https://palagend.github.io/posts/tech/</link>
-      <pubDate>Tue, 18 Dec 2018 20:09:44 +0800</pubDate>
-      
-      <guid>https://palagend.github.io/posts/tech/</guid>
-      <description>技和术的区别 解决&amp;rdquo;好&amp;rdquo;问题的能力在于&amp;rdquo;技&amp;rdquo;&amp;ldquo;,解决&amp;rdquo;新&amp;rdquo;问题的能力在于&amp;rdquo;术&amp;rdquo;.解决问题的实力在于&amp;rdquo;技术兼备&amp;rdquo;.
+            <content type="html"><![CDATA[
+
+<h2 id="准备好二进制文件">准备好二进制文件</h2>
+
+<p><strong>注意本教程使用的版本如下:</strong><br />
+* minikube v0.31.0<br />
+* kubeadm v1.13.1<br />
+* kubelet v1.13.1<br />
+* kubectl v1.13.1</p>
+
+<p>下载minikube, 下载命令:</p>
+
+<pre><code>mkdir -p $HOME/.minikube/cache/iso &amp;&amp; \
+curl -C - -L# -o $HOME/.local/bin/minikube https://github.com/kubernetes/minikube/releases/download/v0.31.0/minikube-linux-amd64
+</code></pre>
+
+<p>或者从<a href="https://github.com/palagend/minikube.git" target="_blank">这里</a>下载源码编译</p>
+
+<p>借助VPN下载二进制文件: kubeadm, kubelet, kubectl, 下载命令:</p>
+
+<pre><code>#VERSION=$(curl https://storage.googleapis.com/kubernetes-release/release/stable.txt)
+mkdir -p $HOME/.minikube/cache/v1.13.1 &amp;&amp; \
+cd $HOME/.minikube/cache/v1.13.1 &amp;&amp; \
+sudo -E curl -C - -L#O https://storage.googleapis.com/kubernetes-release/release/v1.13.1/bin/linux/amd64/{kubelet,kubeadm,kubectl}
+</code></pre>
+
+<p>下载kubernetes所需的docker镜像, 脚本内容如下:<br />
+cat download-kubernetes.sh</p>
+
+<pre><code>#!/bin/bash
+#本脚本将拉取以下9个images
+#kube-proxy-amd64:v1.13.1
+#kube-controller-manager-amd64:v1.13.1
+#kube-scheduler-amd64:v1.13.1
+#kube-apiserver-amd64:v1.13.1
+#pause-amd64:3.1
+#coredns:1.2.6
+#etcd-amd64:3.2.24
+#kubernetes-dashboard-amd64:v1.10.0
+#flannel:v0.10.0-amd64
+
+set -e
+
+#运行kubeadm config images list确认指定版本
+K8S_VERSION=v1.13.1
+ETCD_VERSION=3.2.24
+DASHBOARD_VERSION=v1.10.0
+FLANNEL_VERSION=v0.10.0-amd64
+DNS_VERSION=1.2.6
+PAUSE_VERSION=3.1
+
+## 拉取images
+docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/kube-apiserver-amd64:$K8S_VERSION
+docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/kube-controller-manager-amd64:$K8S_VERSION
+docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/kube-scheduler-amd64:$K8S_VERSION
+docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/kube-proxy-amd64:$K8S_VERSION
+docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/etcd-amd64:$ETCD_VERSION
+docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/pause-amd64:$PAUSE_VERSION
+docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/coredns:$DNS_VERSION
+docker pull registry.cn-hangzhou.aliyuncs.com/kubernetes_containers/flannel:$FLANNEL_VERSION
+docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/kubernetes-dashboard-amd64:$DASHBOARD_VERSION
+
+## 修改tag
+docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/kube-apiserver-amd64:$K8S_VERSION k8s.gcr.io/kube-apiserver:$K8S_VERSION
+docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/kube-controller-manager-amd64:$K8S_VERSION k8s.gcr.io/kube-controller-manager:$K8S_VERSION
+docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/kube-scheduler-amd64:$K8S_VERSION k8s.gcr.io/kube-scheduler:$K8S_VERSION
+docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/kube-proxy-amd64:$K8S_VERSION k8s.gcr.io/kube-proxy:$K8S_VERSION
+docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/etcd-amd64:$ETCD_VERSION k8s.gcr.io/etcd:$ETCD_VERSION
+docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/pause-amd64:$PAUSE_VERSION k8s.gcr.io/pause:$PAUSE_VERSION
+docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/coredns:$DNS_VERSION k8s.gcr.io/coredns:$DNS_VERSION
+docker tag registry.cn-hangzhou.aliyuncs.com/kubernetes_containers/flannel:$FLANNEL_VERSION quay.io/coreos/flannel:$FLANNEL_VERSION
+docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/kubernetes-dashboard-amd64:$DASHBOARD_VERSION k8s.gcr.io/kubernetes-dashboard:$DASHBOARD_VERSION
+
+## 删除原镜像
+docker rmi registry.cn-hangzhou.aliyuncs.com/google_containers/kube-apiserver-amd64:$K8S_VERSION
+docker rmi registry.cn-hangzhou.aliyuncs.com/google_containers/kube-controller-manager-amd64:$K8S_VERSION
+docker rmi registry.cn-hangzhou.aliyuncs.com/google_containers/kube-scheduler-amd64:$K8S_VERSION
+docker rmi registry.cn-hangzhou.aliyuncs.com/google_containers/kube-proxy-amd64:$K8S_VERSION
+docker rmi registry.cn-hangzhou.aliyuncs.com/google_containers/etcd-amd64:$ETCD_VERSION
+docker rmi registry.cn-hangzhou.aliyuncs.com/google_containers/pause-amd64:$PAUSE_VERSION
+docker rmi registry.cn-hangzhou.aliyuncs.com/google_containers/coredns:$DNS_VERSION
+docker rmi registry.cn-hangzhou.aliyuncs.com/kubernetes_containers/flannel:$FLANNEL_VERSION
+docker rmi registry.cn-hangzhou.aliyuncs.com/google_containers/kubernetes-dashboard-amd64:$DASHBOARD_VERSION
+</code></pre>
+
+<p>新建minikube的配置文件<code>$HOME/.minikube/config/config.json</code>, 内容如下:</p>
+
+<pre><code>{
+    &quot;WantReportErrorPrompt&quot;: false,
+    &quot;WantUpdateNotification&quot;: false,
+    &quot;ChangeMinikubeNoneUser&quot;: true,
+    &quot;kubernetes-version&quot;: &quot;v1.13.1&quot;,
+    &quot;vm-driver&quot;: &quot;none&quot;,
+    &quot;iso-url&quot;: &quot;https://storage.googleapis.com/minikube/iso/minikube-v0.31.0.iso&quot;
+}
+</code></pre>
+
+<p>启动minikube, 命令如下:</p>
+
+<pre><code>sudo -E minikube start --vm-driver none --v 0 --alsologtostderr --kubernetes-version v1.13.1
+</code></pre>
+
+<h2 id="简便起见-这里提供了一个安装minikube的脚本-脚本内容如下">简便起见, 这里提供了一个安装minikube的脚本, 脚本内容如下:</h2>
+
+<p>cat install-minikube.sh</p>
+
+<pre><code>#!/bin/bash
+#export http_proxy=http://172.19.210.34:7777
+#export https_proxy=$http_proxy
+export MINIKUBE_WANTUPDATENOTIFICATION=false
+export MINIKUBE_WANTREPORTERRORPROMPT=false
+export MINIKUBE_HOME=$HOME
+export CHANGE_MINIKUBE_NONE_USER=true
+mkdir -p $HOME/.kube
+touch $HOME/.kube/config
+
+export KUBECONFIG=$HOME/.kube/config
+
+mkdir -p ~/.minikube/config &amp;&amp; \
+echo '{
+    &quot;level&quot;: &quot;0&quot;,
+    &quot;kubernetes-version&quot;: &quot;v1.13.1&quot;,
+    &quot;vm-driver&quot;: &quot;none&quot;,
+    &quot;iso-url&quot;: &quot;https://storage.googleapis.com/minikube/iso/minikube-v0.31.0.iso&quot;
+}' &gt; ~/.minikube/config/config.json
+
+sudo -E minikube start
+
+# this for loop waits until kubectl can access the api server that Minikube has created
+for i in {1..150}; do # timeout for 5 minutes
+	kubectl get po &amp;&gt; /dev/null
+	if [ $? -ne 1 ]; then
+		break
+	fi
+	sleep 2
+done
+
+# kubectl commands are now able to interact with Minikube cluster
+</code></pre>
+
+<h2 id="其他">其他</h2>
+
+<p>如果安装失败,请清理旧文件,命令如下:</p>
+
+<pre><code>sudo rm -rf /etc/kubernetes /var/lib/minikube ~/.minikube
+</code></pre>
+]]></content>
+        </item>
+        
+        <item>
+            <title>技术白话即《数据结构与算法》读书心得与笔记</title>
+            <link>https://palagend.github.io/posts/2018/12/%E6%8A%80%E6%9C%AF%E7%99%BD%E8%AF%9D%E5%8D%B3%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E8%AF%BB%E4%B9%A6%E5%BF%83%E5%BE%97%E4%B8%8E%E7%AC%94%E8%AE%B0/</link>
+            <pubDate>Tue, 18 Dec 2018 20:09:44 +0800</pubDate>
+            
+            <guid>https://palagend.github.io/posts/2018/12/%E6%8A%80%E6%9C%AF%E7%99%BD%E8%AF%9D%E5%8D%B3%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E8%AF%BB%E4%B9%A6%E5%BF%83%E5%BE%97%E4%B8%8E%E7%AC%94%E8%AE%B0/</guid>
+            <description>技和术的区别 解决&amp;rdquo;好&amp;rdquo;问题的能力在于&amp;rdquo;技&amp;rdquo;&amp;ldquo;,解决&amp;rdquo;新&amp;rdquo;问题的能力在于&amp;rdquo;术&amp;rdquo;.解决问题的实力在于&amp;rdquo;技术兼备&amp;rdquo;.
 我们通常所说的掌握xx框架,熟练xx编程语言,xx工具快捷键娴熟,能够快速定位xx问题&amp;hellip;,这些体现的都是“技”的水平,&amp;ldquo;技&amp;rdquo;的水平高,那么在解决已知问题方面会更快,更好,但是面对“新的问题”,“技”的优势就没有那么明显了. 这时候,“术”的优势就显现出来了.
 所谓的“术”,在IT领域,表现为对实际计算问题的抽象能力.实际中的计算需求无穷无尽,有的计算需求已经有对应的程序可解决,“拿来主义”就能搞定.但是有的“新”问题,没有现成的程序可用,就需要运用“术”的能力. 针对新问题,采用成熟的算法和数据结构或者设计新的算法和数据结构,编写程序来解决问题.这也是创新能力集中体现的地方.
 总之“技术兼备”才能有信心应对形形色色的计算需求.
 计算机问题的求解 计算机问题求解,就是利用计算机去解决实际问题.数据结构结构和算法,就是利用计算机去解决实际问题过程中采用的方法. &amp;gt; 人们开发(设计+编码)一个程序,通常是为了解决一个问题,该程序的每次执行能处理该问题的一个实例.</description>
-    </item>
-    
-    <item>
-      <title>题都城南庄</title>
-      <link>https://palagend.github.io/posts/poem/</link>
-      <pubDate>Thu, 06 Dec 2018 20:13:41 +0800</pubDate>
-      
-      <guid>https://palagend.github.io/posts/poem/</guid>
-      <description>去年今日此门中，
-人面桃花相映红。
-人面不知何处去，
-桃花依旧笑春分。</description>
-    </item>
-    
-  </channel>
+            <content type="html"><![CDATA[
+
+<h2 id="技和术的区别">技和术的区别</h2>
+
+<p>解决&rdquo;好&rdquo;问题的能力在于&rdquo;技&rdquo;&ldquo;,解决&rdquo;新&rdquo;问题的能力在于&rdquo;术&rdquo;.解决问题的实力在于&rdquo;技术兼备&rdquo;.</p>
+
+<p>我们通常所说的掌握xx框架,熟练xx编程语言,xx工具快捷键娴熟,能够快速定位xx问题&hellip;,这些体现的都是“技”的水平,&ldquo;技&rdquo;的水平高,那么在解决已知问题方面会更快,更好,但是面对“新的问题”,“技”的优势就没有那么明显了.
+这时候,“术”的优势就显现出来了.</p>
+
+<p>所谓的“术”,在IT领域,表现为对实际计算问题的抽象能力.实际中的计算需求无穷无尽,有的计算需求已经有对应的程序可解决,“拿来主义”就能搞定.但是有的“新”问题,没有现成的程序可用,就需要运用“术”的能力.
+针对新问题,采用成熟的算法和数据结构或者设计新的算法和数据结构,编写程序来解决问题.这也是创新能力集中体现的地方.</p>
+
+<p>总之“技术兼备”才能有信心应对形形色色的计算需求.</p>
+
+<h2 id="计算机问题的求解">计算机问题的求解</h2>
+
+<p>计算机问题求解,就是利用计算机去解决实际问题.数据结构结构和算法,就是利用计算机去解决实际问题过程中采用的方法.
+&gt; 人们开发(设计+编码)一个程序,通常是为了解决一个问题,该程序的每次执行能处理该问题的一个实例.</p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>桃花依旧笑春风</title>
+            <link>https://palagend.github.io/posts/2018/12/%E6%A1%83%E8%8A%B1%E4%BE%9D%E6%97%A7%E7%AC%91%E6%98%A5%E9%A3%8E/</link>
+            <pubDate>Thu, 06 Dec 2018 20:13:41 +0800</pubDate>
+            
+            <guid>https://palagend.github.io/posts/2018/12/%E6%A1%83%E8%8A%B1%E4%BE%9D%E6%97%A7%E7%AC%91%E6%98%A5%E9%A3%8E/</guid>
+            <description>  放下微信 培养兴趣 专注事情 建立自尊  </description>
+            <content type="html"><![CDATA[
+    <img src="https://uploadbeta.com/api/pictures/random/?key=BingEverydayWallpaperPicture"  alt="Bing Everyday"  class="left"  style="border-radius: 8px;"  />
+
+
+
+<ol>
+<li>放下微信</li>
+<li>培养兴趣</li>
+<li>专注事情</li>
+<li>建立自尊</li>
+</ol>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Creating a New Theme</title>
+            <link>https://palagend.github.io/posts/2014/09/creating-a-new-theme/</link>
+            <pubDate>Sun, 28 Sep 2014 00:00:00 +0000</pubDate>
+            
+            <guid>https://palagend.github.io/posts/2014/09/creating-a-new-theme/</guid>
+            <description>Introduction This tutorial will show you how to create a simple theme in Hugo. I assume that you are familiar with HTML, the bash command line, and that you are comfortable using Markdown to format content. I&amp;rsquo;ll explain how Hugo uses templates and how you can organize your templates to create a theme. I won&amp;rsquo;t cover using CSS to style your theme.
+We&amp;rsquo;ll start with creating a new site with a very basic template.</description>
+            <content type="html"><![CDATA[
+
+<h2 id="introduction">Introduction</h2>
+
+<p>This tutorial will show you how to create a simple theme in Hugo. I assume that you are familiar with HTML, the bash command line, and that you are comfortable using Markdown to format content. I&rsquo;ll explain how Hugo uses templates and how you can organize your templates to create a theme. I won&rsquo;t cover using CSS to style your theme.</p>
+
+<p>We&rsquo;ll start with creating a new site with a very basic template. Then we&rsquo;ll add in a few pages and posts. With small variations on that, you will be able to create many different types of web sites.</p>
+
+<p>In this tutorial, commands that you enter will start with the &ldquo;$&rdquo; prompt. The output will follow. Lines that start with &ldquo;#&rdquo; are comments that I&rsquo;ve added to explain a point. When I show updates to a file, the &ldquo;:wq&rdquo; on the last line means to save the file.</p>
+
+<p>Here&rsquo;s an example:</p>
+
+<pre><code>## this is a comment
+$ echo this is a command
+this is a command
+
+## edit the file
+$vi foo.md
++++
+date = &quot;2014-09-28&quot;
+title = &quot;creating a new theme&quot;
++++
+
+bah and humbug
+:wq
+
+## show it
+$ cat foo.md
++++
+date = &quot;2014-09-28&quot;
+title = &quot;creating a new theme&quot;
++++
+
+bah and humbug
+$
+</code></pre>
+
+<h2 id="some-definitions">Some Definitions</h2>
+
+<p>There are a few concepts that you need to understand before creating a theme.</p>
+
+<h3 id="skins">Skins</h3>
+
+<p>Skins are the files responsible for the look and feel of your site. It’s the CSS that controls colors and fonts, it’s the Javascript that determines actions and reactions. It’s also the rules that Hugo uses to transform your content into the HTML that the site will serve to visitors.</p>
+
+<p>You have two ways to create a skin. The simplest way is to create it in the <code>layouts/</code> directory. If you do, then you don’t have to worry about configuring Hugo to recognize it. The first place that Hugo will look for rules and files is in the <code>layouts/</code> directory so it will always find the skin.</p>
+
+<p>Your second choice is to create it in a sub-directory of the <code>themes/</code> directory. If you do, then you must always tell Hugo where to search for the skin. It’s extra work, though, so why bother with it?</p>
+
+<p>The difference between creating a skin in <code>layouts/</code> and creating it in <code>themes/</code> is very subtle. A skin in <code>layouts/</code> can’t be customized without updating the templates and static files that it is built from. A skin created in <code>themes/</code>, on the other hand, can be and that makes it easier for other people to use it.</p>
+
+<p>The rest of this tutorial will call a skin created in the <code>themes/</code> directory a theme.</p>
+
+<p>Note that you can use this tutorial to create a skin in the <code>layouts/</code> directory if you wish to. The main difference will be that you won’t need to update the site’s configuration file to use a theme.</p>
+
+<h3 id="the-home-page">The Home Page</h3>
+
+<p>The home page, or landing page, is the first page that many visitors to a site see. It is the index.html file in the root directory of the web site. Since Hugo writes files to the public/ directory, our home page is public/index.html.</p>
+
+<h3 id="site-configuration-file">Site Configuration File</h3>
+
+<p>When Hugo runs, it looks for a configuration file that contains settings that override default values for the entire site. The file can use TOML, YAML, or JSON. I prefer to use TOML for my configuration files. If you prefer to use JSON or YAML, you’ll need to translate my examples. You’ll also need to change the name of the file since Hugo uses the extension to determine how to process it.</p>
+
+<p>Hugo translates Markdown files into HTML. By default, Hugo expects to find Markdown files in your <code>content/</code> directory and template files in your <code>themes/</code> directory. It will create HTML files in your <code>public/</code> directory. You can change this by specifying alternate locations in the configuration file.</p>
+
+<h3 id="content">Content</h3>
+
+<p>Content is stored in text files that contain two sections. The first section is the “front matter,” which is the meta-information on the content. The second section contains Markdown that will be converted to HTML.</p>
+
+<h4 id="front-matter">Front Matter</h4>
+
+<p>The front matter is information about the content. Like the configuration file, it can be written in TOML, YAML, or JSON. Unlike the configuration file, Hugo doesn’t use the file’s extension to know the format. It looks for markers to signal the type. TOML is surrounded by “<code>+++</code>”, YAML by “<code>---</code>”, and JSON is enclosed in curly braces. I prefer to use TOML, so you’ll need to translate my examples if you prefer YAML or JSON.</p>
+
+<p>The information in the front matter is passed into the template before the content is rendered into HTML.</p>
+
+<h4 id="markdown">Markdown</h4>
+
+<p>Content is written in Markdown which makes it easier to create the content. Hugo runs the content through a Markdown engine to create the HTML which will be written to the output file.</p>
+
+<h3 id="template-files">Template Files</h3>
+
+<p>Hugo uses template files to render content into HTML. Template files are a bridge between the content and presentation. Rules in the template define what content is published, where it&rsquo;s published to, and how it will rendered to the HTML file. The template guides the presentation by specifying the style to use.</p>
+
+<p>There are three types of templates: single, list, and partial. Each type takes a bit of content as input and transforms it based on the commands in the template.</p>
+
+<p>Hugo uses its knowledge of the content to find the template file used to render the content. If it can’t find a template that is an exact match for the content, it will shift up a level and search from there. It will continue to do so until it finds a matching template or runs out of templates to try. If it can’t find a template, it will use the default template for the site.</p>
+
+<p>Please note that you can use the front matter to influence Hugo’s choice of templates.</p>
+
+<h4 id="single-template">Single Template</h4>
+
+<p>A single template is used to render a single piece of content. For example, an article or post would be a single piece of content and use a single template.</p>
+
+<h4 id="list-template">List Template</h4>
+
+<p>A list template renders a group of related content. That could be a summary of recent postings or all articles in a category. List templates can contain multiple groups.</p>
+
+<p>The homepage template is a special type of list template. Hugo assumes that the home page of your site will act as the portal for the rest of the content in the site.</p>
+
+<h4 id="partial-template">Partial Template</h4>
+
+<p>A partial template is a template that can be included in other templates. Partial templates must be called using the “partial” template command. They are very handy for rolling up common behavior. For example, your site may have a banner that all pages use. Instead of copying the text of the banner into every single and list template, you could create a partial with the banner in it. That way if you decide to change the banner, you only have to change the partial template.</p>
+
+<h2 id="create-a-new-site">Create a New Site</h2>
+
+<p>Let&rsquo;s use Hugo to create a new web site. I&rsquo;m a Mac user, so I&rsquo;ll create mine in my home directory, in the Sites folder. If you&rsquo;re using Linux, you might have to create the folder first.</p>
+
+<p>The &ldquo;new site&rdquo; command will create a skeleton of a site. It will give you the basic directory structure and a useable configuration file.</p>
+
+<pre><code>$ hugo new site ~/Sites/zafta
+$ cd ~/Sites/zafta
+$ ls -l
+total 8
+drwxr-xr-x  7 quoha  staff  238 Sep 29 16:49 .
+drwxr-xr-x  3 quoha  staff  102 Sep 29 16:49 ..
+drwxr-xr-x  2 quoha  staff   68 Sep 29 16:49 archetypes
+-rw-r--r--  1 quoha  staff   82 Sep 29 16:49 config.toml
+drwxr-xr-x  2 quoha  staff   68 Sep 29 16:49 content
+drwxr-xr-x  2 quoha  staff   68 Sep 29 16:49 layouts
+drwxr-xr-x  2 quoha  staff   68 Sep 29 16:49 static
+$
+</code></pre>
+
+<p>Take a look in the content/ directory to confirm that it is empty.</p>
+
+<p>The other directories (archetypes/, layouts/, and static/) are used when customizing a theme. That&rsquo;s a topic for a different tutorial, so please ignore them for now.</p>
+
+<h3 id="generate-the-html-for-the-new-site">Generate the HTML For the New Site</h3>
+
+<p>Running the <code>hugo</code> command with no options will read all the available content and generate the HTML files. It will also copy all static files (that&rsquo;s everything that&rsquo;s not content). Since we have an empty site, it won&rsquo;t do much, but it will do it very quickly.</p>
+
+<pre><code>$ hugo --verbose
+INFO: 2014/09/29 Using config file: config.toml
+INFO: 2014/09/29 syncing from /Users/quoha/Sites/zafta/static/ to /Users/quoha/Sites/zafta/public/
+WARN: 2014/09/29 Unable to locate layout: [index.html _default/list.html _default/single.html]
+WARN: 2014/09/29 Unable to locate layout: [404.html]
+0 draft content 
+0 future content 
+0 pages created 
+0 tags created
+0 categories created
+in 2 ms
+$ 
+</code></pre>
+
+<p>The &ldquo;<code>--verbose</code>&rdquo; flag gives extra information that will be helpful when we build the template. Every line of the output that starts with &ldquo;INFO:&rdquo; or &ldquo;WARN:&rdquo; is present because we used that flag. The lines that start with &ldquo;WARN:&rdquo; are warning messages. We&rsquo;ll go over them later.</p>
+
+<p>We can verify that the command worked by looking at the directory again.</p>
+
+<pre><code>$ ls -l
+total 8
+drwxr-xr-x  2 quoha  staff   68 Sep 29 16:49 archetypes
+-rw-r--r--  1 quoha  staff   82 Sep 29 16:49 config.toml
+drwxr-xr-x  2 quoha  staff   68 Sep 29 16:49 content
+drwxr-xr-x  2 quoha  staff   68 Sep 29 16:49 layouts
+drwxr-xr-x  4 quoha  staff  136 Sep 29 17:02 public
+drwxr-xr-x  2 quoha  staff   68 Sep 29 16:49 static
+$
+</code></pre>
+
+<p>See that new public/ directory? Hugo placed all generated content there. When you&rsquo;re ready to publish your web site, that&rsquo;s the place to start. For now, though, let&rsquo;s just confirm that we have what we&rsquo;d expect from a site with no content.</p>
+
+<pre><code>$ ls -l public
+total 16
+-rw-r--r--  1 quoha  staff  416 Sep 29 17:02 index.xml
+-rw-r--r--  1 quoha  staff  262 Sep 29 17:02 sitemap.xml
+$ 
+</code></pre>
+
+<p>Hugo created two XML files, which is standard, but there are no HTML files.</p>
+
+<h3 id="test-the-new-site">Test the New Site</h3>
+
+<p>Verify that you can run the built-in web server. It will dramatically shorten your development cycle if you do. Start it by running the &ldquo;server&rdquo; command. If it is successful, you will see output similar to the following:</p>
+
+<pre><code>$ hugo server --verbose
+INFO: 2014/09/29 Using config file: /Users/quoha/Sites/zafta/config.toml
+INFO: 2014/09/29 syncing from /Users/quoha/Sites/zafta/static/ to /Users/quoha/Sites/zafta/public/
+WARN: 2014/09/29 Unable to locate layout: [index.html _default/list.html _default/single.html]
+WARN: 2014/09/29 Unable to locate layout: [404.html]
+0 draft content 
+0 future content 
+0 pages created 
+0 tags created
+0 categories created
+in 2 ms
+Serving pages from /Users/quoha/Sites/zafta/public
+Web Server is available at http://localhost:1313
+Press Ctrl+C to stop
+</code></pre>
+
+<p>Connect to the listed URL (it&rsquo;s on the line that starts with &ldquo;Web Server&rdquo;). If everything is working correctly, you should get a page that shows the following:</p>
+
+<pre><code>index.xml
+sitemap.xml
+</code></pre>
+
+<p>That&rsquo;s a listing of your public/ directory. Hugo didn&rsquo;t create a home page because our site has no content. When there&rsquo;s no index.html file in a directory, the server lists the files in the directory, which is what you should see in your browser.</p>
+
+<p>Let’s go back and look at those warnings again.</p>
+
+<pre><code>WARN: 2014/09/29 Unable to locate layout: [index.html _default/list.html _default/single.html]
+WARN: 2014/09/29 Unable to locate layout: [404.html]
+</code></pre>
+
+<p>That second warning is easier to explain. We haven’t created a template to be used to generate “page not found errors.” The 404 message is a topic for a separate tutorial.</p>
+
+<p>Now for the first warning. It is for the home page. You can tell because the first layout that it looked for was “index.html.” That’s only used by the home page.</p>
+
+<p>I like that the verbose flag causes Hugo to list the files that it&rsquo;s searching for. For the home page, they are index.html, _default/list.html, and _default/single.html. There are some rules that we&rsquo;ll cover later that explain the names and paths. For now, just remember that Hugo couldn&rsquo;t find a template for the home page and it told you so.</p>
+
+<p>At this point, you&rsquo;ve got a working installation and site that we can build upon. All that’s left is to add some content and a theme to display it.</p>
+
+<h2 id="create-a-new-theme">Create a New Theme</h2>
+
+<p>Hugo doesn&rsquo;t ship with a default theme. There are a few available (I counted a dozen when I first installed Hugo) and Hugo comes with a command to create new themes.</p>
+
+<p>We&rsquo;re going to create a new theme called &ldquo;zafta.&rdquo; Since the goal of this tutorial is to show you how to fill out the files to pull in your content, the theme will not contain any CSS. In other words, ugly but functional.</p>
+
+<p>All themes have opinions on content and layout. For example, Zafta uses &ldquo;post&rdquo; over &ldquo;blog&rdquo;. Strong opinions make for simpler templates but differing opinions make it tougher to use themes. When you build a theme, consider using the terms that other themes do.</p>
+
+<h3 id="create-a-skeleton">Create a Skeleton</h3>
+
+<p>Use the hugo &ldquo;new&rdquo; command to create the skeleton of a theme. This creates the directory structure and places empty files for you to fill out.</p>
+
+<pre><code>$ hugo new theme zafta
+
+$ ls -l
+total 8
+drwxr-xr-x  2 quoha  staff   68 Sep 29 16:49 archetypes
+-rw-r--r--  1 quoha  staff   82 Sep 29 16:49 config.toml
+drwxr-xr-x  2 quoha  staff   68 Sep 29 16:49 content
+drwxr-xr-x  2 quoha  staff   68 Sep 29 16:49 layouts
+drwxr-xr-x  4 quoha  staff  136 Sep 29 17:02 public
+drwxr-xr-x  2 quoha  staff   68 Sep 29 16:49 static
+drwxr-xr-x  3 quoha  staff  102 Sep 29 17:31 themes
+
+$ find themes -type f | xargs ls -l
+-rw-r--r--  1 quoha  staff  1081 Sep 29 17:31 themes/zafta/LICENSE.md
+-rw-r--r--  1 quoha  staff     0 Sep 29 17:31 themes/zafta/archetypes/default.md
+-rw-r--r--  1 quoha  staff     0 Sep 29 17:31 themes/zafta/layouts/_default/list.html
+-rw-r--r--  1 quoha  staff     0 Sep 29 17:31 themes/zafta/layouts/_default/single.html
+-rw-r--r--  1 quoha  staff     0 Sep 29 17:31 themes/zafta/layouts/index.html
+-rw-r--r--  1 quoha  staff     0 Sep 29 17:31 themes/zafta/layouts/partials/footer.html
+-rw-r--r--  1 quoha  staff     0 Sep 29 17:31 themes/zafta/layouts/partials/header.html
+-rw-r--r--  1 quoha  staff    93 Sep 29 17:31 themes/zafta/theme.toml
+$ 
+</code></pre>
+
+<p>The skeleton includes templates (the files ending in .html), license file, a description of your theme (the theme.toml file), and an empty archetype.</p>
+
+<p>Please take a minute to fill out the theme.toml and LICENSE.md files. They&rsquo;re optional, but if you&rsquo;re going to be distributing your theme, it tells the world who to praise (or blame). It&rsquo;s also nice to declare the license so that people will know how they can use the theme.</p>
+
+<pre><code>$ vi themes/zafta/theme.toml
+author = &quot;michael d henderson&quot;
+description = &quot;a minimal working template&quot;
+license = &quot;MIT&quot;
+name = &quot;zafta&quot;
+source_repo = &quot;&quot;
+tags = [&quot;tags&quot;, &quot;categories&quot;]
+:wq
+
+## also edit themes/zafta/LICENSE.md and change
+## the bit that says &quot;YOUR_NAME_HERE&quot;
+</code></pre>
+
+<p>Note that the the skeleton&rsquo;s template files are empty. Don&rsquo;t worry, we&rsquo;ll be changing that shortly.</p>
+
+<pre><code>$ find themes/zafta -name '*.html' | xargs ls -l
+-rw-r--r--  1 quoha  staff  0 Sep 29 17:31 themes/zafta/layouts/_default/list.html
+-rw-r--r--  1 quoha  staff  0 Sep 29 17:31 themes/zafta/layouts/_default/single.html
+-rw-r--r--  1 quoha  staff  0 Sep 29 17:31 themes/zafta/layouts/index.html
+-rw-r--r--  1 quoha  staff  0 Sep 29 17:31 themes/zafta/layouts/partials/footer.html
+-rw-r--r--  1 quoha  staff  0 Sep 29 17:31 themes/zafta/layouts/partials/header.html
+$
+</code></pre>
+
+<h3 id="update-the-configuration-file-to-use-the-theme">Update the Configuration File to Use the Theme</h3>
+
+<p>Now that we&rsquo;ve got a theme to work with, it&rsquo;s a good idea to add the theme name to the configuration file. This is optional, because you can always add &ldquo;-t zafta&rdquo; on all your commands. I like to put it the configuration file because I like shorter command lines. If you don&rsquo;t put it in the configuration file or specify it on the command line, you won&rsquo;t use the template that you&rsquo;re expecting to.</p>
+
+<p>Edit the file to add the theme, add a title for the site, and specify that all of our content will use the TOML format.</p>
+
+<pre><code>$ vi config.toml
+theme = &quot;zafta&quot;
+baseurl = &quot;&quot;
+languageCode = &quot;en-us&quot;
+title = &quot;zafta - totally refreshing&quot;
+MetaDataFormat = &quot;toml&quot;
+:wq
+
+$
+</code></pre>
+
+<h3 id="generate-the-site">Generate the Site</h3>
+
+<p>Now that we have an empty theme, let&rsquo;s generate the site again.</p>
+
+<pre><code>$ hugo --verbose
+INFO: 2014/09/29 Using config file: /Users/quoha/Sites/zafta/config.toml
+INFO: 2014/09/29 syncing from /Users/quoha/Sites/zafta/themes/zafta/static/ to /Users/quoha/Sites/zafta/public/
+INFO: 2014/09/29 syncing from /Users/quoha/Sites/zafta/static/ to /Users/quoha/Sites/zafta/public/
+WARN: 2014/09/29 Unable to locate layout: [404.html theme/404.html]
+0 draft content 
+0 future content 
+0 pages created 
+0 tags created
+0 categories created
+in 2 ms
+$
+</code></pre>
+
+<p>Did you notice that the output is different? The warning message for the home page has disappeared and we have an additional information line saying that Hugo is syncing from the theme&rsquo;s directory.</p>
+
+<p>Let&rsquo;s check the public/ directory to see what Hugo&rsquo;s created.</p>
+
+<pre><code>$ ls -l public
+total 16
+drwxr-xr-x  2 quoha  staff   68 Sep 29 17:56 css
+-rw-r--r--  1 quoha  staff    0 Sep 29 17:56 index.html
+-rw-r--r--  1 quoha  staff  407 Sep 29 17:56 index.xml
+drwxr-xr-x  2 quoha  staff   68 Sep 29 17:56 js
+-rw-r--r--  1 quoha  staff  243 Sep 29 17:56 sitemap.xml
+$
+</code></pre>
+
+<p>Notice four things:</p>
+
+<ol>
+<li>Hugo created a home page. This is the file public/index.html.</li>
+<li>Hugo created a css/ directory.</li>
+<li>Hugo created a js/ directory.</li>
+<li>Hugo claimed that it created 0 pages. It created a file and copied over static files, but didn&rsquo;t create any pages. That&rsquo;s because it considers a &ldquo;page&rdquo; to be a file created directly from a content file. It doesn&rsquo;t count things like the index.html files that it creates automatically.</li>
+</ol>
+
+<h4 id="the-home-page-1">The Home Page</h4>
+
+<p>Hugo supports many different types of templates. The home page is special because it gets its own type of template and its own template file. The file, layouts/index.html, is used to generate the HTML for the home page. The Hugo documentation says that this is the only required template, but that depends. Hugo&rsquo;s warning message shows that it looks for three different templates:</p>
+
+<pre><code>WARN: 2014/09/29 Unable to locate layout: [index.html _default/list.html _default/single.html]
+</code></pre>
+
+<p>If it can&rsquo;t find any of these, it completely skips creating the home page. We noticed that when we built the site without having a theme installed.</p>
+
+<p>When Hugo created our theme, it created an empty home page template. Now, when we build the site, Hugo finds the template and uses it to generate the HTML for the home page. Since the template file is empty, the HTML file is empty, too. If the template had any rules in it, then Hugo would have used them to generate the home page.</p>
+
+<pre><code>$ find . -name index.html | xargs ls -l
+-rw-r--r--  1 quoha  staff  0 Sep 29 20:21 ./public/index.html
+-rw-r--r--  1 quoha  staff  0 Sep 29 17:31 ./themes/zafta/layouts/index.html
+$ 
+</code></pre>
+
+<h4 id="the-magic-of-static">The Magic of Static</h4>
+
+<p>Hugo does two things when generating the site. It uses templates to transform content into HTML and it copies static files into the site. Unlike content, static files are not transformed. They are copied exactly as they are.</p>
+
+<p>Hugo assumes that your site will use both CSS and JavaScript, so it creates directories in your theme to hold them. Remember opinions? Well, Hugo&rsquo;s opinion is that you&rsquo;ll store your CSS in a directory named css/ and your JavaScript in a directory named js/. If you don&rsquo;t like that, you can change the directory names in your theme directory or even delete them completely. Hugo&rsquo;s nice enough to offer its opinion, then behave nicely if you disagree.</p>
+
+<pre><code>$ find themes/zafta -type d | xargs ls -ld
+drwxr-xr-x  7 quoha  staff  238 Sep 29 17:38 themes/zafta
+drwxr-xr-x  3 quoha  staff  102 Sep 29 17:31 themes/zafta/archetypes
+drwxr-xr-x  5 quoha  staff  170 Sep 29 17:31 themes/zafta/layouts
+drwxr-xr-x  4 quoha  staff  136 Sep 29 17:31 themes/zafta/layouts/_default
+drwxr-xr-x  4 quoha  staff  136 Sep 29 17:31 themes/zafta/layouts/partials
+drwxr-xr-x  4 quoha  staff  136 Sep 29 17:31 themes/zafta/static
+drwxr-xr-x  2 quoha  staff   68 Sep 29 17:31 themes/zafta/static/css
+drwxr-xr-x  2 quoha  staff   68 Sep 29 17:31 themes/zafta/static/js
+$ 
+</code></pre>
+
+<h2 id="the-theme-development-cycle">The Theme Development Cycle</h2>
+
+<p>When you&rsquo;re working on a theme, you will make changes in the theme&rsquo;s directory, rebuild the site, and check your changes in the browser. Hugo makes this very easy:</p>
+
+<ol>
+<li>Purge the public/ directory.</li>
+<li>Run the built in web server in watch mode.</li>
+<li>Open your site in a browser.</li>
+<li>Update the theme.</li>
+<li>Glance at your browser window to see changes.</li>
+<li>Return to step 4.</li>
+</ol>
+
+<p>I’ll throw in one more opinion: never work on a theme on a live site. Always work on a copy of your site. Make changes to your theme, test them, then copy them up to your site. For added safety, use a tool like Git to keep a revision history of your content and your theme. Believe me when I say that it is too easy to lose both your mind and your changes.</p>
+
+<p>Check the main Hugo site for information on using Git with Hugo.</p>
+
+<h3 id="purge-the-public-directory">Purge the public/ Directory</h3>
+
+<p>When generating the site, Hugo will create new files and update existing ones in the <code>public/</code> directory. It will not delete files that are no longer used. For example, files that were created in the wrong directory or with the wrong title will remain. If you leave them, you might get confused by them later. I recommend cleaning out your site prior to generating it.</p>
+
+<p>Note: If you&rsquo;re building on an SSD, you should ignore this. Churning on a SSD can be costly.</p>
+
+<h3 id="hugo-s-watch-option">Hugo&rsquo;s Watch Option</h3>
+
+<p>Hugo&rsquo;s &ldquo;<code>--watch</code>&rdquo; option will monitor the content/ and your theme directories for changes and rebuild the site automatically.</p>
+
+<h3 id="live-reload">Live Reload</h3>
+
+<p>Hugo&rsquo;s built in web server supports live reload. As pages are saved on the server, the browser is told to refresh the page. Usually, this happens faster than you can say, &ldquo;Wow, that&rsquo;s totally amazing.&rdquo;</p>
+
+<h3 id="development-commands">Development Commands</h3>
+
+<p>Use the following commands as the basis for your workflow.</p>
+
+<pre><code>## purge old files. hugo will recreate the public directory.
+##
+$ rm -rf public
+##
+## run hugo in watch mode
+##
+$ hugo server --watch --verbose
+</code></pre>
+
+<p>Here&rsquo;s sample output showing Hugo detecting a change to the template for the home page. Once generated, the web browser automatically reloaded the page. I&rsquo;ve said this before, it&rsquo;s amazing.</p>
+
+<pre><code>$ rm -rf public
+$ hugo server --watch --verbose
+INFO: 2014/09/29 Using config file: /Users/quoha/Sites/zafta/config.toml
+INFO: 2014/09/29 syncing from /Users/quoha/Sites/zafta/themes/zafta/static/ to /Users/quoha/Sites/zafta/public/
+INFO: 2014/09/29 syncing from /Users/quoha/Sites/zafta/static/ to /Users/quoha/Sites/zafta/public/
+WARN: 2014/09/29 Unable to locate layout: [404.html theme/404.html]
+0 draft content 
+0 future content 
+0 pages created 
+0 tags created
+0 categories created
+in 2 ms
+Watching for changes in /Users/quoha/Sites/zafta/content
+Serving pages from /Users/quoha/Sites/zafta/public
+Web Server is available at http://localhost:1313
+Press Ctrl+C to stop
+INFO: 2014/09/29 File System Event: [&quot;/Users/quoha/Sites/zafta/themes/zafta/layouts/index.html&quot;: MODIFY|ATTRIB]
+Change detected, rebuilding site
+
+WARN: 2014/09/29 Unable to locate layout: [404.html theme/404.html]
+0 draft content 
+0 future content 
+0 pages created 
+0 tags created
+0 categories created
+in 1 ms
+</code></pre>
+
+<h2 id="update-the-home-page-template">Update the Home Page Template</h2>
+
+<p>The home page is one of a few special pages that Hugo creates automatically. As mentioned earlier, it looks for one of three files in the theme&rsquo;s layout/ directory:</p>
+
+<ol>
+<li>index.html</li>
+<li>_default/list.html</li>
+<li>_default/single.html</li>
+</ol>
+
+<p>We could update one of the default templates, but a good design decision is to update the most specific template available. That&rsquo;s not a hard and fast rule (in fact, we&rsquo;ll break it a few times in this tutorial), but it is a good generalization.</p>
+
+<h3 id="make-a-static-home-page">Make a Static Home Page</h3>
+
+<p>Right now, that page is empty because we don&rsquo;t have any content and we don&rsquo;t have any logic in the template. Let&rsquo;s change that by adding some text to the template.</p>
+
+<pre><code>$ vi themes/zafta/layouts/index.html
+&lt;!DOCTYPE html&gt; 
+&lt;html&gt; 
+&lt;body&gt; 
+  &lt;p&gt;hugo says hello!&lt;/p&gt; 
+&lt;/body&gt; 
+&lt;/html&gt; 
+:wq
+
+$
+</code></pre>
+
+<p>Build the web site and then verify the results.</p>
+
+<pre><code>$ hugo --verbose
+INFO: 2014/09/29 Using config file: /Users/quoha/Sites/zafta/config.toml
+INFO: 2014/09/29 syncing from /Users/quoha/Sites/zafta/themes/zafta/static/ to /Users/quoha/Sites/zafta/public/
+INFO: 2014/09/29 syncing from /Users/quoha/Sites/zafta/static/ to /Users/quoha/Sites/zafta/public/
+WARN: 2014/09/29 Unable to locate layout: [404.html theme/404.html]
+0 draft content 
+0 future content 
+0 pages created 
+0 tags created
+0 categories created
+in 2 ms
+
+$ find public -type f -name '*.html' | xargs ls -l
+-rw-r--r--  1 quoha  staff  78 Sep 29 21:26 public/index.html
+
+$ cat public/index.html 
+&lt;!DOCTYPE html&gt; 
+&lt;html&gt; 
+&lt;body&gt; 
+  &lt;p&gt;hugo says hello!&lt;/p&gt; 
+&lt;/html&gt;
+</code></pre>
+
+<h4 id="live-reload-1">Live Reload</h4>
+
+<p>Note: If you&rsquo;re running the server with the <code>--watch</code> option, you&rsquo;ll see different content in the file:</p>
+
+<pre><code>$ cat public/index.html 
+&lt;!DOCTYPE html&gt; 
+&lt;html&gt; 
+&lt;body&gt; 
+  &lt;p&gt;hugo says hello!&lt;/p&gt; 
+&lt;script&gt;document.write('&lt;script src=&quot;http://' 
+        + (location.host || 'localhost').split(':')[0] 
+    + ':1313/livereload.js?mindelay=10&quot;&gt;&lt;/' 
+        + 'script&gt;')&lt;/script&gt;&lt;/body&gt; 
+&lt;/html&gt;
+</code></pre>
+
+<p>When you use <code>--watch</code>, the Live Reload script is added by Hugo. Look for live reload in the documentation to see what it does and how to disable it.</p>
+
+<h3 id="build-a-dynamic-home-page">Build a &ldquo;Dynamic&rdquo; Home Page</h3>
+
+<p>&ldquo;Dynamic home page?&rdquo; Hugo&rsquo;s a static web site generator, so this seems an odd thing to say. I mean let&rsquo;s have the home page automatically reflect the content in the site every time Hugo builds it. We&rsquo;ll use iteration in the template to do that.</p>
+
+<h4 id="create-new-posts">Create New Posts</h4>
+
+<p>Now that we have the home page generating static content, let&rsquo;s add some content to the site. We&rsquo;ll display these posts as a list on the home page and on their own page, too.</p>
+
+<p>Hugo has a command to generate a skeleton post, just like it does for sites and themes.</p>
+
+<pre><code>$ hugo --verbose new post/first.md
+INFO: 2014/09/29 Using config file: /Users/quoha/Sites/zafta/config.toml
+INFO: 2014/09/29 attempting to create  post/first.md of post
+INFO: 2014/09/29 curpath: /Users/quoha/Sites/zafta/themes/zafta/archetypes/default.md
+ERROR: 2014/09/29 Unable to Cast &lt;nil&gt; to map[string]interface{}
+
+$ 
+</code></pre>
+
+<p>That wasn&rsquo;t very nice, was it?</p>
+
+<p>The &ldquo;new&rdquo; command uses an archetype to create the post file. Hugo created an empty default archetype file, but that causes an error when there&rsquo;s a theme. For me, the workaround was to create an archetypes file specifically for the post type.</p>
+
+<pre><code>$ vi themes/zafta/archetypes/post.md
++++
+Description = &quot;&quot;
+Tags = []
+Categories = []
++++
+:wq
+
+$ find themes/zafta/archetypes -type f | xargs ls -l
+-rw-r--r--  1 quoha  staff   0 Sep 29 21:53 themes/zafta/archetypes/default.md
+-rw-r--r--  1 quoha  staff  51 Sep 29 21:54 themes/zafta/archetypes/post.md
+
+$ hugo --verbose new post/first.md
+INFO: 2014/09/29 Using config file: /Users/quoha/Sites/zafta/config.toml
+INFO: 2014/09/29 attempting to create  post/first.md of post
+INFO: 2014/09/29 curpath: /Users/quoha/Sites/zafta/themes/zafta/archetypes/post.md
+INFO: 2014/09/29 creating /Users/quoha/Sites/zafta/content/post/first.md
+/Users/quoha/Sites/zafta/content/post/first.md created
+
+$ hugo --verbose new post/second.md
+INFO: 2014/09/29 Using config file: /Users/quoha/Sites/zafta/config.toml
+INFO: 2014/09/29 attempting to create  post/second.md of post
+INFO: 2014/09/29 curpath: /Users/quoha/Sites/zafta/themes/zafta/archetypes/post.md
+INFO: 2014/09/29 creating /Users/quoha/Sites/zafta/content/post/second.md
+/Users/quoha/Sites/zafta/content/post/second.md created
+
+$ ls -l content/post
+total 16
+-rw-r--r--  1 quoha  staff  104 Sep 29 21:54 first.md
+-rw-r--r--  1 quoha  staff  105 Sep 29 21:57 second.md
+
+$ cat content/post/first.md 
++++
+Categories = []
+Description = &quot;&quot;
+Tags = []
+date = &quot;2014-09-29T21:54:53-05:00&quot;
+title = &quot;first&quot;
+
++++
+my first post
+
+$ cat content/post/second.md 
++++
+Categories = []
+Description = &quot;&quot;
+Tags = []
+date = &quot;2014-09-29T21:57:09-05:00&quot;
+title = &quot;second&quot;
+
++++
+my second post
+
+$ 
+</code></pre>
+
+<p>Build the web site and then verify the results.</p>
+
+<pre><code>$ rm -rf public
+$ hugo --verbose
+INFO: 2014/09/29 Using config file: /Users/quoha/Sites/zafta/config.toml
+INFO: 2014/09/29 syncing from /Users/quoha/Sites/zafta/themes/zafta/static/ to /Users/quoha/Sites/zafta/public/
+INFO: 2014/09/29 syncing from /Users/quoha/Sites/zafta/static/ to /Users/quoha/Sites/zafta/public/
+INFO: 2014/09/29 found taxonomies: map[string]string{&quot;category&quot;:&quot;categories&quot;, &quot;tag&quot;:&quot;tags&quot;}
+WARN: 2014/09/29 Unable to locate layout: [404.html theme/404.html]
+0 draft content 
+0 future content 
+2 pages created 
+0 tags created
+0 categories created
+in 4 ms
+$
+</code></pre>
+
+<p>The output says that it created 2 pages. Those are our new posts:</p>
+
+<pre><code>$ find public -type f -name '*.html' | xargs ls -l
+-rw-r--r--  1 quoha  staff  78 Sep 29 22:13 public/index.html
+-rw-r--r--  1 quoha  staff   0 Sep 29 22:13 public/post/first/index.html
+-rw-r--r--  1 quoha  staff   0 Sep 29 22:13 public/post/index.html
+-rw-r--r--  1 quoha  staff   0 Sep 29 22:13 public/post/second/index.html
+$
+</code></pre>
+
+<p>The new files are empty because because the templates used to generate the content are empty. The homepage doesn&rsquo;t show the new content, either. We have to update the templates to add the posts.</p>
+
+<h3 id="list-and-single-templates">List and Single Templates</h3>
+
+<p>In Hugo, we have three major kinds of templates. There&rsquo;s the home page template that we updated previously. It is used only by the home page. We also have &ldquo;single&rdquo; templates which are used to generate output for a single content file. We also have &ldquo;list&rdquo; templates that are used to group multiple pieces of content before generating output.</p>
+
+<p>Generally speaking, list templates are named &ldquo;list.html&rdquo; and single templates are named &ldquo;single.html.&rdquo;</p>
+
+<p>There are three other types of templates: partials, content views, and terms. We will not go into much detail on these.</p>
+
+<h3 id="add-content-to-the-homepage">Add Content to the Homepage</h3>
+
+<p>The home page will contain a list of posts. Let&rsquo;s update its template to add the posts that we just created. The logic in the template will run every time we build the site.</p>
+
+<pre><code>$ vi themes/zafta/layouts/index.html 
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+  {{ range first 10 .Data.Pages }}
+    &lt;h1&gt;{{ .Title }}&lt;/h1&gt;
+  {{ end }}
+&lt;/body&gt;
+&lt;/html&gt;
+:wq
+
+$
+</code></pre>
+
+<p>Hugo uses the Go template engine. That engine scans the template files for commands which are enclosed between &ldquo;{{&rdquo; and &ldquo;}}&rdquo;. In our template, the commands are:</p>
+
+<ol>
+<li>range</li>
+<li>.Title</li>
+<li>end</li>
+</ol>
+
+<p>The &ldquo;range&rdquo; command is an iterator. We&rsquo;re going to use it to go through the first ten pages. Every HTML file that Hugo creates is treated as a page, so looping through the list of pages will look at every file that will be created.</p>
+
+<p>The &ldquo;.Title&rdquo; command prints the value of the &ldquo;title&rdquo; variable. Hugo pulls it from the front matter in the Markdown file.</p>
+
+<p>The &ldquo;end&rdquo; command signals the end of the range iterator. The engine loops back to the top of the iteration when it finds &ldquo;end.&rdquo; Everything between the &ldquo;range&rdquo; and &ldquo;end&rdquo; is evaluated every time the engine goes through the iteration. In this file, that would cause the title from the first ten pages to be output as heading level one.</p>
+
+<p>It&rsquo;s helpful to remember that some variables, like .Data, are created before any output files. Hugo loads every content file into the variable and then gives the template a chance to process before creating the HTML files.</p>
+
+<p>Build the web site and then verify the results.</p>
+
+<pre><code>$ rm -rf public
+$ hugo --verbose
+INFO: 2014/09/29 Using config file: /Users/quoha/Sites/zafta/config.toml
+INFO: 2014/09/29 syncing from /Users/quoha/Sites/zafta/themes/zafta/static/ to /Users/quoha/Sites/zafta/public/
+INFO: 2014/09/29 syncing from /Users/quoha/Sites/zafta/static/ to /Users/quoha/Sites/zafta/public/
+INFO: 2014/09/29 found taxonomies: map[string]string{&quot;tag&quot;:&quot;tags&quot;, &quot;category&quot;:&quot;categories&quot;}
+WARN: 2014/09/29 Unable to locate layout: [404.html theme/404.html]
+0 draft content 
+0 future content 
+2 pages created 
+0 tags created
+0 categories created
+in 4 ms
+$ find public -type f -name '*.html' | xargs ls -l 
+-rw-r--r--  1 quoha  staff  94 Sep 29 22:23 public/index.html
+-rw-r--r--  1 quoha  staff   0 Sep 29 22:23 public/post/first/index.html
+-rw-r--r--  1 quoha  staff   0 Sep 29 22:23 public/post/index.html
+-rw-r--r--  1 quoha  staff   0 Sep 29 22:23 public/post/second/index.html
+$ cat public/index.html 
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+  
+    &lt;h1&gt;second&lt;/h1&gt;
+  
+    &lt;h1&gt;first&lt;/h1&gt;
+  
+&lt;/body&gt;
+&lt;/html&gt;
+$
+</code></pre>
+
+<p>Congratulations, the home page shows the title of the two posts. The posts themselves are still empty, but let&rsquo;s take a moment to appreciate what we&rsquo;ve done. Your template now generates output dynamically. Believe it or not, by inserting the range command inside of those curly braces, you&rsquo;ve learned everything you need to know to build a theme. All that&rsquo;s really left is understanding which template will be used to generate each content file and becoming familiar with the commands for the template engine.</p>
+
+<p>And, if that were entirely true, this tutorial would be much shorter. There are a few things to know that will make creating a new template much easier. Don&rsquo;t worry, though, that&rsquo;s all to come.</p>
+
+<h3 id="add-content-to-the-posts">Add Content to the Posts</h3>
+
+<p>We&rsquo;re working with posts, which are in the content/post/ directory. That means that their section is &ldquo;post&rdquo; (and if we don&rsquo;t do something weird, their type is also &ldquo;post&rdquo;).</p>
+
+<p>Hugo uses the section and type to find the template file for every piece of content. Hugo will first look for a template file that matches the section or type name. If it can&rsquo;t find one, then it will look in the _default/ directory. There are some twists that we&rsquo;ll cover when we get to categories and tags, but for now we can assume that Hugo will try post/single.html, then _default/single.html.</p>
+
+<p>Now that we know the search rule, let&rsquo;s see what we actually have available:</p>
+
+<pre><code>$ find themes/zafta -name single.html | xargs ls -l
+-rw-r--r--  1 quoha  staff  132 Sep 29 17:31 themes/zafta/layouts/_default/single.html
+</code></pre>
+
+<p>We could create a new template, post/single.html, or change the default. Since we don&rsquo;t know of any other content types, let&rsquo;s start with updating the default.</p>
+
+<p>Remember, any content that we haven&rsquo;t created a template for will end up using this template. That can be good or bad. Bad because I know that we&rsquo;re going to be adding different types of content and we&rsquo;re going to end up undoing some of the changes we&rsquo;ve made. It&rsquo;s good because we&rsquo;ll be able to see immediate results. It&rsquo;s also good to start here because we can start to build the basic layout for the site. As we add more content types, we&rsquo;ll refactor this file and move logic around. Hugo makes that fairly painless, so we&rsquo;ll accept the cost and proceed.</p>
+
+<p>Please see the Hugo documentation on template rendering for all the details on determining which template to use. And, as the docs mention, if you&rsquo;re building a single page application (SPA) web site, you can delete all of the other templates and work with just the default single page. That&rsquo;s a refreshing amount of joy right there.</p>
+
+<h4 id="update-the-template-file">Update the Template File</h4>
+
+<pre><code>$ vi themes/zafta/layouts/_default/single.html 
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;{{ .Title }}&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;{{ .Title }}&lt;/h1&gt;
+  {{ .Content }}
+&lt;/body&gt;
+&lt;/html&gt;
+:wq
+
+$
+</code></pre>
+
+<p>Build the web site and verify the results.</p>
+
+<pre><code>$ rm -rf public
+$ hugo --verbose
+INFO: 2014/09/29 Using config file: /Users/quoha/Sites/zafta/config.toml
+INFO: 2014/09/29 syncing from /Users/quoha/Sites/zafta/themes/zafta/static/ to /Users/quoha/Sites/zafta/public/
+INFO: 2014/09/29 syncing from /Users/quoha/Sites/zafta/static/ to /Users/quoha/Sites/zafta/public/
+INFO: 2014/09/29 found taxonomies: map[string]string{&quot;tag&quot;:&quot;tags&quot;, &quot;category&quot;:&quot;categories&quot;}
+WARN: 2014/09/29 Unable to locate layout: [404.html theme/404.html]
+0 draft content 
+0 future content 
+2 pages created 
+0 tags created
+0 categories created
+in 4 ms
+
+$ find public -type f -name '*.html' | xargs ls -l
+-rw-r--r--  1 quoha  staff   94 Sep 29 22:40 public/index.html
+-rw-r--r--  1 quoha  staff  125 Sep 29 22:40 public/post/first/index.html
+-rw-r--r--  1 quoha  staff    0 Sep 29 22:40 public/post/index.html
+-rw-r--r--  1 quoha  staff  128 Sep 29 22:40 public/post/second/index.html
+
+$ cat public/post/first/index.html 
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;first&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;first&lt;/h1&gt;
+  &lt;p&gt;my first post&lt;/p&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+
+$ cat public/post/second/index.html 
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;second&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;second&lt;/h1&gt;
+  &lt;p&gt;my second post&lt;/p&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+$
+</code></pre>
+
+<p>Notice that the posts now have content. You can go to localhost:1313/post/first to verify.</p>
+
+<h3 id="linking-to-content">Linking to Content</h3>
+
+<p>The posts are on the home page. Let&rsquo;s add a link from there to the post. Since this is the home page, we&rsquo;ll update its template.</p>
+
+<pre><code>$ vi themes/zafta/layouts/index.html
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+  {{ range first 10 .Data.Pages }}
+    &lt;h1&gt;&lt;a href=&quot;{{ .Permalink }}&quot;&gt;{{ .Title }}&lt;/a&gt;&lt;/h1&gt;
+  {{ end }}
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>Build the web site and verify the results.</p>
+
+<pre><code>$ rm -rf public
+$ hugo --verbose
+INFO: 2014/09/29 Using config file: /Users/quoha/Sites/zafta/config.toml
+INFO: 2014/09/29 syncing from /Users/quoha/Sites/zafta/themes/zafta/static/ to /Users/quoha/Sites/zafta/public/
+INFO: 2014/09/29 syncing from /Users/quoha/Sites/zafta/static/ to /Users/quoha/Sites/zafta/public/
+INFO: 2014/09/29 found taxonomies: map[string]string{&quot;tag&quot;:&quot;tags&quot;, &quot;category&quot;:&quot;categories&quot;}
+WARN: 2014/09/29 Unable to locate layout: [404.html theme/404.html]
+0 draft content 
+0 future content 
+2 pages created 
+0 tags created
+0 categories created
+in 4 ms
+
+$ find public -type f -name '*.html' | xargs ls -l
+-rw-r--r--  1 quoha  staff  149 Sep 29 22:44 public/index.html
+-rw-r--r--  1 quoha  staff  125 Sep 29 22:44 public/post/first/index.html
+-rw-r--r--  1 quoha  staff    0 Sep 29 22:44 public/post/index.html
+-rw-r--r--  1 quoha  staff  128 Sep 29 22:44 public/post/second/index.html
+
+$ cat public/index.html 
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+  
+    &lt;h1&gt;&lt;a href=&quot;/post/second/&quot;&gt;second&lt;/a&gt;&lt;/h1&gt;
+  
+    &lt;h1&gt;&lt;a href=&quot;/post/first/&quot;&gt;first&lt;/a&gt;&lt;/h1&gt;
+  
+&lt;/body&gt;
+&lt;/html&gt;
+
+$
+</code></pre>
+
+<h3 id="create-a-post-listing">Create a Post Listing</h3>
+
+<p>We have the posts displaying on the home page and on their own page. We also have a file public/post/index.html that is empty. Let&rsquo;s make it show a list of all posts (not just the first ten).</p>
+
+<p>We need to decide which template to update. This will be a listing, so it should be a list template. Let&rsquo;s take a quick look and see which list templates are available.</p>
+
+<pre><code>$ find themes/zafta -name list.html | xargs ls -l
+-rw-r--r--  1 quoha  staff  0 Sep 29 17:31 themes/zafta/layouts/_default/list.html
+</code></pre>
+
+<p>As with the single post, we have to decide to update _default/list.html or create post/list.html. We still don&rsquo;t have multiple content types, so let&rsquo;s stay consistent and update the default list template.</p>
+
+<h2 id="creating-top-level-pages">Creating Top Level Pages</h2>
+
+<p>Let&rsquo;s add an &ldquo;about&rdquo; page and display it at the top level (as opposed to a sub-level like we did with posts).</p>
+
+<p>The default in Hugo is to use the directory structure of the content/ directory to guide the location of the generated html in the public/ directory. Let&rsquo;s verify that by creating an &ldquo;about&rdquo; page at the top level:</p>
+
+<pre><code>$ vi content/about.md 
++++
+title = &quot;about&quot;
+description = &quot;about this site&quot;
+date = &quot;2014-09-27&quot;
+slug = &quot;about time&quot;
++++
+
+## about us
+
+i'm speechless
+:wq
+</code></pre>
+
+<p>Generate the web site and verify the results.</p>
+
+<pre><code>$ find public -name '*.html' | xargs ls -l
+-rw-rw-r--  1 mdhender  staff   334 Sep 27 15:08 public/about-time/index.html
+-rw-rw-r--  1 mdhender  staff   527 Sep 27 15:08 public/index.html
+-rw-rw-r--  1 mdhender  staff   358 Sep 27 15:08 public/post/first-post/index.html
+-rw-rw-r--  1 mdhender  staff     0 Sep 27 15:08 public/post/index.html
+-rw-rw-r--  1 mdhender  staff   342 Sep 27 15:08 public/post/second-post/index.html
+</code></pre>
+
+<p>Notice that the page wasn&rsquo;t created at the top level. It was created in a sub-directory named &lsquo;about-time/&rsquo;. That name came from our slug. Hugo will use the slug to name the generated content. It&rsquo;s a reasonable default, by the way, but we can learn a few things by fighting it for this file.</p>
+
+<p>One other thing. Take a look at the home page.</p>
+
+<pre><code>$ cat public/index.html
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+    &lt;h1&gt;&lt;a href=&quot;http://localhost:1313/post/theme/&quot;&gt;creating a new theme&lt;/a&gt;&lt;/h1&gt;
+    &lt;h1&gt;&lt;a href=&quot;http://localhost:1313/about-time/&quot;&gt;about&lt;/a&gt;&lt;/h1&gt;
+    &lt;h1&gt;&lt;a href=&quot;http://localhost:1313/post/second-post/&quot;&gt;second&lt;/a&gt;&lt;/h1&gt;
+    &lt;h1&gt;&lt;a href=&quot;http://localhost:1313/post/first-post/&quot;&gt;first&lt;/a&gt;&lt;/h1&gt;
+&lt;script&gt;document.write('&lt;script src=&quot;http://'
+        + (location.host || 'localhost').split(':')[0]
+		+ ':1313/livereload.js?mindelay=10&quot;&gt;&lt;/'
+        + 'script&gt;')&lt;/script&gt;&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>Notice that the &ldquo;about&rdquo; link is listed with the posts? That&rsquo;s not desirable, so let&rsquo;s change that first.</p>
+
+<pre><code>$ vi themes/zafta/layouts/index.html
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+  &lt;h1&gt;posts&lt;/h1&gt;
+  {{ range first 10 .Data.Pages }}
+    {{ if eq .Type &quot;post&quot;}}
+      &lt;h2&gt;&lt;a href=&quot;{{ .Permalink }}&quot;&gt;{{ .Title }}&lt;/a&gt;&lt;/h2&gt;
+    {{ end }}
+  {{ end }}
+
+  &lt;h1&gt;pages&lt;/h1&gt;
+  {{ range .Data.Pages }}
+    {{ if eq .Type &quot;page&quot; }}
+      &lt;h2&gt;&lt;a href=&quot;{{ .Permalink }}&quot;&gt;{{ .Title }}&lt;/a&gt;&lt;/h2&gt;
+    {{ end }}
+  {{ end }}
+&lt;/body&gt;
+&lt;/html&gt;
+:wq
+</code></pre>
+
+<p>Generate the web site and verify the results. The home page has two sections, posts and pages, and each section has the right set of headings and links in it.</p>
+
+<p>But, that about page still renders to about-time/index.html.</p>
+
+<pre><code>$ find public -name '*.html' | xargs ls -l
+-rw-rw-r--  1 mdhender  staff    334 Sep 27 15:33 public/about-time/index.html
+-rw-rw-r--  1 mdhender  staff    645 Sep 27 15:33 public/index.html
+-rw-rw-r--  1 mdhender  staff    358 Sep 27 15:33 public/post/first-post/index.html
+-rw-rw-r--  1 mdhender  staff      0 Sep 27 15:33 public/post/index.html
+-rw-rw-r--  1 mdhender  staff    342 Sep 27 15:33 public/post/second-post/index.html
+</code></pre>
+
+<p>Knowing that hugo is using the slug to generate the file name, the simplest solution is to change the slug. Let&rsquo;s do it the hard way and change the permalink in the configuration file.</p>
+
+<pre><code>$ vi config.toml
+[permalinks]
+	page = &quot;/:title/&quot;
+	about = &quot;/:filename/&quot;
+</code></pre>
+
+<p>Generate the web site and verify that this didn&rsquo;t work. Hugo lets &ldquo;slug&rdquo; or &ldquo;URL&rdquo; override the permalinks setting in the configuration file. Go ahead and comment out the slug in content/about.md, then generate the web site to get it to be created in the right place.</p>
+
+<h2 id="sharing-templates">Sharing Templates</h2>
+
+<p>If you&rsquo;ve been following along, you probably noticed that posts have titles in the browser and the home page doesn&rsquo;t. That&rsquo;s because we didn&rsquo;t put the title in the home page&rsquo;s template (layouts/index.html). That&rsquo;s an easy thing to do, but let&rsquo;s look at a different option.</p>
+
+<p>We can put the common bits into a shared template that&rsquo;s stored in the themes/zafta/layouts/partials/ directory.</p>
+
+<h3 id="create-the-header-and-footer-partials">Create the Header and Footer Partials</h3>
+
+<p>In Hugo, a partial is a sugar-coated template. Normally a template reference has a path specified. Partials are different. Hugo searches for them along a TODO defined search path. This makes it easier for end-users to override the theme&rsquo;s presentation.</p>
+
+<pre><code>$ vi themes/zafta/layouts/partials/header.html
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+	&lt;title&gt;{{ .Title }}&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+:wq
+
+$ vi themes/zafta/layouts/partials/footer.html
+&lt;/body&gt;
+&lt;/html&gt;
+:wq
+</code></pre>
+
+<h3 id="update-the-home-page-template-to-use-the-partials">Update the Home Page Template to Use the Partials</h3>
+
+<p>The most noticeable difference between a template call and a partials call is the lack of path:</p>
+
+<pre><code>{{ template &quot;theme/partials/header.html&quot; . }}
+</code></pre>
+
+<p>versus</p>
+
+<pre><code>{{ partial &quot;header.html&quot; . }}
+</code></pre>
+
+<p>Both pass in the context.</p>
+
+<p>Let&rsquo;s change the home page template to use these new partials.</p>
+
+<pre><code>$ vi themes/zafta/layouts/index.html
+{{ partial &quot;header.html&quot; . }}
+
+  &lt;h1&gt;posts&lt;/h1&gt;
+  {{ range first 10 .Data.Pages }}
+    {{ if eq .Type &quot;post&quot;}}
+      &lt;h2&gt;&lt;a href=&quot;{{ .Permalink }}&quot;&gt;{{ .Title }}&lt;/a&gt;&lt;/h2&gt;
+    {{ end }}
+  {{ end }}
+
+  &lt;h1&gt;pages&lt;/h1&gt;
+  {{ range .Data.Pages }}
+    {{ if or (eq .Type &quot;page&quot;) (eq .Type &quot;about&quot;) }}
+      &lt;h2&gt;&lt;a href=&quot;{{ .Permalink }}&quot;&gt;{{ .Type }} - {{ .Title }} - {{ .RelPermalink }}&lt;/a&gt;&lt;/h2&gt;
+    {{ end }}
+  {{ end }}
+
+{{ partial &quot;footer.html&quot; . }}
+:wq
+</code></pre>
+
+<p>Generate the web site and verify the results. The title on the home page is now &ldquo;your title here&rdquo;, which comes from the &ldquo;title&rdquo; variable in the config.toml file.</p>
+
+<h3 id="update-the-default-single-template-to-use-the-partials">Update the Default Single Template to Use the Partials</h3>
+
+<pre><code>$ vi themes/zafta/layouts/_default/single.html
+{{ partial &quot;header.html&quot; . }}
+
+  &lt;h1&gt;{{ .Title }}&lt;/h1&gt;
+  {{ .Content }}
+
+{{ partial &quot;footer.html&quot; . }}
+:wq
+</code></pre>
+
+<p>Generate the web site and verify the results. The title on the posts and the about page should both reflect the value in the markdown file.</p>
+
+<h2 id="add-date-published-to-posts">Add “Date Published” to Posts</h2>
+
+<p>It&rsquo;s common to have posts display the date that they were written or published, so let&rsquo;s add that. The front matter of our posts has a variable named &ldquo;date.&rdquo; It&rsquo;s usually the date the content was created, but let&rsquo;s pretend that&rsquo;s the value we want to display.</p>
+
+<h3 id="add-date-published-to-the-template">Add “Date Published” to the Template</h3>
+
+<p>We&rsquo;ll start by updating the template used to render the posts. The template code will look like:</p>
+
+<pre><code>{{ .Date.Format &quot;Mon, Jan 2, 2006&quot; }}
+</code></pre>
+
+<p>Posts use the default single template, so we&rsquo;ll change that file.</p>
+
+<pre><code>$ vi themes/zafta/layouts/_default/single.html
+{{ partial &quot;header.html&quot; . }}
+
+  &lt;h1&gt;{{ .Title }}&lt;/h1&gt;
+  &lt;h2&gt;{{ .Date.Format &quot;Mon, Jan 2, 2006&quot; }}&lt;/h2&gt;
+  {{ .Content }}
+
+{{ partial &quot;footer.html&quot; . }}
+:wq
+</code></pre>
+
+<p>Generate the web site and verify the results. The posts now have the date displayed in them. There&rsquo;s a problem, though. The &ldquo;about&rdquo; page also has the date displayed.</p>
+
+<p>As usual, there are a couple of ways to make the date display only on posts. We could do an &ldquo;if&rdquo; statement like we did on the home page. Another way would be to create a separate template for posts.</p>
+
+<p>The &ldquo;if&rdquo; solution works for sites that have just a couple of content types. It aligns with the principle of &ldquo;code for today,&rdquo; too.</p>
+
+<p>Let&rsquo;s assume, though, that we&rsquo;ve made our site so complex that we feel we have to create a new template type. In Hugo-speak, we&rsquo;re going to create a section template.</p>
+
+<p>Let&rsquo;s restore the default single template before we forget.</p>
+
+<pre><code>$ mkdir themes/zafta/layouts/post
+$ vi themes/zafta/layouts/_default/single.html
+{{ partial &quot;header.html&quot; . }}
+
+  &lt;h1&gt;{{ .Title }}&lt;/h1&gt;
+  {{ .Content }}
+
+{{ partial &quot;footer.html&quot; . }}
+:wq
+</code></pre>
+
+<p>Now we&rsquo;ll update the post&rsquo;s version of the single template. If you remember Hugo&rsquo;s rules, the template engine will use this version over the default.</p>
+
+<pre><code>$ vi themes/zafta/layouts/post/single.html
+{{ partial &quot;header.html&quot; . }}
+
+  &lt;h1&gt;{{ .Title }}&lt;/h1&gt;
+  &lt;h2&gt;{{ .Date.Format &quot;Mon, Jan 2, 2006&quot; }}&lt;/h2&gt;
+  {{ .Content }}
+
+{{ partial &quot;footer.html&quot; . }}
+:wq
+
+</code></pre>
+
+<p>Note that we removed the date logic from the default template and put it in the post template. Generate the web site and verify the results. Posts have dates and the about page doesn&rsquo;t.</p>
+
+<h3 id="don-t-repeat-yourself">Don&rsquo;t Repeat Yourself</h3>
+
+<p>DRY is a good design goal and Hugo does a great job supporting it. Part of the art of a good template is knowing when to add a new template and when to update an existing one. While you&rsquo;re figuring that out, accept that you&rsquo;ll be doing some refactoring. Hugo makes that easy and fast, so it&rsquo;s okay to delay splitting up a template.</p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>(Hu)go Template Primer</title>
+            <link>https://palagend.github.io/posts/2014/07/hugo-template-primer/</link>
+            <pubDate>Mon, 28 Jul 2014 00:00:00 +0000</pubDate>
+            
+            <guid>https://palagend.github.io/posts/2014/07/hugo-template-primer/</guid>
+            <description>Hugo uses the excellent go html/template library for its template engine. It is an extremely lightweight engine that provides a very small amount of logic. In our experience that it is just the right amount of logic to be able to create a good static website. If you have used other template systems from different languages or frameworks you will find a lot of similarities in go templates.
+This document is a brief primer on using go templates.</description>
+            <content type="html"><![CDATA[
+
+<p>Hugo uses the excellent <a href="http://golang.org/&gt;" target="_blank">go</a> <a href="http://golang.org/pkg/html/template/&gt;" target="_blank">html/template</a> library for
+its template engine. It is an extremely lightweight engine that provides a very
+small amount of logic. In our experience that it is just the right amount of
+logic to be able to create a good static website. If you have used other
+template systems from different languages or frameworks you will find a lot of
+similarities in go templates.</p>
+
+<p>This document is a brief primer on using go templates. The <a href="http://golang.org/pkg/html/template/&gt;" target="_blank">go docs</a>
+provide more details.</p>
+
+<h2 id="introduction-to-go-templates">Introduction to Go Templates</h2>
+
+<p>Go templates provide an extremely simple template language. It adheres to the
+belief that only the most basic of logic belongs in the template or view layer.
+One consequence of this simplicity is that go templates parse very quickly.</p>
+
+<p>A unique characteristic of go templates is they are content aware. Variables and
+content will be sanitized depending on the context of where they are used. More
+details can be found in the <a href="http://golang.org/pkg/html/template/&gt;" target="_blank">go docs</a>.</p>
+
+<h2 id="basic-syntax">Basic Syntax</h2>
+
+<p>Go lang templates are html files with the addition of variables and
+functions.</p>
+
+<p><strong>Go variables and functions are accessible within {{ }}</strong></p>
+
+<p>Accessing a predefined variable &ldquo;foo&rdquo;:</p>
+
+<pre><code>{{ foo }}
+</code></pre>
+
+<p><strong>Parameters are separated using spaces</strong></p>
+
+<p>Calling the add function with input of 1, 2:</p>
+
+<pre><code>{{ add 1 2 }}
+</code></pre>
+
+<p><strong>Methods and fields are accessed via dot notation</strong></p>
+
+<p>Accessing the Page Parameter &ldquo;bar&rdquo;</p>
+
+<pre><code>{{ .Params.bar }}
+</code></pre>
+
+<p><strong>Parentheses can be used to group items together</strong></p>
+
+<pre><code>{{ if or (isset .Params &quot;alt&quot;) (isset .Params &quot;caption&quot;) }} Caption {{ end }}
+</code></pre>
+
+<h2 id="variables">Variables</h2>
+
+<p>Each go template has a struct (object) made available to it. In hugo each
+template is passed either a page or a node struct depending on which type of
+page you are rendering. More details are available on the
+<a href="/layout/variables">variables</a> page.</p>
+
+<p>A variable is accessed by referencing the variable name.</p>
+
+<pre><code>&lt;title&gt;{{ .Title }}&lt;/title&gt;
+</code></pre>
+
+<p>Variables can also be defined and referenced.</p>
+
+<pre><code>{{ $address := &quot;123 Main St.&quot;}}
+{{ $address }}
+</code></pre>
+
+<h2 id="functions">Functions</h2>
+
+<p>Go template ship with a few functions which provide basic functionality. The go
+template system also provides a mechanism for applications to extend the
+available functions with their own. <a href="/layout/functions">Hugo template
+functions</a> provide some additional functionality we believe
+are useful for building websites. Functions are called by using their name
+followed by the required parameters separated by spaces. Template
+functions cannot be added without recompiling hugo.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>{{ add 1 2 }}
+</code></pre>
+
+<h2 id="includes">Includes</h2>
+
+<p>When including another template you will pass to it the data it will be
+able to access. To pass along the current context please remember to
+include a trailing dot. The templates location will always be starting at
+the /layout/ directory within Hugo.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>{{ template &quot;chrome/header.html&quot; . }}
+</code></pre>
+
+<h2 id="logic">Logic</h2>
+
+<p>Go templates provide the most basic iteration and conditional logic.</p>
+
+<h3 id="iteration">Iteration</h3>
+
+<p>Just like in go, the go templates make heavy use of range to iterate over
+a map, array or slice. The following are different examples of how to use
+range.</p>
+
+<p><strong>Example 1: Using Context</strong></p>
+
+<pre><code>{{ range array }} 
+    {{ . }}
+{{ end }}
+</code></pre>
+
+<p><strong>Example 2: Declaring value variable name</strong></p>
+
+<pre><code>{{range $element := array}} 
+    {{ $element }} 
+{{ end }}
+</code></pre>
+
+<p><strong>Example 2: Declaring key and value variable name</strong></p>
+
+<pre><code>{{range $index, $element := array}}
+    {{ $index }} 
+    {{ $element }} 
+{{ end }}
+</code></pre>
+
+<h3 id="conditionals">Conditionals</h3>
+
+<p>If, else, with, or, &amp; and provide the framework for handling conditional
+logic in Go Templates. Like range, each statement is closed with <code>end</code>.</p>
+
+<p>Go Templates treat the following values as false:</p>
+
+<ul>
+<li>false</li>
+<li>0</li>
+<li>any array, slice, map, or string of length zero</li>
+</ul>
+
+<p><strong>Example 1: If</strong></p>
+
+<pre><code>{{ if isset .Params &quot;title&quot; }}&lt;h4&gt;{{ index .Params &quot;title&quot; }}&lt;/h4&gt;{{ end }}
+</code></pre>
+
+<p><strong>Example 2: If -&gt; Else</strong></p>
+
+<pre><code>{{ if isset .Params &quot;alt&quot; }} 
+    {{ index .Params &quot;alt&quot; }}
+{{else}}
+    {{ index .Params &quot;caption&quot; }}
+{{ end }}
+</code></pre>
+
+<p><strong>Example 3: And &amp; Or</strong></p>
+
+<pre><code>{{ if and (or (isset .Params &quot;title&quot;) (isset .Params &quot;caption&quot;)) (isset .Params &quot;attr&quot;)}}
+</code></pre>
+
+<p><strong>Example 4: With</strong></p>
+
+<p>An alternative way of writing &ldquo;if&rdquo; and then referencing the same value
+is to use &ldquo;with&rdquo; instead. With rebinds the context <code>.</code> within its scope,
+and skips the block if the variable is absent.</p>
+
+<p>The first example above could be simplified as:</p>
+
+<pre><code>{{ with .Params.title }}&lt;h4&gt;{{ . }}&lt;/h4&gt;{{ end }}
+</code></pre>
+
+<p><strong>Example 5: If -&gt; Else If</strong></p>
+
+<pre><code>{{ if isset .Params &quot;alt&quot; }} 
+    {{ index .Params &quot;alt&quot; }}
+{{ else if isset .Params &quot;caption&quot; }}
+    {{ index .Params &quot;caption&quot; }}
+{{ end }}
+</code></pre>
+
+<h2 id="pipes">Pipes</h2>
+
+<p>One of the most powerful components of go templates is the ability to
+stack actions one after another. This is done by using pipes. Borrowed
+from unix pipes, the concept is simple, each pipeline&rsquo;s output becomes the
+input of the following pipe.</p>
+
+<p>Because of the very simple syntax of go templates, the pipe is essential
+to being able to chain together function calls. One limitation of the
+pipes is that they only can work with a single value and that value
+becomes the last parameter of the next pipeline.</p>
+
+<p>A few simple examples should help convey how to use the pipe.</p>
+
+<p><strong>Example 1 :</strong></p>
+
+<pre><code>{{ if eq 1 1 }} Same {{ end }}
+</code></pre>
+
+<p>is the same as</p>
+
+<pre><code>{{ eq 1 1 | if }} Same {{ end }}
+</code></pre>
+
+<p>It does look odd to place the if at the end, but it does provide a good
+illustration of how to use the pipes.</p>
+
+<p><strong>Example 2 :</strong></p>
+
+<pre><code>{{ index .Params &quot;disqus_url&quot; | html }}
+</code></pre>
+
+<p>Access the page parameter called &ldquo;disqus_url&rdquo; and escape the HTML.</p>
+
+<p><strong>Example 3 :</strong></p>
+
+<pre><code>{{ if or (or (isset .Params &quot;title&quot;) (isset .Params &quot;caption&quot;)) (isset .Params &quot;attr&quot;)}}
+Stuff Here
+{{ end }}
+</code></pre>
+
+<p>Could be rewritten as</p>
+
+<pre><code>{{  isset .Params &quot;caption&quot; | or isset .Params &quot;title&quot; | or isset .Params &quot;attr&quot; | if }}
+Stuff Here 
+{{ end }}
+</code></pre>
+
+<h2 id="context-aka-the-dot">Context (aka. the dot)</h2>
+
+<p>The most easily overlooked concept to understand about go templates is that {{ . }}
+always refers to the current context. In the top level of your template this
+will be the data set made available to it. Inside of a iteration it will have
+the value of the current item. When inside of a loop the context has changed. .
+will no longer refer to the data available to the entire page. If you need to
+access this from within the loop you will likely want to set it to a variable
+instead of depending on the context.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>  {{ $title := .Site.Title }}
+  {{ range .Params.tags }}
+    &lt;li&gt; &lt;a href=&quot;{{ $baseurl }}/tags/{{ . | urlize }}&quot;&gt;{{ . }}&lt;/a&gt; - {{ $title }} &lt;/li&gt;
+  {{ end }}
+</code></pre>
+
+<p>Notice how once we have entered the loop the value of {{ . }} has changed. We
+have defined a variable outside of the loop so we have access to it from within
+the loop.</p>
+
+<h1 id="hugo-parameters">Hugo Parameters</h1>
+
+<p>Hugo provides the option of passing values to the template language
+through the site configuration (for sitewide values), or through the meta
+data of each specific piece of content. You can define any values of any
+type (supported by your front matter/config format) and use them however
+you want to inside of your templates.</p>
+
+<h2 id="using-content-page-parameters">Using Content (page) Parameters</h2>
+
+<p>In each piece of content you can provide variables to be used by the
+templates. This happens in the <a href="/content/front-matter">front matter</a>.</p>
+
+<p>An example of this is used in this documentation site. Most of the pages
+benefit from having the table of contents provided. Sometimes the TOC just
+doesn&rsquo;t make a lot of sense. We&rsquo;ve defined a variable in our front matter
+of some pages to turn off the TOC from being displayed.</p>
+
+<p>Here is the example front matter:</p>
+
+<pre><code>---
+title: &quot;Permalinks&quot;
+date: &quot;2013-11-18&quot;
+aliases:
+  - &quot;/doc/permalinks/&quot;
+groups: [&quot;extras&quot;]
+groups_weight: 30
+notoc: true
+---
+</code></pre>
+
+<p>Here is the corresponding code inside of the template:</p>
+
+<pre><code>  {{ if not .Params.notoc }}
+    &lt;div id=&quot;toc&quot; class=&quot;well col-md-4 col-sm-6&quot;&gt;
+    {{ .TableOfContents }}
+    &lt;/div&gt;
+  {{ end }}
+</code></pre>
+
+<h2 id="using-site-config-parameters">Using Site (config) Parameters</h2>
+
+<p>In your top-level configuration file (eg, <code>config.yaml</code>) you can define site
+parameters, which are values which will be available to you in chrome.</p>
+
+<p>For instance, you might declare:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">params:
+  CopyrightHTML: <span style="color:#e6db74">&#34;Copyright &amp;#xA9; 2013 John Doe. All Rights Reserved.&#34;</span>
+  TwitterUser: <span style="color:#e6db74">&#34;spf13&#34;</span>
+  SidebarRecentLimit: <span style="color:#ae81ff">5</span></code></pre></div>
+<p>Within a footer layout, you might then declare a <code>&lt;footer&gt;</code> which is only
+provided if the <code>CopyrightHTML</code> parameter is provided, and if it is given,
+you would declare it to be HTML-safe, so that the HTML entity is not escaped
+again.  This would let you easily update just your top-level config file each
+January 1st, instead of hunting through your templates.</p>
+
+<pre><code>{{if .Site.Params.CopyrightHTML}}&lt;footer&gt;
+&lt;div class=&quot;text-center&quot;&gt;{{.Site.Params.CopyrightHTML | safeHtml}}&lt;/div&gt;
+&lt;/footer&gt;{{end}}
+</code></pre>
+
+<p>An alternative way of writing the &ldquo;if&rdquo; and then referencing the same value
+is to use &ldquo;with&rdquo; instead. With rebinds the context <code>.</code> within its scope,
+and skips the block if the variable is absent:</p>
+
+<pre><code>{{with .Site.Params.TwitterUser}}&lt;span class=&quot;twitter&quot;&gt;
+&lt;a href=&quot;https://twitter.com/{{.}}&quot; rel=&quot;author&quot;&gt;
+&lt;img src=&quot;/images/twitter.png&quot; width=&quot;48&quot; height=&quot;48&quot; title=&quot;Twitter: {{.}}&quot;
+ alt=&quot;Twitter&quot;&gt;&lt;/a&gt;
+&lt;/span&gt;{{end}}
+</code></pre>
+
+<p>Finally, if you want to pull &ldquo;magic constants&rdquo; out of your layouts, you can do
+so, such as in this example:</p>
+
+<pre><code>&lt;nav class=&quot;recent&quot;&gt;
+  &lt;h1&gt;Recent Posts&lt;/h1&gt;
+  &lt;ul&gt;{{range first .Site.Params.SidebarRecentLimit .Site.Recent}}
+    &lt;li&gt;&lt;a href=&quot;{{.RelPermalink}}&quot;&gt;{{.Title}}&lt;/a&gt;&lt;/li&gt;
+  {{end}}&lt;/ul&gt;
+&lt;/nav&gt;
+</code></pre>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Getting Started with Hugo</title>
+            <link>https://palagend.github.io/posts/2014/04/getting-started-with-hugo/</link>
+            <pubDate>Wed, 02 Apr 2014 00:00:00 +0000</pubDate>
+            
+            <guid>https://palagend.github.io/posts/2014/04/getting-started-with-hugo/</guid>
+            <description>Step 1. Install Hugo Goto hugo releases and download the appropriate version for your os and architecture.
+Save it somewhere specific as we will be using it in the next step.
+More complete instructions are available at installing hugo
+Step 2. Build the Docs Hugo has its own example site which happens to also be the documentation site you are reading right now.
+Follow the following steps:
+ Clone the hugo repository Go into the repo Run hugo in server mode and build the docs Open your browser to http://localhost:1313  Corresponding pseudo commands:</description>
+            <content type="html"><![CDATA[
+
+<h2 id="step-1-install-hugo">Step 1. Install Hugo</h2>
+
+<p>Goto <a href="https://github.com/spf13/hugo/releases" target="_blank">hugo releases</a> and download the
+appropriate version for your os and architecture.</p>
+
+<p>Save it somewhere specific as we will be using it in the next step.</p>
+
+<p>More complete instructions are available at <a href="/overview/installing/">installing hugo</a></p>
+
+<h2 id="step-2-build-the-docs">Step 2. Build the Docs</h2>
+
+<p>Hugo has its own example site which happens to also be the documentation site
+you are reading right now.</p>
+
+<p>Follow the following steps:</p>
+
+<ol>
+<li>Clone the <a href="http://github.com/spf13/hugo" target="_blank">hugo repository</a></li>
+<li>Go into the repo</li>
+<li>Run hugo in server mode and build the docs</li>
+<li>Open your browser to <a href="http://localhost:1313" target="_blank">http://localhost:1313</a></li>
+</ol>
+
+<p>Corresponding pseudo commands:</p>
+
+<pre><code>git clone https://github.com/spf13/hugo
+cd hugo
+/path/to/where/you/installed/hugo server --source=./docs
+&gt; 29 pages created
+&gt; 0 tags index created
+&gt; in 27 ms
+&gt; Web Server is available at http://localhost:1313
+&gt; Press ctrl+c to stop
+</code></pre>
+
+<p>Once you&rsquo;ve gotten here, follow along the rest of this page on your local build.</p>
+
+<h2 id="step-3-change-the-docs-site">Step 3. Change the docs site</h2>
+
+<p>Stop the Hugo process by hitting ctrl+c.</p>
+
+<p>Now we are going to run hugo again, but this time with hugo in watch mode.</p>
+
+<pre><code>/path/to/hugo/from/step/1/hugo server --source=./docs --watch
+&gt; 29 pages created
+&gt; 0 tags index created
+&gt; in 27 ms
+&gt; Web Server is available at http://localhost:1313
+&gt; Watching for changes in /Users/spf13/Code/hugo/docs/content
+&gt; Press ctrl+c to stop
+</code></pre>
+
+<p>Open your <a href="http://vim.spf13.com" target="_blank">favorite editor</a> and change one of the source
+content pages. How about changing this very file to <em>fix the typo</em>. How about changing this very file to <em>fix the typo</em>.</p>
+
+<p>Content files are found in <code>docs/content/</code>. Unless otherwise specified, files
+are located at the same relative location as the url, in our case
+<code>docs/content/overview/quickstart.md</code>.</p>
+
+<p>Change and save this file.. Notice what happened in your terminal.</p>
+
+<pre><code>&gt; Change detected, rebuilding site
+
+&gt; 29 pages created
+&gt; 0 tags index created
+&gt; in 26 ms
+</code></pre>
+
+<p>Refresh the browser and observe that the typo is now fixed.</p>
+
+<p>Notice how quick that was. Try to refresh the site before it&rsquo;s finished building.. I double dare you.
+Having nearly instant feedback enables you to have your creativity flow without waiting for long builds.</p>
+
+<h2 id="step-4-have-fun">Step 4. Have fun</h2>
+
+<p>The best way to learn something is to play with it.</p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Migrate to Hugo from Jekyll</title>
+            <link>https://palagend.github.io/posts/2014/03/migrate-to-hugo-from-jekyll/</link>
+            <pubDate>Mon, 10 Mar 2014 00:00:00 +0000</pubDate>
+            
+            <guid>https://palagend.github.io/posts/2014/03/migrate-to-hugo-from-jekyll/</guid>
+            <description>Move static content to static Jekyll has a rule that any directory not starting with _ will be copied as-is to the _site output. Hugo keeps all static content under static. You should therefore move it all there. With Jekyll, something that looked like
+▾ &amp;lt;root&amp;gt;/ ▾ images/ logo.png  should become
+▾ &amp;lt;root&amp;gt;/ ▾ static/ ▾ images/ logo.png  Additionally, you&amp;rsquo;ll want any files that should reside at the root (such as CNAME) to be moved to static.</description>
+            <content type="html"><![CDATA[
+
+<h2 id="move-static-content-to-static">Move static content to <code>static</code></h2>
+
+<p>Jekyll has a rule that any directory not starting with <code>_</code> will be copied as-is to the <code>_site</code> output. Hugo keeps all static content under <code>static</code>. You should therefore move it all there.
+With Jekyll, something that looked like</p>
+
+<pre><code>▾ &lt;root&gt;/
+    ▾ images/
+        logo.png
+</code></pre>
+
+<p>should become</p>
+
+<pre><code>▾ &lt;root&gt;/
+    ▾ static/
+        ▾ images/
+            logo.png
+</code></pre>
+
+<p>Additionally, you&rsquo;ll want any files that should reside at the root (such as <code>CNAME</code>) to be moved to <code>static</code>.</p>
+
+<h2 id="create-your-hugo-configuration-file">Create your Hugo configuration file</h2>
+
+<p>Hugo can read your configuration as JSON, YAML or TOML. Hugo supports parameters custom configuration too. Refer to the <a href="/overview/configuration/">Hugo configuration documentation</a> for details.</p>
+
+<h2 id="set-your-configuration-publish-folder-to-site">Set your configuration publish folder to <code>_site</code></h2>
+
+<p>The default is for Jekyll to publish to <code>_site</code> and for Hugo to publish to <code>public</code>. If, like me, you have <a href="http://blog.blindgaenger.net/generate_github_pages_in_a_submodule.html" target="_blank"><code>_site</code> mapped to a git submodule on the <code>gh-pages</code> branch</a>, you&rsquo;ll want to do one of two alternatives:</p>
+
+<ol>
+<li><p>Change your submodule to point to map <code>gh-pages</code> to public instead of <code>_site</code> (recommended).</p>
+
+<pre><code>git submodule deinit _site
+git rm _site
+git submodule add -b gh-pages git@github.com:your-username/your-repo.git public
+</code></pre></li>
+
+<li><p>Or, change the Hugo configuration to use <code>_site</code> instead of <code>public</code>.</p>
+
+<pre><code>{
+    ..
+    &quot;publishdir&quot;: &quot;_site&quot;,
+    ..
+}
+</code></pre></li>
+</ol>
+
+<h2 id="convert-jekyll-templates-to-hugo-templates">Convert Jekyll templates to Hugo templates</h2>
+
+<p>That&rsquo;s the bulk of the work right here. The documentation is your friend. You should refer to <a href="http://jekyllrb.com/docs/templates/" target="_blank">Jekyll&rsquo;s template documentation</a> if you need to refresh your memory on how you built your blog and <a href="/layout/templates/">Hugo&rsquo;s template</a> to learn Hugo&rsquo;s way.</p>
+
+<p>As a single reference data point, converting my templates for <a href="http://heyitsalex.net/" target="_blank">heyitsalex.net</a> took me no more than a few hours.</p>
+
+<h2 id="convert-jekyll-plugins-to-hugo-shortcodes">Convert Jekyll plugins to Hugo shortcodes</h2>
+
+<p>Jekyll has <a href="http://jekyllrb.com/docs/plugins/" target="_blank">plugins</a>; Hugo has <a href="/doc/shortcodes/">shortcodes</a>. It&rsquo;s fairly trivial to do a port.</p>
+
+<h3 id="implementation">Implementation</h3>
+
+<p>As an example, I was using a custom <a href="https://github.com/alexandre-normand/alexandre-normand/blob/74bb12036a71334fdb7dba84e073382fc06908ec/_plugins/image_tag.rb" target="_blank"><code>image_tag</code></a> plugin to generate figures with caption when running Jekyll. As I read about shortcodes, I found Hugo had a nice built-in shortcode that does exactly the same thing.</p>
+
+<p>Jekyll&rsquo;s plugin:</p>
+
+<pre><code>module Jekyll
+  class ImageTag &lt; Liquid::Tag
+    @url = nil
+    @caption = nil
+    @class = nil
+    @link = nil
+    // Patterns
+    IMAGE_URL_WITH_CLASS_AND_CAPTION =
+    IMAGE_URL_WITH_CLASS_AND_CAPTION_AND_LINK = /(\w+)(\s+)((https?:\/\/|\/)(\S+))(\s+)&quot;(.*?)&quot;(\s+)-&gt;((https?:\/\/|\/)(\S+))(\s*)/i
+    IMAGE_URL_WITH_CAPTION = /((https?:\/\/|\/)(\S+))(\s+)&quot;(.*?)&quot;/i
+    IMAGE_URL_WITH_CLASS = /(\w+)(\s+)((https?:\/\/|\/)(\S+))/i
+    IMAGE_URL = /((https?:\/\/|\/)(\S+))/i
+    def initialize(tag_name, markup, tokens)
+      super
+      if markup =~ IMAGE_URL_WITH_CLASS_AND_CAPTION_AND_LINK
+        @class   = $1
+        @url     = $3
+        @caption = $7
+        @link = $9
+      elsif markup =~ IMAGE_URL_WITH_CLASS_AND_CAPTION
+        @class   = $1
+        @url     = $3
+        @caption = $7
+      elsif markup =~ IMAGE_URL_WITH_CAPTION
+        @url     = $1
+        @caption = $5
+      elsif markup =~ IMAGE_URL_WITH_CLASS
+        @class = $1
+        @url   = $3
+      elsif markup =~ IMAGE_URL
+        @url = $1
+      end
+    end
+    def render(context)
+      if @class
+        source = &quot;&lt;figure class='#{@class}'&gt;&quot;
+      else
+        source = &quot;&lt;figure&gt;&quot;
+      end
+      if @link
+        source += &quot;&lt;a href=\&quot;#{@link}\&quot;&gt;&quot;
+      end
+      source += &quot;&lt;img src=\&quot;#{@url}\&quot;&gt;&quot;
+      if @link
+        source += &quot;&lt;/a&gt;&quot;
+      end
+      source += &quot;&lt;figcaption&gt;#{@caption}&lt;/figcaption&gt;&quot; if @caption
+      source += &quot;&lt;/figure&gt;&quot;
+      source
+    end
+  end
+end
+Liquid::Template.register_tag('image', Jekyll::ImageTag)
+</code></pre>
+
+<p>is written as this Hugo shortcode:</p>
+
+<pre><code>&lt;!-- image --&gt;
+&lt;figure {{ with .Get &quot;class&quot; }}class=&quot;{{.}}&quot;{{ end }}&gt;
+    {{ with .Get &quot;link&quot;}}&lt;a href=&quot;{{.}}&quot;&gt;{{ end }}
+        &lt;img src=&quot;{{ .Get &quot;src&quot; }}&quot; {{ if or (.Get &quot;alt&quot;) (.Get &quot;caption&quot;) }}alt=&quot;{{ with .Get &quot;alt&quot;}}{{.}}{{else}}{{ .Get &quot;caption&quot; }}{{ end }}&quot;{{ end }} /&gt;
+    {{ if .Get &quot;link&quot;}}&lt;/a&gt;{{ end }}
+    {{ if or (or (.Get &quot;title&quot;) (.Get &quot;caption&quot;)) (.Get &quot;attr&quot;)}}
+    &lt;figcaption&gt;{{ if isset .Params &quot;title&quot; }}
+        {{ .Get &quot;title&quot; }}{{ end }}
+        {{ if or (.Get &quot;caption&quot;) (.Get &quot;attr&quot;)}}&lt;p&gt;
+        {{ .Get &quot;caption&quot; }}
+        {{ with .Get &quot;attrlink&quot;}}&lt;a href=&quot;{{.}}&quot;&gt; {{ end }}
+            {{ .Get &quot;attr&quot; }}
+        {{ if .Get &quot;attrlink&quot;}}&lt;/a&gt; {{ end }}
+        &lt;/p&gt; {{ end }}
+    &lt;/figcaption&gt;
+    {{ end }}
+&lt;/figure&gt;
+&lt;!-- image --&gt;
+</code></pre>
+
+<h3 id="usage">Usage</h3>
+
+<p>I simply changed:</p>
+
+<pre><code>{% image full http://farm5.staticflickr.com/4136/4829260124_57712e570a_o_d.jpg &quot;One of my favorite touristy-type photos. I secretly waited for the good light while we were &quot;having fun&quot; and took this. Only regret: a stupid pole in the top-left corner of the frame I had to clumsily get rid of at post-processing.&quot; -&gt;http://www.flickr.com/photos/alexnormand/4829260124/in/set-72157624547713078/ %}
+</code></pre>
+
+<p>to this (this example uses a slightly extended version named <code>fig</code>, different than the built-in <code>figure</code>):</p>
+
+<pre><code>{{% fig class=&quot;full&quot; src=&quot;http://farm5.staticflickr.com/4136/4829260124_57712e570a_o_d.jpg&quot; title=&quot;One of my favorite touristy-type photos. I secretly waited for the good light while we were having fun and took this. Only regret: a stupid pole in the top-left corner of the frame I had to clumsily get rid of at post-processing.&quot; link=&quot;http://www.flickr.com/photos/alexnormand/4829260124/in/set-72157624547713078/&quot; %}}
+</code></pre>
+
+<p>As a bonus, the shortcode named parameters are, arguably, more readable.</p>
+
+<h2 id="finishing-touches">Finishing touches</h2>
+
+<h3 id="fix-content">Fix content</h3>
+
+<p>Depending on the amount of customization that was done with each post with Jekyll, this step will require more or less effort. There are no hard and fast rules here except that <code>hugo server --watch</code> is your friend. Test your changes and fix errors as needed.</p>
+
+<h3 id="clean-up">Clean up</h3>
+
+<p>You&rsquo;ll want to remove the Jekyll configuration at this point. If you have anything else that isn&rsquo;t used, delete it.</p>
+
+<h2 id="a-practical-example-in-a-diff">A practical example in a diff</h2>
+
+<p><a href="http://heyitsalex.net/" target="_blank">Hey, it&rsquo;s Alex</a> was migrated in less than a <em>father-with-kids day</em> from Jekyll to Hugo. You can see all the changes (and screw-ups) by looking at this <a href="https://github.com/alexandre-normand/alexandre-normand/compare/869d69435bd2665c3fbf5b5c78d4c22759d7613a...b7f6605b1265e83b4b81495423294208cc74d610" target="_blank">diff</a>.</p>
+]]></content>
+        </item>
+        
+    </channel>
 </rss>

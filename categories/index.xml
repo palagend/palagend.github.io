@@ -1,14 +1,51 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Categories on 坂の下の別れ</title>
+    <title>Categories on 困惑的人生</title>
     <link>https://palagend.github.io/categories/</link>
-    <description>Recent content in Categories on 坂の下の別れ</description>
+    <description>Recent content in Categories on 困惑的人生</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Wed, 06 Nov 2019 19:25:28 +0800</lastBuildDate>
     
 	<atom:link href="https://palagend.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>general</title>
+      <link>https://palagend.github.io/categories/general/</link>
+      <pubDate>Wed, 06 Nov 2019 19:25:28 +0800</pubDate>
+      
+      <guid>https://palagend.github.io/categories/general/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>技术</title>
+      <link>https://palagend.github.io/categories/%E6%8A%80%E6%9C%AF/</link>
+      <pubDate>Thu, 19 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://palagend.github.io/categories/%E6%8A%80%E6%9C%AF/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>方法论</title>
+      <link>https://palagend.github.io/categories/%E6%96%B9%E6%B3%95%E8%AE%BA/</link>
+      <pubDate>Fri, 12 Jul 2019 08:23:19 +0800</pubDate>
+      
+      <guid>https://palagend.github.io/categories/%E6%96%B9%E6%B3%95%E8%AE%BA/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>转载</title>
+      <link>https://palagend.github.io/categories/%E8%BD%AC%E8%BD%BD/</link>
+      <pubDate>Thu, 11 Jul 2019 17:12:47 +0800</pubDate>
+      
+      <guid>https://palagend.github.io/categories/%E8%BD%AC%E8%BD%BD/</guid>
+      <description></description>
+    </item>
     
   </channel>
 </rss>

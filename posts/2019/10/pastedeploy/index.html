@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author"
+    content="Arthur Dayne ">
+<meta name="description"
+    content="PasteDeploy 简介 PasteDeploy 是用来发现和配置 WSGI 应用的一个框架，可以方便地从配置文件加载 WSGI 应用。
+PasteDeploy 的安装命令是 pip install PasteDeploy
+PasteDeploy 配置文件 使用 PasteDeploy 都是围绕配置文件展开的，所以了解 PasteDeploy 配置的格式是熟练使用 PasteDeploy 的前提。
+PasteDeploy 的配置文件由若干 section 组成，section 的组成格式如下：
+[type:name]  其中方括号括起来的部分是声明 setion 的起始部分，section 的类型（type）和 section 的名称（name），如：[app:main] 等。section 的 type 可以有：app、composite、filter、pipeline、filter-app 等。
+每个 section 中具体配置项的格式就是基本的 ini 格式：key = value，此外，PasteDeploy 的配置文件中使用 “#” 标注注释。
+在基本了解 PasteDeploy 配置文件的书写格式后，我们不妨看一个实例，来具体了解不同 type 的 section。
+PasteDeploy 中 section 的 type 示例 1：PasteDeploy 配置文件
+[composite:main] use = egg:Paste#urlmap / = home /blog = blog /wiki = wiki /cms = config:cms." />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://palagend.github.io/posts/2019/10/pastedeploy/" />
+
+
+<title>
+    
+    PasteDeploy :: 困惑的人生  — PALAGEND
+    
+</title>
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://palagend.github.io/main.min.7bfbbe12786fa0ded4b4c0d792cbb36a5bd0bdb0b856dde57aa7b1f6fe0f2b87.css">
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://palagend.github.io/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://palagend.github.io/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://palagend.github.io/favicon-16x16.png">
+<link rel="manifest" href="https://palagend.github.io/site.webmanifest">
+<link rel="mask-icon" href="https://palagend.github.io/safari-pinned-tab.svg" color="#252627">
+<link rel="shortcut icon" href="https://palagend.github.io/favicon.ico">
+<meta name="theme-color" content="#252627">
+<meta itemprop="name" content="PasteDeploy">
+<meta itemprop="description" content="PasteDeploy 简介 PasteDeploy 是用来发现和配置 WSGI 应用的一个框架，可以方便地从配置文件加载 WSGI 应用。
+PasteDeploy 的安装命令是 pip install PasteDeploy
+PasteDeploy 配置文件 使用 PasteDeploy 都是围绕配置文件展开的，所以了解 PasteDeploy 配置的格式是熟练使用 PasteDeploy 的前提。
+PasteDeploy 的配置文件由若干 section 组成，section 的组成格式如下：
+[type:name]  其中方括号括起来的部分是声明 setion 的起始部分，section 的类型（type）和 section 的名称（name），如：[app:main] 等。section 的 type 可以有：app、composite、filter、pipeline、filter-app 等。
+每个 section 中具体配置项的格式就是基本的 ini 格式：key = value，此外，PasteDeploy 的配置文件中使用 “#” 标注注释。
+在基本了解 PasteDeploy 配置文件的书写格式后，我们不妨看一个实例，来具体了解不同 type 的 section。
+PasteDeploy 中 section 的 type 示例 1：PasteDeploy 配置文件
+[composite:main] use = egg:Paste#urlmap / = home /blog = blog /wiki = wiki /cms = config:cms.">
+
+
+<meta itemprop="datePublished" content="2019-10-03T16:13:20&#43;08:00" />
+<meta itemprop="dateModified" content="2019-10-03T16:13:20&#43;08:00" />
+<meta itemprop="wordCount" content="477">
+
+
+
+<meta itemprop="keywords" content="untagged," />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://palagend.github.io/"/>
+
+<meta name="twitter:title" content="PasteDeploy"/>
+<meta name="twitter:description" content="PasteDeploy 简介 PasteDeploy 是用来发现和配置 WSGI 应用的一个框架，可以方便地从配置文件加载 WSGI 应用。
+PasteDeploy 的安装命令是 pip install PasteDeploy
+PasteDeploy 配置文件 使用 PasteDeploy 都是围绕配置文件展开的，所以了解 PasteDeploy 配置的格式是熟练使用 PasteDeploy 的前提。
+PasteDeploy 的配置文件由若干 section 组成，section 的组成格式如下：
+[type:name]  其中方括号括起来的部分是声明 setion 的起始部分，section 的类型（type）和 section 的名称（name），如：[app:main] 等。section 的 type 可以有：app、composite、filter、pipeline、filter-app 等。
+每个 section 中具体配置项的格式就是基本的 ini 格式：key = value，此外，PasteDeploy 的配置文件中使用 “#” 标注注释。
+在基本了解 PasteDeploy 配置文件的书写格式后，我们不妨看一个实例，来具体了解不同 type 的 section。
+PasteDeploy 中 section 的 type 示例 1：PasteDeploy 配置文件
+[composite:main] use = egg:Paste#urlmap / = home /blog = blog /wiki = wiki /cms = config:cms."/>
+
+
+
+<meta property="article:section" content="general" />
+
+<meta property="article:published_time" content="2019-10-03 16:13:20 &#43;0800 CST" />
+
+
+
+
+
+
+
+    </head>
+
+    <body class="dark-theme">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://palagend.github.io/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/</span>
+            <span class="logo__cursor"></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://palagend.github.io/about/">About</a></li><li><a href="https://palagend.github.io/posts/">Posts</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>3 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title"><a href="https://palagend.github.io/posts/2019/10/pastedeploy/">PasteDeploy</a></h1>
+
+            
+
+            <div class="post-content">
+                
+
+
+    <img src="https://uploadbeta.com/api/pictures/random/?key=BingEverydayWallpaperPicture"  alt="Bing Everyday"  class="left"  style="border-radius: 8px;"  />
+
+
+
+<h1 id="pastedeploy-简介">PasteDeploy 简介</h1>
+
+<p>PasteDeploy 是用来发现和配置 WSGI 应用的一个框架，可以方便地从配置文件加载 WSGI 应用。</p>
+
+<p>PasteDeploy 的安装命令是 <code>pip install PasteDeploy</code></p>
+
+<h2 id="pastedeploy-配置文件">PasteDeploy 配置文件</h2>
+
+<p>使用 PasteDeploy 都是围绕配置文件展开的，所以了解 PasteDeploy 配置的格式是熟练使用 PasteDeploy 的前提。</p>
+
+<p>PasteDeploy 的配置文件由若干 section 组成，section 的组成格式如下：</p>
+
+<pre><code>[type:name]
+</code></pre>
+
+<p>其中方括号括起来的部分是声明 setion 的起始部分，section 的类型（type）和 section 的名称（name），如：<code>[app:main]</code> 等。section 的 type 可以有：app、composite、filter、pipeline、filter-app 等。</p>
+
+<p>每个 section 中具体配置项的格式就是基本的 ini 格式：key = value，此外，PasteDeploy 的配置文件中使用 “#” 标注注释。</p>
+
+<p>在基本了解 PasteDeploy 配置文件的书写格式后，我们不妨看一个实例，来具体了解不同 type 的 section。</p>
+
+<h3 id="pastedeploy-中-section-的-type">PasteDeploy 中 section 的 type</h3>
+
+<p>示例 1：PasteDeploy 配置文件</p>
+
+<pre><code>[composite:main]
+　　use = egg:Paste#urlmap
+　　/ = home
+　　/blog = blog
+　　/wiki = wiki
+　　/cms = config:cms.ini
+
+[app:home]
+　　use = egg:Paste#static
+　　document_root = %(here)s/htdocs
+
+[app:wiki]
+　　use = call:mywiki.main:application
+　　database = sqlite:/home/me/wiki.db
+
+[filter-app:blog]
+　　use = egg:Authentication#auth
+　　next = blogapp
+　　roles = admin
+　　htpasswd = /home/me/users.htpasswd
+
+[app:blogapp]
+　　use = egg:BlogApp
+　　database = sqlite:/home/me/blog.db
+
+[app:main]
+　　use = egg:MyEgg
+　　filter-with = printdebug
+
+[filter:printdebug]
+　　use = egg:Paste#printdebug
+
+[pipeline:main]
+　　pipeline = filter1 filter2 filter3 app
+</code></pre>
+
+<h4 id="type-composite-组合应用">Type = composite (组合应用)</h4>
+
+<p>顾名思义，组合应用由若干 WSGI 应用组成，composite 为这些应用提供更高一层的分配工作。</p>
+
+<p>我们具体分析示例 1 中的如下部分：</p>
+
+<pre><code>[composite:main]
+use = egg:Paste#urlmap
+/ = home
+/blog = blog
+/wiki = wiki
+/cms = config:cms.ini
+</code></pre>
+
+<p>该段配置文件定义了一个名为 main、类型为 composite 的 section，方括号的声明以下是该 section 的具体配置，遵循 key = value 的统一格式。</p>
+
+<p>Composite 类型的 section 将 URL 请求分配给其他的 WSGI 应用。</p>
+
+<p><code>use = egg:Paste#urlmap</code> 意味着使用 Paste 包中的 urlmap 应用。urlmap 是 Paste 提供的一套通用的 composite 应用，作用就是根据用户请求的 URL 前缀，将用户请求映射到对应的 WSGI 应用上去。这里的 WSGI 应用有：“home”, “blog”, “wiki” 和 “config:cms.ini”。</p>
+
+<p>最后一项仅仅是参考了同一个目录中的另一个文件 &ldquo;cms.ini&rdquo;</p>
+
+<hr />
+
+<p>2.2 Type = app（WSGI应用）
+回到示例1中的下一部分：</p>
+
+<p>[app:home]
+use = egg:Paste#static
+document_root = %(here)s/htdocs</p>
+
+<p>[app:wiki]
+use = call:mywiki.main:application
+database = sqlite:/home/me/wiki.db</p>
+
+<p>app类型的section声明一个具体的WSGI应用。调用哪个python module中的app代码则由的use后的值指定。
+　　这里的 egg:Paste#static 是另一个简单应用，作用仅仅是呈现静态页面。它接收了一个配置项： document_root ，后面的值可以从全局配置DEFAULT中提取，提取方法s是使用变量替换：比如 %(var_name)s 的形式。
+　　这里 %(here)s 的意思是这个示例配置文件所在的目录，因为相对路径在不同服务器中的解释方法不同，出于移植性的考虑，官方文档上推荐当前这种写法。
+　　示例中定义了多个app类型的section，因为PasteDeploy的配置文件中允许定义多个app类型的section，同时要求每个WSGI应用也都应该拥有自己的section。这样，每一个WSGI应用在配置文件中都有一个app类型的section与之对应，默认地，&rdquo;main&rdquo;应用对应于 app:main 或 app 。
+　　应用的具体实现要在section中配置，有两种方法专门用于指出应用对应的代码：使用URI（用use标识）或 直接指向实现代码（用protocol标识）。</p>
+
+<p>2.2.1 使用另一个URI
+采用该方法的特点是指出应用的实现代码的那一条 key = value 配置项采用&rdquo;use&rdquo;作为键，该方法也有许多变种，官方的示例中给出了一些介绍：</p>
+
+<p>[app:myapp]
+use = config:another_config_file.ini#app_name</p>
+
+<h1 id="或任意uri">或任意URI:</h1>
+
+<p>[app:myotherapp]
+use = egg:MyApp</p>
+
+<h1 id="或指明某个模块中的可调用">或指明某个模块中的可调用:</h1>
+
+<p>[app:mythirdapp]
+use = call:my.project:myapplication</p>
+
+<h1 id="甚至是其他的section">甚至是其他的section:</h1>
+
+<p>[app:mylastapp]
+use = myotherapp</p>
+
+<p>最后指向其他的section的那个例子，看起来似乎没有什么意义，似乎只是两个相同的WSGI应用。但是这样的定义允许我们在 [app:mylastapp] 这个应用中定义一些局部的配置项，从而在重用代码的同时覆写它引用的应用配置。</p>
+
+<p>2.2.2 直接指向应用的实现代码
+采用该方法的特点是指出实现代码的那一条 key = value 配置项采用“协议”作为键，所谓“协议”即protocol，告诉PasteDeploy即将加载的对象类型，如：</p>
+
+<p>[app:myapp]
+paste.app_factory = myapp.modulename:app_factory
+1
+2
+该例的protocol paste.app_factory 是一个应用的工厂函数，指明import对象的类型；值 myapp.modulename:app_factory 指明具体加载的模块和方法。
+　　关于PasteDeploy的协议，进而可以定义的工厂函数类型，我们在下文对所有section可选的type有一定的了解后再进行探讨。</p>
+
+<p>2.3　Type = filter（过滤器）
+filter是作用于WSGI应用上的函数或方法，以app为唯一的参数，并返回一个“过滤”后的app。归功于WSGI接口的规范，不同的filter可以依次“过滤”某一app，事实上多个filter处理一个app也就是下文中提到的管道（pipeline）。
+　　在PasteDeploy的配置文件中有多种方法来“过滤”应用，比如示例1中：</p>
+
+<p>[app:main]
+use = egg:MyEgg
+filter-with = printdebug
+[filter:printdebug]
+use = egg:Paste#printdebug</p>
+
+<p>在 [app:main] 的 filter-with 字段指明用来处理该应用的filter，就指定了名为&rdquo;printdebug&rdquo;的filter来处理应用&rdquo;main&rdquo;。在 [filter:printdebug] 中还可以定义新的 filter-with 字段，从而将处理关系延续下去。</p>
+
+<p>2.4 Type = filter-app
+同样是处理应用，在PasteDeploy配置文件中可以有着不同的写法，比如示例1中的下面部分，就是使用filter-app类型的section来声明一个filter：</p>
+
+<p>[filter-app:blog]
+use = egg:Authentication#auth
+next = blogapp
+roles = admin
+htpasswd = /home/me/users.htpasswd</p>
+
+<p>[app:blogapp]
+use = egg:BlogApp
+database = sqlite:/home/me/blog.db</p>
+
+<p>该部分采用了[filter-app:NAME]类型的section声明了一个filter，指定使用的代码，以及要处理的应用： next 字段的值。从而PasteDeploy会自动地将过滤器&rdquo;blog&rdquo;作用在应用&rdquo;blogapp&rdquo;上。</p>
+
+<p>2.5 Type = pipeline
+pipeline便于对一个应用添加多个过滤器，比如示例1中：</p>
+
+<p>[pipeline:main]
+pipeline = filter1 filter2 filter3 app
+1
+2
+就指定了在app上施加三个filter进行处理。
+　　总结起来，想要在某个应用前添加多个filter，共有 [filter-app:…] [pipeline：…] 和 [app:…] filter-with = … 等方法。</p>
+
+<p>3 局部配置与全局配置
+3.1 局部配置与全局配置的格式
+PasteDeploy配置文件的所有配置项均使用 key = value 格式，但是局部配置项和全局配置项定义的位置不同。如：</p>
+
+<p>[app:blog]
+use = egg:MyBlog
+database = mysql://localhost/blogdb
+blogname = This Is My Blog!</p>
+
+<p>[app:otherblog]
+use = blog
+blogname = The other face of my blog</p>
+
+<p>每一个section内设置具体的键值关系，构成这些section自己的局部配置。</p>
+
+<p>为了便于不同的应用读取某些固定的系统信息，PasteDeploy允许设置全局配置变量，所有的全局配置必须放在[DEFAULT]字段下设置，如：</p>
+
+<p>[DEFAULT]
+admin_email = webmaster@example.com</p>
+
+<p>[app:main]
+use = &hellip;
+set admin_email = bob@example.com</p>
+
+<p>注意[DEFAULT]段名是大小写敏感的，因此必须严格大写。</p>
+
+<p>3.2 局部配置和全局配置的覆写
+3.1中的两个例子，实际上展示了局部配置和全局配置的覆写，这里详细介绍，首先看局部配置的覆写：</p>
+
+<p>[app:blog]
+use = egg:MyBlog
+database = mysql://localhost/blogdb
+blogname = This Is My Blog!</p>
+
+<p>[app:otherblog]
+use = blog
+blogname = The other face of my blog</p>
+
+<p>从2.2.1中已经知道，一些section可以直接复用其他section的代码，并定制配置信息，这里 [app:otherblog] 就采用了 [app:blog] 的代码，同时将配置项 blogname 改为自己特定的。
+　　另一方面，应用在本地可以修改全局配置项的值：</p>
+
+<p>[DEFAULT]
+admin_email = webmaster@example.com</p>
+
+<p>[app:main]
+use = &hellip;
+set admin_email = bob@example.com</p>
+
+<p>只需要在要覆写的键前加 set 即可。
+　　至于为什么要探讨局部配置与全局配置，是因为二者在传递给不同类型的factory function时对应的参数不同，这些将在下文详细探讨。</p>
+
+<p>4 实现factory
+本文的第二部分探讨了PasteDeploy中的若干种“协议”，事实上对应了实现时的不同类型，包括 paste.app_factory paste.composite_factory paste.filter_factory paste.server_factory 等。
+　　这些“协议”封装WSGI应用，使其成为app、composite、filter等类型的组件.</p>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://palagend.github.io/tags/untagged">untagged</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>477 Words</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>3109-100-03 1010:1010 &#43;0800</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://palagend.github.io/posts/2019/11/%E6%9D%8E%E5%81%A5%E4%B8%8E%E5%AD%9F%E5%B0%8F%E8%93%93%E7%9A%84%E7%88%B1%E6%83%85%E5%B0%B1%E5%83%8F%E4%BF%A1%E5%A4%A9%E7%BF%81/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">李健与孟小蓓的爱情就像信天翁</span>
+                            </a>
+                        </span>
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://palagend.github.io/posts/2019/09/openstack-source-code-debug/">
+                                <span class="button__text">Openstack Source Code Debug</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>&copy; 2019</span>
+            
+                <span><a href="https://palagend.github.io/">Arthur Dayne</a></span>
+            
+            <span><a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></span>
+            <span> <a href="https://palagend.github.io/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content">
+
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Powered by <a href="http://gohugo.io">Hugo</a></span>
+            <span>Made with &#10084; by <a href="https://github.com/palagend">palagend</a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://palagend.github.io/bundle.min.9e52e68b082cf2a30a7fead88260edb8818fbd7f7831e39674917d4539ec75df41ba88eaddfbd916594ab4fb2a31913b46cf2d6094cf80381edb8c632512a8ca.js" integrity="sha512-nlLmiwgs8qMKf&#43;rYgmDtuIGPvX94MeOWdJF9RTnsdd9Buojq3fvZFllKtPsqMZE7Rs8tYJTPgDge24xjJRKoyg=="></script>
+
+
+
+    </body>
+</html>

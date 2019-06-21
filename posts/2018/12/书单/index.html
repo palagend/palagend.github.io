@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author"
+    content="Arthur Dayne ">
+<meta name="description"
+    content="张小龙2018年微信公开课演讲之个人总结
+Linux网络协议栈
+网络基础之网络协议篇
+从头搭建OpenStack
+Golang正则表达式
+Open vSwitch
+Linux OOM
+OpenStack metadata
+进程釜底抽薪之后&amp;hellip;
+*nix IPC
+openstack虚拟机迁移
+CGroup
+存储基本概念
+Linux错误码表" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://palagend.github.io/posts/2018/12/%E4%B9%A6%E5%8D%95/" />
+
+
+<title>
+    
+    书单 :: 困惑的人生  — PALAGEND
+    
+</title>
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://palagend.github.io/main.min.7bfbbe12786fa0ded4b4c0d792cbb36a5bd0bdb0b856dde57aa7b1f6fe0f2b87.css">
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://palagend.github.io/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://palagend.github.io/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://palagend.github.io/favicon-16x16.png">
+<link rel="manifest" href="https://palagend.github.io/site.webmanifest">
+<link rel="mask-icon" href="https://palagend.github.io/safari-pinned-tab.svg" color="#252627">
+<link rel="shortcut icon" href="https://palagend.github.io/favicon.ico">
+<meta name="theme-color" content="#252627">
+<meta itemprop="name" content="书单">
+<meta itemprop="description" content="张小龙2018年微信公开课演讲之个人总结
+Linux网络协议栈
+网络基础之网络协议篇
+从头搭建OpenStack
+Golang正则表达式
+Open vSwitch
+Linux OOM
+OpenStack metadata
+进程釜底抽薪之后&hellip;
+*nix IPC
+openstack虚拟机迁移
+CGroup
+存储基本概念
+Linux错误码表">
+
+
+<meta itemprop="datePublished" content="2018-12-21T10:59:47&#43;08:00" />
+<meta itemprop="dateModified" content="2018-12-21T10:59:47&#43;08:00" />
+<meta itemprop="wordCount" content="18">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://palagend.github.io/"/>
+
+<meta name="twitter:title" content="书单"/>
+<meta name="twitter:description" content="张小龙2018年微信公开课演讲之个人总结
+Linux网络协议栈
+网络基础之网络协议篇
+从头搭建OpenStack
+Golang正则表达式
+Open vSwitch
+Linux OOM
+OpenStack metadata
+进程釜底抽薪之后&hellip;
+*nix IPC
+openstack虚拟机迁移
+CGroup
+存储基本概念
+Linux错误码表"/>
+
+
+
+<meta property="article:section" content="general" />
+
+<meta property="article:published_time" content="2018-12-21 10:59:47 &#43;0800 CST" />
+
+
+
+
+
+
+
+    </head>
+
+    <body class="dark-theme">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://palagend.github.io/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/</span>
+            <span class="logo__cursor"></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://palagend.github.io/about/">About</a></li><li><a href="https://palagend.github.io/posts/">Posts</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>One minute
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title"><a href="https://palagend.github.io/posts/2018/12/%E4%B9%A6%E5%8D%95/">书单</a></h1>
+
+            
+
+            <div class="post-content">
+                <p><a href="http://jasonding.top/2018/01/16/personal/%E5%BC%A0%E5%B0%8F%E9%BE%992018%E5%B9%B4%E5%BE%AE%E4%BF%A1%E5%85%AC%E5%BC%80%E8%AF%BE%E6%BC%94%E8%AE%B2%E4%B9%8B%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93/" target="_blank">张小龙2018年微信公开课演讲之个人总结</a></p>
+
+<p><a href="http://www.cnblogs.com/sammyliu/p/5225623.html" target="_blank">Linux网络协议栈</a></p>
+
+<p><a href="https://www.cnblogs.com/linhaifeng/articles/5937962.html" target="_blank">网络基础之网络协议篇</a></p>
+
+<p><a href="https://www.cnblogs.com/run4life/p/5217766.html" target="_blank">从头搭建OpenStack</a></p>
+
+<p><a href="https://www.cnblogs.com/golove/p/3269099.html" target="_blank">Golang正则表达式</a></p>
+
+<p><a href="https://www.cnblogs.com/wanstack/p/7606416.html" target="_blank">Open vSwitch</a></p>
+
+<p><a href="https://www.cnblogs.com/jjmcao/p/9450383.html" target="_blank">Linux OOM</a></p>
+
+<p><a href="https://www.ibm.com/developerworks/cn/cloud/library/1509_liukg_openstackmeta/" target="_blank">OpenStack metadata</a></p>
+
+<p><a href="https://blog.csdn.net/lqt641/article/details/60899884" target="_blank">进程釜底抽薪之后&hellip;</a></p>
+
+<p><a href="https://www.cnblogs.com/lnlvinso/p/10872512.html" target="_blank">*nix IPC</a></p>
+
+<p><a href="https://www.cnblogs.com/goldsunshine/p/9588017.html" target="_blank">openstack虚拟机迁移</a></p>
+
+<p><a href="https://www.ibm.com/developerworks/cn/linux/1506_cgroup/index.html" target="_blank">CGroup</a></p>
+
+<p><a href="https://blog.csdn.net/liukuan73/article/details/45506441" target="_blank">存储基本概念</a></p>
+
+<p><a href="https://www.cnblogs.com/fhefh/archive/2011/04/16/2018327.html" target="_blank">Linux错误码表</a></p>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>18 Words</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>21129-120-21 1212:1212 &#43;0800</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://palagend.github.io/posts/2019/06/ceph-arch/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">Ceph Arch</span>
+                            </a>
+                        </span>
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://palagend.github.io/posts/2018/12/%E5%9C%A8windows10%E4%B8%8A%E5%88%A9%E7%94%A8minikube-hyperv%E5%AE%89%E8%A3%85%E5%8D%95%E8%8A%82%E7%82%B9k8s%E9%9B%86%E7%BE%A4/">
+                                <span class="button__text">在Windows10上利用minikube&#43;hyperv安装单节点k8s集群</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>&copy; 2019</span>
+            
+                <span><a href="https://palagend.github.io/">Arthur Dayne</a></span>
+            
+            <span><a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></span>
+            <span> <a href="https://palagend.github.io/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content">
+
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Powered by <a href="http://gohugo.io">Hugo</a></span>
+            <span>Made with &#10084; by <a href="https://github.com/palagend">palagend</a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://palagend.github.io/bundle.min.9e52e68b082cf2a30a7fead88260edb8818fbd7f7831e39674917d4539ec75df41ba88eaddfbd916594ab4fb2a31913b46cf2d6094cf80381edb8c632512a8ca.js" integrity="sha512-nlLmiwgs8qMKf&#43;rYgmDtuIGPvX94MeOWdJF9RTnsdd9Buojq3fvZFllKtPsqMZE7Rs8tYJTPgDge24xjJRKoyg=="></script>
+
+
+
+    </body>
+</html>

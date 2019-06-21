@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author"
+    content="Arthur Dayne ">
+<meta name="description"
+    content="准备好二进制文件 注意本教程使用的版本如下:
+* minikube v0.31.0
+* kubeadm v1.13.1
+* kubelet v1.13.1
+* kubectl v1.13.1
+下载minikube, 下载命令:
+curl -C - -L# -o $HOME/.local/bin/minikube https://github.com/kubernetes/minikube/releases/download/v0.31.0/minikube-windows-amd64  或者从这里下载源码编译
+借助VPN下载二进制文件: kubeadm, kubelet, kubectl, 下载命令:
+#VERSION=$(curl https://storage.googleapis.com/kubernetes-release/release/stable.txt) mkdir -p $HOME/.minikube/cache/v1.13.1 &amp;amp;&amp;amp; \ cd $HOME/.minikube/cache/v1.13.1 &amp;amp;&amp;amp; \ curl -C - -L#O https://storage.googleapis.com/kubernetes-release/release/v1.13.1/bin/windows/amd64/{kubelet,kubeadm,kubectl}  下载kubernetes所需的docker镜像, 脚本内容如下:
+cat download-kubernetes.sh
+#!/bin/bash #本脚本将拉取以下9个images #kube-proxy-amd64:v1.13.1 #kube-controller-manager-amd64:v1.13.1 #kube-scheduler-amd64:v1.13.1 #kube-apiserver-amd64:v1.13.1 #pause-amd64:3.1 #coredns:1.2.6 #etcd-amd64:3.2.24 #kubernetes-dashboard-amd64:v1.10.0 #flannel:v0.10.0-amd64 set -e #运行kubeadm config images list确认指定版本 K8S_VERSION=v1.13.1 ETCD_VERSION=3." />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://palagend.github.io/posts/2018/12/%E5%9C%A8windows10%E4%B8%8A%E5%88%A9%E7%94%A8minikube-hyperv%E5%AE%89%E8%A3%85%E5%8D%95%E8%8A%82%E7%82%B9k8s%E9%9B%86%E7%BE%A4/" />
+
+
+<title>
+    
+    在Windows10上利用minikube&#43;hyperv安装单节点k8s集群 :: 困惑的人生  — PALAGEND
+    
+</title>
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://palagend.github.io/main.min.7bfbbe12786fa0ded4b4c0d792cbb36a5bd0bdb0b856dde57aa7b1f6fe0f2b87.css">
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://palagend.github.io/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://palagend.github.io/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://palagend.github.io/favicon-16x16.png">
+<link rel="manifest" href="https://palagend.github.io/site.webmanifest">
+<link rel="mask-icon" href="https://palagend.github.io/safari-pinned-tab.svg" color="#252627">
+<link rel="shortcut icon" href="https://palagend.github.io/favicon.ico">
+<meta name="theme-color" content="#252627">
+<meta itemprop="name" content="在Windows10上利用minikube&#43;hyperv安装单节点k8s集群">
+<meta itemprop="description" content="准备好二进制文件 注意本教程使用的版本如下:
+* minikube v0.31.0
+* kubeadm v1.13.1
+* kubelet v1.13.1
+* kubectl v1.13.1
+下载minikube, 下载命令:
+curl -C - -L# -o $HOME/.local/bin/minikube https://github.com/kubernetes/minikube/releases/download/v0.31.0/minikube-windows-amd64  或者从这里下载源码编译
+借助VPN下载二进制文件: kubeadm, kubelet, kubectl, 下载命令:
+#VERSION=$(curl https://storage.googleapis.com/kubernetes-release/release/stable.txt) mkdir -p $HOME/.minikube/cache/v1.13.1 &amp;&amp; \ cd $HOME/.minikube/cache/v1.13.1 &amp;&amp; \ curl -C - -L#O https://storage.googleapis.com/kubernetes-release/release/v1.13.1/bin/windows/amd64/{kubelet,kubeadm,kubectl}  下载kubernetes所需的docker镜像, 脚本内容如下:
+cat download-kubernetes.sh
+#!/bin/bash #本脚本将拉取以下9个images #kube-proxy-amd64:v1.13.1 #kube-controller-manager-amd64:v1.13.1 #kube-scheduler-amd64:v1.13.1 #kube-apiserver-amd64:v1.13.1 #pause-amd64:3.1 #coredns:1.2.6 #etcd-amd64:3.2.24 #kubernetes-dashboard-amd64:v1.10.0 #flannel:v0.10.0-amd64 set -e #运行kubeadm config images list确认指定版本 K8S_VERSION=v1.13.1 ETCD_VERSION=3.">
+
+
+<meta itemprop="datePublished" content="2018-12-20T00:55:02&#43;08:00" />
+<meta itemprop="dateModified" content="2018-12-20T00:55:02&#43;08:00" />
+<meta itemprop="wordCount" content="308">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://palagend.github.io/"/>
+
+<meta name="twitter:title" content="在Windows10上利用minikube&#43;hyperv安装单节点k8s集群"/>
+<meta name="twitter:description" content="准备好二进制文件 注意本教程使用的版本如下:
+* minikube v0.31.0
+* kubeadm v1.13.1
+* kubelet v1.13.1
+* kubectl v1.13.1
+下载minikube, 下载命令:
+curl -C - -L# -o $HOME/.local/bin/minikube https://github.com/kubernetes/minikube/releases/download/v0.31.0/minikube-windows-amd64  或者从这里下载源码编译
+借助VPN下载二进制文件: kubeadm, kubelet, kubectl, 下载命令:
+#VERSION=$(curl https://storage.googleapis.com/kubernetes-release/release/stable.txt) mkdir -p $HOME/.minikube/cache/v1.13.1 &amp;&amp; \ cd $HOME/.minikube/cache/v1.13.1 &amp;&amp; \ curl -C - -L#O https://storage.googleapis.com/kubernetes-release/release/v1.13.1/bin/windows/amd64/{kubelet,kubeadm,kubectl}  下载kubernetes所需的docker镜像, 脚本内容如下:
+cat download-kubernetes.sh
+#!/bin/bash #本脚本将拉取以下9个images #kube-proxy-amd64:v1.13.1 #kube-controller-manager-amd64:v1.13.1 #kube-scheduler-amd64:v1.13.1 #kube-apiserver-amd64:v1.13.1 #pause-amd64:3.1 #coredns:1.2.6 #etcd-amd64:3.2.24 #kubernetes-dashboard-amd64:v1.10.0 #flannel:v0.10.0-amd64 set -e #运行kubeadm config images list确认指定版本 K8S_VERSION=v1.13.1 ETCD_VERSION=3."/>
+
+
+
+<meta property="article:section" content="技术" />
+
+<meta property="article:published_time" content="2018-12-20 00:55:02 &#43;0800 CST" />
+
+
+
+
+
+
+
+    </head>
+
+    <body class="dark-theme">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://palagend.github.io/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/</span>
+            <span class="logo__cursor"></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://palagend.github.io/about/">About</a></li><li><a href="https://palagend.github.io/posts/">Posts</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>2 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title"><a href="https://palagend.github.io/posts/2018/12/%E5%9C%A8windows10%E4%B8%8A%E5%88%A9%E7%94%A8minikube-hyperv%E5%AE%89%E8%A3%85%E5%8D%95%E8%8A%82%E7%82%B9k8s%E9%9B%86%E7%BE%A4/">在Windows10上利用minikube+hyperv安装单节点k8s集群</a></h1>
+
+            
+
+            <div class="post-content">
+                
+
+<h2 id="准备好二进制文件">准备好二进制文件</h2>
+
+<p><strong>注意本教程使用的版本如下:</strong><br />
+* minikube v0.31.0<br />
+* kubeadm v1.13.1<br />
+* kubelet v1.13.1<br />
+* kubectl v1.13.1</p>
+
+<p>下载minikube, 下载命令:</p>
+
+<pre><code>curl -C - -L# -o $HOME/.local/bin/minikube https://github.com/kubernetes/minikube/releases/download/v0.31.0/minikube-windows-amd64
+</code></pre>
+
+<p>或者从<a href="https://github.com/palagend/minikube.git" target="_blank">这里</a>下载源码编译</p>
+
+<p>借助VPN下载二进制文件: kubeadm, kubelet, kubectl, 下载命令:</p>
+
+<pre><code>#VERSION=$(curl https://storage.googleapis.com/kubernetes-release/release/stable.txt)
+mkdir -p $HOME/.minikube/cache/v1.13.1 &amp;&amp; \
+cd $HOME/.minikube/cache/v1.13.1 &amp;&amp; \
+curl -C - -L#O https://storage.googleapis.com/kubernetes-release/release/v1.13.1/bin/windows/amd64/{kubelet,kubeadm,kubectl}
+</code></pre>
+
+<p>下载kubernetes所需的docker镜像, 脚本内容如下:<br />
+cat download-kubernetes.sh</p>
+
+<pre><code>#!/bin/bash
+#本脚本将拉取以下9个images
+#kube-proxy-amd64:v1.13.1
+#kube-controller-manager-amd64:v1.13.1
+#kube-scheduler-amd64:v1.13.1
+#kube-apiserver-amd64:v1.13.1
+#pause-amd64:3.1
+#coredns:1.2.6
+#etcd-amd64:3.2.24
+#kubernetes-dashboard-amd64:v1.10.0
+#flannel:v0.10.0-amd64
+
+set -e
+
+#运行kubeadm config images list确认指定版本
+K8S_VERSION=v1.13.1
+ETCD_VERSION=3.2.24
+DASHBOARD_VERSION=v1.10.0
+FLANNEL_VERSION=v0.10.0-amd64
+DNS_VERSION=1.2.6
+PAUSE_VERSION=3.1
+
+## 拉取images
+docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/kube-apiserver-amd64:$K8S_VERSION
+docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/kube-controller-manager-amd64:$K8S_VERSION
+docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/kube-scheduler-amd64:$K8S_VERSION
+docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/kube-proxy-amd64:$K8S_VERSION
+docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/etcd-amd64:$ETCD_VERSION
+docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/pause-amd64:$PAUSE_VERSION
+docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/coredns:$DNS_VERSION
+docker pull registry.cn-hangzhou.aliyuncs.com/kubernetes_containers/flannel:$FLANNEL_VERSION
+docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/kubernetes-dashboard-amd64:$DASHBOARD_VERSION
+
+## 修改tag
+docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/kube-apiserver-amd64:$K8S_VERSION k8s.gcr.io/kube-apiserver:$K8S_VERSION
+docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/kube-controller-manager-amd64:$K8S_VERSION k8s.gcr.io/kube-controller-manager:$K8S_VERSION
+docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/kube-scheduler-amd64:$K8S_VERSION k8s.gcr.io/kube-scheduler:$K8S_VERSION
+docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/kube-proxy-amd64:$K8S_VERSION k8s.gcr.io/kube-proxy:$K8S_VERSION
+docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/etcd-amd64:$ETCD_VERSION k8s.gcr.io/etcd:$ETCD_VERSION
+docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/pause-amd64:$PAUSE_VERSION k8s.gcr.io/pause:$PAUSE_VERSION
+docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/coredns:$DNS_VERSION k8s.gcr.io/coredns:$DNS_VERSION
+docker tag registry.cn-hangzhou.aliyuncs.com/kubernetes_containers/flannel:$FLANNEL_VERSION quay.io/coreos/flannel:$FLANNEL_VERSION
+docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/kubernetes-dashboard-amd64:$DASHBOARD_VERSION k8s.gcr.io/kubernetes-dashboard:$DASHBOARD_VERSION
+
+## 删除原镜像
+docker rmi registry.cn-hangzhou.aliyuncs.com/google_containers/kube-apiserver-amd64:$K8S_VERSION
+docker rmi registry.cn-hangzhou.aliyuncs.com/google_containers/kube-controller-manager-amd64:$K8S_VERSION
+docker rmi registry.cn-hangzhou.aliyuncs.com/google_containers/kube-scheduler-amd64:$K8S_VERSION
+docker rmi registry.cn-hangzhou.aliyuncs.com/google_containers/kube-proxy-amd64:$K8S_VERSION
+docker rmi registry.cn-hangzhou.aliyuncs.com/google_containers/etcd-amd64:$ETCD_VERSION
+docker rmi registry.cn-hangzhou.aliyuncs.com/google_containers/pause-amd64:$PAUSE_VERSION
+docker rmi registry.cn-hangzhou.aliyuncs.com/google_containers/coredns:$DNS_VERSION
+docker rmi registry.cn-hangzhou.aliyuncs.com/kubernetes_containers/flannel:$FLANNEL_VERSION
+docker rmi registry.cn-hangzhou.aliyuncs.com/google_containers/kubernetes-dashboard-amd64:$DASHBOARD_VERSION
+</code></pre>
+
+<p>新建minikube的配置文件<code>$HOME/.minikube/config/config.json</code>, 内容如下:</p>
+
+<pre><code>{
+    &quot;WantReportErrorPrompt&quot;: false,
+    &quot;WantUpdateNotification&quot;: false,
+    &quot;ChangeMinikubeNoneUser&quot;: true,
+    &quot;kubernetes-version&quot;: &quot;v1.13.1&quot;,
+    &quot;vm-driver&quot;: &quot;hyperv&quot;,
+    &quot;hyperv-virtual-switch&quot;: &quot;minikube&quot;,
+    &quot;iso-url&quot;: &quot;https://storage.googleapis.com/minikube/iso/minikube-v0.31.0.iso&quot;
+}
+</code></pre>
+
+<p>启动minikube, 命令如下:</p>
+
+<pre><code>minikube start --vm-driver hyperv --hyperv-virtual-switch minikube --v 0 --alsologtostderr --kubernetes-version v1.13.1
+</code></pre>
+
+<h2 id="简便起见-这里提供了一个安装minikube的脚本-脚本内容如下">简便起见, 这里提供了一个安装minikube的脚本, 脚本内容如下:</h2>
+
+<p>cat install-minikube.sh</p>
+
+<pre><code>#!/bin/bash
+#export http_proxy=http://127.0.0.1:7777
+#export https_proxy=$http_proxy
+export MINIKUBE_WANTUPDATENOTIFICATION=false
+export MINIKUBE_WANTREPORTERRORPROMPT=false
+export MINIKUBE_HOME=$HOME
+export CHANGE_MINIKUBE_NONE_USER=true
+mkdir -p $HOME/.kube
+touch $HOME/.kube/config
+
+export KUBECONFIG=$HOME/.kube/config
+
+mkdir -p ~/.minikube/config &amp;&amp; \
+echo '{
+    &quot;level&quot;: &quot;0&quot;,
+    &quot;kubernetes-version&quot;: &quot;v1.13.1&quot;,
+    &quot;vm-driver&quot;: &quot;hyperv&quot;,
+    &quot;hyperv-virtual-switch&quot;: &quot;minikube&quot;,
+    &quot;iso-url&quot;: &quot;https://storage.googleapis.com/minikube/iso/minikube-v0.31.0.iso&quot;
+}' &gt; ~/.minikube/config/config.json
+
+minikube start
+
+# this for loop waits until kubectl can access the api server that Minikube has created
+for i in {1..150}; do # timeout for 5 minutes
+	kubectl get po &amp;&gt; /dev/null
+	if [ $? -ne 1 ]; then
+		break
+	fi
+	sleep 2
+done
+
+# kubectl commands are now able to interact with Minikube cluster
+</code></pre>
+
+<h2 id="其他">其他</h2>
+
+<p>如果安装失败,请清理旧文件,命令如下:</p>
+
+<pre><code>sudo rm -rf /etc/kubernetes /var/lib/minikube ~/.minikube
+</code></pre>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>308 Words</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>20129-120-20 1212:1212 &#43;0800</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://palagend.github.io/posts/2018/12/%E4%B9%A6%E5%8D%95/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">书单</span>
+                            </a>
+                        </span>
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://palagend.github.io/posts/2018/12/docker%E6%8A%80%E6%9C%AF%E7%AE%80%E4%BB%8B/">
+                                <span class="button__text">Docker技术简介</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>&copy; 2019</span>
+            
+                <span><a href="https://palagend.github.io/">Arthur Dayne</a></span>
+            
+            <span><a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></span>
+            <span> <a href="https://palagend.github.io/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content">
+
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Powered by <a href="http://gohugo.io">Hugo</a></span>
+            <span>Made with &#10084; by <a href="https://github.com/palagend">palagend</a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://palagend.github.io/bundle.min.9e52e68b082cf2a30a7fead88260edb8818fbd7f7831e39674917d4539ec75df41ba88eaddfbd916594ab4fb2a31913b46cf2d6094cf80381edb8c632512a8ca.js" integrity="sha512-nlLmiwgs8qMKf&#43;rYgmDtuIGPvX94MeOWdJF9RTnsdd9Buojq3fvZFllKtPsqMZE7Rs8tYJTPgDge24xjJRKoyg=="></script>
+
+
+
+    </body>
+</html>

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author"
+    content="Arthur Dayne ">
+<meta name="description"
+    content="#虚拟化类型为kvm(type=&#39;kvm&#39;)，可选的还有qemu &amp;lt;domain type=&#39;kvm&#39; xmlns:qemu=&#39;http://libvirt.org/schemas/domain/qemu/1.0&#39;&amp;gt; #虚拟机名字 openstack1-1 &amp;lt;name&amp;gt;openstack1-1&amp;lt;/name&amp;gt; #虚拟机预分配内存8388608K,这个是宿主机允许虚拟机使用的最大内存，并不是在虚拟机里用free看到的内存 &amp;lt;memory unit=&#39;KiB&#39;&amp;gt;8388608&amp;lt;/memory&amp;gt; #虚拟机当前定义内存(8388608)，free看到的内存，可以使用virsh setmem调整内存 &amp;lt;currentMemory unit=&#39;KiB&#39;&amp;gt;8388608&amp;lt;/currentMemory&amp;gt; #虚拟机cpu个数 &amp;lt;vcpu placement=&#39;static&#39;&amp;gt;4&amp;lt;/vcpu&amp;gt; &amp;lt;os&amp;gt; #模拟的系统架构x86_64,模拟机器类型rhel6.5 &amp;lt;type arch=&#39;x86_64&#39; machine=&#39;rhel6.5.0&#39;&amp;gt;hvm&amp;lt;/type&amp;gt; #虚拟机开机引导项，hd：硬盘，cdrom：光盘，即先硬盘，后光盘 &amp;lt;boot dev=&#39;hd&#39;/&amp;gt; &amp;lt;boot dev=&#39;cdrom&#39;/&amp;gt; &amp;lt;bootmenu enable=&#39;yes&#39;/&amp;gt; &amp;lt;bios useserial=&#39;yes&#39; rebootTimeout=&#39;0&#39;/&amp;gt; &amp;lt;/os&amp;gt; &amp;lt;features&amp;gt; &amp;lt;acpi/&amp;gt; &amp;lt;apic/&amp;gt; &amp;lt;pae/&amp;gt; &amp;lt;/features&amp;gt; #虚拟机cpu模拟类型，host-model，使用宿主机cpu的所有可使用特性 &amp;lt;cpu mode=&#39;host-model&#39;&amp;gt; &amp;lt;model fallback=&#39;allow&#39;/&amp;gt; &amp;lt;/cpu&amp;gt; &amp;lt;clock offset=&#39;utc&#39;/&amp;gt; &amp;lt;on_poweroff&amp;gt;destroy&amp;lt;/on_poweroff&amp;gt; &amp;lt;on_reboot&amp;gt;restart&amp;lt;/on_reboot&amp;gt; &amp;lt;on_crash&amp;gt;restart&amp;lt;/on_crash&amp;gt; &amp;lt;devices&amp;gt; #运行虚拟机的程序，qemu-kvm，可以在宿主机使用ps -ef | grep qemu-kvm 看到 &amp;lt;emulator&amp;gt;/usr/libexec/qemu-kvm&amp;lt;/emulator&amp;gt; #定义虚拟机磁盘 &amp;lt;disk type=&#39;file&#39; device=&#39;disk&#39;&amp;gt; #虚拟机磁盘为qcow2格式，如果你创建或使用的磁盘是raw格式，需要修改为raw &amp;lt;driver name=&#39;qemu&#39; type=&#39;qcow2&#39; cache=&#39;none&#39;/&amp;gt; #磁盘路径 &amp;lt;source file=&#39;/data/vhosts/jython/openstack/openstack1-1.disk&#39;/&amp;gt; #第一块为vda，第二块就为vdb，不能重复，重复虚拟机启动报错 &amp;lt;target dev=&#39;vda&#39; bus=&#39;virtio&#39;/&amp;gt; &amp;lt;/disk&amp;gt; &amp;lt;controller type=&#39;ide&#39; index=&#39;0&#39;&amp;gt; &amp;lt;/controller&amp;gt; &amp;lt;controller type=&#39;virtio-serial&#39; index=&#39;0&#39;&amp;gt; &amp;lt;/controller&amp;gt; &amp;lt;controller type=&#39;usb&#39; index=&#39;0&#39;&amp;gt; &amp;lt;/controller&amp;gt; #虚拟机网络为桥接模式bridge，桥接网桥为br-ex，要确保网桥br-ex存在，并且能使用 &amp;lt;interface type=&#39;bridge&#39;&amp;gt; &amp;lt;source bridge=&#39;br-ex&#39;/&amp;gt; &amp;lt;model type=&#39;virtio&#39;/&amp;gt; &amp;lt;/interface&amp;gt; #第二张网卡，如果需要多块网卡，就复制多次 &amp;lt;interface type=&#39;bridge&#39;&amp;gt; &amp;lt;source bridge=&#39;br-ex&#39;/&amp;gt; &amp;lt;model type=&#39;virtio&#39;/&amp;gt; &amp;lt;/interface&amp;gt; &amp;lt;console type=&#39;pty&#39;&amp;gt; &amp;lt;/console&amp;gt; &amp;lt;input type=&#39;mouse&#39; bus=&#39;ps2&#39;/&amp;gt; #使用vnc协议，autoport=&#39;yes&#39;:自动分配端口，从5900开始 &amp;lt;graphics type=&#39;vnc&#39; autoport=&#39;yes&#39; listen=&#39;0." />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://palagend.github.io/posts/2019/06/libvirt-xml/" />
+
+
+<title>
+    
+    Libvirt Xml :: 困惑的人生  — PALAGEND
+    
+</title>
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://palagend.github.io/main.min.7bfbbe12786fa0ded4b4c0d792cbb36a5bd0bdb0b856dde57aa7b1f6fe0f2b87.css">
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://palagend.github.io/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://palagend.github.io/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://palagend.github.io/favicon-16x16.png">
+<link rel="manifest" href="https://palagend.github.io/site.webmanifest">
+<link rel="mask-icon" href="https://palagend.github.io/safari-pinned-tab.svg" color="#252627">
+<link rel="shortcut icon" href="https://palagend.github.io/favicon.ico">
+<meta name="theme-color" content="#252627">
+<meta itemprop="name" content="Libvirt Xml">
+<meta itemprop="description" content="#虚拟化类型为kvm(type=&#39;kvm&#39;)，可选的还有qemu &lt;domain type=&#39;kvm&#39; xmlns:qemu=&#39;http://libvirt.org/schemas/domain/qemu/1.0&#39;&gt; #虚拟机名字 openstack1-1 &lt;name&gt;openstack1-1&lt;/name&gt; #虚拟机预分配内存8388608K,这个是宿主机允许虚拟机使用的最大内存，并不是在虚拟机里用free看到的内存 &lt;memory unit=&#39;KiB&#39;&gt;8388608&lt;/memory&gt; #虚拟机当前定义内存(8388608)，free看到的内存，可以使用virsh setmem调整内存 &lt;currentMemory unit=&#39;KiB&#39;&gt;8388608&lt;/currentMemory&gt; #虚拟机cpu个数 &lt;vcpu placement=&#39;static&#39;&gt;4&lt;/vcpu&gt; &lt;os&gt; #模拟的系统架构x86_64,模拟机器类型rhel6.5 &lt;type arch=&#39;x86_64&#39; machine=&#39;rhel6.5.0&#39;&gt;hvm&lt;/type&gt; #虚拟机开机引导项，hd：硬盘，cdrom：光盘，即先硬盘，后光盘 &lt;boot dev=&#39;hd&#39;/&gt; &lt;boot dev=&#39;cdrom&#39;/&gt; &lt;bootmenu enable=&#39;yes&#39;/&gt; &lt;bios useserial=&#39;yes&#39; rebootTimeout=&#39;0&#39;/&gt; &lt;/os&gt; &lt;features&gt; &lt;acpi/&gt; &lt;apic/&gt; &lt;pae/&gt; &lt;/features&gt; #虚拟机cpu模拟类型，host-model，使用宿主机cpu的所有可使用特性 &lt;cpu mode=&#39;host-model&#39;&gt; &lt;model fallback=&#39;allow&#39;/&gt; &lt;/cpu&gt; &lt;clock offset=&#39;utc&#39;/&gt; &lt;on_poweroff&gt;destroy&lt;/on_poweroff&gt; &lt;on_reboot&gt;restart&lt;/on_reboot&gt; &lt;on_crash&gt;restart&lt;/on_crash&gt; &lt;devices&gt; #运行虚拟机的程序，qemu-kvm，可以在宿主机使用ps -ef | grep qemu-kvm 看到 &lt;emulator&gt;/usr/libexec/qemu-kvm&lt;/emulator&gt; #定义虚拟机磁盘 &lt;disk type=&#39;file&#39; device=&#39;disk&#39;&gt; #虚拟机磁盘为qcow2格式，如果你创建或使用的磁盘是raw格式，需要修改为raw &lt;driver name=&#39;qemu&#39; type=&#39;qcow2&#39; cache=&#39;none&#39;/&gt; #磁盘路径 &lt;source file=&#39;/data/vhosts/jython/openstack/openstack1-1.disk&#39;/&gt; #第一块为vda，第二块就为vdb，不能重复，重复虚拟机启动报错 &lt;target dev=&#39;vda&#39; bus=&#39;virtio&#39;/&gt; &lt;/disk&gt; &lt;controller type=&#39;ide&#39; index=&#39;0&#39;&gt; &lt;/controller&gt; &lt;controller type=&#39;virtio-serial&#39; index=&#39;0&#39;&gt; &lt;/controller&gt; &lt;controller type=&#39;usb&#39; index=&#39;0&#39;&gt; &lt;/controller&gt; #虚拟机网络为桥接模式bridge，桥接网桥为br-ex，要确保网桥br-ex存在，并且能使用 &lt;interface type=&#39;bridge&#39;&gt; &lt;source bridge=&#39;br-ex&#39;/&gt; &lt;model type=&#39;virtio&#39;/&gt; &lt;/interface&gt; #第二张网卡，如果需要多块网卡，就复制多次 &lt;interface type=&#39;bridge&#39;&gt; &lt;source bridge=&#39;br-ex&#39;/&gt; &lt;model type=&#39;virtio&#39;/&gt; &lt;/interface&gt; &lt;console type=&#39;pty&#39;&gt; &lt;/console&gt; &lt;input type=&#39;mouse&#39; bus=&#39;ps2&#39;/&gt; #使用vnc协议，autoport=&#39;yes&#39;:自动分配端口，从5900开始 &lt;graphics type=&#39;vnc&#39; autoport=&#39;yes&#39; listen=&#39;0.">
+
+
+<meta itemprop="datePublished" content="2019-06-29T18:10:08&#43;08:00" />
+<meta itemprop="dateModified" content="2019-06-29T18:10:08&#43;08:00" />
+<meta itemprop="wordCount" content="134">
+
+
+
+<meta itemprop="keywords" content="," />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://palagend.github.io/"/>
+
+<meta name="twitter:title" content="Libvirt Xml"/>
+<meta name="twitter:description" content="#虚拟化类型为kvm(type=&#39;kvm&#39;)，可选的还有qemu &lt;domain type=&#39;kvm&#39; xmlns:qemu=&#39;http://libvirt.org/schemas/domain/qemu/1.0&#39;&gt; #虚拟机名字 openstack1-1 &lt;name&gt;openstack1-1&lt;/name&gt; #虚拟机预分配内存8388608K,这个是宿主机允许虚拟机使用的最大内存，并不是在虚拟机里用free看到的内存 &lt;memory unit=&#39;KiB&#39;&gt;8388608&lt;/memory&gt; #虚拟机当前定义内存(8388608)，free看到的内存，可以使用virsh setmem调整内存 &lt;currentMemory unit=&#39;KiB&#39;&gt;8388608&lt;/currentMemory&gt; #虚拟机cpu个数 &lt;vcpu placement=&#39;static&#39;&gt;4&lt;/vcpu&gt; &lt;os&gt; #模拟的系统架构x86_64,模拟机器类型rhel6.5 &lt;type arch=&#39;x86_64&#39; machine=&#39;rhel6.5.0&#39;&gt;hvm&lt;/type&gt; #虚拟机开机引导项，hd：硬盘，cdrom：光盘，即先硬盘，后光盘 &lt;boot dev=&#39;hd&#39;/&gt; &lt;boot dev=&#39;cdrom&#39;/&gt; &lt;bootmenu enable=&#39;yes&#39;/&gt; &lt;bios useserial=&#39;yes&#39; rebootTimeout=&#39;0&#39;/&gt; &lt;/os&gt; &lt;features&gt; &lt;acpi/&gt; &lt;apic/&gt; &lt;pae/&gt; &lt;/features&gt; #虚拟机cpu模拟类型，host-model，使用宿主机cpu的所有可使用特性 &lt;cpu mode=&#39;host-model&#39;&gt; &lt;model fallback=&#39;allow&#39;/&gt; &lt;/cpu&gt; &lt;clock offset=&#39;utc&#39;/&gt; &lt;on_poweroff&gt;destroy&lt;/on_poweroff&gt; &lt;on_reboot&gt;restart&lt;/on_reboot&gt; &lt;on_crash&gt;restart&lt;/on_crash&gt; &lt;devices&gt; #运行虚拟机的程序，qemu-kvm，可以在宿主机使用ps -ef | grep qemu-kvm 看到 &lt;emulator&gt;/usr/libexec/qemu-kvm&lt;/emulator&gt; #定义虚拟机磁盘 &lt;disk type=&#39;file&#39; device=&#39;disk&#39;&gt; #虚拟机磁盘为qcow2格式，如果你创建或使用的磁盘是raw格式，需要修改为raw &lt;driver name=&#39;qemu&#39; type=&#39;qcow2&#39; cache=&#39;none&#39;/&gt; #磁盘路径 &lt;source file=&#39;/data/vhosts/jython/openstack/openstack1-1.disk&#39;/&gt; #第一块为vda，第二块就为vdb，不能重复，重复虚拟机启动报错 &lt;target dev=&#39;vda&#39; bus=&#39;virtio&#39;/&gt; &lt;/disk&gt; &lt;controller type=&#39;ide&#39; index=&#39;0&#39;&gt; &lt;/controller&gt; &lt;controller type=&#39;virtio-serial&#39; index=&#39;0&#39;&gt; &lt;/controller&gt; &lt;controller type=&#39;usb&#39; index=&#39;0&#39;&gt; &lt;/controller&gt; #虚拟机网络为桥接模式bridge，桥接网桥为br-ex，要确保网桥br-ex存在，并且能使用 &lt;interface type=&#39;bridge&#39;&gt; &lt;source bridge=&#39;br-ex&#39;/&gt; &lt;model type=&#39;virtio&#39;/&gt; &lt;/interface&gt; #第二张网卡，如果需要多块网卡，就复制多次 &lt;interface type=&#39;bridge&#39;&gt; &lt;source bridge=&#39;br-ex&#39;/&gt; &lt;model type=&#39;virtio&#39;/&gt; &lt;/interface&gt; &lt;console type=&#39;pty&#39;&gt; &lt;/console&gt; &lt;input type=&#39;mouse&#39; bus=&#39;ps2&#39;/&gt; #使用vnc协议，autoport=&#39;yes&#39;:自动分配端口，从5900开始 &lt;graphics type=&#39;vnc&#39; autoport=&#39;yes&#39; listen=&#39;0."/>
+
+
+
+<meta property="article:section" content="技术" />
+
+<meta property="article:published_time" content="2019-06-29 18:10:08 &#43;0800 CST" />
+
+
+
+
+
+
+
+    </head>
+
+    <body class="dark-theme">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://palagend.github.io/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/</span>
+            <span class="logo__cursor"></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://palagend.github.io/about/">About</a></li><li><a href="https://palagend.github.io/posts/">Posts</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>One minute
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title"><a href="https://palagend.github.io/posts/2019/06/libvirt-xml/">Libvirt Xml</a></h1>
+
+            
+
+            <div class="post-content">
+                <pre><code>#虚拟化类型为kvm(type='kvm')，可选的还有qemu
+&lt;domain type='kvm' xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0'&gt;
+#虚拟机名字 openstack1-1
+ &lt;name&gt;openstack1-1&lt;/name&gt;
+#虚拟机预分配内存8388608K,这个是宿主机允许虚拟机使用的最大内存，并不是在虚拟机里用free看到的内存
+  &lt;memory unit='KiB'&gt;8388608&lt;/memory&gt;
+#虚拟机当前定义内存(8388608)，free看到的内存，可以使用virsh setmem调整内存
+  &lt;currentMemory unit='KiB'&gt;8388608&lt;/currentMemory&gt;
+#虚拟机cpu个数
+&lt;vcpu placement='static'&gt;4&lt;/vcpu&gt;
+  &lt;os&gt;
+#模拟的系统架构x86_64,模拟机器类型rhel6.5
+    &lt;type arch='x86_64' machine='rhel6.5.0'&gt;hvm&lt;/type&gt;
+#虚拟机开机引导项，hd：硬盘，cdrom：光盘，即先硬盘，后光盘
+    &lt;boot dev='hd'/&gt;
+    &lt;boot dev='cdrom'/&gt;
+    &lt;bootmenu enable='yes'/&gt;
+    &lt;bios useserial='yes' rebootTimeout='0'/&gt;
+  &lt;/os&gt;
+  &lt;features&gt;
+    &lt;acpi/&gt;
+    &lt;apic/&gt;
+    &lt;pae/&gt;
+  &lt;/features&gt;
+#虚拟机cpu模拟类型，host-model，使用宿主机cpu的所有可使用特性
+  &lt;cpu mode='host-model'&gt;
+    &lt;model fallback='allow'/&gt;
+  &lt;/cpu&gt;
+  &lt;clock offset='utc'/&gt;
+  &lt;on_poweroff&gt;destroy&lt;/on_poweroff&gt;
+  &lt;on_reboot&gt;restart&lt;/on_reboot&gt;
+  &lt;on_crash&gt;restart&lt;/on_crash&gt;
+  &lt;devices&gt;
+#运行虚拟机的程序，qemu-kvm，可以在宿主机使用ps -ef | grep qemu-kvm 看到
+    &lt;emulator&gt;/usr/libexec/qemu-kvm&lt;/emulator&gt;
+#定义虚拟机磁盘
+    &lt;disk type='file' device='disk'&gt;
+#虚拟机磁盘为qcow2格式，如果你创建或使用的磁盘是raw格式，需要修改为raw
+      &lt;driver name='qemu' type='qcow2' cache='none'/&gt;
+#磁盘路径
+      &lt;source file='/data/vhosts/jython/openstack/openstack1-1.disk'/&gt;
+#第一块为vda，第二块就为vdb，不能重复，重复虚拟机启动报错
+      &lt;target dev='vda' bus='virtio'/&gt;
+    &lt;/disk&gt;
+    &lt;controller type='ide' index='0'&gt;
+    &lt;/controller&gt;
+    &lt;controller type='virtio-serial' index='0'&gt;
+    &lt;/controller&gt;
+    &lt;controller type='usb' index='0'&gt;
+    &lt;/controller&gt;
+#虚拟机网络为桥接模式bridge，桥接网桥为br-ex，要确保网桥br-ex存在，并且能使用
+    &lt;interface type='bridge'&gt;
+      &lt;source bridge='br-ex'/&gt;
+      &lt;model type='virtio'/&gt;
+    &lt;/interface&gt;
+#第二张网卡，如果需要多块网卡，就复制多次
+    &lt;interface type='bridge'&gt;
+      &lt;source bridge='br-ex'/&gt;
+      &lt;model type='virtio'/&gt;
+    &lt;/interface&gt;
+    &lt;console type='pty'&gt;
+    &lt;/console&gt;
+    &lt;input type='mouse' bus='ps2'/&gt;
+#使用vnc协议，autoport='yes':自动分配端口，从5900开始
+    &lt;graphics type='vnc' autoport='yes' listen='0.0.0.0'&gt;
+      &lt;listen type='address' address='0.0.0.0'/&gt;
+    &lt;/graphics&gt;
+    &lt;video&gt;
+      &lt;model type='cirrus' heads='1'/&gt;
+    &lt;/video&gt;
+#气球内存技术，kvm特性之一
+    &lt;memballoon model='virtio'&gt;
+    &lt;/memballoon&gt;
+  &lt;/devices&gt;
+#下面三行是为了实现多vnc客户端连接，即多个用户使用vnc客户端连接到同一台虚拟机，操作实时同步
+  &lt;qemu:commandline&gt;
+    &lt;qemu:env name='SPICE_DEBUG_ALLOW_MC' value='1'/&gt;
+  &lt;/qemu:commandline&gt;
+&lt;/domain&gt;
+</code></pre>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://palagend.github.io/tags/"></a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>134 Words</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>29069-60-29 66:66 &#43;0800</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://palagend.github.io/posts/2019/07/openstack-instance-ha-propersal/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">Openstack Instance Ha Propersal</span>
+                            </a>
+                        </span>
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://palagend.github.io/posts/2019/06/ceph-arch/">
+                                <span class="button__text">Ceph Arch</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>&copy; 2019</span>
+            
+                <span><a href="https://palagend.github.io/">Arthur Dayne</a></span>
+            
+            <span><a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></span>
+            <span> <a href="https://palagend.github.io/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content">
+
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Powered by <a href="http://gohugo.io">Hugo</a></span>
+            <span>Made with &#10084; by <a href="https://github.com/palagend">palagend</a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://palagend.github.io/bundle.min.9e52e68b082cf2a30a7fead88260edb8818fbd7f7831e39674917d4539ec75df41ba88eaddfbd916594ab4fb2a31913b46cf2d6094cf80381edb8c632512a8ca.js" integrity="sha512-nlLmiwgs8qMKf&#43;rYgmDtuIGPvX94MeOWdJF9RTnsdd9Buojq3fvZFllKtPsqMZE7Rs8tYJTPgDge24xjJRKoyg=="></script>
+
+
+
+    </body>
+</html>

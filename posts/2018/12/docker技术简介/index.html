@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author"
+    content="Arthur Dayne ">
+<meta name="description"
+    content="Docker技术贯穿CI/CD的整个过程，既是基础的技术，又是重要的技术。这里只是想普及一下Docker的技术， 为后续的CI/CD奠定基础，所以尽量从简单通俗的方式介绍Docker技术
+什么是部署 部署就是将开发的应用程序代码和相关文件放置到服务器的指定位置，使得客户端能够通过网络来使用应用程 序提供的服务。
+传统部署 开发人员在本地设置好的环境下开发并调试程序，成功之后提交编译好的程序给 运维人员；然后运维人员在生产服务器上设置好与本地开发环境一致的环境，并把程序上传到服务器启动程序 ，调式无误后，部署工作就算完成了。
+容器部署 开发人员在本地开发并调试完成后，并不只是把编译好的程序提交给运维人 员，而是先将程序代码和相关文件以及程序所以依赖的环境配置一同打包到一个镜像中（Docker镜像），然后 把这个镜像提交到Docker仓库；运维人员只需要在生产服务器上拉取这个镜像到生产服务器，然后基于这个镜 像拉起一个容器，程序在容器里运行，这个容器里已经包含了程序在本地开发时一致的运行环境。
+容器化部署 vs 传统部署 容器部署和传统部署最显著的不同就是对程序运行时环境（runtime environment）的处理上，前者将运行 时环境与程序本身打包在一起，随程序一起发布、部署。后者是将程序发布，但是程序的环境需要在程序所部 署的地方另外设置。 这种区别可以用”国王的皮鞋“来比喻。
+Docker技术的经济效益 这里的牛皮就是运行环境, 脚是应用程序, 崎岖不平的路面是各种各样的生产服务器。 传统部署就是给所有的服务器蒙上一层“牛皮”,然后让“脚”在上面走(运行)；容器部署则是用“牛 皮”包住程序，在服务器上运行，而不需要对服务器做很多的适配工作。
+传统部署方式，对开发人员来说可能比较省事，程序开发调试完毕就可以扔给运维人员了（光着脚走在牛皮大 道上当然是极好的）；容器部署对于运维人员和管理人员来说是比较省心的，只需要拿到开发人员提交过来的 容器镜像在服务器上运行起来就行了，如果容器出了问题只需要更换为新的容器就可以了。这个代价是要求开发 人员多承担了一道制作皮鞋（容器）的工序。
+但是很明显从整体经济效益和管理成本上来讲，容器部署比传统部署更有优势。
+Docker 上面谈了部署的概念，一直在说容器,这里就来看看容器的庐山真面目Docker。其实Docker并不是什么 新技术，而是对原有成熟技术的包装整合形成的生态系统，这个生态系统对开发部署模式产生了深远影响。
+Docker技术中的一些概念  LXC Dockerfile OCI RunC Containerd Kubernetes  LXC Docker基于LXC技术，对操作系统做了一层虚拟化。 每一个容器就像一个“世外桃源”，彼此之间相互隔离（隔离性）。这些“世外桃源”虽然彼此隔 离，但是都生活在“地球”（共的操作系统内核）上，所以它们并不能无节制地使用资源（资源限制）。 Docker对容器的隔离和资源限制并不是自己实现的而是依赖于LXC提供的namespace和cgroup模块来实现的（拿来主义）。
+Dockerfile OCI &amp;amp; RunC  Open Container Initiative，也就是常说的OCI，是由多家公司共同成立的项目，并由linux基金会进行管理，致力于container runtime的标准的制定和runc的开发等工作
+ container有很多种，而docker是其中的一种container。
+OCI -&amp;gt; RunC : Interface -&amp;gt; Implementation
+下图能够解释RunC和Docker的关系： k8s为了与docker解耦合引入CRI项目： 容器化部署的意识 开发时要有容器部署意识(code,data,conf,lib,doc,log)" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://palagend.github.io/posts/2018/12/docker%E6%8A%80%E6%9C%AF%E7%AE%80%E4%BB%8B/" />
+
+
+<title>
+    
+    Docker技术简介 :: 困惑的人生  — PALAGEND
+    
+</title>
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://palagend.github.io/main.min.7bfbbe12786fa0ded4b4c0d792cbb36a5bd0bdb0b856dde57aa7b1f6fe0f2b87.css">
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://palagend.github.io/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://palagend.github.io/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://palagend.github.io/favicon-16x16.png">
+<link rel="manifest" href="https://palagend.github.io/site.webmanifest">
+<link rel="mask-icon" href="https://palagend.github.io/safari-pinned-tab.svg" color="#252627">
+<link rel="shortcut icon" href="https://palagend.github.io/favicon.ico">
+<meta name="theme-color" content="#252627">
+<meta itemprop="name" content="Docker技术简介">
+<meta itemprop="description" content="Docker技术贯穿CI/CD的整个过程，既是基础的技术，又是重要的技术。这里只是想普及一下Docker的技术， 为后续的CI/CD奠定基础，所以尽量从简单通俗的方式介绍Docker技术
+什么是部署 部署就是将开发的应用程序代码和相关文件放置到服务器的指定位置，使得客户端能够通过网络来使用应用程 序提供的服务。
+传统部署 开发人员在本地设置好的环境下开发并调试程序，成功之后提交编译好的程序给 运维人员；然后运维人员在生产服务器上设置好与本地开发环境一致的环境，并把程序上传到服务器启动程序 ，调式无误后，部署工作就算完成了。
+容器部署 开发人员在本地开发并调试完成后，并不只是把编译好的程序提交给运维人 员，而是先将程序代码和相关文件以及程序所以依赖的环境配置一同打包到一个镜像中（Docker镜像），然后 把这个镜像提交到Docker仓库；运维人员只需要在生产服务器上拉取这个镜像到生产服务器，然后基于这个镜 像拉起一个容器，程序在容器里运行，这个容器里已经包含了程序在本地开发时一致的运行环境。
+容器化部署 vs 传统部署 容器部署和传统部署最显著的不同就是对程序运行时环境（runtime environment）的处理上，前者将运行 时环境与程序本身打包在一起，随程序一起发布、部署。后者是将程序发布，但是程序的环境需要在程序所部 署的地方另外设置。 这种区别可以用”国王的皮鞋“来比喻。
+Docker技术的经济效益 这里的牛皮就是运行环境, 脚是应用程序, 崎岖不平的路面是各种各样的生产服务器。 传统部署就是给所有的服务器蒙上一层“牛皮”,然后让“脚”在上面走(运行)；容器部署则是用“牛 皮”包住程序，在服务器上运行，而不需要对服务器做很多的适配工作。
+传统部署方式，对开发人员来说可能比较省事，程序开发调试完毕就可以扔给运维人员了（光着脚走在牛皮大 道上当然是极好的）；容器部署对于运维人员和管理人员来说是比较省心的，只需要拿到开发人员提交过来的 容器镜像在服务器上运行起来就行了，如果容器出了问题只需要更换为新的容器就可以了。这个代价是要求开发 人员多承担了一道制作皮鞋（容器）的工序。
+但是很明显从整体经济效益和管理成本上来讲，容器部署比传统部署更有优势。
+Docker 上面谈了部署的概念，一直在说容器,这里就来看看容器的庐山真面目Docker。其实Docker并不是什么 新技术，而是对原有成熟技术的包装整合形成的生态系统，这个生态系统对开发部署模式产生了深远影响。
+Docker技术中的一些概念  LXC Dockerfile OCI RunC Containerd Kubernetes  LXC Docker基于LXC技术，对操作系统做了一层虚拟化。 每一个容器就像一个“世外桃源”，彼此之间相互隔离（隔离性）。这些“世外桃源”虽然彼此隔 离，但是都生活在“地球”（共的操作系统内核）上，所以它们并不能无节制地使用资源（资源限制）。 Docker对容器的隔离和资源限制并不是自己实现的而是依赖于LXC提供的namespace和cgroup模块来实现的（拿来主义）。
+Dockerfile OCI &amp; RunC  Open Container Initiative，也就是常说的OCI，是由多家公司共同成立的项目，并由linux基金会进行管理，致力于container runtime的标准的制定和runc的开发等工作
+ container有很多种，而docker是其中的一种container。
+OCI -&gt; RunC : Interface -&gt; Implementation
+下图能够解释RunC和Docker的关系： k8s为了与docker解耦合引入CRI项目： 容器化部署的意识 开发时要有容器部署意识(code,data,conf,lib,doc,log)">
+
+
+<meta itemprop="datePublished" content="2018-12-18T20:09:44&#43;08:00" />
+<meta itemprop="dateModified" content="2018-12-18T20:09:44&#43;08:00" />
+<meta itemprop="wordCount" content="82">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://palagend.github.io/"/>
+
+<meta name="twitter:title" content="Docker技术简介"/>
+<meta name="twitter:description" content="Docker技术贯穿CI/CD的整个过程，既是基础的技术，又是重要的技术。这里只是想普及一下Docker的技术， 为后续的CI/CD奠定基础，所以尽量从简单通俗的方式介绍Docker技术
+什么是部署 部署就是将开发的应用程序代码和相关文件放置到服务器的指定位置，使得客户端能够通过网络来使用应用程 序提供的服务。
+传统部署 开发人员在本地设置好的环境下开发并调试程序，成功之后提交编译好的程序给 运维人员；然后运维人员在生产服务器上设置好与本地开发环境一致的环境，并把程序上传到服务器启动程序 ，调式无误后，部署工作就算完成了。
+容器部署 开发人员在本地开发并调试完成后，并不只是把编译好的程序提交给运维人 员，而是先将程序代码和相关文件以及程序所以依赖的环境配置一同打包到一个镜像中（Docker镜像），然后 把这个镜像提交到Docker仓库；运维人员只需要在生产服务器上拉取这个镜像到生产服务器，然后基于这个镜 像拉起一个容器，程序在容器里运行，这个容器里已经包含了程序在本地开发时一致的运行环境。
+容器化部署 vs 传统部署 容器部署和传统部署最显著的不同就是对程序运行时环境（runtime environment）的处理上，前者将运行 时环境与程序本身打包在一起，随程序一起发布、部署。后者是将程序发布，但是程序的环境需要在程序所部 署的地方另外设置。 这种区别可以用”国王的皮鞋“来比喻。
+Docker技术的经济效益 这里的牛皮就是运行环境, 脚是应用程序, 崎岖不平的路面是各种各样的生产服务器。 传统部署就是给所有的服务器蒙上一层“牛皮”,然后让“脚”在上面走(运行)；容器部署则是用“牛 皮”包住程序，在服务器上运行，而不需要对服务器做很多的适配工作。
+传统部署方式，对开发人员来说可能比较省事，程序开发调试完毕就可以扔给运维人员了（光着脚走在牛皮大 道上当然是极好的）；容器部署对于运维人员和管理人员来说是比较省心的，只需要拿到开发人员提交过来的 容器镜像在服务器上运行起来就行了，如果容器出了问题只需要更换为新的容器就可以了。这个代价是要求开发 人员多承担了一道制作皮鞋（容器）的工序。
+但是很明显从整体经济效益和管理成本上来讲，容器部署比传统部署更有优势。
+Docker 上面谈了部署的概念，一直在说容器,这里就来看看容器的庐山真面目Docker。其实Docker并不是什么 新技术，而是对原有成熟技术的包装整合形成的生态系统，这个生态系统对开发部署模式产生了深远影响。
+Docker技术中的一些概念  LXC Dockerfile OCI RunC Containerd Kubernetes  LXC Docker基于LXC技术，对操作系统做了一层虚拟化。 每一个容器就像一个“世外桃源”，彼此之间相互隔离（隔离性）。这些“世外桃源”虽然彼此隔 离，但是都生活在“地球”（共的操作系统内核）上，所以它们并不能无节制地使用资源（资源限制）。 Docker对容器的隔离和资源限制并不是自己实现的而是依赖于LXC提供的namespace和cgroup模块来实现的（拿来主义）。
+Dockerfile OCI &amp; RunC  Open Container Initiative，也就是常说的OCI，是由多家公司共同成立的项目，并由linux基金会进行管理，致力于container runtime的标准的制定和runc的开发等工作
+ container有很多种，而docker是其中的一种container。
+OCI -&gt; RunC : Interface -&gt; Implementation
+下图能够解释RunC和Docker的关系： k8s为了与docker解耦合引入CRI项目： 容器化部署的意识 开发时要有容器部署意识(code,data,conf,lib,doc,log)"/>
+
+
+
+<meta property="article:section" content="general" />
+
+<meta property="article:published_time" content="2018-12-18 20:09:44 &#43;0800 CST" />
+
+
+
+
+
+
+
+    </head>
+
+    <body class="dark-theme">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://palagend.github.io/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/</span>
+            <span class="logo__cursor"></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://palagend.github.io/about/">About</a></li><li><a href="https://palagend.github.io/posts/">Posts</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>One minute
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title"><a href="https://palagend.github.io/posts/2018/12/docker%E6%8A%80%E6%9C%AF%E7%AE%80%E4%BB%8B/">Docker技术简介</a></h1>
+
+            
+
+            <div class="post-content">
+                
+
+<p>Docker技术贯穿CI/CD的整个过程，既是基础的技术，又是重要的技术。这里只是想普及一下Docker的技术，
+为后续的CI/CD奠定基础，所以尽量从简单通俗的方式介绍Docker技术</p>
+
+<hr />
+
+<h2 id="什么是部署">什么是部署</h2>
+
+<p>部署就是将开发的应用程序代码和相关文件放置到服务器的指定位置，使得客户端能够通过网络来使用应用程
+序提供的服务。</p>
+
+<hr />
+
+<h2 id="传统部署">传统部署</h2>
+
+<p>开发人员在本地设置好的环境下开发并调试程序，成功之后提交编译好的程序给
+运维人员；然后运维人员在生产服务器上设置好与本地开发环境一致的环境，并把程序上传到服务器启动程序
+，调式无误后，部署工作就算完成了。</p>
+
+<hr />
+
+<h2 id="容器部署">容器部署</h2>
+
+<hr />
+
+<p>开发人员在本地开发并调试完成后，并不只是把编译好的程序提交给运维人
+员，而是先将程序代码和相关文件以及程序所以依赖的环境配置一同打包到一个镜像中（Docker镜像），然后
+把这个镜像提交到Docker仓库；运维人员只需要在生产服务器上拉取这个镜像到生产服务器，然后基于这个镜
+像拉起一个容器，程序在容器里运行，这个容器里已经包含了程序在本地开发时一致的运行环境。</p>
+
+<hr />
+
+<h2 id="容器化部署-vs-传统部署">容器化部署 vs 传统部署</h2>
+
+<p>容器部署和传统部署最显著的不同就是对程序运行时环境（runtime environment）的处理上，前者将运行
+时环境与程序本身打包在一起，随程序一起发布、部署。后者是将程序发布，但是程序的环境需要在程序所部
+署的地方另外设置。
+这种区别可以用”国王的皮鞋“来比喻。</p>
+
+<hr />
+
+<h2 id="docker技术的经济效益">Docker技术的经济效益</h2>
+
+<p>这里的<strong>牛皮</strong>就是<strong>运行环境</strong>, <strong>脚</strong>是<strong>应用程序</strong>, <strong>崎岖不平的路面</strong>是各种各样的生产服务器。
+<strong>传统部署</strong>就是给所有的服务器蒙上一层“牛皮”,然后让“脚”在上面走(运行)；<strong>容器部署</strong>则是用“牛
+皮”包住程序，在服务器上运行，而不需要对服务器做很多的适配工作。</p>
+
+<hr />
+
+<p>传统部署方式，对开发人员来说可能比较省事，程序开发调试完毕就可以扔给运维人员了（光着脚走在牛皮大
+道上当然是极好的）；容器部署对于运维人员和管理人员来说是比较省心的，只需要拿到开发人员提交过来的
+容器镜像在服务器上运行起来就行了，如果容器出了问题只需要更换为新的容器就可以了。这个代价是要求开发
+人员多承担了一道制作皮鞋（容器）的工序。</p>
+
+<p><strong>但是很明显从整体经济效益和管理成本上来讲，容器部署比传统部署更有优势。</strong></p>
+
+<hr />
+
+<h2 id="docker">Docker</h2>
+
+<p>上面谈了部署的概念，一直在说<strong>容器</strong>,这里就来看看容器的庐山真面目Docker。其实Docker并不是什么
+新技术，而是对原有成熟技术的包装整合形成的生态系统，这个生态系统对开发部署模式产生了深远影响。</p>
+
+<hr />
+
+<h2 id="docker技术中的一些概念">Docker技术中的一些概念</h2>
+
+<ul>
+<li>LXC</li>
+<li>Dockerfile</li>
+<li>OCI RunC Containerd</li>
+<li><del>Kubernetes</del></li>
+</ul>
+
+<hr />
+
+<h3 id="lxc">LXC</h3>
+
+<p><img src="http://s3.51cto.com/wyfs02/M01/59/D0/wKioL1TpsMngc0eRAABiI1fwTec847.jpg" alt="LXC" /><br />
+Docker基于LXC技术，对操作系统做了一层虚拟化。
+每一个容器就像一个“世外桃源”，彼此之间相互隔离（隔离性）。这些“世外桃源”虽然彼此隔
+离，但是都生活在“地球”（共的操作系统内核）上，所以它们并不能无节制地使用资源（资源限制）。
+Docker对容器的隔离和资源限制并不是自己实现的而是依赖于LXC提供的namespace和cgroup模块来实现的（拿来主义）。</p>
+
+<hr />
+
+<h3 id="dockerfile">Dockerfile</h3>
+
+<p><img src="http://s3.51cto.com/wyfs02/M02/59/D4/wKiom1Tpsujj_MwQAAESaE06H8Q505.jpg" alt="Dockerfile" title="Dockerfile" /></p>
+
+<hr />
+
+<h3 id="oci-runc">OCI &amp; RunC</h3>
+
+<blockquote>
+<p>Open Container Initiative，也就是常说的OCI，是由多家公司共同成立的项目，并由linux基金会进行管理，致力于container runtime的标准的制定和runc的开发等工作</p>
+</blockquote>
+
+<p><strong>container有很多种，而docker是其中的一种container。</strong></p>
+
+<p>OCI -&gt; RunC : Interface -&gt; Implementation</p>
+
+<hr />
+
+<p>下图能够解释RunC和Docker的关系：
+<img src="http://xuxinkun.github.io/img/docker-oci-runc-k8s/containerd.png" alt="containerd" /></p>
+
+<hr />
+
+<p>k8s为了与docker解耦合引入CRI项目：
+<img src="http://xuxinkun.github.io/img/docker-oci-runc-k8s/kubelet.png" alt="k8s" /></p>
+
+<hr />
+
+<h2 id="容器化部署的意识">容器化部署的意识</h2>
+
+<p>开发时要有容器部署意识(code,data,conf,lib,doc,log)</p>
+
+<p>应用(app) = 代码(code) + 环境(context)</p>
+
+<hr />
+
+<h2 id="参考链接">参考链接</h2>
+
+<p>要想更全面深入地了解Docker技术可以参考下面这些链接：<br />
+<a href="https://docs.docker.com/" target="_blank">Docker官方文档</a><br />
+<a href="https://linuxcontainers.org/" target="_blank">LXC官方网站</a><br />
+<a href="https://kubernetes.io/" target="_blank">Kubernetes</a><br />
+<a href="https://github.com/opencontainers/runc" target="_blank">RunC</a><br />
+<a href="https://coreos.com/rkt/" target="_blank">RKT</a><br />
+<a href="http://www.docker.org.cn/" target="_blank">Docker中文社区</a><br />
+<a href="https://www.kubernetes.org.cn/" target="_blank">Kubernetes中文社区</a></p>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>82 Words</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>18129-120-18 1212:1212 &#43;0800</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://palagend.github.io/posts/2018/12/%E5%9C%A8windows10%E4%B8%8A%E5%88%A9%E7%94%A8minikube-hyperv%E5%AE%89%E8%A3%85%E5%8D%95%E8%8A%82%E7%82%B9k8s%E9%9B%86%E7%BE%A4/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">在Windows10上利用minikube&#43;hyperv安装单节点k8s集群</span>
+                            </a>
+                        </span>
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://palagend.github.io/posts/2018/12/go%E8%AF%AD%E8%A8%80%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">
+                                <span class="button__text">Go语言源码分析</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>&copy; 2019</span>
+            
+                <span><a href="https://palagend.github.io/">Arthur Dayne</a></span>
+            
+            <span><a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></span>
+            <span> <a href="https://palagend.github.io/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content">
+
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Powered by <a href="http://gohugo.io">Hugo</a></span>
+            <span>Made with &#10084; by <a href="https://github.com/palagend">palagend</a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://palagend.github.io/bundle.min.9e52e68b082cf2a30a7fead88260edb8818fbd7f7831e39674917d4539ec75df41ba88eaddfbd916594ab4fb2a31913b46cf2d6094cf80381edb8c632512a8ca.js" integrity="sha512-nlLmiwgs8qMKf&#43;rYgmDtuIGPvX94MeOWdJF9RTnsdd9Buojq3fvZFllKtPsqMZE7Rs8tYJTPgDge24xjJRKoyg=="></script>
+
+
+
+    </body>
+</html>

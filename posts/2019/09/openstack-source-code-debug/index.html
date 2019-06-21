@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author"
+    content="Arthur Dayne ">
+<meta name="description"
+    content="由于openstack版本迭代的太快，很多上一个版本还能用的东西，下个版本又不能用了，我开始接触的时候是M版，等我上手之后，P版已经成熟，Q版也可以使用了。因为我需要对keystone的架构重写，所以我首先要解决的问题就是调试源代码，虽然通过各种书籍理论知道了keystone的架构模型，但实际自己去动源代码，也是很难的。
+一开始我参考网上给的调试方法，结果发现，由于版本的更迭，很多东西已经不一样了，比如以前keystone自己通过脚本启动，但现在已经是依靠apache2启动了，所以，开篇之前，说明，我的所以代码都来自P版本，而且因为自己摸索时，经常遇到网上大牛给的方法不够详细，导致我无法进行，所以，我会非常详细的说明每个步骤，每个步骤我都会在P版本测试，如有疑问，欢迎交流。这里大家可以先只装keystone模块，后续需要其它模块的时候再继续装，安装就参照官网方法。我这里采用ubuntu版本的。
+第一篇，我们需要对openstack采用的架构作一个简单的说明，要读懂调试源代码，首先我们要知道openstack的基本架构，而openstack每个模块都差不多，所以当我们理解一个之后，后面都可以很轻松的实现。
+首先，openstack采用WSGI框架，这个大家可参考这篇文章，我觉得是我看过最清晰明了的。然后，还需要了解python paste，可以参考这篇文章。开始之前，请确保自己基本了解了这两个东西，这是继续下去的前提。其中paste后面还会涉及一些东西，到时候我会说，这里就先了解一下。
+好了，当你清楚WSGI框架之后，我们来说说apache和keystone的关系，现在版本的keystone已经不需要自己启动了，都是service apache2 start即可，apache其实就是帮助keystone实现了套接字，也就是帮助keystone监听相应端口，这里对应的配置文件是/etc/apache2/sites-available/keystone.conf，同时必须在/etc/apache2/sites-enabled/中建立同名的链接才能生效。
+才看keystone.conf配置文件：
+Listen 5000 Listen 35357 &amp;lt;VirtualHost *:5000&amp;gt; WSGIScriptAlias / /usr/bin/keystone-wsgi-public WSGIDaemonProcess keystone-public processes=5 threads=1 user=keystone group=keystone display-name=%{GROUP} WSGIProcessGroup keystone-public WSGIApplicationGroup %{GLOBAL} WSGIPassAuthorization On LimitRequestBody 114688 &amp;lt;IfVersion &amp;gt;= 2.4&amp;gt; ErrorLogFormat &amp;quot;%{cu}t %M&amp;quot; &amp;lt;/IfVersion&amp;gt; ErrorLog /var/log/apache2/keystone.log CustomLog /var/log/apache2/keystone_access.log combined &amp;lt;Directory /usr/bin&amp;gt; &amp;lt;IfVersion &amp;gt;= 2.4&amp;gt; Require all granted &amp;lt;/IfVersion&amp;gt; &amp;lt;IfVersion &amp;lt; 2.4&amp;gt; Order allow,deny Allow from all &amp;lt;/IfVersion&amp;gt; &amp;lt;/Directory&amp;gt; &amp;lt;/VirtualHost&amp;gt; &amp;lt;VirtualHost *:35357&amp;gt; WSGIScriptAlias / /usr/bin/keystone-wsgi-admin WSGIDaemonProcess keystone-admin processes=5 threads=1 user=keystone group=keystone display-name=%{GROUP} WSGIProcessGroup keystone-admin WSGIApplicationGroup %{GLOBAL} WSGIPassAuthorization On LimitRequestBody 114688 &amp;lt;IfVersion &amp;gt;= 2." />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://palagend.github.io/posts/2019/09/openstack-source-code-debug/" />
+
+
+<title>
+    
+    Openstack Source Code Debug :: 困惑的人生  — PALAGEND
+    
+</title>
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://palagend.github.io/main.min.7bfbbe12786fa0ded4b4c0d792cbb36a5bd0bdb0b856dde57aa7b1f6fe0f2b87.css">
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://palagend.github.io/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://palagend.github.io/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://palagend.github.io/favicon-16x16.png">
+<link rel="manifest" href="https://palagend.github.io/site.webmanifest">
+<link rel="mask-icon" href="https://palagend.github.io/safari-pinned-tab.svg" color="#252627">
+<link rel="shortcut icon" href="https://palagend.github.io/favicon.ico">
+<meta name="theme-color" content="#252627">
+<meta itemprop="name" content="Openstack Source Code Debug">
+<meta itemprop="description" content="由于openstack版本迭代的太快，很多上一个版本还能用的东西，下个版本又不能用了，我开始接触的时候是M版，等我上手之后，P版已经成熟，Q版也可以使用了。因为我需要对keystone的架构重写，所以我首先要解决的问题就是调试源代码，虽然通过各种书籍理论知道了keystone的架构模型，但实际自己去动源代码，也是很难的。
+一开始我参考网上给的调试方法，结果发现，由于版本的更迭，很多东西已经不一样了，比如以前keystone自己通过脚本启动，但现在已经是依靠apache2启动了，所以，开篇之前，说明，我的所以代码都来自P版本，而且因为自己摸索时，经常遇到网上大牛给的方法不够详细，导致我无法进行，所以，我会非常详细的说明每个步骤，每个步骤我都会在P版本测试，如有疑问，欢迎交流。这里大家可以先只装keystone模块，后续需要其它模块的时候再继续装，安装就参照官网方法。我这里采用ubuntu版本的。
+第一篇，我们需要对openstack采用的架构作一个简单的说明，要读懂调试源代码，首先我们要知道openstack的基本架构，而openstack每个模块都差不多，所以当我们理解一个之后，后面都可以很轻松的实现。
+首先，openstack采用WSGI框架，这个大家可参考这篇文章，我觉得是我看过最清晰明了的。然后，还需要了解python paste，可以参考这篇文章。开始之前，请确保自己基本了解了这两个东西，这是继续下去的前提。其中paste后面还会涉及一些东西，到时候我会说，这里就先了解一下。
+好了，当你清楚WSGI框架之后，我们来说说apache和keystone的关系，现在版本的keystone已经不需要自己启动了，都是service apache2 start即可，apache其实就是帮助keystone实现了套接字，也就是帮助keystone监听相应端口，这里对应的配置文件是/etc/apache2/sites-available/keystone.conf，同时必须在/etc/apache2/sites-enabled/中建立同名的链接才能生效。
+才看keystone.conf配置文件：
+Listen 5000 Listen 35357 &lt;VirtualHost *:5000&gt; WSGIScriptAlias / /usr/bin/keystone-wsgi-public WSGIDaemonProcess keystone-public processes=5 threads=1 user=keystone group=keystone display-name=%{GROUP} WSGIProcessGroup keystone-public WSGIApplicationGroup %{GLOBAL} WSGIPassAuthorization On LimitRequestBody 114688 &lt;IfVersion &gt;= 2.4&gt; ErrorLogFormat &quot;%{cu}t %M&quot; &lt;/IfVersion&gt; ErrorLog /var/log/apache2/keystone.log CustomLog /var/log/apache2/keystone_access.log combined &lt;Directory /usr/bin&gt; &lt;IfVersion &gt;= 2.4&gt; Require all granted &lt;/IfVersion&gt; &lt;IfVersion &lt; 2.4&gt; Order allow,deny Allow from all &lt;/IfVersion&gt; &lt;/Directory&gt; &lt;/VirtualHost&gt; &lt;VirtualHost *:35357&gt; WSGIScriptAlias / /usr/bin/keystone-wsgi-admin WSGIDaemonProcess keystone-admin processes=5 threads=1 user=keystone group=keystone display-name=%{GROUP} WSGIProcessGroup keystone-admin WSGIApplicationGroup %{GLOBAL} WSGIPassAuthorization On LimitRequestBody 114688 &lt;IfVersion &gt;= 2.">
+
+
+<meta itemprop="datePublished" content="2019-09-19T17:37:08&#43;08:00" />
+<meta itemprop="dateModified" content="2019-09-19T17:37:08&#43;08:00" />
+<meta itemprop="wordCount" content="345">
+
+
+
+<meta itemprop="keywords" content="untagged," />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://palagend.github.io/"/>
+
+<meta name="twitter:title" content="Openstack Source Code Debug"/>
+<meta name="twitter:description" content="由于openstack版本迭代的太快，很多上一个版本还能用的东西，下个版本又不能用了，我开始接触的时候是M版，等我上手之后，P版已经成熟，Q版也可以使用了。因为我需要对keystone的架构重写，所以我首先要解决的问题就是调试源代码，虽然通过各种书籍理论知道了keystone的架构模型，但实际自己去动源代码，也是很难的。
+一开始我参考网上给的调试方法，结果发现，由于版本的更迭，很多东西已经不一样了，比如以前keystone自己通过脚本启动，但现在已经是依靠apache2启动了，所以，开篇之前，说明，我的所以代码都来自P版本，而且因为自己摸索时，经常遇到网上大牛给的方法不够详细，导致我无法进行，所以，我会非常详细的说明每个步骤，每个步骤我都会在P版本测试，如有疑问，欢迎交流。这里大家可以先只装keystone模块，后续需要其它模块的时候再继续装，安装就参照官网方法。我这里采用ubuntu版本的。
+第一篇，我们需要对openstack采用的架构作一个简单的说明，要读懂调试源代码，首先我们要知道openstack的基本架构，而openstack每个模块都差不多，所以当我们理解一个之后，后面都可以很轻松的实现。
+首先，openstack采用WSGI框架，这个大家可参考这篇文章，我觉得是我看过最清晰明了的。然后，还需要了解python paste，可以参考这篇文章。开始之前，请确保自己基本了解了这两个东西，这是继续下去的前提。其中paste后面还会涉及一些东西，到时候我会说，这里就先了解一下。
+好了，当你清楚WSGI框架之后，我们来说说apache和keystone的关系，现在版本的keystone已经不需要自己启动了，都是service apache2 start即可，apache其实就是帮助keystone实现了套接字，也就是帮助keystone监听相应端口，这里对应的配置文件是/etc/apache2/sites-available/keystone.conf，同时必须在/etc/apache2/sites-enabled/中建立同名的链接才能生效。
+才看keystone.conf配置文件：
+Listen 5000 Listen 35357 &lt;VirtualHost *:5000&gt; WSGIScriptAlias / /usr/bin/keystone-wsgi-public WSGIDaemonProcess keystone-public processes=5 threads=1 user=keystone group=keystone display-name=%{GROUP} WSGIProcessGroup keystone-public WSGIApplicationGroup %{GLOBAL} WSGIPassAuthorization On LimitRequestBody 114688 &lt;IfVersion &gt;= 2.4&gt; ErrorLogFormat &quot;%{cu}t %M&quot; &lt;/IfVersion&gt; ErrorLog /var/log/apache2/keystone.log CustomLog /var/log/apache2/keystone_access.log combined &lt;Directory /usr/bin&gt; &lt;IfVersion &gt;= 2.4&gt; Require all granted &lt;/IfVersion&gt; &lt;IfVersion &lt; 2.4&gt; Order allow,deny Allow from all &lt;/IfVersion&gt; &lt;/Directory&gt; &lt;/VirtualHost&gt; &lt;VirtualHost *:35357&gt; WSGIScriptAlias / /usr/bin/keystone-wsgi-admin WSGIDaemonProcess keystone-admin processes=5 threads=1 user=keystone group=keystone display-name=%{GROUP} WSGIProcessGroup keystone-admin WSGIApplicationGroup %{GLOBAL} WSGIPassAuthorization On LimitRequestBody 114688 &lt;IfVersion &gt;= 2."/>
+
+
+
+<meta property="article:section" content="general" />
+
+<meta property="article:published_time" content="2019-09-19 17:37:08 &#43;0800 CST" />
+
+
+
+
+
+
+
+    </head>
+
+    <body class="dark-theme">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://palagend.github.io/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/</span>
+            <span class="logo__cursor"></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://palagend.github.io/about/">About</a></li><li><a href="https://palagend.github.io/posts/">Posts</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>2 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title"><a href="https://palagend.github.io/posts/2019/09/openstack-source-code-debug/">Openstack Source Code Debug</a></h1>
+
+            
+
+            <div class="post-content">
+                
+    <img src="https://uploadbeta.com/api/pictures/random/?key=BingEverydayWallpaperPicture"  alt="Bing Everyday"  class="left"  style="border-radius: 8px;"  />
+
+
+
+<p>由于openstack版本迭代的太快，很多上一个版本还能用的东西，下个版本又不能用了，我开始接触的时候是M版，等我上手之后，P版已经成熟，Q版也可以使用了。因为我需要对keystone的架构重写，所以我首先要解决的问题就是调试源代码，虽然通过各种书籍理论知道了keystone的架构模型，但实际自己去动源代码，也是很难的。</p>
+
+<p>一开始我参考网上给的调试方法，结果发现，由于版本的更迭，很多东西已经不一样了，比如以前keystone自己通过脚本启动，但现在已经是依靠apache2启动了，所以，开篇之前，说明，我的所以代码都来自P版本，而且因为自己摸索时，经常遇到网上大牛给的方法不够详细，导致我无法进行，所以，我会非常详细的说明每个步骤，每个步骤我都会在P版本测试，如有疑问，欢迎交流。这里大家可以先只装keystone模块，后续需要其它模块的时候再继续装，安装就参照<a href="https://docs.openstack.org/keystone/pike/install/" target="_blank">官网方法</a>。我这里采用ubuntu版本的。</p>
+
+<p>第一篇，我们需要对openstack采用的架构作一个简单的说明，要读懂调试源代码，首先我们要知道openstack的基本架构，而openstack每个模块都差不多，所以当我们理解一个之后，后面都可以很轻松的实现。</p>
+
+<p>首先，openstack采用WSGI框架，这个大家可参考<a href="https://segmentfault.com/a/1190000003069785" target="_blank">这篇文章</a>，我觉得是我看过最清晰明了的。然后，还需要了解python paste，可以参考<a href="https://blog.csdn.net/li_101357/article/details/52755367" target="_blank">这篇文章</a>。开始之前，请确保自己基本了解了这两个东西，这是继续下去的前提。其中paste后面还会涉及一些东西，到时候我会说，这里就先了解一下。</p>
+
+<p>好了，当你清楚WSGI框架之后，我们来说说apache和keystone的关系，现在版本的keystone已经不需要自己启动了，都是service apache2 start即可，apache其实就是帮助keystone实现了套接字，也就是帮助keystone监听相应端口，这里对应的配置文件是/etc/apache2/sites-available/keystone.conf，同时必须在/etc/apache2/sites-enabled/中建立同名的链接才能生效。</p>
+
+<p>才看keystone.conf配置文件：</p>
+
+<pre><code>Listen 5000
+Listen 35357
+
+&lt;VirtualHost *:5000&gt;
+    WSGIScriptAlias / /usr/bin/keystone-wsgi-public
+    WSGIDaemonProcess keystone-public processes=5 threads=1 user=keystone group=keystone display-name=%{GROUP}
+    WSGIProcessGroup keystone-public
+    WSGIApplicationGroup %{GLOBAL}
+    WSGIPassAuthorization On
+    LimitRequestBody 114688
+
+    &lt;IfVersion &gt;= 2.4&gt;
+      ErrorLogFormat &quot;%{cu}t %M&quot;
+    &lt;/IfVersion&gt;
+
+    ErrorLog /var/log/apache2/keystone.log
+    CustomLog /var/log/apache2/keystone_access.log combined
+
+    &lt;Directory /usr/bin&gt;
+        &lt;IfVersion &gt;= 2.4&gt;
+            Require all granted
+        &lt;/IfVersion&gt;
+        &lt;IfVersion &lt; 2.4&gt;
+            Order allow,deny
+            Allow from all
+        &lt;/IfVersion&gt;
+    &lt;/Directory&gt;
+&lt;/VirtualHost&gt;
+
+&lt;VirtualHost *:35357&gt;
+    WSGIScriptAlias / /usr/bin/keystone-wsgi-admin
+    WSGIDaemonProcess keystone-admin processes=5 threads=1 user=keystone group=keystone display-name=%{GROUP}
+    WSGIProcessGroup keystone-admin
+    WSGIApplicationGroup %{GLOBAL}
+    WSGIPassAuthorization On
+    LimitRequestBody 114688
+
+    &lt;IfVersion &gt;= 2.4&gt;
+      ErrorLogFormat &quot;%{cu}t %M&quot;
+    &lt;/IfVersion&gt;
+
+    ErrorLog /var/log/apache2/keystone.log
+    CustomLog /var/log/apache2/keystone_access.log combined
+
+    &lt;Directory /usr/bin&gt;
+        &lt;IfVersion &gt;= 2.4&gt;
+            Require all granted
+        &lt;/IfVersion&gt;
+        &lt;IfVersion &lt; 2.4&gt;
+            Order allow,deny
+            Allow from all
+        &lt;/IfVersion&gt;
+    &lt;/Directory&gt;
+&lt;/VirtualHost&gt;
+
+Alias /identity /usr/bin/keystone-wsgi-public
+&lt;Location /identity&gt;
+    SetHandler wsgi-script
+    Options +ExecCGI
+
+    WSGIProcessGroup keystone-public
+    WSGIApplicationGroup %{GLOBAL}
+    WSGIPassAuthorization On
+&lt;/Location&gt;
+
+Alias /identity_admin /usr/bin/keystone-wsgi-admin
+&lt;Location /identity_admin&gt;
+    SetHandler wsgi-script
+    Options +ExecCGI
+
+    WSGIProcessGroup keystone-admin
+    WSGIApplicationGroup %{GLOBAL}
+    WSGIPassAuthorization On
+&lt;/Location&gt;
+</code></pre>
+
+<p>这里我们可以看到，apache帮助keystone监听5000和35357端口，一个用于admin访问，一个用于普通用户访问。在这里配置文件中，最重要的是WSGIScriptAlias和Alias后面的第二个路径，它会在apache启动的时候创建各种后续会用到的route处理方法。</p>
+
+<p>这里以/usr/bin/keystone-wsgi-public文件为例讲解，查看该文件</p>
+
+<pre><code>#!/usr/bin/python
+#PBR Generated from u'wsgi_scripts'
+
+import threading
+
+from keystone.server.wsgi import initialize_public_application
+
+if __name__ == &quot;__main__&quot;:
+    import argparse
+    import socket
+    import sys
+    import wsgiref.simple_server as wss
+
+    my_ip = socket.gethostbyname(socket.gethostname())
+
+    parser = argparse.ArgumentParser(
+        description=initialize_public_application.__doc__,
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+        usage='%(prog)s [-h] [--port PORT] [--host IP] -- [passed options]')
+    parser.add_argument('--port', '-p', type=int, default=8000,
+                        help='TCP port to listen on')
+    parser.add_argument('--host', '-b', default='',
+                        help='IP to bind the server to')
+    parser.add_argument('args',
+                        nargs=argparse.REMAINDER,
+                        metavar='-- [passed options]',
+                        help=&quot;'--' is the separator of the arguments used &quot;
+                        &quot;to start the WSGI server and the arguments passed &quot;
+                        &quot;to the WSGI application.&quot;)
+    args = parser.parse_args()
+    if args.args:
+        if args.args[0] == '--':
+            args.args.pop(0)
+        else:
+            parser.error(&quot;unrecognized arguments: %s&quot; % ' '.join(args.args))
+    sys.argv[1:] = args.args
+    server = wss.make_server(args.host, args.port, initialize_public_application())
+
+    print(&quot;*&quot; * 80)
+    print(&quot;STARTING test server keystone.server.wsgi.initialize_public_application&quot;)
+    url = &quot;http://%s:%d/&quot; % (server.server_name, server.server_port)
+    print(&quot;Available at %s&quot; % url)
+    print(&quot;DANGER! For testing only, do not use in production&quot;)
+    print(&quot;*&quot; * 80)
+    sys.stdout.flush()
+
+    server.serve_forever()
+else:
+    application = None
+    app_lock = threading.Lock()
+
+    with app_lock:
+        if application is None:
+            application = initialize_public_application()
+</code></pre>
+
+<p>这里可以看到，如果本文件直接运行，会执行上面，否则执行else，这里的if其实留给我们测试的，它的作用是不依赖apache，帮我们创建好socket，并监听端口，默认8000，而apache启动时，其实会跳过socket的创建，因为apache帮我们做了，所以直接初始化application，关于application，请回忆上面的WSGI。那么，既然知道了这个，我们就可以使用这个脚本，直接调试了。</p>
+
+<p>比如，我直接运行这个脚本，</p>
+
+<p><img src="http://s2.ax1x.com/2019/09/19/nLBD3T.png" alt="img1" />
+ </p>
+
+<p>发现keystone就在8000端口启动了，那么我们尝试访问一下keystone服务，比如申请一个token，重开一个终端，设置用于访问的参数</p>
+
+<pre><code>export OS_PROJECT_DOMAIN_NAME=Default
+
+export OS_USER_DOMAIN_NAME=Default
+export OS_PROJECT_NAME=admin
+export OS_USERNAME=admin
+export OS_PASSWORD=123456
+export OS_AUTH_URL=http://controller:8000/v3
+export OS_IDENTITY_API_VERSION=3
+
+export OS_IMAGE_API_VERSION=2
+</code></pre>
+
+<p>大家应该记得，我们直接安装时，如果要访问，就是设置的这些参数，只是这里端口改为了8000，其余是一样，效果如下：</p>
+
+<p><img src="http://s2.ax1x.com/2019/09/19/nLB58K.png" alt="img2" /></p>
+
+<p>同时查看开启服务的终端</p>
+
+<p><img src="http://s2.ax1x.com/2019/09/19/nLDmxU.png" alt="img3" /></p>
+
+<p>发现接收到了请求，说明如我们猜测一样。那么我们再试试在这个脚本里打上断点，我采用pdb调试，不会的可以参考这篇文章，也可以成功进入。（最开始写的时候用的pdb调试，后来发现不好用个，配置了远程调试，这是后面补的 <a href="https://blog.csdn.net/u012198947/article/details/88988321" target="_blank">https://blog.csdn.net/u012198947/article/details/88988321</a>  ，参考这个使用pycharm远程调试，方便好用）</p>
+
+<p>以一张图来说明：</p>
+
+<p><img src="http://s2.ax1x.com/2019/09/19/nLDGPx.png" alt="img4" /></p>
+
+<p> </p>
+
+<p>可以看出initialize_application就是关键代码（在keystone-wsgi-admin中，叫initialize_admin_application，keystone-wsgi-public中叫initialize_public_application，后面会看到，其实都是执行initialize_application），下篇我们就进入initialize_application</p>
+
+<p>————————————————
+版权声明：本文为CSDN博主「dyplm123」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。
+原文链接：<a href="https://blog.csdn.net/u012198947/article/details/79695870" target="_blank">https://blog.csdn.net/u012198947/article/details/79695870</a></p>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://palagend.github.io/tags/untagged">untagged</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>345 Words</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>19099-90-19 99:99 &#43;0800</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://palagend.github.io/posts/2019/10/pastedeploy/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">PasteDeploy</span>
+                            </a>
+                        </span>
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://palagend.github.io/posts/2019/09/linux-/sys%E7%9B%AE%E5%BD%95%E4%B8%8B%E5%90%84%E4%B8%AA%E5%AD%90%E7%9B%AE%E5%BD%95%E8%AF%B4%E6%98%8E/">
+                                <span class="button__text">Linux /sys目录下各个子目录说明</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>&copy; 2019</span>
+            
+                <span><a href="https://palagend.github.io/">Arthur Dayne</a></span>
+            
+            <span><a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></span>
+            <span> <a href="https://palagend.github.io/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content">
+
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Powered by <a href="http://gohugo.io">Hugo</a></span>
+            <span>Made with &#10084; by <a href="https://github.com/palagend">palagend</a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://palagend.github.io/bundle.min.9e52e68b082cf2a30a7fead88260edb8818fbd7f7831e39674917d4539ec75df41ba88eaddfbd916594ab4fb2a31913b46cf2d6094cf80381edb8c632512a8ca.js" integrity="sha512-nlLmiwgs8qMKf&#43;rYgmDtuIGPvX94MeOWdJF9RTnsdd9Buojq3fvZFllKtPsqMZE7Rs8tYJTPgDge24xjJRKoyg=="></script>
+
+
+
+    </body>
+</html>
