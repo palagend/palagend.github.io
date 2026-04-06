@@ -1,0 +1,48 @@
+# 把本文件放到 palagend.github.io 仓库的 .github/workflows/update-posts.yml
+# 作用：每次 push 后自动扫描 content/posts/*.md 重新生成 content/posts.json，
+# 新增/删除 md 文件后清单几秒内自动同步，无需手工维护。
+name: Update posts.json
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch: # 允许手动触发
+
+permissions:
+  contents: write
+
+jobs:
+  update-posts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate content/posts.json
+        run: |
+          python3 - <<'EOF'
+          import json, os
+          posts_dir = 'content/posts'
+          if not os.path.isdir(posts_dir):
+              print('content/posts 目录不存在，跳过')
+              raise SystemExit(0)
+          slugs = sorted(
+              f[:-3] for f in os.listdir(posts_dir)
+              if f.endswith('.md') and os.path.isfile(os.path.join(posts_dir, f))
+          )
+          with open('content/posts.json', 'w', encoding='utf-8') as fp:
+              json.dump(slugs, fp, ensure_ascii=False, indent=2)
+              fp.write('\n')
+          print('已生成清单:', slugs)
+          EOF
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/posts.json
+          if git diff --cached --quiet; then
+            echo "清单无变化"
+          else
+            git commit -m "chore: 自动更新文章清单 posts.json [skip ci]"
+            git push
+          fi

@@ -1,0 +1,4 @@
+.vite
+dist
+dist-vercel
+node_modules
