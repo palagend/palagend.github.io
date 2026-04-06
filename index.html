@@ -1,183 +1,128 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    
-    <title>My New Hugo Site </title>
-    <meta name="HandheldFriendly" content="True">
-    <meta name="MobileOptimized" content="320">
-
-    <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.52" />
-    
-    
-      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
-    
-
-    
-    
-      <link href="/dist/css/app.955516233bcafa4d2a1c13cea63c7b50.css" rel="stylesheet">
-    
-
-    
-
-    
-      
-    
-
-    
-      <link href="https://palagend.github.io/index.xml" rel="alternate" type="application/rss+xml" title="My New Hugo Site" />
-      <link href="https://palagend.github.io/index.xml" rel="feed" type="application/rss+xml" title="My New Hugo Site" />
-    
-
-    <meta property="og:title" content="My New Hugo Site" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://palagend.github.io/" />
-<meta property="og:updated_time" content="2018-12-06T20:13:41&#43;08:00"/>
-
-<meta itemprop="name" content="My New Hugo Site">
-<meta itemprop="description" content="">
-
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="My New Hugo Site"/>
-<meta name="twitter:description" content=""/>
-
-  </head>
-
-  <body class="ma0 avenir bg-near-white">
-
-    
-
-  <header>
-    <div class="pb3-m pb6-l bg-black">
-      <nav class="pv3 ph3 ph4-ns" role="navigation">
-  <div class="flex-l justify-between items-center center">
-    <a href="https://palagend.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
-      My New Hugo Site
-    </a>
-    <div class="flex-l items-center">
-      
-      
-<div hidden>
-  <span id="new-window-0">Opens in a new window</span>
-  <span id="new-window-1">Opens an external site</span>
-  <span id="new-window-2">Opens an external site in a new window</span>
-</div>
-
-
-
-
-
-
-
-
-
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>工具集合</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧰</text></svg>">
+  <style>
+    /* 首屏加载动画 */
+    #app-loading {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    #app-loading.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+    .loading-spinner {
+      width: 60px;
+      height: 60px;
+      border: 4px solid rgba(255, 255, 255, 0.1);
+      border-top-color: #00d4ff;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    .loading-text {
+      margin-top: 20px;
+      color: #fff;
+      font-size: 16px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      letter-spacing: 2px;
+    }
+    .loading-dots::after {
+      content: '';
+      animation: dots 1.5s steps(4, end) infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    @keyframes dots {
+      0%, 20% { content: ''; }
+      40% { content: '.'; }
+      60% { content: '..'; }
+      80%, 100% { content: '...'; }
+    }
+    /* 进度条 */
+    .progress-bar {
+      width: 200px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 2px;
+      margin-top: 30px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #00d4ff, #7b2cbf);
+      border-radius: 2px;
+      animation: progress 2s ease-in-out infinite;
+      transform-origin: left;
+    }
+    @keyframes progress {
+      0% { transform: scaleX(0); }
+      50% { transform: scaleX(0.7); }
+      100% { transform: scaleX(1); }
+    }
+  </style>
+  <script type="module" crossorigin src="/js/index-B3JyYIom.js"></script>
+  <link rel="modulepreload" crossorigin href="/js/chunk-rolldown-runtime-DUsYv1c8.js">
+  <link rel="modulepreload" crossorigin href="/js/chunk-app-core-CqTwKe9C.js">
+  <link rel="modulepreload" crossorigin href="/js/chunk-feature-mobile-DLUAlXIH.js">
+  <link rel="modulepreload" crossorigin href="/js/chunk-feature-portfolio-TPzxfUWY.js">
+  <link rel="modulepreload" crossorigin href="/js/chunk-feature-tools-Cr0wjVNT.js">
+  <link rel="modulepreload" crossorigin href="/js/chunk-feature-password-BO4CLJxC.js">
+  <link rel="stylesheet" crossorigin href="/css/feature-mobile-W2P8JQAo.css">
+  <link rel="stylesheet" crossorigin href="/css/feature-portfolio-DFnTJgO_.css">
+  <link rel="stylesheet" crossorigin href="/css/feature-tools-Ct1hoKNN.css">
+  <link rel="stylesheet" crossorigin href="/css/feature-password-C9vshDCD.css">
+  <link rel="stylesheet" crossorigin href="/css/index-CunLCXHf.css">
+</head>
+<body>
+  <div id="app"></div>
+  
+  <!-- 首屏加载动画 -->
+  <div id="app-loading">
+    <div class="loading-spinner"></div>
+    <div class="loading-text">加载中<span class="loading-dots"></span></div>
+    <div class="progress-bar">
+      <div class="progress-fill"></div>
     </div>
   </div>
-</nav>
-
-      <div class="tc-l pv3 ph3 ph4-ns">
-        <h1 class="f2 f-subheadline-l fw2 light-silver mb0 lh-title">
-          My New Hugo Site
-        </h1>
-        
-      </div>
-    </div>
-  </header>
-
-
-    <main class="pb7" role="main">
-      
-  <article class="cf ph3 ph5-l pv3 pv4-l f4 tc-l center measure-wide lh-copy mid-gray">
-    
-  </article>
   
-  
-  
-  
-  
-  
-  
-    
-    
-
-    <div class="pa3 pa4-ns w-100 w-70-ns center">
-      
-       
-          <h1 class="flex-none">
-            Recent Posts
-          </h1>
-        
-
-      
-
-      <section class="w-100 mw8">
-        
-        
-          <div class="relative w-100 mb4">
-            
-<article class="bb b--black-10">
-  <div class="db pv4 ph3 ph0-l no-underline dark-gray">
-    <div class="flex flex-column flex-row-ns">
-      
-      <div class="blah w-100">
-        <h1 class="f3 fw1 athelas mt0 lh-title">
-          <a href="/posts/my-first-post/" class="color-inherit dim link">
-            My First Post
-            </a>
-        </h1>
-        <div class="f6 f5-l lh-copy nested-copy-line-height nested-links">
-          无题 去年今日此门中，
-人面桃花相映红。
-人面不知何处去，
-桃花依旧笑春分。
-        </div>
-          <a href="/posts/my-first-post/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
-        
-      </div>
-    </div>
-  </div>
-</article>
-
-          </div>
-        
-      </section>
-
-      
-
-      </div>
-  
-
-    </main>
-    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
-  <div class="flex justify-between">
-  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://palagend.github.io/" >
-    &copy; 2018 My New Hugo Site
-  </a>
-    <div>
-<div hidden>
-  <span id="new-window-0">Opens in a new window</span>
-  <span id="new-window-1">Opens an external site</span>
-  <span id="new-window-2">Opens an external site in a new window</span>
-</div>
-
-
-
-
-
-
-
-
-</div>
-  </div>
-</footer>
-
-    
-
-  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
-
-
-  </body>
+  <script>
+    // 监听页面加载完成，隐藏loading
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        var loading = document.getElementById('app-loading');
+        if (loading) {
+          loading.classList.add('hidden');
+          setTimeout(function() {
+            loading.remove();
+          }, 300);
+        }
+      }, 100);
+    });
+    // 超时处理（10秒后强制隐藏）
+    setTimeout(function() {
+      var loading = document.getElementById('app-loading');
+      if (loading) {
+        loading.classList.add('hidden');
+        setTimeout(function() {
+          loading.remove();
+        }, 300);
+      }
+    }, 10000);
+  </script>
+</body>
 </html>
