@@ -1,183 +1,364 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    
-    <title>My New Hugo Site </title>
-    <meta name="HandheldFriendly" content="True">
-    <meta name="MobileOptimized" content="320">
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="实时汇率">
+  <title>实时汇率换算（含损耗计算）</title>
+  <!-- Vue 3 CDN -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+  <!-- axios CDN 提升iOS兼容性 -->
+  <script src="https://cdn.jsdelivr.net/npm/axios@1.6.8/dist/axios.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f4f7ff;
+      padding: 16px;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+      font-size: 18px;
+    }
+    .input-box {
+      margin-bottom: 16px;
+    }
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 14px;
+      color: #666;
+    }
+    /* 输入/选择框样式，适配代码+名称显示 */
+    input, select {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font-size: 16px;
+      outline: none;
+      background: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    input:focus, select:focus {
+      border-color: #007aff;
+    }
+    /* 货币行：从/到 + 互换 布局 */
+    .currency-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+    }
+    .currency-col {
+      flex: 1;
+      position: relative;
+    }
+    /* 从/到 悬浮标签 */
+    .currency-label {
+      position: absolute;
+      top: -5px;
+      left: 8px;
+      background: #fff;
+      padding: 0 4px;
+      font-size: 12px;
+      color: #007aff;
+      font-weight: 500;
+      z-index: 1;
+    }
+    /* 互换按钮 */
+    .swap-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      background: #f8f9fa;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      color: #007aff;
+      flex-shrink: 0;
+    }
+    .swap-btn:active {
+      background: #eef2f5;
+      border-color: #007aff;
+    }
+    /* 通用按钮 */
+    .btn {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      cursor: pointer;
+      color: white;
+    }
+    /* 查询按钮-蓝色 */
+    .btn-query {
+      background: #007aff;
+    }
+    .btn-query:active {
+      background: #0066cc;
+    }
+    /* 损耗计算-金黄色 */
+    .btn-calc-loss {
+      background: #ffc107;
+      color: #212529;
+      font-weight: 500;
+    }
+    .btn-calc-loss:active {
+      background: #ffb300;
+    }
+    /* 汇率结果：仅保留6位小数行，样式优化 */
+    .result {
+      margin-top: 16px;
+      padding: 14px;
+      background: #f8f9fa;
+      border-radius: 12px;
+      text-align: center;
+      font-size: 17px;
+      line-height: 1.4;
+    }
+    .result strong {
+      color: #007aff;
+    }
+    /* 损耗结果：10000改为1万，样式优化 */
+    .loss-result {
+      margin-top: 16px;
+      padding: 14px;
+      background: #fff5f5;
+      border: 1px solid #ffeeee;
+      border-radius: 12px;
+      font-size: 15px;
+    }
+    .loss-result p {
+      margin: 4px 0;
+      text-align: center;
+    }
+    .loss-result strong {
+      color: #e53935;
+    }
+    /* 更新时间 */
+    .time {
+      font-size: 11px;
+      color: #999;
+      text-align: center;
+      margin-top: 8px;
+    }
+    .divider {
+      height: 1px;
+      background: #eee;
+      margin: 20px 0 16px;
+    }
+    .btn + .btn {
+      margin-top: 10px;
+    }
+    /* 下拉选项样式，适配代码+名称 */
+    select option {
+      font-size: 16px;
+      padding: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app" class="container">
+    <div class="card">
+      <h2>实时汇率换算（含损耗计算）</h2>
 
-    <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.52" />
-    
-    
-      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
-    
-
-    
-    
-      <link href="/dist/css/app.955516233bcafa4d2a1c13cea63c7b50.css" rel="stylesheet">
-    
-
-    
-
-    
-      
-    
-
-    
-      <link href="https://palagend.github.io/index.xml" rel="alternate" type="application/rss+xml" title="My New Hugo Site" />
-      <link href="https://palagend.github.io/index.xml" rel="feed" type="application/rss+xml" title="My New Hugo Site" />
-    
-
-    <meta property="og:title" content="My New Hugo Site" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://palagend.github.io/" />
-<meta property="og:updated_time" content="2018-12-06T20:13:41&#43;08:00"/>
-
-<meta itemprop="name" content="My New Hugo Site">
-<meta itemprop="description" content="">
-
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="My New Hugo Site"/>
-<meta name="twitter:description" content=""/>
-
-  </head>
-
-  <body class="ma0 avenir bg-near-white">
-
-    
-
-  <header>
-    <div class="pb3-m pb6-l bg-black">
-      <nav class="pv3 ph3 ph4-ns" role="navigation">
-  <div class="flex-l justify-between items-center center">
-    <a href="https://palagend.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
-      My New Hugo Site
-    </a>
-    <div class="flex-l items-center">
-      
-      
-<div hidden>
-  <span id="new-window-0">Opens in a new window</span>
-  <span id="new-window-1">Opens an external site</span>
-  <span id="new-window-2">Opens an external site in a new window</span>
-</div>
-
-
-
-
-
-
-
-
-
-    </div>
-  </div>
-</nav>
-
-      <div class="tc-l pv3 ph3 ph4-ns">
-        <h1 class="f2 f-subheadline-l fw2 light-silver mb0 lh-title">
-          My New Hugo Site
-        </h1>
-        
+      <!-- 兑换本金 -->
+      <div class="input-box">
+        <label>兑换本金</label>
+        <input type="number" v-model.number="amount" placeholder="请输入金额" min="0.01" step="0.01">
       </div>
-    </div>
-  </header>
 
-
-    <main class="pb7" role="main">
-      
-  <article class="cf ph3 ph5-l pv3 pv4-l f4 tc-l center measure-wide lh-copy mid-gray">
-    
-  </article>
-  
-  
-  
-  
-  
-  
-  
-    
-    
-
-    <div class="pa3 pa4-ns w-100 w-70-ns center">
-      
-       
-          <h1 class="flex-none">
-            Recent Posts
-          </h1>
-        
-
-      
-
-      <section class="w-100 mw8">
-        
-        
-          <div class="relative w-100 mb4">
-            
-<article class="bb b--black-10">
-  <div class="db pv4 ph3 ph0-l no-underline dark-gray">
-    <div class="flex flex-column flex-row-ns">
-      
-      <div class="blah w-100">
-        <h1 class="f3 fw1 athelas mt0 lh-title">
-          <a href="/posts/my-first-post/" class="color-inherit dim link">
-            My First Post
-            </a>
-        </h1>
-        <div class="f6 f5-l lh-copy nested-copy-line-height nested-links">
-          无题 去年今日此门中，
-人面桃花相映红。
-人面不知何处去，
-桃花依旧笑春分。
-        </div>
-          <a href="/posts/my-first-post/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
-        
-      </div>
-    </div>
-  </div>
-</article>
-
+      <!-- 货币行：左[从] + 互换 + 右[到] -->
+      <div class="input-box">
+        <div class="currency-row">
+          <div class="currency-col">
+            <span class="currency-label">从</span>
+            <select v-model="from">
+              <option value="USD">USD 美元</option>
+              <option value="CNY">CNY 人民币</option>
+              <option value="HKD">HKD 港币</option>
+              <option value="EUR">EUR 欧元</option>
+              <option value="GBP">GBP 英镑</option>
+              <option value="JPY">JPY 日元</option>
+              <option value="KRW">KRW 韩元</option>
+              <option value="SGD">SGD 新加坡元</option>
+              <option value="AUD">AUD 澳元</option>
+              <option value="CAD">CAD 加元</option>
+              <option value="CHF">CHF 瑞郎</option>
+            </select>
           </div>
-        
-      </section>
-
-      
-
+          <button class="swap-btn" @click="swapCurrency">⇄</button>
+          <div class="currency-col">
+            <span class="currency-label">到</span>
+            <select v-model="to">
+              <option value="CNY">CNY 人民币</option>
+              <option value="USD">USD 美元</option>
+              <option value="HKD">HKD 港币</option>
+              <option value="EUR">EUR 欧元</option>
+              <option value="GBP">GBP 英镑</option>
+              <option value="JPY">JPY 日元</option>
+              <option value="KRW">KRW 韩元</option>
+              <option value="SGD">SGD 新加坡元</option>
+              <option value="AUD">AUD 澳元</option>
+              <option value="CAD">CAD 加元</option>
+              <option value="CHF">CHF 瑞郎</option>
+            </select>
+          </div>
+        </div>
       </div>
-  
 
-    </main>
-    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
-  <div class="flex justify-between">
-  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://palagend.github.io/" >
-    &copy; 2018 My New Hugo Site
-  </a>
-    <div>
-<div hidden>
-  <span id="new-window-0">Opens in a new window</span>
-  <span id="new-window-1">Opens an external site</span>
-  <span id="new-window-2">Opens an external site in a new window</span>
-</div>
+      <!-- 查询市场中间价 -->
+      <button class="btn btn-query" @click="getRate">查询市场中间价</button>
 
+      <!-- 市场中间价：仅保留6位小数标准格式 -->
+      <div class="result" v-if="result">
+        {{ amount }}{{ from }} = <strong>{{ result }}</strong>{{ to }}<br>
+        <span style="font-size: 15px; color: #666;">(1{{ from }} = <strong>{{ rateFixed }}</strong>{{ to }})</span>
+      </div>
+      <div class="time" v-if="updateTime">
+        中间价更新时间：{{ updateTime }}
+      </div>
 
+      <!-- 分割线 -->
+      <div class="divider" v-if="result"></div>
 
+      <!-- 实际损耗计算 -->
+      <div v-if="result">
+        <div class="input-box">
+          <label>实际到账{{ to }}金额</label>
+          <input type="number" v-model.number="actualAmount" placeholder="输入实际到账金额" min="0.01" step="0.01">
+        </div>
+        <button class="btn btn-calc-loss" @click="calcLoss">计算兑换损耗</button>
 
-
-
-
-
-</div>
+        <!-- 损耗结果：10000改为1万 -->
+        <div class="loss-result" v-if="lossData.show">
+          <p>本次损耗：{{ lossData.currentLoss.toFixed(4) }} {{ to }}</p>
+          <p>每1万{{ from }}损耗：{{ lossData.per10000Loss.toFixed(4) }} {{ to }}</p>
+          <p>损耗百分比：<strong>{{ lossData.lossRate.toFixed(2) }}%</strong></p>
+        </div>
+      </div>
+    </div>
   </div>
-</footer>
 
-    
+  <script>
+    const { createApp } = Vue
+    createApp({
+      data() {
+        return {
+          amount: 1,        // 兑换本金
+          from: 'USD',      // 源货币
+          to: 'CNY',        // 目标货币
+          result: '',       // 本金换算结果
+          rateFixed: '',    // 1单位源货币的标准汇率（保留6位小数）
+          updateTime: '',   // 中间价更新时间
+          actualAmount: '', // 实际到账金额
+          lossData: {       // 损耗数据
+            show: false,
+            currentLoss: 0,
+            per10000Loss:0,
+            lossRate: 0
+          },
+          // 接口配置
+          apiKey: "750a5c496977bdfc9770fa43bd914d07",
+          baseUrl: "https://api.exchangerate.host/live",
+          targetCurrencies: "USD,EUR,HKD,CNY,GBP,AUD,CHF,CAD,JPY,SGD,SEK,DKK,NOK,MXN,INR,BRL,RUB,KRW,THB"
+        }
+      },
+      methods: {
+        // 货币互换
+        swapCurrency() {
+          [this.from, this.to] = [this.to, this.from];
+          this.clearResult();
+        },
+        // 清空结果数据
+        clearResult() {
+          this.result = '';
+          this.rateFixed = '';
+          this.updateTime = '';
+          this.actualAmount = '';
+          this.lossData.show = false;
+        },
+        // 新接口查询市场中间价
+        async getRate() {
+          this.clearResult();
+          // 本金校验
+          if (!this.amount || this.amount <= 0) {
+            this.result = '请输入大于0的金额';
+            return;
+          }
+          try {
+            const url = `${this.baseUrl}?access_key=${this.apiKey}&source=${this.from}&currencies=${this.targetCurrencies}`;
+            const { data } = await axios.get(url);
+            
+            if (!data.success) {
+              this.result = `接口错误：${data.error?.info || '获取失败'}`;
+              return;
+            }
 
-  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+            const rateKey = this.from + this.to;
+            const rate = data.quotes?.[rateKey];
+            if (!rate) {
+              this.result = '未查询到该货币对汇率';
+              return;
+            }
 
-
-  </body>
+            // 标准汇率：1单位源货币保留6位小数
+            this.rateFixed = rate.toFixed(6);
+            // 本金换算结果保留4位小数
+            this.result = (this.amount * rate).toFixed(4);
+            this.updateTime = new Date().toLocaleString();
+          } catch (err) {
+            this.result = '网络错误，请检查连接';
+          }
+        },
+        // 损耗计算逻辑
+        calcLoss() {
+          if (!this.actualAmount || this.actualAmount <= 0) {
+            alert(`请输入大于0的实际到账${this.to}金额`);
+            return;
+          }
+          const currentLoss = this.result - this.actualAmount;
+          if (currentLoss < 0) {
+            alert('实际到账金额不能高于市场中间价');
+            return;
+          }
+          const lossRate = (currentLoss / this.result) * 100;
+          const per10000Loss = (currentLoss / this.amount) * 10000;
+          
+          this.lossData = {
+            show: true,
+            currentLoss,
+            per10000Loss,
+            lossRate
+          }
+        }
+      }
+    }).mount('#app')
+  </script>
+</body>
 </html>
