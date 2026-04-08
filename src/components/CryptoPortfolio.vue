@@ -3,80 +3,6 @@
     <div class="container">
       <!-- 主仪表板 -->
       <div class="dashboard">
-        <!-- 左侧菜单 -->
-        <aside class="sidebar">
-          <h3 class="menu-title">资产分类</h3>
-          <ul class="menu-list">
-            <li
-              class="menu-item"
-              :class="{ active: selectedFilter === 'all' }"
-              @click="selectedFilter = 'all'"
-            >
-              <i class="fas fa-chart-pie"></i>
-              <span>全部资产</span>
-            </li>
-            <li
-              class="menu-item"
-              :class="{ active: selectedFilter === 'BTC' }"
-              @click="selectedFilter = 'BTC'"
-            >
-              <i class="fab fa-bitcoin"></i>
-              <span>比特币 (BTC)</span>
-            </li>
-            <li
-              class="menu-item"
-              :class="{ active: selectedFilter === 'ETH' }"
-              @click="selectedFilter = 'ETH'"
-            >
-              <i class="fab fa-ethereum"></i>
-              <span>以太坊 (ETH)</span>
-            </li>
-            <li
-              class="menu-item"
-              :class="{ active: selectedFilter === 'SOL' }"
-              @click="selectedFilter = 'SOL'"
-            >
-              <i class="fas fa-rocket"></i>
-              <span>Solana (SOL)</span>
-            </li>
-            <li
-              class="menu-item"
-              :class="{ active: selectedFilter === 'ADA' }"
-              @click="selectedFilter = 'ADA'"
-            >
-              <i class="fas fa-coins"></i>
-              <span>Cardano (ADA)</span>
-            </li>
-            <li
-              class="menu-item"
-              :class="{ active: selectedFilter === 'DOT' }"
-              @click="selectedFilter = 'DOT'"
-            >
-              <i class="fas fa-gem"></i>
-              <span>Polkadot (DOT)</span>
-            </li>
-          </ul>
-
-
-
-          <!-- 自动刷新设置 -->
-          <div class="auto-refresh-section">
-            <label>
-              <input type="checkbox" v-model="autoRefresh" @change="toggleAutoRefresh">
-              <i class="fas fa-sync"></i> 自动刷新
-            </label>
-            <input
-              type="number"
-              v-model="refreshInterval"
-              min="1"
-              max="1440"
-              :disabled="!autoRefresh"
-              placeholder="分钟"
-            >
-            <span>分钟</span>
-          </div>
-        </aside>
-
         <!-- 主要内容区域 -->
         <main class="main-content">
           <!-- 概览卡片 -->
@@ -194,9 +120,30 @@
           <section class="assets-section">
             <div class="section-header">
               <h2 class="section-title"><i class="fas fa-list"></i> 资产详情</h2>
-              <div class="last-update">
-                <i class="fas fa-clock"></i>
-                <span>最后更新：{{ lastUpdateTime }}</span>
+              <div class="section-actions">
+                <div class="filter-group">
+                  <select v-model="selectedFilter" class="filter-select">
+                    <option value="all">全部资产</option>
+                    <option value="BTC">比特币 (BTC)</option>
+                    <option value="ETH">以太坊 (ETH)</option>
+                    <option value="BNB">币安币 (BNB)</option>
+                    <option value="XRP">瑞波币 (XRP)</option>
+                    <option value="ADA">卡尔达诺 (ADA)</option>
+                    <option value="SOL">索拉纳 (SOL)</option>
+                    <option value="DOT">波卡 (DOT)</option>
+                    <option value="DOGE">狗狗币 (DOGE)</option>
+                    <option value="SHIB">柴犬币 (SHIB)</option>
+                    <option value="AVAX">阿瓦隆 (AVAX)</option>
+                  </select>
+                </div>
+                <button class="btn-refresh" @click="refreshPrices" :disabled="refreshing">
+                  <i class="fas fa-sync" :class="refreshing ? 'fa-spin' : ''"></i>
+                  <span>{{ refreshing ? '刷新中...' : '刷新价格' }}</span>
+                </button>
+                <div class="last-update">
+                  <i class="fas fa-clock"></i>
+                  <span>{{ lastUpdateTime }}</span>
+                </div>
               </div>
             </div>
 
@@ -571,84 +518,7 @@ onUnmounted(() => {
 }
 
 .dashboard {
-  display: grid;
-  grid-template-columns: 260px 1fr;
-  gap: 30px;
-}
-
-.sidebar {
-  background-color: white;
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  height: fit-content;
-}
-
-.dark .sidebar {
-  background-color: #1e1e1e;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-.menu-title {
-  font-size: 14px;
-  color: #6c757d;
-  margin-bottom: 20px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.dark .menu-title {
-  color: #adb5bd;
-}
-
-.menu-list {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 30px 0;
-}
-
-.menu-item {
-  padding: 12px 15px;
-  border-radius: 8px;
-  margin-bottom: 8px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  transition: all 0.3s ease;
-  color: #212529;
-}
-
-.dark .menu-item {
-  color: #e9ecef;
-}
-
-.menu-item i {
-  width: 20px;
-  color: #6c757d;
-  transition: color 0.3s ease;
-}
-
-.dark .menu-item i {
-  color: #adb5bd;
-}
-
-.menu-item:hover {
-  background-color: #4361ee;
-  color: white;
-}
-
-.menu-item:hover i {
-  color: white;
-}
-
-.menu-item.active {
-  background-color: #4361ee;
-  color: white;
-}
-
-.menu-item.active i {
-  color: white;
+  display: block;
 }
 
 .auto-refresh-section {
@@ -936,6 +806,63 @@ onUnmounted(() => {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.section-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+}
+
+.filter-select {
+  padding: 8px 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  background-color: white;
+  color: #212529;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.dark .filter-select {
+  background-color: #2d2d2d;
+  border-color: #2d2d2d;
+  color: #e9ecef;
+}
+
+.btn-refresh {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background-color: #4361ee;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-refresh:hover:not(:disabled) {
+  background-color: #3a56d4;
+}
+
+.btn-refresh:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-refresh i {
+  font-size: 14px;
 }
 
 .section-header h3 {
@@ -1241,21 +1168,6 @@ onUnmounted(() => {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
   }
-
-  .menu-list {
-    margin: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-  .menu-item {
-    margin: 0;
-  }
-
-  .auto-refresh-section {
-    margin: 0;
-  }
 }
 
 @media (max-width: 992px) {
@@ -1275,20 +1187,28 @@ onUnmounted(() => {
     padding: 0;
   }
 
-  .dashboard {
-    gap: 20px;
-  }
-
-  .sidebar {
-    padding: 15px;
-  }
-
   .overview {
     grid-template-columns: repeat(2, 1fr);
   }
 
   .input-row {
     grid-template-columns: 1fr;
+  }
+
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .section-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .filter-select,
+  .btn-refresh {
+    flex: 1;
+    min-width: 120px;
   }
 
   .assets-table {
