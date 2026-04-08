@@ -57,15 +57,7 @@
             </li>
           </ul>
 
-          <!-- 数据源选择 -->
-          <div class="data-source-section">
-            <label><i class="fas fa-database"></i> 价格来源：</label>
-            <select v-model="dataSource">
-              <option value="gateio">Gate.io</option>
-              <option value="coincap">CoinCap</option>
-              <option value="auto">自动切换</option>
-            </select>
-          </div>
+
 
           <!-- 自动刷新设置 -->
           <div class="auto-refresh-section">
@@ -291,7 +283,7 @@ const newCrypto = ref({
 const prices = ref({})
 const refreshing = ref(false)
 const lastUpdateTime = ref('')
-const dataSource = ref('gateio')
+
 const errorMessage = ref('')
 const autoRefresh = ref(false)
 const refreshInterval = ref(60)
@@ -414,29 +406,10 @@ const getChangeClass = (change) => {
   return ''
 }
 
-const getPricesFromGateio = async () => {
-  try {
-    const response = await axios.get('/gateio/api/v4/spot/tickers')
-    const data = response.data
-
-    const mainPairs = data.filter(item => item.currency_pair.endsWith('_USDT'))
-
-    mainPairs.forEach(item => {
-      const symbol = item.currency_pair.split('_')[0]
-      const price = parseFloat(item.last)
-      prices.value[symbol] = price
-    })
-
-    console.log('Successfully fetched prices from gate.io')
-  } catch (error) {
-    console.error('Failed to get prices from gate.io:', error)
-    throw error
-  }
-}
 
 const getPricesFromCoincap = async () => {
   try {
-    const response = await axios.get('/coincap/v3/assets', {
+    const response = await axios.get('https://rest.coincap.io/v3/assets', {
       headers: {
         'Authorization': 'Bearer b617d9cf029dbb40f02b058a0e74919176b768cf36fd1ea6fae55a13a1610f41'
       }
@@ -462,21 +435,7 @@ const refreshPrices = async () => {
   prices.value = {}
 
   try {
-    if (dataSource.value === 'gateio') {
-      await getPricesFromGateio()
-    } else if (dataSource.value === 'coincap') {
-      await getPricesFromCoincap()
-    } else if (dataSource.value === 'auto') {
-      try {
-        await getPricesFromGateio()
-        const hasPrices = Object.keys(prices.value).length > 0
-        if (!hasPrices) {
-          await getPricesFromCoincap()
-        }
-      } catch (error) {
-        await getPricesFromCoincap()
-      }
-    }
+    await getPricesFromCoincap()
   } catch (error) {
     console.error('Failed to fetch prices:', error)
     errorMessage.value = '获取价格失败，请检查网络连接'
@@ -692,7 +651,6 @@ onUnmounted(() => {
   color: white;
 }
 
-.data-source-section,
 .auto-refresh-section {
   margin-top: 20px;
   padding: 15px;
@@ -700,12 +658,10 @@ onUnmounted(() => {
   border-radius: 8px;
 }
 
-.dark .data-source-section,
 .dark .auto-refresh-section {
   background-color: #2d2d2d;
 }
 
-.data-source-section label,
 .auto-refresh-section label {
   display: flex;
   align-items: center;
@@ -715,25 +671,8 @@ onUnmounted(() => {
   margin-bottom: 8px;
 }
 
-.dark .data-source-section label,
 .dark .auto-refresh-section label {
   color: #adb5bd;
-}
-
-.data-source-section select {
-  width: 100%;
-  padding: 8px 12px;
-  border: 1px solid #e0e0e0;
-  border-radius: 6px;
-  background-color: white;
-  color: #212529;
-  font-size: 14px;
-}
-
-.dark .data-source-section select {
-  background-color: #1e1e1e;
-  border-color: #2d2d2d;
-  color: #e9ecef;
 }
 
 .auto-refresh-section input[type="number"] {
@@ -1314,7 +1253,6 @@ onUnmounted(() => {
     margin: 0;
   }
 
-  .data-source-section,
   .auto-refresh-section {
     margin: 0;
   }
