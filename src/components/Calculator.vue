@@ -53,25 +53,25 @@
           </select>
         </div>
         
+        <div class="input-box">
+          <label>输入数值</label>
+          <input type="number" v-model.number="unitValue" placeholder="请输入数值">
+        </div>
+        
         <div class="unit-row">
           <div class="unit-col">
-            <label>源单位</label>
+            <span class="currency-label">从</span>
             <select v-model="fromUnit">
               <option v-for="unit in units[unitType]" :key="unit.value" :value="unit.value">{{ unit.label }}</option>
             </select>
           </div>
           
           <div class="unit-col">
-            <label>目标单位</label>
+            <span class="currency-label">到</span>
             <select v-model="toUnit">
               <option v-for="unit in units[unitType]" :key="unit.value" :value="unit.value">{{ unit.label }}</option>
             </select>
           </div>
-        </div>
-        
-        <div class="input-box">
-          <label>输入值</label>
-          <input type="number" v-model.number="unitValue" placeholder="请输入数值">
         </div>
         
         <button class="btn btn-convert" @click="convertUnit">转换</button>
@@ -396,20 +396,26 @@ h2 {
   border-radius: 12px;
 }
 
-.conversion-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+.input-box {
+  margin-bottom: 15px;
 }
 
-.form-group {
-  display: flex;
-  gap: 15px;
-  align-items: center;
-  flex-wrap: wrap;
+.input-box label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #666;
+  font-weight: 600;
+  transition: color 0.3s ease;
 }
 
-.form-group input {
+/* 深色主题 */
+.dark .input-box label {
+  color: #bdc3c7;
+}
+
+.input-box select,
+.input-box input {
   width: 100%;
   padding: 15px;
   border: 1px solid #ddd;
@@ -420,20 +426,50 @@ h2 {
   transition: background 0.3s ease, border-color 0.3s ease;
 }
 
+.input-box select:focus,
+.input-box input:focus {
+  border-color: #007aff;
+}
+
 /* 深色主题 */
-.dark .form-group input {
+.dark .input-box select,
+.dark .input-box input {
   background: #2c3e50;
   border-color: #4a5f7a;
   color: #f5f5f5;
 }
 
-.unit-selectors {
+.unit-row {
   display: flex;
   gap: 15px;
-  flex-wrap: wrap;
+  margin-bottom: 15px;
 }
 
-.unit-selectors select {
+.unit-col {
+  flex: 1;
+  position: relative;
+}
+
+.currency-label {
+  position: absolute;
+  top: -5px;
+  left: 8px;
+  background: white;
+  padding: 0 4px;
+  font-size: 12px;
+  color: #007aff;
+  font-weight: 500;
+  z-index: 1;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* 深色主题 */
+.dark .currency-label {
+  background: #2c3e50;
+  color: #4a90e2;
+}
+
+.unit-col select {
   padding: 15px;
   border: 1px solid #ddd;
   border-radius: 12px;
@@ -443,8 +479,12 @@ h2 {
   transition: background 0.3s ease, border-color 0.3s ease;
 }
 
+.unit-col select:focus {
+  border-color: #007aff;
+}
+
 /* 深色主题 */
-.dark .unit-selectors select {
+.dark .unit-col select {
   background: #2c3e50;
   border-color: #4a5f7a;
   color: #f5f5f5;
