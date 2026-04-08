@@ -7,12 +7,12 @@
       <div class="overview">
         <div class="total-value">
           <h3>总资产价值</h3>
-          <p class="amount">{{ totalValue.toFixed(2) }} USD</p>
+          <p class="amount">{{ (totalValue || 0).toFixed(2) }} USD</p>
         </div>
         <div class="profit-loss" :class="{ positive: totalProfitLoss >= 0, negative: totalProfitLoss < 0 }">
           <h3>总盈亏</h3>
-          <p class="amount">{{ totalProfitLoss >= 0 ? '+' : '' }}{{ totalProfitLoss.toFixed(2) }} USD</p>
-          <p class="rate">({{ totalProfitLoss >= 0 ? '+' : '' }}{{ totalProfitLossRate.toFixed(2) }}%)</p>
+          <p class="amount">{{ totalProfitLoss >= 0 ? '+' : '' }}{{ (totalProfitLoss || 0).toFixed(2) }} USD</p>
+          <p class="rate">({{ totalProfitLoss >= 0 ? '+' : '' }}{{ (totalProfitLossRate || 0).toFixed(2) }}%)</p>
         </div>
       </div>
       
@@ -54,18 +54,28 @@
         <div class="table-body">
           <div v-for="(crypto, index) in portfolio" :key="index" class="table-row">
             <div class="col">{{ crypto.symbol }}</div>
-            <div class="col">{{ crypto.amount.toFixed(8) }}</div>
-            <div class="col">{{ crypto.price.toFixed(2) }} USD</div>
-            <div class="col">{{ crypto.currentPrice.toFixed(2) }} USD</div>
-            <div class="col">{{ (crypto.amount * crypto.currentPrice).toFixed(2) }} USD</div>
-            <div class="col" :class="{ positive: crypto.profitLoss >= 0, negative: crypto.profitLoss < 0 }">
-              {{ crypto.profitLoss >= 0 ? '+' : '' }}{{ crypto.profitLoss.toFixed(2) }} USD ({{ crypto.profitLossRate.toFixed(2) }}%)
+            <div class="col">{{ (crypto.amount || 0).toFixed(8) }}</div>
+            <div class="col">{{ (crypto.price || 0).toFixed(2) }} USD</div>
+            <div class="col">{{ (crypto.currentPrice || 0).toFixed(2) }} USD</div>
+            <div class="col">{{ ((crypto.amount || 0) * (crypto.currentPrice || 0)).toFixed(2) }} USD</div>
+            <div class="col profit-loss" :class="{ positive: crypto.profitLoss >= 0, negative: crypto.profitLoss < 0 }">
+              {{ crypto.profitLoss >= 0 ? '+' : '' }}{{ (crypto.profitLoss || 0).toFixed(2) }} USD ({{ (crypto.profitLossRate || 0).toFixed(2) }}%)
             </div>
             <div class="col">
               <button class="btn-delete" @click="deleteCrypto(index)">删除</button>
             </div>
           </div>
         </div>
+      </div>
+      
+      <!-- 数据源选择 -->
+      <div class="data-source-section">
+        <label>选择数据源：</label>
+        <select v-model="dataSource">
+          <option value="gateio">Gate.io</option>
+          <option value="coincap">CoinCap</option>
+          <option value="auto">自动切换</option>
+        </select>
       </div>
       
       <!-- 刷新按钮 -->
@@ -95,11 +105,22 @@ const newCrypto = ref({
 const prices = ref({})
 const refreshing = ref(false)
 const lastUpdateTime = ref('')
+const dataSource = ref('gateio') // gateio, coincap, auto
 
 // 添加加密货币
 const addCrypto = () => {
-  if (!newCrypto.value.symbol || newCrypto.value.amount <= 0 || newCrypto.value.price <= 0) {
-    alert('请填写完整信息')
+  if (!newCrypto.value.symbol) {
+    alert('请选择加密货币')
+    return
+  }
+  
+  if (newCrypto.value.amount <= 0) {
+    alert('请输入大于0的数量')
+    return
+  }
+  
+  if (newCrypto.value.price <= 0) {
+    alert('请输入大于0的买入价格')
     return
   }
   
@@ -127,7 +148,11 @@ const deleteCrypto = (index) => {
 // 从coincap获取实时价格
 const getPricesFromCoincap = async () => {
   try {
-    const response = await axios.get('https://api.coincap.io/v2/assets')
+    const response = await axios.get('/coincap/v3/assets', {
+      headers: {
+        'Authorization': 'Bearer b617d9cf029dbb40f02b058a0e74919176b768cf36fd1ea6fae55a13a1610f41'
+      }
+    })
     const data = response.data.data
     
     data.forEach(item => {
@@ -135,24 +160,34 @@ const getPricesFromCoincap = async () => {
       const price = parseFloat(item.priceUsd)
       prices.value[symbol] = price
     })
+    
+    console.log('Successfully fetched prices from coincap')
   } catch (error) {
     console.error('Failed to get prices from coincap:', error)
+    throw error
   }
 }
 
 // 从gate.io获取实时价格
 const getPricesFromGateio = async () => {
   try {
-    const response = await axios.get('https://api.gateio.ws/api/v4/spot/tickers')
+    // 使用gate.io的公共API，不需要API密钥
+    const response = await axios.get('/gateio/api/v4/spot/tickers')
     const data = response.data
     
-    data.forEach(item => {
+    // 过滤出主要交易对（USDT交易对）
+    const mainPairs = data.filter(item => item.currency_pair.endsWith('_USDT'))
+    
+    mainPairs.forEach(item => {
       const symbol = item.currency_pair.split('_')[0]
       const price = parseFloat(item.last)
       prices.value[symbol] = price
     })
+    
+    console.log('Successfully fetched prices from gate.io')
   } catch (error) {
     console.error('Failed to get prices from gate.io:', error)
+    throw error
   }
 }
 
@@ -160,10 +195,32 @@ const getPricesFromGateio = async () => {
 const refreshPrices = async () => {
   refreshing.value = true
   
-  await Promise.all([
-    getPricesFromCoincap(),
-    getPricesFromGateio()
-  ])
+  // 重置价格数据
+  prices.value = {}
+  
+  try {
+    if (dataSource.value === 'gateio') {
+      await getPricesFromGateio()
+    } else if (dataSource.value === 'coincap') {
+      await getPricesFromCoincap()
+    } else if (dataSource.value === 'auto') {
+      // 优先从gate.io获取价格
+      try {
+        await getPricesFromGateio()
+        
+        // 如果gate.io获取失败，尝试从coincap获取
+        const hasPrices = Object.keys(prices.value).length > 0
+        if (!hasPrices) {
+          await getPricesFromCoincap()
+        }
+      } catch (error) {
+        // 如果gate.io失败，直接使用coincap
+        await getPricesFromCoincap()
+      }
+    }
+  } catch (error) {
+    console.error('Failed to fetch prices:', error)
+  }
   
   portfolio.value.forEach(crypto => {
     crypto.currentPrice = prices.value[crypto.symbol] || 0
@@ -390,6 +447,32 @@ h2 {
 
 .btn-delete:hover {
   background: #c82333;
+}
+
+/* 数据源选择 */
+.data-source-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 12px;
+}
+
+.data-source-section label {
+  font-size: 16px;
+  color: #666;
+  font-weight: 500;
+}
+
+.data-source-section select {
+  padding: 10px 14px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 16px;
+  outline: none;
+  background: white;
 }
 
 /* 刷新按钮 */
