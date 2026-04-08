@@ -1,50 +1,71 @@
 <template>
   <div class="calculator-container">
     <div class="card">
-      <h2>🧮 实用计算器</h2>
-      
+      <h2 class="page-title">
+        <i class="fas fa-calculator"></i>
+        <span>实用计算器</span>
+      </h2>
+
       <div class="tabs">
-        <button class="tab-btn" :class="{ active: activeTab === 'basic' }" @click="activeTab = 'basic'">基础计算</button>
-        <button class="tab-btn" :class="{ active: activeTab === 'unit' }" @click="activeTab = 'unit'">单位转换</button>
+        <button class="tab-btn" :class="{ active: activeTab === 'basic' }" @click="activeTab = 'basic'">
+          <i class="fas fa-calculator"></i>
+          <span>基础计算</span>
+        </button>
+        <button class="tab-btn" :class="{ active: activeTab === 'unit' }" @click="activeTab = 'unit'">
+          <i class="fas fa-exchange-alt"></i>
+          <span>单位转换</span>
+        </button>
       </div>
 
-      <!-- 基础计算 -->
       <div v-if="activeTab === 'basic'" class="calculator">
         <div class="display">
           <div class="history">{{ history }}</div>
           <div class="input">{{ input || '0' }}</div>
         </div>
-        
+
         <div class="buttons">
-          <button class="btn btn-clear" @click="clear">C</button>
+          <button class="btn btn-clear" @click="clear">
+            <i class="fas fa-trash-alt"></i>
+          </button>
           <button class="btn btn-operator" @click="append('%')">%</button>
-          <button class="btn btn-operator" @click="append('/')">÷</button>
-          <button class="btn btn-operator" @click="append('×')">×</button>
-          
+          <button class="btn btn-operator" @click="append('/')">
+            <i class="fas fa-divide"></i>
+          </button>
+          <button class="btn btn-operator" @click="append('×')">
+            <i class="fas fa-times"></i>
+          </button>
+
           <button class="btn btn-number" @click="append('7')">7</button>
           <button class="btn btn-number" @click="append('8')">8</button>
           <button class="btn btn-number" @click="append('9')">9</button>
-          <button class="btn btn-operator" @click="append('-')">-</button>
-          
+          <button class="btn btn-operator" @click="append('-')">
+            <i class="fas fa-minus"></i>
+          </button>
+
           <button class="btn btn-number" @click="append('4')">4</button>
           <button class="btn btn-number" @click="append('5')">5</button>
           <button class="btn btn-number" @click="append('6')">6</button>
-          <button class="btn btn-operator" @click="append('+')">+</button>
-          
+          <button class="btn btn-operator" @click="append('+')">
+            <i class="fas fa-plus"></i>
+          </button>
+
           <button class="btn btn-number" @click="append('1')">1</button>
           <button class="btn btn-number" @click="append('2')">2</button>
           <button class="btn btn-number" @click="append('3')">3</button>
-          <button class="btn btn-equals" @click="calculate" rowspan="2">=</button>
-          
+          <button class="btn btn-equals" @click="calculate" rowspan="2">
+            <i class="fas fa-equals"></i>
+          </button>
+
           <button class="btn btn-zero" @click="append('0')">0</button>
-          <button class="btn btn-number" @click="append('.')">.</button>
+          <button class="btn btn-number" @click="append('.')">
+            <i class="fas fa-circle"></i>
+          </button>
         </div>
       </div>
 
-      <!-- 单位转换 -->
       <div v-if="activeTab === 'unit'" class="unit-converter">
         <div class="input-box">
-          <label>转换类型</label>
+          <label><i class="fas fa-cog"></i> 转换类型</label>
           <select v-model="unitType">
             <option value="length">长度</option>
             <option value="weight">重量</option>
@@ -52,12 +73,12 @@
             <option value="volume">体积</option>
           </select>
         </div>
-        
+
         <div class="input-box">
-          <label>输入数值</label>
+          <label><i class="fas fa-keyboard"></i> 输入数值</label>
           <input type="number" v-model.number="unitValue" placeholder="请输入数值">
         </div>
-        
+
         <div class="unit-row">
           <div class="unit-col">
             <span class="unit-label">从</span>
@@ -65,7 +86,11 @@
               <option v-for="unit in units[unitType]" :key="unit.value" :value="unit.value">{{ unit.label }}</option>
             </select>
           </div>
-          
+
+          <button class="swap-btn" @click="swapUnits">
+            <i class="fas fa-exchange-alt"></i>
+          </button>
+
           <div class="unit-col">
             <span class="unit-label">到</span>
             <select v-model="toUnit">
@@ -73,11 +98,17 @@
             </select>
           </div>
         </div>
-        
-        <button class="btn btn-convert" @click="convertUnit">转换</button>
-        
+
+        <button class="btn btn-convert" @click="convertUnit">
+          <i class="fas fa-sync-alt"></i>
+          <span>转换</span>
+        </button>
+
         <div class="result" v-if="unitResult">
-          {{ unitValue }}{{ fromUnit }} = <strong>{{ unitResult }}</strong>{{ toUnit }}
+          <div class="result-main">
+            <i class="fas fa-check-circle"></i>
+            <span>{{ unitValue }}{{ fromUnit }} = <strong>{{ unitResult }}</strong>{{ toUnit }}</span>
+          </div>
         </div>
       </div>
     </div>
@@ -151,10 +182,19 @@ const calculate = () => {
   }
 }
 
+const swapUnits = () => {
+  const temp = fromUnit.value
+  fromUnit.value = toUnit.value
+  toUnit.value = temp
+  if (unitResult.value) {
+    convertUnit()
+  }
+}
+
 const convertUnit = () => {
   try {
     let result
-    
+
     switch (unitType.value) {
       case 'length':
         result = convertLength(unitValue.value, fromUnit.value, toUnit.value)
@@ -256,118 +296,91 @@ const convertVolume = (value, from, to) => {
 }
 
 .card {
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 20px;
-  padding: 40px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  transition: background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
 }
 
-/* 深色主题 */
-.dark .card {
-  background: rgba(44, 62, 80, 0.95);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(74, 144, 226, 0.2);
-}
-
-h2 {
-  text-align: center;
-  margin-bottom: 30px;
-  color: #667eea;
-  font-size: 28px;
+.page-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  color: var(--text-primary);
+  font-size: 24px;
   font-weight: 600;
-  transition: color 0.3s ease;
 }
 
-/* 深色主题 */
-.dark h2 {
-  color: #4a90e2;
+.page-title i {
+  color: var(--primary-color);
+  font-size: 28px;
 }
 
 .tabs {
   display: flex;
-  margin-bottom: 30px;
-  gap: 10px;
+  margin-bottom: 24px;
+  gap: 12px;
 }
 
 .tab-btn {
   flex: 1;
-  padding: 12px 20px;
-  border: 2px solid #ddd;
+  padding: 12px 16px;
+  border: 2px solid var(--border-color);
   border-radius: 12px;
-  background: white;
-  color: #666;
-  font-size: 16px;
-  font-weight: 500;
+  background: var(--btn-secondary-bg);
+  color: var(--text-secondary);
+  font-size: 15px;
+  font-weight: 600;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   transition: all 0.3s ease;
 }
 
+.tab-btn i {
+  font-size: 14px;
+}
+
 .tab-btn.active {
-  border-color: #667eea;
-  background: #667eea;
+  border-color: var(--primary-color);
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
   color: white;
+  box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
 }
 
-/* 深色主题 */
-.dark .tab-btn {
-  background: #34495e;
-  border-color: #4a5f7a;
-  color: #bdc3c7;
-}
-
-.dark .tab-btn.active {
-  border-color: #4a90e2;
-  background: #4a90e2;
-  color: white;
-}
-
-/* 基础计算器 */
 .calculator {
   max-width: 400px;
   margin: 0 auto;
 }
 
 .display {
-  background: #f8f9fa;
+  background: var(--result-bg);
   border-radius: 12px;
   padding: 20px;
   margin-bottom: 20px;
   text-align: right;
-  transition: background 0.3s ease;
-}
-
-/* 深色主题 */
-.dark .display {
-  background: #34495e;
+  transition: all 0.3s ease;
+  border: 1px solid var(--border-color);
 }
 
 .history {
   font-size: 14px;
-  color: #666;
+  color: var(--text-muted);
   margin-bottom: 8px;
   min-height: 20px;
-  transition: color 0.3s ease;
-}
-
-/* 深色主题 */
-.dark .history {
-  color: #bdc3c7;
 }
 
 .input {
-  font-size: 32px;
+  font-size: 36px;
   font-weight: 600;
-  color: #333;
-  min-height: 40px;
-  transition: color 0.3s ease;
-}
-
-/* 深色主题 */
-.dark .input {
-  color: #f5f5f5;
+  color: var(--text-primary);
+  min-height: 44px;
 }
 
 .buttons {
@@ -377,140 +390,123 @@ h2 {
 }
 
 .btn {
-  padding: 20px;
+  padding: 18px;
   border: none;
   border-radius: 12px;
   font-size: 20px;
   font-weight: 600;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: all 0.3s ease;
 }
 
+.btn i {
+  font-size: 18px;
+}
+
 .btn-number {
-  background: #e9ecef;
-  color: #333;
-  transition: background 0.3s ease, color 0.3s ease;
+  background: var(--btn-secondary-bg);
+  color: var(--text-primary);
 }
 
 .btn-number:hover {
-  background: #dee2e6;
-}
-
-/* 深色主题 */
-.dark .btn-number {
-  background: #4a5f7a;
-  color: #f5f5f5;
-}
-
-.dark .btn-number:hover {
-  background: #5a6f8a;
+  background: var(--border-color);
 }
 
 .btn-operator {
-  background: #667eea;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
   color: white;
+  box-shadow: 0 4px 12px rgba(67, 97, 238, 0.25);
 }
 
 .btn-operator:hover {
-  background: #5568d3;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(67, 97, 238, 0.35);
 }
 
 .btn-clear {
-  background: #dc3545;
+  background: linear-gradient(135deg, #dc3545, #c82333);
   color: white;
+  box-shadow: 0 4px 12px rgba(220, 53, 69, 0.25);
 }
 
 .btn-clear:hover {
-  background: #c82333;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(220, 53, 69, 0.35);
 }
 
 .btn-equals {
-  background: #28a745;
+  background: linear-gradient(135deg, #28a745, #218838);
   color: white;
   grid-row: span 2;
+  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.25);
 }
 
 .btn-equals:hover {
-  background: #218838;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(40, 167, 69, 0.35);
 }
 
 .btn-zero {
   grid-column: span 2;
-  background: #e9ecef;
-  color: #333;
-  transition: background 0.3s ease, color 0.3s ease;
+  background: var(--btn-secondary-bg);
+  color: var(--text-primary);
 }
 
 .btn-zero:hover {
-  background: #dee2e6;
+  background: var(--border-color);
 }
 
-/* 深色主题 */
-.dark .btn-zero {
-  background: #4a5f7a;
-  color: #f5f5f5;
-}
-
-.dark .btn-zero:hover {
-  background: #5a6f8a;
-}
-
-/* 单位转换 */
 .unit-converter {
-  margin-top: 30px;
-  padding: 0;
-  background: transparent;
-  border-radius: 12px;
+  margin-top: 20px;
 }
 
 .input-box {
-  margin-bottom: 15px;
+  margin-bottom: 16px;
 }
 
 .input-box label {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   margin-bottom: 8px;
   font-size: 14px;
-  color: #666;
-  font-weight: 600;
-  transition: color 0.3s ease;
+  color: var(--text-secondary);
+  font-weight: 500;
 }
 
-/* 深色主题 */
-.dark .input-box label {
-  color: #bdc3c7;
+.input-box label i {
+  color: var(--primary-color);
+  font-size: 12px;
 }
 
 .input-box select,
 .input-box input {
   width: 100%;
-  padding: 15px;
-  border: 1px solid #ddd;
+  padding: 14px 16px;
+  border: 1px solid var(--border-color);
   border-radius: 12px;
   font-size: 16px;
   outline: none;
-  background: white;
-  transition: background 0.3s ease, border-color 0.3s ease;
+  background: var(--input-bg);
+  color: var(--text-primary);
+  transition: all 0.3s ease;
 }
 
 .input-box select:focus,
 .input-box input:focus {
-  border-color: #007aff;
-}
-
-/* 深色主题 */
-.dark .input-box select,
-.dark .input-box input {
-  background: #2c3e50;
-  border-color: #4a5f7a;
-  color: #f5f5f5;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
 }
 
 .unit-row {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   width: 100%;
+  margin-bottom: 16px;
 }
 
 .unit-col {
@@ -520,79 +516,174 @@ h2 {
 
 .unit-label {
   position: absolute;
-  top: -5px;
-  left: 8px;
-  background: #fff;
-  padding: 0 4px;
-  font-size: 12px;
-  color: #007aff;
-  font-weight: 500;
+  top: -6px;
+  left: 10px;
+  background: var(--card-bg);
+  padding: 0 6px;
+  font-size: 11px;
+  color: var(--primary-color);
+  font-weight: 600;
   z-index: 1;
 }
 
-
-/* 深色主题 */
-.dark .unit-label {
-  background: #2c3e50;
-  color: #4a90e2;
-}
-
 .unit-col select {
-  padding: 15px;
-  border: 1px solid #ddd;
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--border-color);
   border-radius: 12px;
   font-size: 16px;
   outline: none;
-  background: white;
-  transition: background 0.3s ease, border-color 0.3s ease;
+  background: var(--input-bg);
+  color: var(--text-primary);
+  transition: all 0.3s ease;
 }
 
 .unit-col select:focus {
-  border-color: #007aff;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
 }
 
-/* 深色主题 */
-.dark .unit-col select {
-  background: #2c3e50;
-  border-color: #4a5f7a;
-  color: #f5f5f5;
+.swap-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  background: var(--btn-secondary-bg);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: var(--primary-color);
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.swap-btn:hover {
+  background: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
 }
 
 .btn-convert {
   width: 100%;
-  padding: 15px;
+  padding: 14px 20px;
   border: none;
   border-radius: 12px;
-  background: #667eea;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
   color: white;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
   transition: all 0.3s ease;
   margin-bottom: 20px;
+  box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
 }
 
 .btn-convert:hover {
-  background: #5568d3;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(67, 97, 238, 0.4);
+}
+
+.btn-convert i {
+  font-size: 16px;
 }
 
 .result {
-  background: #f8f9fa;
-  border-radius: 12px;
+  background: var(--result-bg);
+  border-radius: 14px;
   padding: 20px;
   text-align: center;
+  transition: all 0.3s ease;
+  border: 1px solid var(--border-color);
+}
+
+.result-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
   font-size: 20px;
-  color: #333;
-  transition: background 0.3s ease, color 0.3s ease;
+  color: var(--text-primary);
 }
 
-/* 深色主题 */
-.dark .result {
-  background: #34495e;
-  color: #f5f5f5;
+.result-main i {
+  color: var(--success-color);
 }
 
-.result strong {
-  color: #667eea;
+.result-main strong {
+  color: var(--primary-color);
+  font-size: 24px;
+}
+
+@media (max-width: 480px) {
+  .calculator-container {
+    padding: 12px;
+  }
+
+  .card {
+    padding: 20px;
+    border-radius: 12px;
+  }
+
+  .page-title {
+    font-size: 20px;
+    gap: 8px;
+  }
+
+  .page-title i {
+    font-size: 22px;
+  }
+
+  .tabs {
+    gap: 8px;
+  }
+
+  .tab-btn {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+
+  .tab-btn span {
+    display: none;
+  }
+
+  .tab-btn i {
+    font-size: 18px;
+  }
+
+  .buttons {
+    gap: 8px;
+  }
+
+  .btn {
+    padding: 14px;
+  }
+
+  .btn i {
+    font-size: 16px;
+  }
+
+  .input {
+    font-size: 28px;
+  }
+
+  .unit-row {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .unit-col {
+    width: 100%;
+  }
+
+  .swap-btn {
+    width: 100%;
+    height: 36px;
+  }
 }
 </style>

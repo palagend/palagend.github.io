@@ -1,10 +1,13 @@
 <template>
   <div class="exchange-rate-container">
     <div class="card">
-      <h2>实时汇率换算（含损耗计算）</h2>
+      <h2 class="page-title">
+        <i class="fas fa-exchange-alt"></i>
+        <span>实时汇率换算（含损耗计算）</span>
+      </h2>
 
       <div class="input-box">
-        <label>兑换本金</label>
+        <label><i class="fas fa-coins"></i> 兑换本金</label>
         <input type="number" v-model.number="amount" placeholder="请输入金额" min="0.01" step="0.01">
       </div>
 
@@ -26,7 +29,9 @@
               <option value="CHF">CHF 瑞郎</option>
             </select>
           </div>
-          <button class="swap-btn" @click="swapCurrency">⇄</button>
+          <button class="swap-btn" @click="swapCurrency">
+            <i class="fas fa-exchange-alt"></i>
+          </button>
           <div class="currency-col">
             <span class="currency-label">到</span>
             <select v-model="to">
@@ -46,29 +51,52 @@
         </div>
       </div>
 
-      <button class="btn btn-query" @click="getRate">查询市场中间价</button>
+      <button class="btn btn-query" @click="getRate">
+        <i class="fas fa-search"></i>
+        <span>查询市场中间价</span>
+      </button>
 
       <div class="result" v-if="result">
-        {{ amount }}{{ from }} = <strong>{{ result }}</strong>{{ to }}<br>
-        <span style="font-size: 15px; color: #666;">(1{{ from }} = <strong>{{ rateFixed }}</strong>{{ to }})</span>
+        <div class="result-main">
+          <i class="fas fa-calculator"></i>
+          <span>{{ amount }}{{ from }} = <strong>{{ result }}</strong>{{ to }}</span>
+        </div>
+        <div class="result-sub">
+          <i class="fas fa-info-circle"></i>
+          <span>(1{{ from }} = <strong>{{ rateFixed }}</strong>{{ to }})</span>
+        </div>
       </div>
       <div class="time" v-if="updateTime">
-        中间价更新时间：{{ updateTime }}
+        <i class="fas fa-clock"></i>
+        <span>中间价更新时间：{{ updateTime }}</span>
       </div>
 
       <div class="divider" v-if="result"></div>
 
-      <div v-if="result">
+      <div v-if="result" class="loss-section">
+        <h3 class="section-subtitle"><i class="fas fa-percentage"></i> 兑换损耗计算</h3>
         <div class="input-box">
-          <label>实际到账{{ to }}金额</label>
+          <label><i class="fas fa-hand-holding-usd"></i> 实际到账{{ to }}金额</label>
           <input type="number" v-model.number="actualAmount" placeholder="输入实际到账金额" min="0.01" step="0.01">
         </div>
-        <button class="btn btn-calc-loss" @click="calcLoss">计算兑换损耗</button>
+        <button class="btn btn-calc-loss" @click="calcLoss">
+          <i class="fas fa-calculator"></i>
+          <span>计算兑换损耗</span>
+        </button>
 
         <div class="loss-result" v-if="lossData.show">
-          <p>本次损耗：{{ lossData.currentLoss.toFixed(4) }} {{ to }}</p>
-          <p>每1万{{ from }}损耗：{{ lossData.per10000Loss.toFixed(4) }} {{ to }}</p>
-          <p>损耗百分比：<strong>{{ lossData.lossRate.toFixed(2) }}%</strong></p>
+          <div class="loss-item">
+            <span class="loss-label">本次损耗：</span>
+            <span class="loss-value">{{ lossData.currentLoss.toFixed(4) }} {{ to }}</span>
+          </div>
+          <div class="loss-item">
+            <span class="loss-label">每1万{{ from }}损耗：</span>
+            <span class="loss-value">{{ lossData.per10000Loss.toFixed(4) }} {{ to }}</span>
+          </div>
+          <div class="loss-item highlight">
+            <span class="loss-label">损耗百分比：</span>
+            <span class="loss-value"><strong>{{ lossData.lossRate.toFixed(2) }}%</strong></span>
+          </div>
         </div>
       </div>
     </div>
@@ -164,12 +192,6 @@ const calcLoss = () => {
 </script>
 
 <style scoped>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 .exchange-rate-container {
   max-width: 600px;
   margin: 0 auto;
@@ -177,82 +199,70 @@ const calcLoss = () => {
 }
 
 .card {
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 20px;
-  padding: 40px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  transition: background 0.3s ease, box-shadow 0.3s ease;
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
 }
 
-/* 深色主题 */
-.dark .card {
-  background: rgba(44, 62, 80, 0.95);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(74, 144, 226, 0.2);
+.page-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  color: var(--text-primary);
+  font-size: 20px;
+  font-weight: 600;
 }
 
-h2 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #333;
-  font-size: 18px;
-  transition: color 0.3s ease;
-}
-
-/* 深色主题 */
-.dark h2 {
-  color: #f5f5f5;
+.page-title i {
+  color: var(--primary-color);
+  font-size: 24px;
 }
 
 .input-box {
   margin-bottom: 16px;
 }
 
-label {
-  display: block;
-  margin-bottom: 6px;
+.input-box label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
   font-size: 14px;
-  color: #666;
-  transition: color 0.3s ease;
+  color: var(--text-secondary);
+  font-weight: 500;
 }
 
-/* 深色主题 */
-.dark label {
-  color: #bdc3c7;
+.input-box label i {
+  color: var(--primary-color);
+  font-size: 12px;
 }
 
 input, select {
   width: 100%;
-  padding: 12px 14px;
-  border: 1px solid #ddd;
+  padding: 14px 16px;
+  border: 1px solid var(--border-color);
   border-radius: 10px;
   font-size: 16px;
   outline: none;
-  background: #fff;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  background: var(--input-bg);
+  color: var(--text-primary);
+  transition: all 0.3s ease;
 }
 
 input:focus, select:focus {
-  border-color: #007aff;
-}
-
-/* 深色主题 */
-.dark input,
-.dark select {
-  background: #2c3e50;
-  border-color: #4a5f7a;
-  color: #f5f5f5;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
 }
 
 .currency-row {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   width: 100%;
 }
 
@@ -263,156 +273,250 @@ input:focus, select:focus {
 
 .currency-label {
   position: absolute;
-  top: -5px;
-  left: 8px;
-  background: #fff;
-  padding: 0 4px;
-  font-size: 12px;
-  color: #007aff;
-  font-weight: 500;
+  top: -6px;
+  left: 10px;
+  background: var(--card-bg);
+  padding: 0 6px;
+  font-size: 11px;
+  color: var(--primary-color);
+  font-weight: 600;
   z-index: 1;
-  transition: background 0.3s ease, color 0.3s ease;
-}
-
-/* 深色主题 */
-.dark .currency-label {
-  background: #2c3e50;
-  color: #4a90e2;
+  transition: background 0.3s ease;
 }
 
 .swap-btn {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  background: #f8f9fa;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  background: var(--btn-secondary-bg);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 16px;
-  color: #007aff;
+  color: var(--primary-color);
   flex-shrink: 0;
-  transition: background 0.3s ease, border-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
-.swap-btn:active {
-  background: #eef2f5;
-  border-color: #007aff;
-}
-
-/* 深色主题 */
-.dark .swap-btn {
-  background: #34495e;
-  border-color: #4a5f7a;
+.swap-btn:hover {
+  background: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
 }
 
 .btn {
   width: 100%;
-  padding: 12px;
+  padding: 14px 20px;
   border: none;
   border-radius: 12px;
   font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
-  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+}
+
+.btn i {
+  font-size: 16px;
 }
 
 .btn-query {
-  background: #007aff;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: white;
+  box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
 }
 
-.btn-query:active {
-  background: #0066cc;
+.btn-query:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(67, 97, 238, 0.4);
 }
 
 .btn-calc-loss {
-  background: #ffc107;
-  color: #212529;
-  font-weight: 500;
+  background: linear-gradient(135deg, #f093fb, #f5576c);
+  color: white;
+  box-shadow: 0 4px 15px rgba(245, 87, 108, 0.3);
 }
 
-.btn-calc-loss:active {
-  background: #ffb300;
+.btn-calc-loss:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(245, 87, 108, 0.4);
 }
 
 .result {
-  margin-top: 16px;
-  padding: 14px;
-  background: #f8f9fa;
-  border-radius: 12px;
+  margin-top: 20px;
+  padding: 20px;
+  background: var(--result-bg);
+  border-radius: 14px;
   text-align: center;
-  font-size: 17px;
-  line-height: 1.4;
-  transition: background 0.3s ease, color 0.3s ease;
+  transition: all 0.3s ease;
+  border: 1px solid var(--border-color);
 }
 
-/* 深色主题 */
-.dark .result {
-  background: #34495e;
-  color: #f5f5f5;
+.result-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 20px;
+  color: var(--text-primary);
+  margin-bottom: 8px;
 }
 
-.result strong {
-  color: #007aff;
+.result-main i {
+  color: var(--primary-color);
+}
+
+.result-main strong {
+  color: var(--primary-color);
+  font-size: 24px;
+}
+
+.result-sub {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.result-sub i {
+  color: var(--text-muted);
+}
+
+.loss-section {
+  margin-top: 20px;
+}
+
+.section-subtitle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  color: var(--text-primary);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.section-subtitle i {
+  color: #f5576c;
 }
 
 .loss-result {
   margin-top: 16px;
-  padding: 14px;
-  background: #fff5f5;
-  border: 1px solid #ffeeee;
-  border-radius: 12px;
-  font-size: 15px;
-  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  padding: 16px;
+  background: var(--loss-bg);
+  border-radius: 14px;
+  transition: all 0.3s ease;
+  border: 1px solid var(--loss-border);
 }
 
-/* 深色主题 */
-.dark .loss-result {
-  background: rgba(229, 57, 53, 0.1);
-  border-color: rgba(229, 57, 53, 0.3);
-  color: #f5f5f5;
+.loss-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border-color);
 }
 
-.loss-result p {
-  margin: 4px 0;
-  text-align: center;
+.loss-item:last-child {
+  border-bottom: none;
 }
 
-.loss-result strong {
-  color: #e53935;
+.loss-item.highlight {
+  background: linear-gradient(135deg, rgba(245, 87, 108, 0.1), rgba(240, 147, 251, 0.1));
+  margin: 8px -16px -16px;
+  padding: 12px 16px;
+  border-radius: 0 0 14px 14px;
+  border-bottom: none;
+}
+
+.loss-label {
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.loss-value {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.loss-item.highlight .loss-value {
+  color: #f5576c;
+  font-size: 18px;
 }
 
 .time {
-  font-size: 11px;
-  color: #999;
-  text-align: center;
-  margin-top: 8px;
-  transition: color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 12px;
 }
 
-/* 深色主题 */
-.dark .time {
-  color: #7f8c8d;
+.time i {
+  font-size: 12px;
 }
 
 .divider {
   height: 1px;
-  background: #eee;
-  margin: 20px 0 16px;
-  transition: background 0.3s ease;
+  background: var(--border-color);
+  margin: 24px 0;
 }
 
-/* 深色主题 */
-.dark .divider {
-  background: #4a5f7a;
-}
+@media (max-width: 480px) {
+  .exchange-rate-container {
+    padding: 12px;
+  }
 
-.btn + .btn {
-  margin-top: 10px;
-}
+  .card {
+    padding: 20px;
+    border-radius: 12px;
+  }
 
-select option {
-  font-size: 16px;
-  padding: 4px;
+  .page-title {
+    font-size: 18px;
+    gap: 8px;
+  }
+
+  .page-title i {
+    font-size: 20px;
+  }
+
+  .currency-row {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .currency-col {
+    width: 100%;
+  }
+
+  .swap-btn {
+    width: 100%;
+    height: 36px;
+  }
+
+  .result-main {
+    font-size: 18px;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .result-main strong {
+    font-size: 22px;
+  }
+
+  .btn {
+    padding: 12px 16px;
+    font-size: 15px;
+  }
 }
 </style>

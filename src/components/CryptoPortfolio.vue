@@ -1,41 +1,21 @@
 <template>
-  <div class="crypto-container" :class="{ 'dark-mode': isDarkMode }">
+  <div class="crypto-container">
     <div class="container">
-      <!-- 头部导航 -->
-      <header class="header">
-        <div class="logo">
-          Crypto<span>Portfolio</span>
-        </div>
-        <div class="nav-right">
-          <!-- 主题切换按钮 -->
-          <div class="theme-toggle" @click="toggleTheme">
-            <i class="fas fa-sun"></i>
-            <i class="fas fa-moon"></i>
-            <div class="toggle-circle"></div>
-          </div>
-          
-          <!-- 刷新按钮 -->
-          <button class="btn-refresh-small" @click="refreshPrices" :disabled="refreshing">
-            <i class="fas fa-sync" :class="{ 'spinning': refreshing }"></i>
-          </button>
-        </div>
-      </header>
-
       <!-- 主仪表板 -->
       <div class="dashboard">
         <!-- 左侧菜单 -->
         <aside class="sidebar">
           <h3 class="menu-title">资产分类</h3>
           <ul class="menu-list">
-            <li 
-              class="menu-item" 
+            <li
+              class="menu-item"
               :class="{ active: selectedFilter === 'all' }"
               @click="selectedFilter = 'all'"
             >
               <i class="fas fa-chart-pie"></i>
               <span>全部资产</span>
             </li>
-            <li 
+            <li
               class="menu-item"
               :class="{ active: selectedFilter === 'BTC' }"
               @click="selectedFilter = 'BTC'"
@@ -43,7 +23,7 @@
               <i class="fab fa-bitcoin"></i>
               <span>比特币 (BTC)</span>
             </li>
-            <li 
+            <li
               class="menu-item"
               :class="{ active: selectedFilter === 'ETH' }"
               @click="selectedFilter = 'ETH'"
@@ -51,7 +31,7 @@
               <i class="fab fa-ethereum"></i>
               <span>以太坊 (ETH)</span>
             </li>
-            <li 
+            <li
               class="menu-item"
               :class="{ active: selectedFilter === 'SOL' }"
               @click="selectedFilter = 'SOL'"
@@ -59,7 +39,7 @@
               <i class="fas fa-rocket"></i>
               <span>Solana (SOL)</span>
             </li>
-            <li 
+            <li
               class="menu-item"
               :class="{ active: selectedFilter === 'ADA' }"
               @click="selectedFilter = 'ADA'"
@@ -67,7 +47,7 @@
               <i class="fas fa-coins"></i>
               <span>Cardano (ADA)</span>
             </li>
-            <li 
+            <li
               class="menu-item"
               :class="{ active: selectedFilter === 'DOT' }"
               @click="selectedFilter = 'DOT'"
@@ -79,7 +59,7 @@
 
           <!-- 数据源选择 -->
           <div class="data-source-section">
-            <label>数据源：</label>
+            <label><i class="fas fa-database"></i> 价格来源：</label>
             <select v-model="dataSource">
               <option value="gateio">Gate.io</option>
               <option value="coincap">CoinCap</option>
@@ -91,12 +71,12 @@
           <div class="auto-refresh-section">
             <label>
               <input type="checkbox" v-model="autoRefresh" @change="toggleAutoRefresh">
-              自动刷新
+              <i class="fas fa-sync"></i> 自动刷新
             </label>
-            <input 
-              type="number" 
-              v-model="refreshInterval" 
-              min="1" 
+            <input
+              type="number"
+              v-model="refreshInterval"
+              min="1"
               max="1440"
               :disabled="!autoRefresh"
               placeholder="分钟"
@@ -142,7 +122,7 @@
           <!-- 图表区域 -->
           <section class="chart-section">
             <div class="chart-header">
-              <h2 class="chart-title">资产分布</h2>
+              <h2 class="chart-title"><i class="fas fa-chart-pie"></i> 资产分布</h2>
               <div class="chart-actions">
                 <select v-model="chartTimeRange" class="time-filter">
                   <option value="7d">7 天</option>
@@ -152,7 +132,7 @@
                 </select>
               </div>
             </div>
-            
+
             <div class="chart-container">
               <!-- 饼图 -->
               <div class="chart">
@@ -164,11 +144,11 @@
                   </div>
                 </div>
               </div>
-              
+
               <!-- 图例 -->
               <div class="chart-legend">
-                <div 
-                  v-for="(item, index) in assetAllocation" 
+                <div
+                  v-for="(item, index) in assetAllocation"
                   :key="index"
                   class="legend-item"
                 >
@@ -198,18 +178,18 @@
                 <option value="SHIB">Shiba Inu (SHIB)</option>
                 <option value="AVAX">Avalanche (AVAX)</option>
               </select>
-              <input 
-                type="number" 
-                v-model.number="newCrypto.amount" 
-                placeholder="数量" 
-                min="0.00000001" 
+              <input
+                type="number"
+                v-model.number="newCrypto.amount"
+                placeholder="数量"
+                min="0.00000001"
                 step="0.00000001"
               >
-              <input 
-                type="number" 
-                v-model.number="newCrypto.price" 
-                placeholder="买入价格 (USD)" 
-                min="0.00000001" 
+              <input
+                type="number"
+                v-model.number="newCrypto.price"
+                placeholder="买入价格 (USD)"
+                min="0.00000001"
                 step="0.00000001"
               >
               <button class="btn-add" @click="addCrypto">
@@ -221,13 +201,13 @@
           <!-- 资产列表 -->
           <section class="assets-section">
             <div class="section-header">
-              <h2 class="section-title">资产详情</h2>
+              <h2 class="section-title"><i class="fas fa-list"></i> 资产详情</h2>
               <div class="last-update">
                 <i class="fas fa-clock"></i>
                 <span>最后更新：{{ lastUpdateTime }}</span>
               </div>
             </div>
-            
+
             <div class="table-wrapper">
               <table class="assets-table">
                 <thead>
@@ -242,8 +222,8 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr 
-                    v-for="(crypto, index) in filteredPortfolio" 
+                  <tr
+                    v-for="(crypto, index) in filteredPortfolio"
                     :key="index"
                     class="asset-row"
                   >
@@ -315,12 +295,10 @@ const dataSource = ref('gateio')
 const errorMessage = ref('')
 const autoRefresh = ref(false)
 const refreshInterval = ref(60)
-const isDarkMode = ref(false)
 const selectedFilter = ref('all')
 const chartTimeRange = ref('90d')
 let refreshTimer = null
 
-// 资产颜色映射
 const assetColors = {
   BTC: '#f7931a',
   ETH: '#627eea',
@@ -334,13 +312,11 @@ const assetColors = {
   AVAX: '#e84142'
 }
 
-// 图表颜色
 const chartColors = [
   '#4361ee', '#3a0ca3', '#7209b7', '#f72585', '#4cc9f0',
   '#4ade80', '#facc15', '#f97316', '#ec4899', '#8b5cf6'
 ]
 
-// 资产名称映射
 const assetNames = {
   BTC: 'Bitcoin',
   ETH: 'Ethereum',
@@ -354,45 +330,36 @@ const assetNames = {
   AVAX: 'Avalanche'
 }
 
-// 从本地存储加载投资组合
 const loadPortfolio = () => {
   const savedPortfolio = localStorage.getItem('cryptoPortfolio')
   if (savedPortfolio) {
     portfolio.value = JSON.parse(savedPortfolio)
   }
-  
-  // 加载主题偏好
-  const savedTheme = localStorage.getItem('theme')
-  if (savedTheme === 'dark') {
-    isDarkMode.value = true
-  }
 }
 
-// 保存投资组合到本地存储
 const savePortfolio = () => {
   localStorage.setItem('cryptoPortfolio', JSON.stringify(portfolio.value))
 }
 
-// 添加加密货币
 const addCrypto = () => {
   if (!newCrypto.value.symbol) {
     errorMessage.value = '请选择加密货币'
     setTimeout(() => errorMessage.value = '', 3000)
     return
   }
-  
+
   if (newCrypto.value.amount <= 0) {
     errorMessage.value = '请输入大于 0 的数量'
     setTimeout(() => errorMessage.value = '', 3000)
     return
   }
-  
+
   if (newCrypto.value.price <= 0) {
     errorMessage.value = '请输入大于 0 的买入价格'
     setTimeout(() => errorMessage.value = '', 3000)
     return
   }
-  
+
   portfolio.value.push({
     symbol: newCrypto.value.symbol,
     amount: newCrypto.value.amount,
@@ -401,40 +368,30 @@ const addCrypto = () => {
     profitLoss: 0,
     profitLossRate: 0
   })
-  
+
   newCrypto.value = {
     symbol: '',
     amount: 0,
     price: 0
   }
-  
+
   savePortfolio()
   refreshPrices()
 }
 
-// 删除加密货币
 const deleteCrypto = (index) => {
   portfolio.value.splice(index, 1)
   savePortfolio()
 }
 
-// 主题切换
-const toggleTheme = () => {
-  isDarkMode.value = !isDarkMode.value
-  localStorage.setItem('theme', isDarkMode.value ? 'dark' : 'light')
-}
-
-// 获取资产名称
 const getAssetName = (symbol) => {
   return assetNames[symbol] || symbol
 }
 
-// 获取资产颜色
 const getAssetColor = (symbol) => {
   return assetColors[symbol] || '#667eea'
 }
 
-// 格式化数字
 const formatNumber = (num) => {
   if (!num && num !== 0) return '0.00'
   return Math.abs(num).toLocaleString('en-US', {
@@ -443,7 +400,6 @@ const formatNumber = (num) => {
   })
 }
 
-// 格式化数量
 const formatAmount = (amount) => {
   if (!amount) return '0'
   return amount.toLocaleString('en-US', {
@@ -452,27 +408,25 @@ const formatAmount = (amount) => {
   })
 }
 
-// 获取变化样式
 const getChangeClass = (change) => {
   if (change > 0) return 'positive'
   if (change < 0) return 'negative'
   return ''
 }
 
-// 从 gate.io 获取实时价格
 const getPricesFromGateio = async () => {
   try {
     const response = await axios.get('/gateio/api/v4/spot/tickers')
     const data = response.data
-    
+
     const mainPairs = data.filter(item => item.currency_pair.endsWith('_USDT'))
-    
+
     mainPairs.forEach(item => {
       const symbol = item.currency_pair.split('_')[0]
       const price = parseFloat(item.last)
       prices.value[symbol] = price
     })
-    
+
     console.log('Successfully fetched prices from gate.io')
   } catch (error) {
     console.error('Failed to get prices from gate.io:', error)
@@ -480,7 +434,6 @@ const getPricesFromGateio = async () => {
   }
 }
 
-// 从 coincap 获取实时价格
 const getPricesFromCoincap = async () => {
   try {
     const response = await axios.get('/coincap/v3/assets', {
@@ -489,13 +442,13 @@ const getPricesFromCoincap = async () => {
       }
     })
     const data = response.data.data
-    
+
     data.forEach(item => {
       const symbol = item.symbol
       const price = parseFloat(item.priceUsd)
       prices.value[symbol] = price
     })
-    
+
     console.log('Successfully fetched prices from coincap')
   } catch (error) {
     console.error('Failed to get prices from coincap:', error)
@@ -503,12 +456,11 @@ const getPricesFromCoincap = async () => {
   }
 }
 
-// 刷新价格
 const refreshPrices = async () => {
   refreshing.value = true
   errorMessage.value = ''
   prices.value = {}
-  
+
   try {
     if (dataSource.value === 'gateio') {
       await getPricesFromGateio()
@@ -529,22 +481,21 @@ const refreshPrices = async () => {
     console.error('Failed to fetch prices:', error)
     errorMessage.value = '获取价格失败，请检查网络连接'
   }
-  
+
   portfolio.value.forEach(crypto => {
     crypto.currentPrice = prices.value[crypto.symbol] || 0
     crypto.profitLoss = crypto.amount * (crypto.currentPrice - crypto.price)
     crypto.profitLossRate = ((crypto.currentPrice - crypto.price) / crypto.price) * 100
   })
-  
-  lastUpdateTime.value = new Date().toLocaleTimeString('zh-CN', { 
-    hour: '2-digit', 
+
+  lastUpdateTime.value = new Date().toLocaleTimeString('zh-CN', {
+    hour: '2-digit',
     minute: '2-digit',
     second: '2-digit'
   })
   refreshing.value = false
 }
 
-// 自动刷新开关
 const toggleAutoRefresh = () => {
   if (autoRefresh.value) {
     refreshTimer = setInterval(() => {
@@ -558,42 +509,35 @@ const toggleAutoRefresh = () => {
   }
 }
 
-// 计算总资产
 const totalValue = computed(() => {
   return portfolio.value.reduce((total, crypto) => {
     return total + (crypto.amount * crypto.currentPrice)
   }, 0)
 })
 
-// 计算总盈亏
 const totalProfitLoss = computed(() => {
   return portfolio.value.reduce((total, crypto) => {
     return total + (crypto.amount * (crypto.currentPrice - crypto.price))
   }, 0)
 })
 
-// 计算总盈亏率
 const totalProfitLossRate = computed(() => {
   const totalInvestment = portfolio.value.reduce((total, crypto) => {
     return total + (crypto.amount * crypto.price)
   }, 0)
-  
+
   if (totalInvestment === 0) return 0
   return (totalProfitLoss.value / totalInvestment) * 100
 })
 
-// 计算总 ROI
 const totalROI = computed(() => {
   return totalProfitLossRate.value
 })
 
-// 计算 24 小时价值变化（模拟）
 const totalValueChange24h = computed(() => {
-  // 这里可以根据历史数据计算，暂时返回一个模拟值
   return totalProfitLossRate.value / 10
 })
 
-// 过滤后的投资组合
 const filteredPortfolio = computed(() => {
   if (selectedFilter.value === 'all') {
     return portfolio.value
@@ -601,18 +545,17 @@ const filteredPortfolio = computed(() => {
   return portfolio.value.filter(crypto => crypto.symbol === selectedFilter.value)
 })
 
-// 资产分布数据
 const assetAllocation = computed(() => {
   if (portfolio.value.length === 0) return []
-  
+
   const total = totalValue.value
   if (total === 0) return []
-  
+
   const allocation = portfolio.value.map((crypto, index) => {
     const value = crypto.amount * crypto.currentPrice
     const percentage = ((value / total) * 100).toFixed(1)
     const color = chartColors[index % chartColors.length]
-    
+
     return {
       name: crypto.symbol,
       percentage: parseFloat(percentage),
@@ -620,17 +563,16 @@ const assetAllocation = computed(() => {
       color
     }
   }).sort((a, b) => b.value - a.value)
-  
+
   return allocation
 })
 
-// 饼图样式
 const pieChartStyle = computed(() => {
   if (assetAllocation.value.length === 0) return {}
-  
+
   let gradient = 'conic-gradient('
   let startAngle = 0
-  
+
   assetAllocation.value.forEach((item, index) => {
     const endAngle = startAngle + (item.percentage * 3.6)
     gradient += `${item.color} ${startAngle}deg ${endAngle}deg`
@@ -639,15 +581,14 @@ const pieChartStyle = computed(() => {
     }
     startAngle = endAngle
   })
-  
+
   gradient += ')'
-  
+
   return {
     background: gradient
   }
 })
 
-// 生命周期钩子
 onMounted(() => {
   loadPortfolio()
   refreshPrices()
@@ -661,38 +602,8 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-/* CSS 变量定义 */
 .crypto-container {
-  --primary-color: #4361ee;
-  --secondary-color: #3a0ca3;
-  --bg-color: #f0f2f5;
-  --card-bg: #ffffff;
-  --text-color: #212529;
-  --text-secondary: #6c757d;
-  --border-color: #e0e0e0;
-  --positive-color: #2ecc71;
-  --negative-color: #e74c3c;
-  --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  --hover-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-  
-  min-height: 100vh;
-  padding: 20px;
-  transition: all 0.3s ease;
-}
-
-/* 深色模式 */
-.crypto-container.dark-mode {
-  --primary-color: #5a7dff;
-  --secondary-color: #7048e8;
-  --bg-color: #121212;
-  --card-bg: #1e1e1e;
-  --text-color: #e9ecef;
-  --text-secondary: #adb5bd;
-  --border-color: #2d2d2d;
-  --positive-color: #4ade80;
-  --negative-color: #f87171;
-  --shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  --hover-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  min-height: calc(100vh - 120px);
 }
 
 .container {
@@ -700,123 +611,35 @@ onUnmounted(() => {
   margin: 0 auto;
 }
 
-/* 头部 */
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 0;
-  margin-bottom: 30px;
-  border-bottom: 1px solid var(--border-color);
-}
-
-.logo {
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--primary-color);
-}
-
-.logo span {
-  color: var(--secondary-color);
-}
-
-.nav-right {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-/* 主题切换 */
-.theme-toggle {
-  background-color: var(--card-bg);
-  border: 1px solid var(--border-color);
-  width: 50px;
-  height: 28px;
-  border-radius: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 4px;
-  cursor: pointer;
-  position: relative;
-  transition: all 0.3s ease;
-}
-
-.theme-toggle i {
-  font-size: 12px;
-  z-index: 1;
-  color: var(--text-secondary);
-}
-
-.toggle-circle {
-  position: absolute;
-  left: 3px;
-  width: 22px;
-  height: 22px;
-  background-color: var(--primary-color);
-  border-radius: 50%;
-  transition: transform 0.3s ease;
-}
-
-.crypto-container.dark-mode .toggle-circle {
-  transform: translateX(22px);
-}
-
-/* 刷新按钮 */
-.btn-refresh-small {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background-color: var(--primary-color);
-  color: white;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-}
-
-.btn-refresh-small:hover {
-  background-color: var(--secondary-color);
-  transform: scale(1.1);
-}
-
-.btn-refresh-small:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.spinning {
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-/* 仪表板布局 */
 .dashboard {
   display: grid;
   grid-template-columns: 260px 1fr;
   gap: 30px;
 }
 
-/* 侧边栏 */
 .sidebar {
-  background-color: var(--card-bg);
+  background-color: white;
   border-radius: 12px;
   padding: 20px;
-  box-shadow: var(--shadow);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   height: fit-content;
+}
+
+.dark .sidebar {
+  background-color: #1e1e1e;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .menu-title {
   font-size: 14px;
-  color: var(--text-secondary);
+  color: #6c757d;
   margin-bottom: 20px;
   text-transform: uppercase;
   letter-spacing: 1px;
+}
+
+.dark .menu-title {
+  color: #adb5bd;
 }
 
 .menu-list {
@@ -834,17 +657,25 @@ onUnmounted(() => {
   align-items: center;
   gap: 12px;
   transition: all 0.3s ease;
-  color: var(--text-color);
+  color: #212529;
+}
+
+.dark .menu-item {
+  color: #e9ecef;
 }
 
 .menu-item i {
   width: 20px;
-  color: var(--text-secondary);
+  color: #6c757d;
   transition: color 0.3s ease;
 }
 
+.dark .menu-item i {
+  color: #adb5bd;
+}
+
 .menu-item:hover {
-  background-color: var(--primary-color);
+  background-color: #4361ee;
   color: white;
 }
 
@@ -853,7 +684,7 @@ onUnmounted(() => {
 }
 
 .menu-item.active {
-  background-color: var(--primary-color);
+  background-color: #4361ee;
   color: white;
 }
 
@@ -861,42 +692,65 @@ onUnmounted(() => {
   color: white;
 }
 
-/* 数据源和自动刷新 */
 .data-source-section,
 .auto-refresh-section {
   margin-top: 20px;
   padding: 15px;
-  background-color: var(--bg-color);
+  background-color: #f0f2f5;
   border-radius: 8px;
+}
+
+.dark .data-source-section,
+.dark .auto-refresh-section {
+  background-color: #2d2d2d;
 }
 
 .data-source-section label,
 .auto-refresh-section label {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-size: 14px;
-  color: var(--text-secondary);
+  color: #6c757d;
   margin-bottom: 8px;
+}
+
+.dark .data-source-section label,
+.dark .auto-refresh-section label {
+  color: #adb5bd;
 }
 
 .data-source-section select {
   width: 100%;
   padding: 8px 12px;
-  border: 1px solid var(--border-color);
+  border: 1px solid #e0e0e0;
   border-radius: 6px;
-  background-color: var(--card-bg);
-  color: var(--text-color);
+  background-color: white;
+  color: #212529;
   font-size: 14px;
 }
 
+.dark .data-source-section select {
+  background-color: #1e1e1e;
+  border-color: #2d2d2d;
+  color: #e9ecef;
+}
+
 .auto-refresh-section input[type="number"] {
-  width: 80px;
+  width: 70px;
   padding: 8px;
-  border: 1px solid var(--border-color);
+  border: 1px solid #e0e0e0;
   border-radius: 6px;
-  background-color: var(--card-bg);
-  color: var(--text-color);
+  background-color: white;
+  color: #212529;
   font-size: 14px;
   margin: 0 5px;
+}
+
+.dark .auto-refresh-section input[type="number"] {
+  background-color: #1e1e1e;
+  border-color: #2d2d2d;
+  color: #e9ecef;
 }
 
 .auto-refresh-section input:disabled {
@@ -904,7 +758,6 @@ onUnmounted(() => {
   cursor: not-allowed;
 }
 
-/* 概览卡片 */
 .overview {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -913,25 +766,38 @@ onUnmounted(() => {
 }
 
 .overview-card {
-  background-color: var(--card-bg);
+  background-color: white;
   border-radius: 12px;
   padding: 24px;
-  box-shadow: var(--shadow);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
 }
 
+.dark .overview-card {
+  background-color: #1e1e1e;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
 .overview-card:hover {
-  box-shadow: var(--hover-shadow);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
   transform: translateY(-2px);
+}
+
+.dark .overview-card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
 }
 
 .overview-card h3 {
   font-size: 14px;
-  color: var(--text-secondary);
+  color: #6c757d;
   margin-bottom: 12px;
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+.dark .overview-card h3 {
+  color: #adb5bd;
 }
 
 .overview-card h3 i {
@@ -942,37 +808,45 @@ onUnmounted(() => {
   font-size: 28px;
   font-weight: 700;
   margin-bottom: 8px;
-  color: var(--text-color);
+  color: #212529;
+}
+
+.dark .overview-card .value {
+  color: #e9ecef;
 }
 
 .overview-card .change {
   font-size: 14px;
-  color: var(--text-secondary);
+  color: #6c757d;
 }
 
 .change.positive {
-  color: var(--positive-color);
+  color: #2ecc71;
 }
 
 .change.negative {
-  color: var(--negative-color);
+  color: #e74c3c;
 }
 
 .value.positive {
-  color: var(--positive-color);
+  color: #2ecc71;
 }
 
 .value.negative {
-  color: var(--negative-color);
+  color: #e74c3c;
 }
 
-/* 图表区域 */
 .chart-section {
-  background-color: var(--card-bg);
+  background-color: white;
   border-radius: 12px;
   padding: 25px;
-  box-shadow: var(--shadow);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   margin-bottom: 30px;
+}
+
+.dark .chart-section {
+  background-color: #1e1e1e;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .chart-header {
@@ -985,16 +859,33 @@ onUnmounted(() => {
 .chart-title {
   font-size: 20px;
   font-weight: 600;
-  color: var(--text-color);
+  color: #212529;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dark .chart-title {
+  color: #e9ecef;
+}
+
+.chart-title i {
+  color: #4361ee;
 }
 
 .time-filter {
   padding: 8px 16px;
-  border: 1px solid var(--border-color);
+  border: 1px solid #e0e0e0;
   border-radius: 6px;
-  background-color: var(--card-bg);
-  color: var(--text-color);
+  background-color: white;
+  color: #212529;
   font-size: 14px;
+}
+
+.dark .time-filter {
+  background-color: #2d2d2d;
+  border-color: #2d2d2d;
+  color: #e9ecef;
 }
 
 .chart-container {
@@ -1027,7 +918,7 @@ onUnmounted(() => {
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  background-color: var(--card-bg);
+  background-color: white;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -1035,18 +926,31 @@ onUnmounted(() => {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  box-shadow: var(--shadow);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.dark .pie-center {
+  background-color: #2d2d2d;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .pie-center span:first-child {
   font-weight: 700;
   font-size: 18px;
-  color: var(--text-color);
+  color: #212529;
+}
+
+.dark .pie-center span:first-child {
+  color: #e9ecef;
 }
 
 .pie-center span:last-child {
   font-size: 12px;
-  color: var(--text-secondary);
+  color: #6c757d;
+}
+
+.dark .pie-center span:last-child {
+  color: #adb5bd;
 }
 
 .chart-legend {
@@ -1061,7 +965,11 @@ onUnmounted(() => {
   align-items: center;
   gap: 10px;
   font-size: 14px;
-  color: var(--text-color);
+  color: #212529;
+}
+
+.dark .legend-item {
+  color: #e9ecef;
 }
 
 .legend-color {
@@ -1071,13 +979,17 @@ onUnmounted(() => {
   flex-shrink: 0;
 }
 
-/* 添加加密货币区域 */
 .add-crypto-section {
-  background-color: var(--card-bg);
+  background-color: white;
   border-radius: 12px;
   padding: 25px;
-  box-shadow: var(--shadow);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   margin-bottom: 30px;
+}
+
+.dark .add-crypto-section {
+  background-color: #1e1e1e;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .section-header {
@@ -1089,10 +1001,18 @@ onUnmounted(() => {
 
 .section-header h3 {
   font-size: 18px;
-  color: var(--text-color);
+  color: #212529;
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+.dark .section-header h3 {
+  color: #e9ecef;
+}
+
+.section-header h3 i {
+  color: #4361ee;
 }
 
 .input-row {
@@ -1105,18 +1025,25 @@ onUnmounted(() => {
 .input-row select,
 .input-row input {
   padding: 12px 16px;
-  border: 1px solid var(--border-color);
+  border: 1px solid #e0e0e0;
   border-radius: 8px;
   font-size: 15px;
-  background-color: var(--bg-color);
-  color: var(--text-color);
+  background-color: #f0f2f5;
+  color: #212529;
   transition: all 0.3s ease;
+}
+
+.dark .input-row select,
+.dark .input-row input {
+  background-color: #2d2d2d;
+  border-color: #2d2d2d;
+  color: #e9ecef;
 }
 
 .input-row select:focus,
 .input-row input:focus {
   outline: none;
-  border-color: var(--primary-color);
+  border-color: #4361ee;
   box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
 }
 
@@ -1124,7 +1051,7 @@ onUnmounted(() => {
   padding: 12px 24px;
   border: none;
   border-radius: 8px;
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  background: linear-gradient(135deg, #4361ee, #3a0ca3);
   color: white;
   font-size: 15px;
   font-weight: 600;
@@ -1137,21 +1064,36 @@ onUnmounted(() => {
 
 .btn-add:hover {
   transform: translateY(-2px);
-  box-shadow: var(--hover-shadow);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
 }
 
-/* 资产列表 */
 .assets-section {
-  background-color: var(--card-bg);
+  background-color: white;
   border-radius: 12px;
   padding: 25px;
-  box-shadow: var(--shadow);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.dark .assets-section {
+  background-color: #1e1e1e;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .section-title {
   font-size: 20px;
   font-weight: 600;
-  color: var(--text-color);
+  color: #212529;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dark .section-title {
+  color: #e9ecef;
+}
+
+.section-title i {
+  color: #4361ee;
 }
 
 .last-update {
@@ -1159,7 +1101,11 @@ onUnmounted(() => {
   align-items: center;
   gap: 8px;
   font-size: 14px;
-  color: var(--text-secondary);
+  color: #6c757d;
+}
+
+.dark .last-update {
+  color: #adb5bd;
 }
 
 .last-update i {
@@ -1179,22 +1125,36 @@ onUnmounted(() => {
 .assets-table th {
   text-align: left;
   padding: 16px;
-  border-bottom: 2px solid var(--border-color);
-  color: var(--text-secondary);
+  border-bottom: 2px solid #e0e0e0;
+  color: #6c757d;
   font-weight: 600;
   font-size: 13px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
+.dark .assets-table th {
+  border-bottom-color: #2d2d2d;
+  color: #adb5bd;
+}
+
 .assets-table td {
   padding: 18px 16px;
-  border-bottom: 1px solid var(--border-color);
-  color: var(--text-color);
+  border-bottom: 1px solid #e0e0e0;
+  color: #212529;
+}
+
+.dark .assets-table td {
+  border-bottom-color: #2d2d2d;
+  color: #e9ecef;
 }
 
 .asset-row:hover {
-  background-color: var(--bg-color);
+  background-color: #f0f2f5;
+}
+
+.dark .asset-row:hover {
+  background-color: #2d2d2d;
 }
 
 .asset-info {
@@ -1218,12 +1178,20 @@ onUnmounted(() => {
 
 .asset-name {
   font-weight: 600;
-  color: var(--text-color);
+  color: #212529;
+}
+
+.dark .asset-name {
+  color: #e9ecef;
 }
 
 .asset-symbol {
   font-size: 13px;
-  color: var(--text-secondary);
+  color: #6c757d;
+}
+
+.dark .asset-symbol {
+  color: #adb5bd;
 }
 
 .asset-amount,
@@ -1248,12 +1216,12 @@ onUnmounted(() => {
 
 .asset-profit.positive .profit-value,
 .asset-profit.positive .profit-rate {
-  color: var(--positive-color);
+  color: #2ecc71;
 }
 
 .asset-profit.negative .profit-value,
 .asset-profit.negative .profit-rate {
-  color: var(--negative-color);
+  color: #e74c3c;
 }
 
 .btn-delete {
@@ -1261,21 +1229,28 @@ onUnmounted(() => {
   border: none;
   border-radius: 6px;
   background-color: transparent;
-  color: var(--text-secondary);
+  color: #6c757d;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
+.dark .btn-delete {
+  color: #adb5bd;
+}
+
 .btn-delete:hover {
-  background-color: var(--negative-color);
+  background-color: #e74c3c;
   color: white;
 }
 
-/* 空状态 */
 .empty-state {
   text-align: center;
   padding: 60px 20px !important;
-  color: var(--text-secondary);
+  color: #6c757d;
+}
+
+.dark .empty-state {
+  color: #adb5bd;
 }
 
 .empty-state i {
@@ -1289,18 +1264,21 @@ onUnmounted(() => {
   font-size: 16px;
 }
 
-/* 错误提示 */
 .error-message {
   margin-top: 20px;
   padding: 16px 20px;
   background-color: rgba(231, 76, 60, 0.1);
-  border: 1px solid var(--negative-color);
+  border: 1px solid #e74c3c;
   border-radius: 8px;
-  color: var(--negative-color);
+  color: #e74c3c;
   display: flex;
   align-items: center;
   gap: 10px;
   animation: slideIn 0.3s ease;
+}
+
+.dark .error-message {
+  background-color: rgba(231, 76, 60, 0.2);
 }
 
 @keyframes slideIn {
@@ -1314,29 +1292,28 @@ onUnmounted(() => {
   }
 }
 
-/* 响应式设计 */
 @media (max-width: 1200px) {
   .dashboard {
     grid-template-columns: 1fr;
   }
-  
+
   .sidebar {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
   }
-  
+
   .menu-list {
     margin: 0;
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
   }
-  
+
   .menu-item {
     margin: 0;
   }
-  
+
   .data-source-section,
   .auto-refresh-section {
     margin: 0;
@@ -1347,7 +1324,7 @@ onUnmounted(() => {
   .chart-container {
     grid-template-columns: 1fr;
   }
-  
+
   .chart-legend {
     flex-direction: row;
     flex-wrap: wrap;
@@ -1357,32 +1334,29 @@ onUnmounted(() => {
 
 @media (max-width: 768px) {
   .crypto-container {
+    padding: 0;
+  }
+
+  .dashboard {
+    gap: 20px;
+  }
+
+  .sidebar {
     padding: 15px;
   }
-  
-  .header {
-    flex-direction: column;
-    gap: 15px;
-    align-items: flex-start;
-  }
-  
-  .nav-right {
-    width: 100%;
-    justify-content: space-between;
-  }
-  
+
   .overview {
     grid-template-columns: repeat(2, 1fr);
   }
-  
+
   .input-row {
     grid-template-columns: 1fr;
   }
-  
+
   .assets-table {
     font-size: 14px;
   }
-  
+
   .assets-table th,
   .assets-table td {
     padding: 12px 8px;
@@ -1393,9 +1367,62 @@ onUnmounted(() => {
   .overview {
     grid-template-columns: 1fr;
   }
-  
-  .logo {
+
+  .overview-card {
+    padding: 16px;
+  }
+
+  .overview-card .value {
     font-size: 24px;
+  }
+
+  .chart-section,
+  .add-crypto-section,
+  .assets-section {
+    padding: 16px;
+  }
+
+  .chart-title,
+  .section-title {
+    font-size: 16px;
+  }
+
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .table-wrapper {
+    font-size: 12px;
+  }
+
+  .assets-table th,
+  .assets-table td {
+    padding: 10px 6px;
+    white-space: nowrap;
+  }
+
+  .asset-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+
+  .asset-info {
+    gap: 8px;
+  }
+
+  .asset-name {
+    font-size: 13px;
+  }
+
+  .asset-symbol {
+    font-size: 11px;
+  }
+
+  .profit-rate {
+    font-size: 11px;
   }
 }
 </style>

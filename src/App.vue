@@ -3,25 +3,40 @@
     <nav class="navbar">
       <div class="nav-container">
         <router-link to="/" class="nav-logo">
-          🧰 工具集合
+          <i class="fas fa-tools"></i>
+          <span>工具集合</span>
         </router-link>
         <ul class="nav-menu">
           <li class="nav-item">
-            <router-link to="/" class="nav-link">首页</router-link>
+            <router-link to="/" class="nav-link">
+              <i class="fas fa-home"></i>
+              <span>首页</span>
+            </router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/exchange-rate" class="nav-link">汇率查询</router-link>
+            <router-link to="/exchange-rate" class="nav-link">
+              <i class="fas fa-exchange-alt"></i>
+              <span>汇率查询</span>
+            </router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/calculator" class="nav-link">计算器</router-link>
+            <router-link to="/calculator" class="nav-link">
+              <i class="fas fa-calculator"></i>
+              <span>计算器</span>
+            </router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/crypto-portfolio" class="nav-link">加密货币投资组合</router-link>
+            <router-link to="/crypto-portfolio" class="nav-link">
+              <i class="fas fa-wallet"></i>
+              <span>加密货币</span>
+            </router-link>
           </li>
         </ul>
-        <button class="theme-toggle" @click="toggleTheme">
-          {{ isDark ? '☀️' : '🌙' }}
-        </button>
+        <div class="theme-toggle" @click="toggleTheme">
+          <i class="fas fa-sun"></i>
+          <i class="fas fa-moon"></i>
+          <div class="toggle-circle"></div>
+        </div>
       </div>
     </nav>
     <div class="container">
@@ -35,7 +50,6 @@ import { ref, onMounted } from 'vue'
 
 const isDark = ref(false)
 
-// 从本地存储加载主题
 const loadTheme = () => {
   const savedTheme = localStorage.getItem('theme')
   if (savedTheme) {
@@ -44,20 +58,54 @@ const loadTheme = () => {
   }
 }
 
-// 切换主题
 const toggleTheme = () => {
   isDark.value = !isDark.value
   document.documentElement.classList.toggle('dark', isDark.value)
   localStorage.setItem('theme', isDark.value ? 'dark' : 'light')
 }
 
-// 组件加载时调用
 onMounted(() => {
   loadTheme()
 })
 </script>
 
 <style>
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+
+:root {
+  --card-bg: rgba(255, 255, 255, 0.98);
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --border-color: rgba(0, 0, 0, 0.08);
+  --text-primary: #212529;
+  --text-secondary: #6c757d;
+  --text-muted: #adb5bd;
+  --primary-color: #4361ee;
+  --secondary-color: #7209b7;
+  --input-bg: #ffffff;
+  --btn-secondary-bg: #f8f9fa;
+  --result-bg: #f8f9fa;
+  --success-color: #28a745;
+  --loss-bg: rgba(245, 87, 108, 0.08);
+  --loss-border: rgba(245, 87, 108, 0.2);
+}
+
+.dark {
+  --card-bg: rgba(30, 30, 30, 0.98);
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  --border-color: rgba(255, 255, 255, 0.12);
+  --text-primary: #e9ecef;
+  --text-secondary: #adb5bd;
+  --text-muted: #6c757d;
+  --primary-color: #4a90e2;
+  --secondary-color: #7b68ee;
+  --input-bg: #2d2d2d;
+  --btn-secondary-bg: #3d3d3d;
+  --result-bg: #2d2d2d;
+  --success-color: #3ddc84;
+  --loss-bg: rgba(245, 87, 108, 0.15);
+  --loss-border: rgba(245, 87, 108, 0.3);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -66,8 +114,8 @@ onMounted(() => {
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  background: #f5f5f5;
-  color: #333;
+  background: #f0f2f5;
+  color: #212529;
   transition: background 0.3s ease, color 0.3s ease;
 }
 
@@ -76,14 +124,14 @@ body {
 }
 
 .navbar {
-  background: #667eea;
+  background: #4361ee;
   padding: 1rem 0;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   transition: background 0.3s ease;
 }
 
 .nav-container {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 0 2rem;
   display: flex;
@@ -94,8 +142,19 @@ body {
 .nav-logo {
   color: white;
   font-size: 1.5rem;
-  font-weight: 600;
+  font-weight: 700;
   text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-logo i {
+  font-size: 1.3rem;
+}
+
+.nav-logo span {
+  color: white;
 }
 
 .nav-menu {
@@ -109,71 +168,160 @@ body {
   text-decoration: none;
   font-size: 1rem;
   font-weight: 500;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+}
+
+.nav-link i {
+  font-size: 1rem;
 }
 
 .nav-link:hover {
-  color: #e0e0e0;
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+}
+
+.nav-link.router-link-active {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
 }
 
 .theme-toggle {
-  padding: 0.5rem 1rem;
+  background-color: rgba(255, 255, 255, 0.2);
   border: none;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
-  font-size: 1.2rem;
+  width: 50px;
+  height: 28px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4px;
   cursor: pointer;
-  transition: background 0.3s ease;
+  position: relative;
+  transition: all 0.3s ease;
 }
 
-.theme-toggle:hover {
-  background: rgba(255, 255, 255, 0.3);
+.theme-toggle i {
+  font-size: 12px;
+  z-index: 1;
+  color: white;
+}
+
+.theme-toggle .toggle-circle {
+  position: absolute;
+  left: 3px;
+  width: 22px;
+  height: 22px;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}
+
+.dark .theme-toggle .toggle-circle {
+  transform: translateX(22px);
+}
+
+.dark .theme-toggle i {
+  color: white;
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 2rem;
 }
 
-/* 深色主题 */
 .dark body {
-  background: #1a1a1a;
-  color: #f5f5f5;
+  background: #121212;
+  color: #e9ecef;
 }
 
 .dark .navbar {
-  background: #2c3e50;
+  background: #1e1e1e;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-/* 响应式设计 */
-@media (max-width: 768px) {
+.dark .nav-link {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.dark .nav-link:hover,
+.dark .nav-link.router-link-active {
+  color: white;
+}
+
+@media (max-width: 992px) {
   .nav-container {
     flex-direction: column;
     gap: 1rem;
+    padding: 0 1rem;
   }
-  
+
+  .nav-logo {
+    font-size: 1.3rem;
+  }
+
   .nav-menu {
     flex-wrap: wrap;
     justify-content: center;
-    gap: 1rem;
+    gap: 0.5rem;
   }
-  
+
+  .nav-link {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  .nav-link span {
+    display: none;
+  }
+
   .container {
     padding: 1rem;
   }
 }
 
-@media (max-width: 480px) {
-  .nav-menu {
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
+@media (max-width: 576px) {
+  .navbar {
+    padding: 0.8rem 0;
   }
-  
-  .nav-link {
-    font-size: 0.9rem;
+
+  .nav-logo {
+    font-size: 1.1rem;
+  }
+
+  .nav-logo span {
+    display: inline;
+  }
+
+  .nav-menu {
+    gap: 0.3rem;
+  }
+
+  .nav-link i {
+    font-size: 1.1rem;
+  }
+
+  .theme-toggle {
+    width: 44px;
+    height: 26px;
+  }
+
+  .theme-toggle .toggle-circle {
+    width: 20px;
+    height: 20px;
+  }
+
+  .dark .theme-toggle .toggle-circle {
+    transform: translateX(18px);
+  }
+
+  .container {
+    padding: 0.8rem;
   }
 }
 </style>
