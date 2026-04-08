@@ -60,14 +60,14 @@
         
         <div class="unit-row">
           <div class="unit-col">
-            <span class="currency-label">从</span>
+            <span class="unit-label">从</span>
             <select v-model="fromUnit">
               <option v-for="unit in units[unitType]" :key="unit.value" :value="unit.value">{{ unit.label }}</option>
             </select>
           </div>
           
           <div class="unit-col">
-            <span class="currency-label">到</span>
+            <span class="unit-label">到</span>
             <select v-model="toUnit">
               <option v-for="unit in units[unitType]" :key="unit.value" :value="unit.value">{{ unit.label }}</option>
             </select>
@@ -441,8 +441,9 @@ h2 {
 
 .unit-row {
   display: flex;
-  gap: 15px;
-  margin-bottom: 15px;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
 }
 
 .unit-col {
@@ -450,21 +451,21 @@ h2 {
   position: relative;
 }
 
-.currency-label {
+.unit-label {
   position: absolute;
   top: -5px;
   left: 8px;
-  background: white;
+  background: #fff;
   padding: 0 4px;
   font-size: 12px;
   color: #007aff;
   font-weight: 500;
   z-index: 1;
-  transition: background 0.3s ease, color 0.3s ease;
 }
 
+
 /* 深色主题 */
-.dark .currency-label {
+.dark .unit-label {
   background: #2c3e50;
   color: #4a90e2;
 }

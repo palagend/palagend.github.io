@@ -183,6 +183,14 @@ const calcLoss = () => {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 深色主题 */
+.dark .card {
+  background: rgba(44, 62, 80, 0.95);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(74, 144, 226, 0.2);
 }
 
 h2 {
@@ -190,6 +198,12 @@ h2 {
   margin-bottom: 20px;
   color: #333;
   font-size: 18px;
+  transition: color 0.3s ease;
+}
+
+/* 深色主题 */
+.dark h2 {
+  color: #f5f5f5;
 }
 
 .input-box {
@@ -201,6 +215,12 @@ label {
   margin-bottom: 6px;
   font-size: 14px;
   color: #666;
+  transition: color 0.3s ease;
+}
+
+/* 深色主题 */
+.dark label {
+  color: #bdc3c7;
 }
 
 input, select {
@@ -214,10 +234,19 @@ input, select {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
 
 input:focus, select:focus {
   border-color: #007aff;
+}
+
+/* 深色主题 */
+.dark input,
+.dark select {
+  background: #2c3e50;
+  border-color: #4a5f7a;
+  color: #f5f5f5;
 }
 
 .currency-row {
@@ -242,6 +271,13 @@ input:focus, select:focus {
   color: #007aff;
   font-weight: 500;
   z-index: 1;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* 深色主题 */
+.dark .currency-label {
+  background: #2c3e50;
+  color: #4a90e2;
 }
 
 .swap-btn {
@@ -257,11 +293,18 @@ input:focus, select:focus {
   font-size: 16px;
   color: #007aff;
   flex-shrink: 0;
+  transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 .swap-btn:active {
   background: #eef2f5;
   border-color: #007aff;
+}
+
+/* 深色主题 */
+.dark .swap-btn {
+  background: #34495e;
+  border-color: #4a5f7a;
 }
 
 .btn {
@@ -300,6 +343,13 @@ input:focus, select:focus {
   text-align: center;
   font-size: 17px;
   line-height: 1.4;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* 深色主题 */
+.dark .result {
+  background: #34495e;
+  color: #f5f5f5;
 }
 
 .result strong {
@@ -313,6 +363,14 @@ input:focus, select:focus {
   border: 1px solid #ffeeee;
   border-radius: 12px;
   font-size: 15px;
+  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+/* 深色主题 */
+.dark .loss-result {
+  background: rgba(229, 57, 53, 0.1);
+  border-color: rgba(229, 57, 53, 0.3);
+  color: #f5f5f5;
 }
 
 .loss-result p {
@@ -329,12 +387,24 @@ input:focus, select:focus {
   color: #999;
   text-align: center;
   margin-top: 8px;
+  transition: color 0.3s ease;
+}
+
+/* 深色主题 */
+.dark .time {
+  color: #7f8c8d;
 }
 
 .divider {
   height: 1px;
   background: #eee;
   margin: 20px 0 16px;
+  transition: background 0.3s ease;
+}
+
+/* 深色主题 */
+.dark .divider {
+  background: #4a5f7a;
 }
 
 .btn + .btn {
