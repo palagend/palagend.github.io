@@ -1,0 +1,29 @@
+{
+  "name": "palagend.github.io",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/palagend/palagend.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/palagend/palagend.github.io/issues"
+  },
+  "homepage": "https://github.com/palagend/palagend.github.io#readme",
+  "dependencies": {
+    "@vitejs/plugin-vue": "^5.2.4",
+    "axios": "^1.14.0",
+    "vite": "^6.4.2",
+    "vue": "^3.5.32",
+    "vue-router": "^4.6.4"
+  }
+}
