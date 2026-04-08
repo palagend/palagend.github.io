@@ -88,9 +88,21 @@
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
+/* 深色主题 */
+.dark .tool-card {
+  background: rgba(44, 62, 80, 0.95);
+  color: #f5f5f5;
+  border: 1px solid rgba(74, 144, 226, 0.2);
+}
+
 .tool-card:hover {
   transform: translateY(-10px);
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* 深色主题 */
+.dark .tool-card:hover {
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
 }
 
 .tool-card.disabled {
@@ -101,6 +113,11 @@
 .tool-card.disabled:hover {
   transform: none;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* 深色主题 */
+.dark .tool-card.disabled {
+  background: rgba(44, 62, 80, 0.6);
 }
 
 .tool-icon {
@@ -115,6 +132,12 @@
   margin-bottom: 15px;
   text-align: center;
   color: #667eea;
+  transition: color 0.3s ease;
+}
+
+/* 深色主题 */
+.dark .tool-title {
+  color: #4a90e2;
 }
 
 .tool-description {
@@ -122,5 +145,11 @@
   color: #666;
   line-height: 1.6;
   text-align: center;
+  transition: color 0.3s ease;
+}
+
+/* 深色主题 */
+.dark .tool-description {
+  color: #bdc3c7;
 }
 </style>

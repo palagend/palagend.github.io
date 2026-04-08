@@ -390,18 +390,64 @@ h2 {
 
 /* 单位转换 */
 .unit-converter {
-  max-width: 400px;
-  margin: 0 auto;
+  margin-top: 30px;
+  padding: 0;
+  background: transparent;
+  border-radius: 12px;
 }
 
-.unit-row {
+.conversion-form {
   display: flex;
-  gap: 20px;
-  margin-bottom: 20px;
+  flex-direction: column;
+  gap: 15px;
 }
 
-.unit-col {
-  flex: 1;
+.form-group {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  font-size: 16px;
+  outline: none;
+  background: white;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+/* 深色主题 */
+.dark .form-group input {
+  background: #2c3e50;
+  border-color: #4a5f7a;
+  color: #f5f5f5;
+}
+
+.unit-selectors {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.unit-selectors select {
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  font-size: 16px;
+  outline: none;
+  background: white;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+/* 深色主题 */
+.dark .unit-selectors select {
+  background: #2c3e50;
+  border-color: #4a5f7a;
+  color: #f5f5f5;
 }
 
 .btn-convert {
@@ -429,6 +475,13 @@ h2 {
   text-align: center;
   font-size: 20px;
   color: #333;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* 深色主题 */
+.dark .result {
+  background: #34495e;
+  color: #f5f5f5;
 }
 
 .result strong {
