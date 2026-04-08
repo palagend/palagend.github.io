@@ -332,6 +332,13 @@ onMounted(() => {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 深色主题 */
+.dark .crypto-container {
+  background: #2c3e50;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .card {
@@ -357,6 +364,13 @@ h2 {
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 20px;
   margin-bottom: 30px;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 深色主题 */
+.dark .overview {
+  background: #34495e;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .total-value, .profit-loss {
@@ -403,6 +417,17 @@ h2 {
 /* 添加加密货币 */
 .add-crypto {
   margin-bottom: 30px;
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 深色主题 */
+.dark .add-crypto {
+  background: #34495e;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .add-crypto h3 {
@@ -451,6 +476,13 @@ h2 {
   background: white;
   border-radius: 12px;
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 深色主题 */
+.dark .table {
+  background: #34495e;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
 }
 
 .table th {
@@ -482,10 +514,17 @@ h2 {
 /* 表格列 */
 .col {
   text-align: left;
+  color: #333;
+  transition: color 0.3s ease;
 }
 
 .col:last-child {
   text-align: center;
+}
+
+/* 深色主题 */
+.dark .col {
+  color: #f5f5f5;
 }
 
 /* 盈亏样式 */
