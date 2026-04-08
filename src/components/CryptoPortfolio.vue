@@ -107,6 +107,19 @@ const refreshing = ref(false)
 const lastUpdateTime = ref('')
 const dataSource = ref('gateio') // gateio, coincap, auto
 
+// 从本地存储加载投资组合
+const loadPortfolio = () => {
+  const savedPortfolio = localStorage.getItem('cryptoPortfolio')
+  if (savedPortfolio) {
+    portfolio.value = JSON.parse(savedPortfolio)
+  }
+}
+
+// 保存投资组合到本地存储
+const savePortfolio = () => {
+  localStorage.setItem('cryptoPortfolio', JSON.stringify(portfolio.value))
+}
+
 // 添加加密货币
 const addCrypto = () => {
   if (!newCrypto.value.symbol) {
@@ -137,12 +150,14 @@ const addCrypto = () => {
     price: 0
   }
   
+  savePortfolio()
   refreshPrices()
 }
 
 // 删除加密货币
 const deleteCrypto = (index) => {
   portfolio.value.splice(index, 1)
+  savePortfolio()
 }
 
 // 从coincap获取实时价格
@@ -167,6 +182,12 @@ const getPricesFromCoincap = async () => {
     throw error
   }
 }
+
+// 组件加载时调用
+onMounted(() => {
+  loadPortfolio()
+  refreshPrices()
+})
 
 // 从gate.io获取实时价格
 const getPricesFromGateio = async () => {
