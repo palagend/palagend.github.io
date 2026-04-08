@@ -262,6 +262,14 @@ const convertVolume = (value, from, to) => {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+/* 深色主题 */
+.dark .card {
+  background: rgba(44, 62, 80, 0.95);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(74, 144, 226, 0.2);
 }
 
 h2 {
@@ -270,6 +278,12 @@ h2 {
   color: #667eea;
   font-size: 28px;
   font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+/* 深色主题 */
+.dark h2 {
+  color: #4a90e2;
 }
 
 .tabs {
@@ -297,6 +311,19 @@ h2 {
   color: white;
 }
 
+/* 深色主题 */
+.dark .tab-btn {
+  background: #34495e;
+  border-color: #4a5f7a;
+  color: #bdc3c7;
+}
+
+.dark .tab-btn.active {
+  border-color: #4a90e2;
+  background: #4a90e2;
+  color: white;
+}
+
 /* 基础计算器 */
 .calculator {
   max-width: 400px;
@@ -309,6 +336,12 @@ h2 {
   padding: 20px;
   margin-bottom: 20px;
   text-align: right;
+  transition: background 0.3s ease;
+}
+
+/* 深色主题 */
+.dark .display {
+  background: #34495e;
 }
 
 .history {
@@ -316,6 +349,12 @@ h2 {
   color: #666;
   margin-bottom: 8px;
   min-height: 20px;
+  transition: color 0.3s ease;
+}
+
+/* 深色主题 */
+.dark .history {
+  color: #bdc3c7;
 }
 
 .input {
@@ -323,6 +362,12 @@ h2 {
   font-weight: 600;
   color: #333;
   min-height: 40px;
+  transition: color 0.3s ease;
+}
+
+/* 深色主题 */
+.dark .input {
+  color: #f5f5f5;
 }
 
 .buttons {
@@ -344,10 +389,21 @@ h2 {
 .btn-number {
   background: #e9ecef;
   color: #333;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 .btn-number:hover {
   background: #dee2e6;
+}
+
+/* 深色主题 */
+.dark .btn-number {
+  background: #4a5f7a;
+  color: #f5f5f5;
+}
+
+.dark .btn-number:hover {
+  background: #5a6f8a;
 }
 
 .btn-operator {
@@ -382,10 +438,21 @@ h2 {
   grid-column: span 2;
   background: #e9ecef;
   color: #333;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 .btn-zero:hover {
   background: #dee2e6;
+}
+
+/* 深色主题 */
+.dark .btn-zero {
+  background: #4a5f7a;
+  color: #f5f5f5;
+}
+
+.dark .btn-zero:hover {
+  background: #5a6f8a;
 }
 
 /* 单位转换 */
