@@ -174,7 +174,8 @@ const clear = () => {
 
 const calculate = () => {
   try {
-    const result = eval(input.value.replace('×', '*').replace('÷', '/'))
+    const expression = input.value.replace('×', '*').replace('÷', '/')
+    const result = new Function('return ' + expression)()
     history.value = `${input.value} = ${result}`
     input.value = result.toString()
   } catch (error) {
