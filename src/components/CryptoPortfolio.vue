@@ -8,14 +8,14 @@
           <!-- 概览卡片 -->
           <section class="overview">
             <div class="overview-card">
-              <h3><i class="fas fa-wallet"></i> 总资产价值</h3>
+              <h3><Icon icon="mdi:wallet" /> 总资产价值</h3>
               <div class="value">${{ formatNumber(totalValue) }}</div>
               <div class="change" :class="getChangeClass(totalValueChange24h)">
                 {{ totalValueChange24h >= 0 ? '+' : '' }}{{ totalValueChange24h.toFixed(2) }}% (24h)
               </div>
             </div>
             <div class="overview-card">
-              <h3><i class="fas fa-chart-line"></i> 总盈亏</h3>
+              <h3><Icon icon="mdi:trending-up" /> 总盈亏</h3>
               <div class="value" :class="totalProfitLoss >= 0 ? 'positive' : 'negative'">
                 {{ totalProfitLoss >= 0 ? '+' : '' }}${{ formatNumber(Math.abs(totalProfitLoss)) }}
               </div>
@@ -24,12 +24,12 @@
               </div>
             </div>
             <div class="overview-card">
-              <h3><i class="fas fa-coins"></i> 持有资产数量</h3>
+              <h3><Icon icon="mdi:coin" /> 持有资产数量</h3>
               <div class="value">{{ portfolio.length }}</div>
               <div class="change">种加密货币</div>
             </div>
             <div class="overview-card">
-              <h3><i class="fas fa-percent"></i> 投资回报率</h3>
+              <h3><Icon icon="mdi:percent" /> 投资回报率</h3>
               <div class="value" :class="totalROI >= 0 ? 'positive' : 'negative'">
                 {{ totalROI >= 0 ? '+' : '' }}{{ totalROI.toFixed(2) }}%
               </div>
@@ -40,7 +40,7 @@
           <!-- 图表区域 -->
           <section class="chart-section">
             <div class="chart-header">
-              <h2 class="chart-title"><i class="fas fa-chart-pie"></i> 资产分布</h2>
+              <h2 class="chart-title"><Icon icon="mdi:chart-pie" /> 资产分布</h2>
               <div class="chart-actions">
                 <select v-model="chartTimeRange" class="time-filter">
                   <option value="7d">7 天</option>
@@ -80,7 +80,7 @@
           <!-- 添加加密货币 -->
           <section class="add-crypto-section">
             <div class="section-header">
-              <h3><i class="fas fa-plus-circle"></i> 添加加密货币</h3>
+              <h3><Icon icon="mdi:plus-circle" /> 添加加密货币</h3>
             </div>
             <div class="input-row">
               <select v-model="newCrypto.symbol">
@@ -91,9 +91,8 @@
                 <option value="XRP">Ripple (XRP)</option>
                 <option value="ADA">Cardano (ADA)</option>
                 <option value="SOL">Solana (SOL)</option>
-                <option value="DOT">Polkadot (DOT)</option>
                 <option value="DOGE">Dogecoin (DOGE)</option>
-                <option value="SHIB">Shiba Inu (SHIB)</option>
+                <option value="TRX">Tron (TRX)</option>
                 <option value="AVAX">Avalanche (AVAX)</option>
                 <option value="HYPE">Hyperliquid (HYPE)</option>
               </select>
@@ -112,7 +111,7 @@
                 step="0.00000001"
               >
               <button class="btn-add" @click="addCrypto">
-                <i class="fas fa-plus"></i> 添加
+                <Icon icon="mdi:plus" /> 添加
               </button>
             </div>
           </section>
@@ -120,30 +119,29 @@
           <!-- 资产列表 -->
           <section class="assets-section">
             <div class="section-header">
-              <h2 class="section-title"><i class="fas fa-list"></i> 资产详情</h2>
+              <h2 class="section-title"><Icon icon="mdi:list" /> 资产详情</h2>
               <div class="section-actions">
                 <div class="filter-group">
                   <select v-model="selectedFilter" class="filter-select">
                     <option value="all">全部资产</option>
-                    <option value="BTC">比特币 (BTC)</option>
-                    <option value="ETH">以太坊 (ETH)</option>
-                    <option value="BNB">币安币 (BNB)</option>
-                    <option value="XRP">瑞波币 (XRP)</option>
-                    <option value="ADA">卡尔达诺 (ADA)</option>
-                    <option value="SOL">索拉纳 (SOL)</option>
-                    <option value="DOT">波卡 (DOT)</option>
-                    <option value="DOGE">狗狗币 (DOGE)</option>
-                    <option value="SHIB">柴犬币 (SHIB)</option>
-                    <option value="AVAX">阿瓦隆 (AVAX)</option>
+                    <option value="BTC">Bitcoin (BTC)</option>
+                    <option value="ETH">Ethereum (ETH)</option>
+                    <option value="BNB">Binance Coin (BNB)</option>
+                    <option value="XRP">Ripple (XRP)</option>
+                    <option value="ADA">Cardano (ADA)</option>
+                    <option value="SOL">Solana (SOL)</option>
+                    <option value="DOGE">Dogecoin (DOGE)</option>
+                    <option value="TRX">Tron (TRX)</option>
+                    <option value="AVAX">Avalanche (AVAX)</option>
                     <option value="HYPE">Hyperliquid (HYPE)</option>
                   </select>
                 </div>
                 <button class="btn-refresh" @click="refreshPrices" :disabled="refreshing">
-                  <i class="fas fa-sync" :class="refreshing ? 'fa-spin' : ''"></i>
+                  <Icon icon="mdi:refresh" :class="{ 'spin': refreshing }" />
                   <span>{{ refreshing ? '刷新中...' : '刷新价格' }}</span>
                 </button>
                 <div class="last-update">
-                  <i class="fas fa-clock"></i>
+                  <Icon icon="mdi:clock" />
                   <span>{{ lastUpdateTime }}</span>
                 </div>
               </div>
@@ -164,15 +162,15 @@
                 </thead>
                 <tbody>
                   <tr
-                    v-for="(crypto, index) in filteredPortfolio"
-                    :key="index"
+                    v-for="crypto in filteredPortfolio"
+                    :key="crypto.id"
                     class="asset-row"
                   >
                     <td>
                       <div class="asset-info">
-                        <div class="asset-icon" :style="{ backgroundColor: getAssetColor(crypto.symbol) }">
-                          <i :class="getAssetIcon(crypto.symbol)"></i>
-                        </div>
+                        
+                          <Icon width="32" height="32" :icon="getAssetIcon(crypto.symbol)" :style="{ color: getAssetColor(crypto.symbol) }" />
+                        
                         <div>
                           <div class="asset-name">{{ getAssetName(crypto.symbol) }}</div>
                           <div class="asset-symbol">{{ crypto.symbol }}</div>
@@ -192,14 +190,14 @@
                       </div>
                     </td>
                     <td>
-                      <button class="btn-delete" @click="deleteCrypto(index)">
-                        <i class="fas fa-trash"></i>
+                      <button class="btn-delete" @click="deleteCrypto(crypto.id)">
+                        <Icon icon="mdi:trash-can" />
                       </button>
                     </td>
                   </tr>
                   <tr v-if="filteredPortfolio.length === 0">
                     <td colspan="7" class="empty-state">
-                      <i class="fas fa-inbox"></i>
+                      <Icon icon="mdi:inbox" />
                       <p>暂无资产数据，请添加加密货币</p>
                     </td>
                   </tr>
@@ -210,7 +208,7 @@
 
           <!-- 错误提示 -->
           <div v-if="errorMessage" class="error-message">
-            <i class="fas fa-exclamation-triangle"></i>
+            <Icon icon="mdi:alert" />
             {{ errorMessage }}
           </div>
         </main>
@@ -222,6 +220,7 @@
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import axios from 'axios'
+import { Icon } from '@iconify/vue'
 
 const portfolio = ref([])
 const newCrypto = ref({
@@ -247,25 +246,23 @@ const assetColors = {
   XRP: '#0033ad',
   ADA: '#0033ad',
   SOL: '#00ffa3',
-  DOT: '#e6007a',
   DOGE: '#c2a633',
-  SHIB: '#ffa409',
+  TRX: '#eb0029',
   AVAX: '#e84142',
   HYPE: '#7b3fe4'
 }
 
 const assetIcons = {
-  BTC: 'fab fa-bitcoin',
-  ETH: 'fab fa-ethereum',
-  BNB: 'fas fa-coins',
-  XRP: 'fas fa-coins',
-  ADA: 'fas fa-coins',
-  SOL: 'fas fa-rocket',
-  DOT: 'fas fa-circle',
-  DOGE: 'fab fa-reddit-alien',
-  SHIB: 'fas fa-dog',
-  AVAX: 'fas fa-mountain',
-  HYPE: 'fas fa-bolt'
+  BTC: 'cryptocurrency:btc',
+  ETH: 'cryptocurrency:eth',
+  BNB: 'cryptocurrency:bnb',
+  XRP: 'cryptocurrency:xrp',
+  ADA: 'cryptocurrency:ada',
+  SOL: 'cryptocurrency:sol',
+  DOGE: 'cryptocurrency:doge',
+  TRX: 'cryptocurrency:trx',
+  AVAX: 'cryptocurrency:avax',
+  HYPE: 'cryptocurrency:hype'
 }
 
 const chartColors = [
@@ -280,9 +277,8 @@ const assetNames = {
   XRP: 'Ripple',
   ADA: 'Cardano',
   SOL: 'Solana',
-  DOT: 'Polkadot',
   DOGE: 'Dogecoin',
-  SHIB: 'Shiba Inu',
+  TRX: 'Tron',
   AVAX: 'Avalanche',
   HYPE: 'Hyperliquid'
 }
@@ -290,7 +286,11 @@ const assetNames = {
 const loadPortfolio = () => {
   const savedPortfolio = localStorage.getItem('cryptoPortfolio')
   if (savedPortfolio) {
-    portfolio.value = JSON.parse(savedPortfolio)
+    const parsed = JSON.parse(savedPortfolio)
+    portfolio.value = parsed.map(item => ({
+      ...item,
+      id: item.id || Date.now() + Math.random()
+    }))
   }
 }
 
@@ -318,6 +318,7 @@ const addCrypto = () => {
   }
 
   portfolio.value.push({
+    id: Date.now(),
     symbol: newCrypto.value.symbol,
     amount: newCrypto.value.amount,
     price: newCrypto.value.price,
@@ -336,9 +337,12 @@ const addCrypto = () => {
   refreshPrices()
 }
 
-const deleteCrypto = (index) => {
-  portfolio.value.splice(index, 1)
-  savePortfolio()
+const deleteCrypto = (id) => {
+  const index = portfolio.value.findIndex(crypto => crypto.id === id)
+  if (index !== -1) {
+    portfolio.value.splice(index, 1)
+    savePortfolio()
+  }
 }
 
 const getAssetName = (symbol) => {
@@ -631,7 +635,7 @@ onUnmounted(() => {
   color: #adb5bd;
 }
 
-.overview-card h3 i {
+.overview-card h3 .iconify {
   font-size: 16px;
 }
 
@@ -700,7 +704,7 @@ onUnmounted(() => {
   color: #e9ecef;
 }
 
-.chart-title i {
+.chart-title .iconify {
   color: #4361ee;
 }
 
@@ -980,7 +984,7 @@ onUnmounted(() => {
   color: #e9ecef;
 }
 
-.section-title i {
+.section-title .iconify {
   color: #4361ee;
 }
 
@@ -996,7 +1000,7 @@ onUnmounted(() => {
   color: #adb5bd;
 }
 
-.last-update i {
+.last-update .iconify {
   font-size: 14px;
 }
 
@@ -1052,18 +1056,18 @@ onUnmounted(() => {
 }
 
 .asset-icon {
-  width: 40px;
-  height: 40px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
-  font-size: 18px;
+  font-size: 28px;
   flex-shrink: 0;
 }
 
-.asset-icon i {
+.asset-icon .iconify {
   font-size: inherit;
   color: inherit;
 }
@@ -1145,10 +1149,23 @@ onUnmounted(() => {
   color: #adb5bd;
 }
 
-.empty-state i {
+.empty-state .iconify {
   font-size: 48px;
   margin-bottom: 12px;
   opacity: 0.5;
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .empty-state p {
@@ -1288,9 +1305,9 @@ onUnmounted(() => {
   }
 
   .asset-icon {
-    width: 32px;
-    height: 32px;
-    font-size: 16px;
+    width: 48px;
+    height: 48px;
+    font-size: 24px;
   }
 
   .asset-info {
