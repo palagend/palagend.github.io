@@ -367,6 +367,8 @@ const convertVolume = (value, from, to) => {
   text-align: right;
   transition: all 0.3s ease;
   border: 1px solid var(--border-color);
+  overflow: hidden;
+  word-break: break-all;
 }
 
 .history {
@@ -374,6 +376,9 @@ const convertVolume = (value, from, to) => {
   color: var(--text-muted);
   margin-bottom: 8px;
   min-height: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .input {
@@ -381,6 +386,9 @@ const convertVolume = (value, from, to) => {
   font-weight: 600;
   color: var(--text-primary);
   min-height: 44px;
+  word-break: break-all;
+  overflow-wrap: break-word;
+  line-height: 1.3;
 }
 
 .buttons {
@@ -668,8 +676,16 @@ const convertVolume = (value, from, to) => {
     font-size: 16px;
   }
 
+  .display {
+    padding: 15px;
+  }
+
+  .history {
+    font-size: 12px;
+  }
+
   .input {
-    font-size: 28px;
+    font-size: 24px;
   }
 
   .unit-row {
@@ -684,6 +700,33 @@ const convertVolume = (value, from, to) => {
   .swap-btn {
     width: 100%;
     height: 36px;
+  }
+}
+
+@media (max-width: 360px) {
+  .display {
+    padding: 12px;
+  }
+
+  .history {
+    font-size: 11px;
+  }
+
+  .input {
+    font-size: 20px;
+  }
+
+  .buttons {
+    gap: 6px;
+  }
+
+  .btn {
+    padding: 12px;
+    font-size: 16px;
+  }
+
+  .btn i {
+    font-size: 14px;
   }
 }
 </style>

@@ -122,7 +122,8 @@ const lossData = ref({
 })
 
 const apiKey = "750a5c496977bdfc9770fa43bd914d07"
-const baseUrl = "https://api.exchangerate.host/live"
+const primaryApiUrl = "https://api.exchangerate.host/live"
+const backupApiUrl = "https://cdn.moneyconvert.net/api/latest.json"
 const targetCurrencies = "USD,EUR,HKD,CNY,GBP,AUD,CHF,CAD,JPY,SGD,SEK,DKK,NOK,MXN,INR,BRL,RUB,KRW,THB"
 
 const swapCurrency = () => {
@@ -141,21 +142,50 @@ const clearResult = () => {
 const getRate = async () => {
   clearResult()
   if (!amount.value || amount.value <= 0) {
-    result.value = '请输入大于0的金额'
+    result.value = '请输入大于 0 的金额'
     return
   }
 
   try {
-    const url = `${baseUrl}?access_key=${apiKey}&source=${from.value}&currencies=${targetCurrencies}`
-    const { data } = await axios.get(url)
+    let data = null
+    let rate = null
 
-    if (!data.success) {
-      result.value = `接口错误：${data.error?.info || '获取失败'}`
-      return
+    // 尝试使用主 API
+    try {
+      const primaryUrl = `${primaryApiUrl}?access_key=${apiKey}&source=${from.value}&currencies=${targetCurrencies}`
+      const response = await axios.get(primaryUrl)
+      data = response.data
+
+      if (data.success) {
+        const rateKey = from.value + to.value
+        rate = data.quotes?.[rateKey]
+      }
+    } catch (primaryError) {
+      console.log('Primary API failed, trying backup API:', primaryError.message)
     }
 
-    const rateKey = from.value + to.value
-    const rate = data.quotes?.[rateKey]
+    // 如果主 API 失败，尝试备用 API
+    if (!rate) {
+      try {
+        const backupResponse = await axios.get(backupApiUrl)
+        const backupData = backupResponse.data
+
+        if (backupData.rates) {
+          // 备用 API 返回的是相对于 USD 的汇率
+          const fromRate = backupData.rates[from.value] || 1
+          const toRate = backupData.rates[to.value]
+
+          if (fromRate && toRate) {
+            // 计算交叉汇率：(toRate / fromRate)
+            rate = toRate / fromRate
+          }
+        }
+      } catch (backupError) {
+        console.error('Backup API also failed:', backupError.message)
+        throw new Error('Both APIs failed')
+      }
+    }
+
     if (!rate) {
       result.value = '未查询到该货币对汇率'
       return
