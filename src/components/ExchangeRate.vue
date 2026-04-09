@@ -149,6 +149,7 @@ const getRate = async () => {
   try {
     let data = null
     let rate = null
+    let apiTime = null
 
     // 尝试使用主 API
     try {
@@ -159,6 +160,7 @@ const getRate = async () => {
       if (data.success) {
         const rateKey = from.value + to.value
         rate = data.quotes?.[rateKey]
+        apiTime = data.timestamp
       }
     } catch (primaryError) {
       console.log('Primary API failed, trying backup API:', primaryError.message)
@@ -178,6 +180,7 @@ const getRate = async () => {
           if (fromRate && toRate) {
             // 计算交叉汇率：(toRate / fromRate)
             rate = toRate / fromRate
+            apiTime = backupData.ts
           }
         }
       } catch (backupError) {
@@ -193,7 +196,12 @@ const getRate = async () => {
 
     rateFixed.value = rate.toFixed(6)
     result.value = (amount.value * rate).toFixed(4)
-    updateTime.value = new Date().toLocaleString()
+    
+    if (apiTime) {
+      updateTime.value = new Date(apiTime).toLocaleString('zh-CN', { timeZone: 'UTC' })
+    } else {
+      updateTime.value = new Date().toLocaleString()
+    }
   } catch (err) {
     result.value = '网络错误，请检查连接'
   }
