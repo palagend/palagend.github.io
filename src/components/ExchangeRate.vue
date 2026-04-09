@@ -198,7 +198,14 @@ const getRate = async () => {
     result.value = (amount.value * rate).toFixed(4)
     
     if (apiTime) {
-      updateTime.value = new Date(apiTime).toLocaleString('zh-CN', { timeZone: 'UTC' })
+      updateTime.value = new Date(apiTime).toLocaleString(undefined, {
+                              hour12: false,
+                              year: 'numeric',
+                              month: '2-digit',
+                              day: '2-digit',
+                              hour: '2-digit',
+                              minute: '2-digit'
+                            });
     } else {
       updateTime.value = new Date().toLocaleString()
     }
