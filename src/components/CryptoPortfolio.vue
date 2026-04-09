@@ -249,20 +249,20 @@ const assetColors = {
   DOGE: '#c2a633',
   TRX: '#eb0029',
   AVAX: '#e84142',
-  HYPE: '#7b3fe4'
+  HYPE: '#89F0E6'
 }
 
 const assetIcons = {
-  BTC: 'cryptocurrency:btc',
-  ETH: 'cryptocurrency:eth',
-  BNB: 'cryptocurrency:bnb',
-  XRP: 'cryptocurrency:xrp',
-  ADA: 'cryptocurrency:ada',
-  SOL: 'cryptocurrency:sol',
-  DOGE: 'cryptocurrency:doge',
-  TRX: 'cryptocurrency:trx',
-  AVAX: 'cryptocurrency:avax',
-  HYPE: 'cryptocurrency:hype'
+  BTC: 'cryptocurrency-color:btc',
+  ETH: 'cryptocurrency-color:eth',
+  BNB: 'cryptocurrency-color:bnb',
+  XRP: 'cryptocurrency-color:xrp',
+  ADA: 'cryptocurrency-color:ada',
+  SOL: 'cryptocurrency-color:sol',
+  DOGE: 'cryptocurrency-color:doge',
+  TRX: 'cryptocurrency-color:trx',
+  AVAX: 'cryptocurrency-color:avax',
+  HYPE: 'token:hyper-evm'
 }
 
 const chartColors = [
