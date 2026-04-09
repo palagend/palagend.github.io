@@ -95,6 +95,7 @@
                 <option value="DOGE">Dogecoin (DOGE)</option>
                 <option value="SHIB">Shiba Inu (SHIB)</option>
                 <option value="AVAX">Avalanche (AVAX)</option>
+                <option value="HYPE">Hyperliquid (HYPE)</option>
               </select>
               <input
                 type="number"
@@ -134,6 +135,7 @@
                     <option value="DOGE">狗狗币 (DOGE)</option>
                     <option value="SHIB">柴犬币 (SHIB)</option>
                     <option value="AVAX">阿瓦隆 (AVAX)</option>
+                    <option value="HYPE">Hyperliquid (HYPE)</option>
                   </select>
                 </div>
                 <button class="btn-refresh" @click="refreshPrices" :disabled="refreshing">
@@ -169,7 +171,7 @@
                     <td>
                       <div class="asset-info">
                         <div class="asset-icon" :style="{ backgroundColor: getAssetColor(crypto.symbol) }">
-                          {{ crypto.symbol.charAt(0) }}
+                          <i :class="getAssetIcon(crypto.symbol)"></i>
                         </div>
                         <div>
                           <div class="asset-name">{{ getAssetName(crypto.symbol) }}</div>
@@ -248,7 +250,22 @@ const assetColors = {
   DOT: '#e6007a',
   DOGE: '#c2a633',
   SHIB: '#ffa409',
-  AVAX: '#e84142'
+  AVAX: '#e84142',
+  HYPE: '#7b3fe4'
+}
+
+const assetIcons = {
+  BTC: 'fab fa-bitcoin',
+  ETH: 'fab fa-ethereum',
+  BNB: 'fas fa-coins',
+  XRP: 'fas fa-coins',
+  ADA: 'fas fa-coins',
+  SOL: 'fas fa-rocket',
+  DOT: 'fas fa-circle',
+  DOGE: 'fab fa-reddit-alien',
+  SHIB: 'fas fa-dog',
+  AVAX: 'fas fa-mountain',
+  HYPE: 'fas fa-bolt'
 }
 
 const chartColors = [
@@ -266,7 +283,8 @@ const assetNames = {
   DOT: 'Polkadot',
   DOGE: 'Dogecoin',
   SHIB: 'Shiba Inu',
-  AVAX: 'Avalanche'
+  AVAX: 'Avalanche',
+  HYPE: 'Hyperliquid'
 }
 
 const loadPortfolio = () => {
@@ -329,6 +347,10 @@ const getAssetName = (symbol) => {
 
 const getAssetColor = (symbol) => {
   return assetColors[symbol] || '#667eea'
+}
+
+const getAssetIcon = (symbol) => {
+  return assetIcons[symbol] || symbol.charAt(0)
 }
 
 const formatNumber = (num) => {
@@ -1037,9 +1059,13 @@ onUnmounted(() => {
   align-items: center;
   justify-content: center;
   color: white;
-  font-weight: 700;
-  font-size: 16px;
+  font-size: 18px;
   flex-shrink: 0;
+}
+
+.asset-icon i {
+  font-size: inherit;
+  color: inherit;
 }
 
 .asset-name {
@@ -1264,7 +1290,7 @@ onUnmounted(() => {
   .asset-icon {
     width: 32px;
     height: 32px;
-    font-size: 14px;
+    font-size: 16px;
   }
 
   .asset-info {
