@@ -116,6 +116,20 @@
             </div>
           </section>
 
+          <!-- 错误提示 -->
+          <div v-if="errorMessage" class="error-message">
+            <div class="error-content">
+              <Icon icon="mdi:alert-circle" class="error-icon" />
+              <div class="error-text">
+                <p class="error-title">提示</p>
+                <p class="error-message-text">{{ errorMessage }}</p>
+              </div>
+            </div>
+            <button class="error-close" @click="errorMessage = ''">
+              <Icon icon="mdi:close" />
+            </button>
+          </div>
+
           <!-- 资产列表 -->
           <section class="assets-section">
             <div class="section-header">
@@ -205,12 +219,6 @@
               </table>
             </div>
           </section>
-
-          <!-- 错误提示 -->
-          <div v-if="errorMessage" class="error-message">
-            <Icon icon="mdi:alert" />
-            {{ errorMessage }}
-          </div>
         </main>
       </div>
     </div>
@@ -225,8 +233,8 @@ import { Icon } from '@iconify/vue'
 const portfolio = ref([])
 const newCrypto = ref({
   symbol: '',
-  amount: 0,
-  price: 0
+  amount: null,
+  price: null
 })
 const prices = ref({})
 const refreshing = ref(false)
@@ -1174,31 +1182,138 @@ onUnmounted(() => {
 }
 
 .error-message {
-  margin-top: 20px;
-  padding: 16px 20px;
-  background-color: rgba(231, 76, 60, 0.1);
-  border: 1px solid #e74c3c;
-  border-radius: 8px;
-  color: #e74c3c;
+  margin: 20px auto;
+  max-width: 600px;
+  padding: 20px 24px;
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a5a 100%);
+  border: none;
+  border-radius: 12px;
+  color: white;
   display: flex;
   align-items: center;
-  gap: 10px;
-  animation: slideIn 0.3s ease;
+  justify-content: space-between;
+  gap: 16px;
+  box-shadow: 0 8px 24px rgba(231, 76, 60, 0.3);
+  animation: slideInDown 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  position: relative;
+  overflow: hidden;
 }
 
-.dark .error-message {
-  background-color: rgba(231, 76, 60, 0.2);
+.error-message::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #ff4757, #ff6b6b, #ff4757);
+  animation: shimmer 2s infinite;
 }
 
-@keyframes slideIn {
+.error-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  flex: 1;
+}
+
+.error-icon {
+  flex-shrink: 0;
+  font-size: 28px;
+  margin-top: 2px;
+  animation: pulse 2s infinite;
+}
+
+.error-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.error-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  opacity: 0.95;
+}
+
+.error-message-text {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 500;
+  color: white;
+}
+
+.error-close {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  padding: 0;
+  margin-left: 10px;
+}
+
+.error-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: rotate(90deg);
+}
+
+.error-close:active {
+  transform: scale(0.9);
+}
+
+.error-close .iconify {
+  font-size: 18px;
+}
+
+@keyframes slideInDown {
   from {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(-50px) scale(0.9);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.dark .error-message {
+  background: linear-gradient(135deg, #ff4757 0%, #ff6b6b 100%);
+  box-shadow: 0 8px 24px rgba(255, 71, 87, 0.4);
 }
 
 @media (max-width: 1200px) {
@@ -1324,6 +1439,41 @@ onUnmounted(() => {
 
   .profit-rate {
     font-size: 11px;
+  }
+}
+
+@media (max-width: 768px) {
+  .error-message {
+    flex-direction: column;
+    text-align: center;
+    padding: 16px;
+  }
+
+  .error-content {
+    flex-direction: column;
+    text-align: center;
+    margin-bottom: 12px;
+  }
+
+  .error-close {
+    margin-left: 0;
+    width: 32px;
+    height: 32px;
+  }
+}
+
+@media (max-width: 576px) {
+  .error-message {
+    max-width: 100%;
+    border-radius: 8px;
+  }
+
+  .error-icon {
+    font-size: 24px;
+  }
+
+  .error-message-text {
+    font-size: 14px;
   }
 }
 </style>
