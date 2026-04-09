@@ -2,17 +2,17 @@
   <div class="calculator-container">
     <div class="card">
       <h2 class="page-title">
-        <i class="fas fa-calculator"></i>
+        <Icon icon="fa7-solid:calculator" />
         <span>实用计算器</span>
       </h2>
 
       <div class="tabs">
         <button class="tab-btn" :class="{ active: activeTab === 'basic' }" @click="activeTab = 'basic'">
-          <i class="fas fa-calculator"></i>
+          <Icon icon="fa7-solid:calculator" />
           <span>基础计算</span>
         </button>
         <button class="tab-btn" :class="{ active: activeTab === 'unit' }" @click="activeTab = 'unit'">
-          <i class="fas fa-exchange-alt"></i>
+          <Icon icon="fa7-solid:exchange-alt" />
           <span>单位转换</span>
         </button>
       </div>
@@ -25,47 +25,47 @@
 
         <div class="buttons">
           <button class="btn btn-clear" @click="clear">
-            <i class="fas fa-trash-alt"></i>
+            <Icon icon="fa7-solid:trash-alt" />
           </button>
           <button class="btn btn-operator" @click="append('%')">%</button>
           <button class="btn btn-operator" @click="append('/')">
-            <i class="fas fa-divide"></i>
+            <Icon icon="fa7-solid:divide" />
           </button>
           <button class="btn btn-operator" @click="append('×')">
-            <i class="fas fa-times"></i>
+            <Icon icon="fa7-solid:times" />
           </button>
 
           <button class="btn btn-number" @click="append('7')">7</button>
           <button class="btn btn-number" @click="append('8')">8</button>
           <button class="btn btn-number" @click="append('9')">9</button>
           <button class="btn btn-operator" @click="append('-')">
-            <i class="fas fa-minus"></i>
+            <Icon icon="fa7-solid:minus" />
           </button>
 
           <button class="btn btn-number" @click="append('4')">4</button>
           <button class="btn btn-number" @click="append('5')">5</button>
           <button class="btn btn-number" @click="append('6')">6</button>
           <button class="btn btn-operator" @click="append('+')">
-            <i class="fas fa-plus"></i>
+            <Icon icon="fa7-solid:plus" />
           </button>
 
           <button class="btn btn-number" @click="append('1')">1</button>
           <button class="btn btn-number" @click="append('2')">2</button>
           <button class="btn btn-number" @click="append('3')">3</button>
           <button class="btn btn-equals" @click="calculate" rowspan="2">
-            <i class="fas fa-equals"></i>
+            <Icon icon="fa7-solid:equals" />
           </button>
 
           <button class="btn btn-zero" @click="append('0')">0</button>
           <button class="btn btn-number" @click="append('.')">
-            <i class="fas fa-circle"></i>
+            <Icon icon="fa7-solid:circle" />
           </button>
         </div>
       </div>
 
       <div v-if="activeTab === 'unit'" class="unit-converter">
         <div class="input-box">
-          <label><i class="fas fa-cog"></i> 转换类型</label>
+          <label><Icon icon="fa7-solid:cog" /> 转换类型</label>
           <select v-model="unitType">
             <option value="length">长度</option>
             <option value="weight">重量</option>
@@ -75,7 +75,7 @@
         </div>
 
         <div class="input-box">
-          <label><i class="fas fa-keyboard"></i> 输入数值</label>
+          <label><Icon icon="fa7-solid:keyboard" /> 输入数值</label>
           <input type="number" v-model.number="unitValue" placeholder="请输入数值">
         </div>
 
@@ -88,7 +88,7 @@
           </div>
 
           <button class="swap-btn" @click="swapUnits">
-            <i class="fas fa-exchange-alt"></i>
+            <Icon icon="fa7-solid:exchange-alt" />
           </button>
 
           <div class="unit-col">
@@ -100,13 +100,13 @@
         </div>
 
         <button class="btn btn-convert" @click="convertUnit">
-          <i class="fas fa-sync-alt"></i>
+          <Icon icon="fa7-solid:sync-alt" />
           <span>转换</span>
         </button>
 
         <div class="result" v-if="unitResult">
           <div class="result-main">
-            <i class="fas fa-check-circle"></i>
+            <Icon icon="fa7-solid:check-circle" />
             <span>{{ unitValue }}{{ fromUnit }} = <strong>{{ unitResult }}</strong>{{ toUnit }}</span>
           </div>
         </div>
@@ -117,6 +117,7 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import { Icon } from '@iconify/vue'
 
 const activeTab = ref('basic')
 const input = ref('')
@@ -316,9 +317,10 @@ const convertVolume = (value, from, to) => {
   font-weight: 600;
 }
 
-.page-title i {
+.page-title svg {
   color: var(--primary-color);
-  font-size: 28px;
+  width: 28px;
+  height: 28px;
 }
 
 .tabs {
@@ -344,8 +346,9 @@ const convertVolume = (value, from, to) => {
   transition: all 0.3s ease;
 }
 
-.tab-btn i {
-  font-size: 14px;
+.tab-btn svg {
+  width: 14px;
+  height: 14px;
 }
 
 .tab-btn.active {
@@ -411,8 +414,9 @@ const convertVolume = (value, from, to) => {
   transition: all 0.3s ease;
 }
 
-.btn i {
-  font-size: 18px;
+.btn svg {
+  width: 18px;
+  height: 18px;
 }
 
 .btn-number {
@@ -620,8 +624,10 @@ const convertVolume = (value, from, to) => {
   color: var(--text-primary);
 }
 
-.result-main i {
+.result-main svg {
   color: var(--success-color);
+  width: 20px;
+  height: 20px;
 }
 
 .result-main strong {
@@ -644,8 +650,9 @@ const convertVolume = (value, from, to) => {
     gap: 8px;
   }
 
-  .page-title i {
-    font-size: 22px;
+  .page-title svg {
+    width: 22px;
+    height: 22px;
   }
 
   .tabs {
@@ -661,8 +668,9 @@ const convertVolume = (value, from, to) => {
     display: none;
   }
 
-  .tab-btn i {
-    font-size: 18px;
+  .tab-btn svg {
+    width: 18px;
+    height: 18px;
   }
 
   .buttons {
@@ -673,8 +681,9 @@ const convertVolume = (value, from, to) => {
     padding: 14px;
   }
 
-  .btn i {
-    font-size: 16px;
+  .btn svg {
+    width: 16px;
+    height: 16px;
   }
 
   .display {
@@ -726,8 +735,9 @@ const convertVolume = (value, from, to) => {
     font-size: 16px;
   }
 
-  .btn i {
-    font-size: 14px;
+  .btn svg {
+    width: 14px;
+    height: 14px;
   }
 }
 </style>

@@ -20,11 +20,13 @@
   },
   "homepage": "https://github.com/palagend/palagend.github.io#readme",
   "dependencies": {
-    "@iconify/vue": "^5.0.0",
     "@vitejs/plugin-vue": "^5.2.4",
     "axios": "^1.14.0",
     "vite": "^6.4.2",
     "vue": "^3.5.32",
     "vue-router": "^4.6.4"
+  },
+  "devDependencies": {
+    "@iconify/vue": "^5.0.0"
   }
 }

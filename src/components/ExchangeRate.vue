@@ -2,12 +2,12 @@
   <div class="exchange-rate-container">
     <div class="card">
       <h2 class="page-title">
-        <i class="fas fa-exchange-alt"></i>
+        <Icon icon="fa7-solid:exchange-alt" />
         <span>实时汇率换算（含损耗计算）</span>
       </h2>
 
       <div class="input-box">
-        <label><i class="fas fa-coins"></i> 兑换本金</label>
+        <label><Icon icon="fa7-solid:coins" /> 兑换本金</label>
         <input type="number" v-model.number="amount" placeholder="请输入金额" min="0.01" step="0.01">
       </div>
 
@@ -30,7 +30,7 @@
             </select>
           </div>
           <button class="swap-btn" @click="swapCurrency">
-            <i class="fas fa-exchange-alt"></i>
+            <Icon icon="fa7-solid:exchange-alt" />
           </button>
           <div class="currency-col">
             <span class="currency-label">到</span>
@@ -52,35 +52,35 @@
       </div>
 
       <button class="btn btn-query" @click="getRate">
-        <i class="fas fa-search"></i>
+        <Icon icon="fa7-solid:search" />
         <span>查询市场中间价</span>
       </button>
 
       <div class="result" v-if="result">
         <div class="result-main">
-          <i class="fas fa-calculator"></i>
+          <Icon icon="fa7-solid:calculator" />
           <span>{{ amount }}{{ from }} = <strong>{{ result }}</strong>{{ to }}</span>
         </div>
         <div class="result-sub">
-          <i class="fas fa-info-circle"></i>
+          <Icon icon="fa7-solid:info-circle" />
           <span>(1{{ from }} = <strong>{{ rateFixed }}</strong>{{ to }})</span>
         </div>
       </div>
       <div class="time" v-if="updateTime">
-        <i class="fas fa-clock"></i>
+        <Icon icon="fa7-solid:clock" />
         <span>中间价更新时间：{{ updateTime }}</span>
       </div>
 
       <div class="divider" v-if="result"></div>
 
       <div v-if="result" class="loss-section">
-        <h3 class="section-subtitle"><i class="fas fa-percentage"></i> 兑换损耗计算</h3>
+        <h3 class="section-subtitle"><Icon icon="fa7-solid:percentage" /> 兑换损耗计算</h3>
         <div class="input-box">
-          <label><i class="fas fa-hand-holding-usd"></i> 实际到账{{ to }}金额</label>
+          <label><Icon icon="fa7-solid:hand-holding-usd" /> 实际到账{{ to }}金额</label>
           <input type="number" v-model.number="actualAmount" placeholder="输入实际到账金额" min="0.01" step="0.01">
         </div>
         <button class="btn btn-calc-loss" @click="calcLoss">
-          <i class="fas fa-calculator"></i>
+          <Icon icon="fa7-solid:calculator" />
           <span>计算兑换损耗</span>
         </button>
 
@@ -106,6 +106,7 @@
 <script setup>
 import { ref } from 'vue'
 import axios from 'axios'
+import { Icon } from '@iconify/vue'
 
 const amount = ref(1)
 const from = ref('USD')
@@ -263,9 +264,10 @@ const calcLoss = () => {
   font-weight: 600;
 }
 
-.page-title i {
+.page-title svg {
   color: var(--primary-color);
-  font-size: 24px;
+  width: 24px;
+  height: 24px;
 }
 
 .input-box {
@@ -282,9 +284,10 @@ const calcLoss = () => {
   font-weight: 500;
 }
 
-.input-box label i {
+.input-box label svg {
   color: var(--primary-color);
-  font-size: 12px;
+  width: 12px;
+  height: 12px;
 }
 
 input, select {
@@ -339,10 +342,14 @@ input:focus, select:focus {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
   color: var(--primary-color);
   flex-shrink: 0;
   transition: all 0.3s ease;
+}
+
+.swap-btn svg {
+  width: 16px;
+  height: 16px;
 }
 
 .swap-btn:hover {
@@ -366,8 +373,9 @@ input:focus, select:focus {
   transition: all 0.3s ease;
 }
 
-.btn i {
-  font-size: 16px;
+.btn svg {
+  width: 16px;
+  height: 16px;
 }
 
 .btn-query {
@@ -412,8 +420,10 @@ input:focus, select:focus {
   margin-bottom: 8px;
 }
 
-.result-main i {
+.result-main svg {
   color: var(--primary-color);
+  width: 20px;
+  height: 20px;
 }
 
 .result-main strong {
@@ -430,8 +440,10 @@ input:focus, select:focus {
   color: var(--text-secondary);
 }
 
-.result-sub i {
+.result-sub svg {
   color: var(--text-muted);
+  width: 14px;
+  height: 14px;
 }
 
 .loss-section {
@@ -448,8 +460,10 @@ input:focus, select:focus {
   font-weight: 600;
 }
 
-.section-subtitle i {
+.section-subtitle svg {
   color: #f5576c;
+  width: 16px;
+  height: 16px;
 }
 
 .loss-result {
@@ -506,8 +520,9 @@ input:focus, select:focus {
   margin-top: 12px;
 }
 
-.time i {
-  font-size: 12px;
+.time svg {
+  width: 12px;
+  height: 12px;
 }
 
 .divider {

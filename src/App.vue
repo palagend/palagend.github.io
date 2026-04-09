@@ -3,38 +3,38 @@
     <nav class="navbar">
       <div class="nav-container">
         <router-link to="/" class="nav-logo">
-          <i class="fas fa-tools"></i>
+          <Icon icon="fa7-solid:tools" />
           <span>工具集合</span>
         </router-link>
         <ul class="nav-menu">
           <li class="nav-item">
             <router-link to="/" class="nav-link">
-              <i class="fas fa-home"></i>
+              <Icon icon="fa7-solid:home" />
               <span>首页</span>
             </router-link>
           </li>
           <li class="nav-item">
             <router-link to="/exchange-rate" class="nav-link">
-              <i class="fas fa-exchange-alt"></i>
+              <Icon icon="fa7-solid:exchange-alt" />
               <span>汇率查询</span>
             </router-link>
           </li>
           <li class="nav-item">
             <router-link to="/calculator" class="nav-link">
-              <i class="fas fa-calculator"></i>
+              <Icon icon="fa7-solid:calculator" />
               <span>计算器</span>
             </router-link>
           </li>
           <li class="nav-item">
             <router-link to="/crypto-portfolio" class="nav-link">
-              <i class="fas fa-wallet"></i>
+              <Icon icon="fa7-solid:wallet" />
               <span>加密货币</span>
             </router-link>
           </li>
         </ul>
         <div class="theme-toggle" @click="toggleTheme">
-          <i class="fas fa-sun"></i>
-          <i class="fas fa-moon"></i>
+          <Icon icon="fa7-solid:sun" />
+          <Icon icon="fa7-solid:moon" />
           <div class="toggle-circle"></div>
         </div>
       </div>
@@ -47,6 +47,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import { Icon } from '@iconify/vue'
 
 const isDark = ref(false)
 
@@ -70,8 +71,6 @@ onMounted(() => {
 </script>
 
 <style>
-@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
-
 :root {
   --card-bg: rgba(255, 255, 255, 0.98);
   --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
@@ -149,8 +148,9 @@ body {
   gap: 0.5rem;
 }
 
-.nav-logo i {
-  font-size: 1.3rem;
+.nav-logo svg {
+  width: 1.3rem;
+  height: 1.3rem;
 }
 
 .nav-logo span {
@@ -176,8 +176,9 @@ body {
   border-radius: 8px;
 }
 
-.nav-link i {
-  font-size: 1rem;
+.nav-link svg {
+  width: 1rem;
+  height: 1rem;
 }
 
 .nav-link:hover {
@@ -205,8 +206,9 @@ body {
   transition: all 0.3s ease;
 }
 
-.theme-toggle i {
-  font-size: 12px;
+.theme-toggle svg {
+  width: 12px;
+  height: 12px;
   z-index: 1;
   color: white;
 }

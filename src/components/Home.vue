@@ -2,7 +2,7 @@
   <div class="home-container">
     <div class="hero-section">
       <h2 class="hero-title">
-        <i class="fas fa-tools"></i>
+        <Icon icon="fa7-solid:tools" />
         <span>欢迎使用工具集合</span>
       </h2>
       <p class="hero-subtitle">高效、便捷的实用工具平台</p>
@@ -11,53 +11,53 @@
     <div class="tools-grid">
       <router-link to="/exchange-rate" class="tool-card">
         <div class="tool-icon">
-          <i class="fas fa-exchange-alt"></i>
+          <Icon icon="fa7-solid:exchange-alt" />
         </div>
         <div class="tool-title">实时汇率查询</div>
         <div class="tool-description">
           支持11种主要货币之间的汇率换算，附带损耗计算功能
         </div>
         <div class="tool-arrow">
-          <i class="fas fa-arrow-right"></i>
+          <Icon icon="fa7-solid:arrow-right" />
         </div>
       </router-link>
 
       <router-link to="/calculator" class="tool-card">
         <div class="tool-icon">
-          <i class="fas fa-calculator"></i>
+          <Icon icon="fa7-solid:calculator" />
         </div>
         <div class="tool-title">实用计算器</div>
         <div class="tool-description">
           日常数值计算与单位转换，支持多种计算模式
         </div>
         <div class="tool-arrow">
-          <i class="fas fa-arrow-right"></i>
+          <Icon icon="fa7-solid:arrow-right" />
         </div>
       </router-link>
 
       <router-link to="/crypto-portfolio" class="tool-card">
         <div class="tool-icon">
-          <i class="fas fa-wallet"></i>
+          <Icon icon="fa7-solid:wallet" />
         </div>
         <div class="tool-title">加密货币追踪</div>
         <div class="tool-description">
           实时追踪加密货币投资组合，查看盈亏情况
         </div>
         <div class="tool-arrow">
-          <i class="fas fa-arrow-right"></i>
+          <Icon icon="fa7-solid:arrow-right" />
         </div>
       </router-link>
 
       <div class="tool-card disabled">
         <div class="tool-icon">
-          <i class="fas fa-rocket"></i>
+          <Icon icon="fa7-solid:rocket" />
         </div>
         <div class="tool-title">即将上线</div>
         <div class="tool-description">
           持续更新更多实用功能，提升工作效率
         </div>
         <div class="tool-badge">
-          <i class="fas fa-clock"></i>
+          <Icon icon="fa7-solid:clock" />
           <span>敬请期待</span>
         </div>
       </div>
@@ -66,6 +66,7 @@
 </template>
 
 <script setup>
+import { Icon } from '@iconify/vue'
 </script>
 
 <style scoped>
@@ -92,9 +93,10 @@
   color: var(--text-primary);
 }
 
-.hero-title i {
+.hero-title svg {
   color: var(--primary-color);
-  font-size: 48px;
+  width: 48px;
+  height: 48px;
 }
 
 .hero-subtitle {
@@ -170,8 +172,9 @@
   box-shadow: 0 8px 24px rgba(67, 97, 238, 0.25);
 }
 
-.tool-icon i {
-  font-size: 32px;
+.tool-icon svg {
+  width: 32px;
+  height: 32px;
   color: white;
 }
 
@@ -199,9 +202,11 @@
   bottom: 28px;
   right: 28px;
   color: var(--primary-color);
-  font-size: 18px;
-  opacity: 0;
-  transition: all 0.3s ease;
+}
+
+.tool-arrow svg {
+  width: 18px;
+  height: 18px;
 }
 
 .tool-badge {
@@ -215,8 +220,9 @@
   color: var(--text-muted);
 }
 
-.tool-badge i {
-  font-size: 12px;
+.tool-badge svg {
+  width: 12px;
+  height: 12px;
 }
 
 @media (max-width: 768px) {
