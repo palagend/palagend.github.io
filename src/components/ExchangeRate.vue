@@ -73,26 +73,26 @@
       </div>
 
       <div class="result" v-if="result" @click="copyResult">
-        <div class="result-main">
+        <div class="result-header">
           <Icon icon="fa7-solid:calculator" />
-          <span>{{ amount.toLocaleString('zh-CN') }} {{ from }} = <strong>{{ result.toLocaleString('zh-CN') }}</strong> {{ to }}</span>
-          <button class="copy-btn" :class="{ copied: copySuccess }" @click.stop="copyResult">
-            <Icon :icon="copySuccess ? 'fa7-solid:check' : 'fa7-solid:copy'" style="color: white"/>
+          <span>{{ amount.toLocaleString('zh-CN') }} {{ from }}</span>
+          <span class="result-equals">=</span>
+          <strong>{{ result.toLocaleString('zh-CN') }}</strong>
+          <span class="result-currency">{{ to }}</span>
+          <button class="copy-btn" :class="{ copied: copySuccess }" @click.stop="copyResult" aria-label="复制结果">
+            <Icon :icon="copySuccess ? 'fa7-solid:check' : 'fa7-solid:copy'" style="color: white" />
           </button>
         </div>
-        <div class="result-sub">
-          <Icon icon="fa7-solid:info-circle" />
-          <span>(1 {{ from }} = <strong>{{ rateFixed }}</strong> {{ to }})</span>
+        <div class="result-footer">
+          <div class="rate-info">
+            <Icon icon="fa7-solid:info-circle" />
+            <span>1 {{ from }} = <strong>{{ rateFixed }}</strong> {{ to }}</span>
+          </div>
+          <div class="source-info">
+            <Icon icon="fa7-solid:clock" />
+            <span>{{ updateTime ? '更新：' + updateTime : '数据来源: exchangerate.host' }}</span>
+          </div>
         </div>
-      </div>
-      
-      <div class="time" v-if="updateTime">
-        <Icon icon="fa7-solid:clock" />
-        <span>中间价更新时间：{{ updateTime }}</span>
-      </div>
-      <div class="time" v-if="!loading && !updateTime && result">
-        <Icon icon="fa7-solid:info-circle" />
-        <span>数据来源: exchangerate.host</span>
       </div>
 
       <div class="divider" v-if="result"></div>
@@ -755,86 +755,137 @@ select::-ms-expand {
 
 .result {
   margin-top: 20px;
-  padding: 20px;
+  padding: 24px;
   background: var(--result-bg);
   border-radius: 14px;
-  text-align: center;
   transition: all 0.3s ease;
   border: 1px solid var(--border-color);
   cursor: pointer;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 2px 8px rgba(67, 97, 238, 0.08);
 }
 
 .result:hover {
-  box-shadow: 0 4px 20px rgba(67, 97, 238, 0.15);
+  box-shadow: 0 6px 24px rgba(67, 97, 238, 0.12);
+  transform: translateY(-2px);
 }
 
-.result-main {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  font-size: 20px;
-  color: var(--text-primary);
-  margin-bottom: 8px;
-  position: relative;
-  padding-right: 60px;
-}
-
-.result-main svg {
-  color: var(--primary-color);
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0;
-}
-
-.result-main strong {
-  color: var(--primary-color);
-  font-size: 24px;
-  word-break: break-all;
-}
-
-.result-sub {
+.result-header {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  font-size: 14px;
-  color: var(--text-secondary);
+  font-size: 18px;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  padding: 8px 16px;
+  background: rgba(67, 97, 238, 0.03);
+  border-radius: 10px;
 }
 
-.result-sub svg {
-  color: var(--text-muted);
-  width: 14px;
-  height: 14px;
+.result-header svg {
+  color: var(--primary-color);
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.result-header span {
+  color: var(--text-primary);
+}
+
+.result-equals {
+  color: var(--primary-color);
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.result-header strong {
+  color: var(--primary-color);
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 4px;
+}
+
+.result-currency {
+  color: var(--text-secondary);
+  font-size: 18px;
 }
 
 .copy-btn {
   position: absolute;
   right: 16px;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 16px;
   background: var(--primary-color);
   color: white;
   border: none;
   border-radius: 6px;
-  padding: 6px 10px;
+  padding: 4px 8px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   flex-shrink: 0;
   z-index: 10;
+  box-shadow: 0 2px 8px rgba(67, 97, 238, 0.3);
 }
 
 .copy-btn:hover {
-  background: var(--secondary-color);
+  background: var(--primary-color);
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(67, 97, 238, 0.4);
 }
 
 .copy-btn.copied {
   background: #28a745;
+  transform: scale(0.95);
+  box-shadow: 0 2px 8px rgba(40, 167, 69, 0.3);
+}
+
+.result-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  padding-top: 16px;
+  border-top: 1px solid rgba(67, 97, 238, 0.1);
+}
+
+.rate-info {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.rate-info svg {
+  color: var(--text-muted);
+  width: 13px;
+  height: 13px;
+}
+
+.rate-info strong {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.source-info {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.source-info svg {
+  width: 11px;
+  height: 11px;
 }
 
 .loss-section {
@@ -1085,22 +1136,49 @@ select::-ms-expand {
     height: 36px;
   }
 
-  .result-main {
-  font-size: 18px;
-  flex-direction: column;
-  gap: 4px;
-}
+  .result-header {
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px;
+  }
 
-.result-main strong {
-  font-size: 22px;
-  max-width: 100%;
-}
+  .result-header svg {
+    width: 20px;
+    height: 20px;
+  }
 
-.copy-btn {
-  position: static;
-  margin-left: 8px;
-  transform: none;
-}
+  .result-equals {
+    font-size: 24px;
+  }
+
+  .result-header strong {
+    font-size: 26px;
+  }
+
+  .result-currency {
+    font-size: 16px;
+  }
+
+  .copy-btn {
+    position: static;
+    margin-top: 8px;
+    transform: none;
+    width: 100%;
+  }
+
+  .result-footer {
+    flex-direction: column;
+    gap: 6px;
+    padding-top: 12px;
+  }
+
+  .rate-info {
+    font-size: 12px;
+  }
+
+  .source-info {
+    font-size: 10px;
+  }
 
   .btn {
     padding: 12px 16px;
