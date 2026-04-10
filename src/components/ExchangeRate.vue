@@ -9,9 +9,15 @@
       <div class="input-box">
         <label><Icon icon="fa7-solid:coins" /> 兑换本金</label>
         <div class="input-with-clear">
-          <input type="number" v-model.number="amount" placeholder="请输入金额" min="0.01" step="0.01" @input="onAmountInput">
+          <input type="number" v-model.number="amount" placeholder="请输入金额" min="0.01" max="99999999" step="0.01" @input="onAmountInput">
           <button v-if="amount" class="clear-btn" @click="clearAmount">
             <Icon icon="fa7-solid:xmark" />
+          </button>
+        </div>
+        <div class="quick-amounts">
+          <span class="quick-label">快捷金额：</span>
+          <button v-for="amount in quickAmounts" :key="amount" class="quick-btn" @click="setAmount(amount)">
+            {{ amount.toLocaleString('zh-CN', {notation: 'compact'}) }}
           </button>
         </div>
       </div>
@@ -23,11 +29,11 @@
             <div class="currency-select-wrapper">
               <select v-model="from" @change="onCurrencyChange">
                 <option v-for="currency in commonCurrencies" :key="currency.code" :value="currency.code">
-                  {{ currency.code }} {{ currency.name }}
+                  {{ currency.flag }} {{ currency.code }} {{ currency.name }}
                 </option>
                 <optgroup label="其他货币">
                   <option v-for="currency in otherCurrencies" :key="currency.code" :value="currency.code">
-                    {{ currency.code }} {{ currency.name }}
+                    {{ currency.flag }} {{ currency.code }} {{ currency.name }}
                   </option>
                 </optgroup>
               </select>
@@ -42,11 +48,11 @@
             <div class="currency-select-wrapper">
               <select v-model="to" @change="onCurrencyChange">
                 <option v-for="currency in commonCurrencies" :key="currency.code" :value="currency.code">
-                  {{ currency.code }} {{ currency.name }}
+                  {{ currency.flag }} {{ currency.code }} {{ currency.name }}
                 </option>
                 <optgroup label="其他货币">
                   <option v-for="currency in otherCurrencies" :key="currency.code" :value="currency.code">
-                    {{ currency.code }} {{ currency.name }}
+                    {{ currency.flag }} {{ currency.code }} {{ currency.name }}
                   </option>
                 </optgroup>
               </select>
@@ -69,14 +75,14 @@
       <div class="result" v-if="result" @click="copyResult">
         <div class="result-main">
           <Icon icon="fa7-solid:calculator" />
-          <span>{{ amount }}{{ from }} = <strong>{{ result }}</strong>{{ to }}</span>
+          <span>{{ amount.toLocaleString('zh-CN') }} {{ from }} = <strong>{{ result.toLocaleString('zh-CN') }}</strong> {{ to }}</span>
           <button class="copy-btn" :class="{ copied: copySuccess }" @click.stop="copyResult">
             <Icon :icon="copySuccess ? 'fa7-solid:check' : 'fa7-solid:copy'" style="color: white"/>
           </button>
         </div>
         <div class="result-sub">
           <Icon icon="fa7-solid:info-circle" />
-          <span>(1{{ from }} = <strong>{{ rateFixed }}</strong>{{ to }})</span>
+          <span>(1 {{ from }} = <strong>{{ rateFixed }}</strong> {{ to }})</span>
         </div>
       </div>
       
@@ -114,11 +120,11 @@
             <div class="loss-result" v-if="lossData.show">
               <div class="loss-item">
                 <span class="loss-label">本次损耗：</span>
-                <span class="loss-value">{{ lossData.currentLoss.toFixed(4) }} {{ to }}</span>
+                <span class="loss-value">{{ lossData.currentLoss.toLocaleString('zh-CN') }} {{ to }}</span>
               </div>
               <div class="loss-item">
                 <span class="loss-label">每1万{{ from }}损耗：</span>
-                <span class="loss-value">{{ lossData.per10000Loss.toFixed(4) }} {{ to }}</span>
+                <span class="loss-value">{{ lossData.per10000Loss.toLocaleString('zh-CN') }} {{ to }}</span>
               </div>
               <div class="loss-item highlight">
                 <span class="loss-label">损耗百分比：</span>
@@ -127,6 +133,25 @@
             </div>
           </div>
         </transition>
+      </div>
+
+      <div v-if="history.length" class="history-section">
+        <h3 class="section-subtitle">
+          <Icon icon="fa7-solid:history" />
+          <span>最近查询</span>
+          <button class="clear-history-btn" @click="clearHistory">
+            <Icon icon="fa7-solid:trash" />
+          </button>
+        </h3>
+        <div class="history-list">
+          <div v-for="(item, index) in history" :key="index" class="history-item" @click="loadHistory(item)">
+            <span class="history-amount">{{ item.amount.toLocaleString('zh-CN') }}</span>
+            <span class="history-arrow">→</span>
+            <span class="history-currency">{{ item.from }} → {{ item.to }}</span>
+            <span class="history-rate">{{ item.rate.toLocaleString('zh-CN') }}</span>
+            <span class="history-time">{{ item.time }}</span>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -138,11 +163,11 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import axios from 'axios'
 import { Icon } from '@iconify/vue'
 
-const amount = ref(1)
+const amount = ref(null)
 const from = ref('USD')
 const to = ref('CNY')
 const result = ref('')
@@ -153,6 +178,8 @@ const loading = ref(false)
 const showLossSection = ref(true)
 const copySuccess = ref(false)
 const message = ref(null)
+const retryCount = ref(0)
+const maxRetries = 3
 
 const lossData = ref({
   show: false,
@@ -167,27 +194,75 @@ const toast = ref({
   icon: 'fa7-solid:check'
 })
 
+const quickAmounts = [100, 200, 1000, 10000, 50000, 100000, 1000000]
+
 const commonCurrencies = ref([
-  { code: 'USD', name: '美元' },
-  { code: 'CNY', name: '人民币' },
-  { code: 'HKD', name: '港币' },
-  { code: 'EUR', name: '欧元' },
-  { code: 'GBP', name: '英镑' },
-  { code: 'JPY', name: '日元' }
+  { code: 'USD', name: '美元', flag: '🇺🇸' },
+  { code: 'CNY', name: '人民币', flag: '🇨🇳' },
+  { code: 'HKD', name: '港币', flag: '🇭🇰' },
+  { code: 'EUR', name: '欧元', flag: '🇪🇺' },
+  { code: 'GBP', name: '英镑', flag: '🇬🇧' },
+  { code: 'JPY', name: '日元', flag: '🇯🇵' }
 ])
 
 const otherCurrencies = ref([
-  { code: 'KRW', name: '韩元' },
-  { code: 'SGD', name: '新加坡元' },
-  { code: 'AUD', name: '澳元' },
-  { code: 'CAD', name: '加元' },
-  { code: 'CHF', name: '瑞郎' }
+  { code: 'KRW', name: '韩元', flag: '🇰🇷' },
+  { code: 'SGD', name: '新加坡元', flag: '🇸🇬' },
+  { code: 'AUD', name: '澳元', flag: '🇦🇺' },
+  { code: 'CAD', name: '加元', flag: '🇨🇦' },
+  { code: 'CHF', name: '瑞郎', flag: '🇨🇭' }
 ])
 
 const apiKey = "750a5c496977bdfc9770fa43bd914d07"
 const primaryApiUrl = "https://api.exchangerate.host/live"
 const backupApiUrl = "https://cdn.moneyconvert.net/api/latest.json"
 const targetCurrencies = "USD,EUR,HKD,CNY,GBP,AUD,CHF,CAD,JPY,SGD,SEK,DKK,NOK,MXN,INR,BRL,RUB,KRW,THB"
+
+const history = ref([])
+
+const loadHistory = (item) => {
+  amount.value = item.amount
+  from.value = item.from
+  to.value = item.to
+  clearAll()
+  getRate()
+}
+
+const saveToHistory = () => {
+  if (!result.value || !amount.value) return
+  
+  const historyItem = {
+    amount: amount.value,
+    from: from.value,
+    to: to.value,
+    rate: rateFixed.value,
+    time: new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' })
+  }
+  
+  const existingIndex = history.value.findIndex(item => 
+    item.amount === historyItem.amount && 
+    item.from === historyItem.from && 
+    item.to === historyItem.to
+  )
+  
+  if (existingIndex !== -1) {
+    history.value.splice(existingIndex, 1)
+  }
+  
+  history.value.unshift(historyItem)
+  
+  if (history.value.length > 6) {
+    history.value.pop()
+  }
+  
+  localStorage.setItem('exchangeRateHistory', JSON.stringify(history.value))
+}
+
+const clearHistory = () => {
+  history.value = []
+  localStorage.removeItem('exchangeRateHistory')
+  showToast('历史记录已清除', 'fa7-solid:trash')
+}
 
 const swapCurrency = () => {
   [from.value, to.value] = [to.value, from.value]
@@ -200,6 +275,7 @@ const clearAll = () => {
   updateTime.value = ''
   actualAmount.value = ''
   lossData.value.show = false
+  retryCount.value = 0
 }
 
 const clearAmount = () => {
@@ -207,28 +283,27 @@ const clearAmount = () => {
   clearAll()
 }
 
+const setAmount = (val) => {
+  amount.value = val
+  if (amount.value && amount.value > 0) {
+    getRate()
+  }
+}
+
 const onAmountInput = () => {
   if (amount.value && amount.value > 0) {
-    debouncedQuery()
-  } else {
-    clearAll()
+    if (amount.value > 99999999) {
+      showToast('金额过大，请输入小于1亿的金额', 'fa7-solid:circle-exclamation')
+      amount.value = 99999999
+      return
+    }
   }
 }
 
 const onCurrencyChange = () => {
   if (amount.value && amount.value > 0) {
-    debouncedQuery()
-  }
-}
-
-let queryTimer = null
-const debouncedQuery = () => {
-  if (queryTimer) {
-    clearTimeout(queryTimer)
-  }
-  queryTimer = setTimeout(() => {
     getRate()
-  }, 500)
+  }
 }
 
 const toggleLossSection = () => {
@@ -274,6 +349,11 @@ const getRate = async () => {
     showMessage('请输入大于 0 的金额', 'error')
     return
   }
+  
+  if (amount.value > 99999999) {
+    showToast('金额过大，请输入小于1亿的金额', 'fa7-solid:circle-exclamation')
+    return
+  }
 
   loading.value = true
 
@@ -296,7 +376,8 @@ const getRate = async () => {
       console.log('Primary API failed, trying backup API:', primaryError.message)
     }
 
-    if (!rate) {
+    if (!rate && retryCount.value < maxRetries) {
+      retryCount.value++
       try {
         const backupResponse = await axios.get(backupApiUrl)
         const backupData = backupResponse.data
@@ -312,6 +393,11 @@ const getRate = async () => {
         }
       } catch (backupError) {
         console.error('Backup API also failed:', backupError.message)
+        if (retryCount.value < maxRetries) {
+          await new Promise(resolve => setTimeout(resolve, 1000 * retryCount.value))
+          getRate()
+          return
+        }
         throw new Error('Both APIs failed')
       }
     }
@@ -336,6 +422,7 @@ const getRate = async () => {
       updateTime.value = new Date().toLocaleString()
     }
     
+    saveToHistory()
     showToast('汇率查询成功', 'fa7-solid:check')
   } catch (err) {
     showToast('网络错误，请检查连接', 'fa7-solid:circle-xmark')
@@ -370,7 +457,10 @@ const calcLoss = () => {
 }
 
 onMounted(() => {
-  getRate()
+  const savedHistory = localStorage.getItem('exchangeRateHistory')
+  if (savedHistory) {
+    history.value = JSON.parse(savedHistory)
+  }
 })
 </script>
 
@@ -452,6 +542,41 @@ onMounted(() => {
 .clear-btn:hover {
   background: var(--border-color);
   color: var(--text-primary);
+}
+
+.quick-amounts {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 8px;
+  margin-top: 8px;
+  align-items: center;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+}
+
+.quick-amounts::-webkit-scrollbar {
+  display: none;
+}
+
+.quick-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 500;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.quick-btn {
+  padding: 4px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background: var(--btn-secondary-bg);
+  color: var(--text-primary);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
 }
 
 input, select {
@@ -654,17 +779,20 @@ select::-ms-expand {
   color: var(--text-primary);
   margin-bottom: 8px;
   position: relative;
+  padding-right: 60px;
 }
 
 .result-main svg {
   color: var(--primary-color);
   width: 20px;
   height: 20px;
+  flex-shrink: 0;
 }
 
 .result-main strong {
   color: var(--primary-color);
   font-size: 24px;
+  word-break: break-all;
 }
 
 .result-sub {
@@ -697,6 +825,8 @@ select::-ms-expand {
   align-items: center;
   justify-content: center;
   transition: all 0.2s;
+  flex-shrink: 0;
+  z-index: 10;
 }
 
 .copy-btn:hover {
@@ -741,6 +871,22 @@ select::-ms-expand {
 .toggle-btn:hover {
   background: var(--border-color);
   color: var(--text-primary);
+}
+
+.clear-history-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s;
+  margin-left: auto;
+}
+
+.clear-history-btn:hover {
+  background: rgba(245, 87, 108, 0.1);
+  color: #f5576c;
 }
 
 .loss-content {
@@ -825,6 +971,58 @@ select::-ms-expand {
   margin: 24px 0;
 }
 
+.history-section {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-color);
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.history-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--btn-secondary-bg);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.history-item:hover {
+  background: var(--primary-color);
+  color: white;
+}
+
+.history-amount {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.history-arrow {
+  color: var(--text-muted);
+}
+
+.history-currency {
+  font-size: 12px;
+}
+
+.history-rate {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.history-time {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
 .toast {
   position: fixed;
   bottom: 30px;
@@ -888,29 +1086,50 @@ select::-ms-expand {
   }
 
   .result-main {
-    font-size: 18px;
-    flex-direction: column;
-    gap: 4px;
-  }
+  font-size: 18px;
+  flex-direction: column;
+  gap: 4px;
+}
 
-  .result-main strong {
-    font-size: 22px;
-  }
+.result-main strong {
+  font-size: 22px;
+  max-width: 100%;
+}
+
+.copy-btn {
+  position: static;
+  margin-left: 8px;
+  transform: none;
+}
 
   .btn {
     padding: 12px 16px;
     font-size: 15px;
   }
 
-  .copy-btn {
-    position: static;
-    margin-left: 8px;
-    transform: none;
-  }
-
   .loss-item.highlight {
     margin: 8px -16px;
     border-radius: 8px;
+  }
+
+  .quick-amounts {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .quick-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .history-item {
+    flex-wrap: wrap;
+  }
+
+  .history-rate {
+    margin-left: 0;
+    width: 100%;
+    text-align: right;
   }
 }
 </style>
