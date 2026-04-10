@@ -671,13 +671,6 @@ select::-ms-expand {
   height: 16px;
 }
 
-.swap-btn:hover {
-  background: rgba(67, 97, 238, 0.1);
-  color: var(--primary-color);
-  border-color: var(--primary-color);
-  transform: rotate(180deg);
-}
-
 .btn {
   width: 100%;
   padding: 14px 20px;
