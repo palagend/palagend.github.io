@@ -31,7 +31,16 @@
               <span>加密货币</span>
             </router-link>
           </li>
+          <li class="nav-item">
+            <router-link to="/qrcode" class="nav-link">
+              <Icon icon="fa7-solid:qrcode" />
+              <span>二维码</span>
+            </router-link>
+          </li>
         </ul>
+        <div class="nav-toggle" @click="toggleMenu">
+          <span class="hamburger"></span>
+        </div>
         <div class="theme-toggle" @click="toggleTheme">
           <Icon icon="fa7-solid:sun" />
           <Icon icon="fa7-solid:moon" />
@@ -63,6 +72,16 @@ const toggleTheme = () => {
   isDark.value = !isDark.value
   document.documentElement.classList.toggle('dark', isDark.value)
   localStorage.setItem('theme', isDark.value ? 'dark' : 'light')
+}
+
+const isMenuOpen = ref(false)
+
+const toggleMenu = () => {
+  isMenuOpen.value = !isMenuOpen.value
+  const navMenu = document.querySelector('.nav-menu')
+  if (navMenu) {
+    navMenu.classList.toggle('open', isMenuOpen.value)
+  }
 }
 
 onMounted(() => {
@@ -256,6 +275,104 @@ body {
   color: white;
 }
 
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  transition: background 0.3s ease;
+}
+
+.nav-toggle:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.hamburger {
+  width: 24px;
+  height: 2px;
+  background-color: white;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.hamburger::before,
+.hamburger::after {
+  content: '';
+  position: absolute;
+  width: 24px;
+  height: 2px;
+  background-color: white;
+  transition: all 0.3s ease;
+}
+
+.hamburger::before {
+  top: -8px;
+}
+
+.hamburger::after {
+  top: 8px;
+}
+
+.nav-menu.open {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 1rem 0;
+  z-index: 100;
+}
+
+.dark .nav-menu.open {
+  background: rgba(30, 30, 30, 0.98);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.nav-menu.open .nav-item {
+  width: 100%;
+  text-align: center;
+}
+
+.nav-menu.open .nav-link {
+  width: 100%;
+  justify-content: center;
+}
+
+@media (min-width: 577px) {
+  .nav-menu {
+    display: flex;
+  }
+
+  .nav-menu.open {
+    display: flex;
+    position: static;
+    box-shadow: none;
+    padding: 0;
+  }
+
+  .nav-menu.open .nav-item {
+    width: auto;
+  }
+
+  .nav-menu.open .nav-link {
+    width: auto;
+  }
+
+  .nav-toggle {
+    display: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .nav-menu:not(.open) {
+    display: none;
+  }
+}
+
 @media (max-width: 992px) {
   .nav-container {
     flex-direction: column;
@@ -320,6 +437,98 @@ body {
 
   .dark .theme-toggle .toggle-circle {
     transform: translateX(18px);
+  }
+
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+    transition: background 0.3s ease;
+  }
+
+  .nav-toggle:hover {
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  .hamburger {
+    width: 24px;
+    height: 2px;
+    background-color: white;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .hamburger::before,
+  .hamburger::after {
+    content: '';
+    position: absolute;
+    width: 24px;
+    height: 2px;
+    background-color: white;
+    transition: all 0.3s ease;
+  }
+
+  .hamburger::before {
+    top: -8px;
+  }
+
+  .hamburger::after {
+    top: 8px;
+  }
+
+  .nav-menu.open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 1rem 0;
+    z-index: 100;
+  }
+
+  .dark .nav-menu.open {
+    background: rgba(30, 30, 30, 0.98);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  .nav-menu.open .nav-item {
+    width: 100%;
+    text-align: center;
+  }
+
+  .nav-menu.open .nav-link {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .nav-menu:not(.open) {
+    display: none;
+  }
+
+  @media (min-width: 577px) {
+    .nav-menu.open {
+      display: flex;
+      position: static;
+      box-shadow: none;
+      padding: 0;
+    }
+
+    .nav-menu.open .nav-item {
+      width: auto;
+    }
+
+    .nav-menu.open .nav-link {
+      width: auto;
+    }
+
+    .nav-toggle {
+      display: none;
+    }
   }
 
   .container {
