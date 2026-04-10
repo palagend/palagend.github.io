@@ -167,10 +167,10 @@
                   <tr>
                     <th>资产</th>
                     <th>持有量</th>
-                    <th>买入价格</th>
+                    <th>成本价格</th>
                     <th>当前价格</th>
-                    <th>市值</th>
-                    <th>盈亏</th>
+                    <th>当前市值</th>
+                    <th>持仓盈亏</th>
                     <th>操作</th>
                   </tr>
                 </thead>
@@ -325,15 +325,30 @@ const addCrypto = () => {
     return
   }
 
-  portfolio.value.push({
-    id: Date.now(),
-    symbol: newCrypto.value.symbol,
-    amount: newCrypto.value.amount,
-    price: newCrypto.value.price,
-    currentPrice: 0,
-    profitLoss: 0,
-    profitLossRate: 0
-  })
+  const existingIndex = portfolio.value.findIndex(crypto => crypto.symbol === newCrypto.value.symbol)
+  
+  if (existingIndex !== -1) {
+    const existing = portfolio.value[existingIndex]
+    const totalAmount = existing.amount + newCrypto.value.amount
+    const totalCost = (existing.amount * existing.price) + (newCrypto.value.amount * newCrypto.value.price)
+    const averagePrice = totalCost / totalAmount
+    
+    portfolio.value[existingIndex] = {
+      ...existing,
+      amount: totalAmount,
+      price: averagePrice
+    }
+  } else {
+    portfolio.value.push({
+      id: Date.now(),
+      symbol: newCrypto.value.symbol,
+      amount: newCrypto.value.amount,
+      price: newCrypto.value.price,
+      currentPrice: 0,
+      profitLoss: 0,
+      profitLossRate: 0
+    })
+  }
 
   newCrypto.value = {
     symbol: '',

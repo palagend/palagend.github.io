@@ -8,31 +8,31 @@
         </router-link>
         <ul class="nav-menu">
           <li class="nav-item">
-            <router-link to="/" class="nav-link">
+            <router-link to="/" class="nav-link" @click="closeMenu">
               <Icon icon="fa7-solid:home" />
               <span>首页</span>
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/exchange-rate" class="nav-link">
+            <router-link to="/exchange-rate" class="nav-link" @click="closeMenu">
               <Icon icon="fa7-solid:exchange-alt" />
               <span>汇率查询</span>
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/calculator" class="nav-link">
+            <router-link to="/calculator" class="nav-link" @click="closeMenu">
               <Icon icon="fa7-solid:calculator" />
               <span>计算器</span>
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/crypto-portfolio" class="nav-link">
+            <router-link to="/crypto-portfolio" class="nav-link" @click="closeMenu">
               <Icon icon="fa7-solid:wallet" />
               <span>加密资产组合</span>
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/qrcode-generator" class="nav-link">
+            <router-link to="/qrcode-generator" class="nav-link" @click="closeMenu">
               <Icon icon="fa7-solid:qrcode" />
               <span>二维码生成器</span>
             </router-link>
@@ -85,6 +85,20 @@ const toggleMenu = () => {
   }
   if (navToggle) {
     navToggle.classList.toggle('active', isMenuOpen.value)
+  }
+}
+
+const closeMenu = () => {
+  if (isMenuOpen.value) {
+    isMenuOpen.value = false
+    const navMenu = document.querySelector('.nav-menu')
+    const navToggle = document.querySelector('.nav-toggle')
+    if (navMenu) {
+      navMenu.classList.remove('open')
+    }
+    if (navToggle) {
+      navToggle.classList.remove('active')
+    }
   }
 }
 
