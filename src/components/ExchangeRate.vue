@@ -61,7 +61,7 @@
         <span>{{ loading ? '查询中...' : '查询市场中间价' }}</span>
       </button>
 
-      <div v-if="message" :class="['message', message.type]">
+      <div v-if="message && message.type === 'error'" :class="['message', message.type]">
         <Icon :icon="message.type === 'error' ? 'fa7-solid:circle-exclamation' : 'fa7-solid:circle-info'" />
         <span>{{ message.text }}</span>
       </div>
@@ -200,7 +200,6 @@ const clearAll = () => {
   updateTime.value = ''
   actualAmount.value = ''
   lossData.value.show = false
-  message.value = null
 }
 
 const clearAmount = () => {
@@ -237,10 +236,12 @@ const toggleLossSection = () => {
 }
 
 const showMessage = (text, type = 'info') => {
-  message.value = { text, type }
-  setTimeout(() => {
-    message.value = null
-  }, 3000)
+  if (type === 'error') {
+    message.value = { text, type }
+    setTimeout(() => {
+      message.value = null
+    }, 3000)
+  }
 }
 
 const showToast = (text, icon = 'fa7-solid:check') => {
@@ -335,9 +336,9 @@ const getRate = async () => {
       updateTime.value = new Date().toLocaleString()
     }
     
-    showMessage('汇率查询成功', 'success')
+    showToast('汇率查询成功', 'fa7-solid:check')
   } catch (err) {
-    showMessage('网络错误，请检查连接', 'error')
+    showToast('网络错误，请检查连接', 'fa7-solid:circle-xmark')
   } finally {
     loading.value = false
   }
