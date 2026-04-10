@@ -79,8 +79,12 @@ const isMenuOpen = ref(false)
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value
   const navMenu = document.querySelector('.nav-menu')
+  const navToggle = document.querySelector('.nav-toggle')
   if (navMenu) {
     navMenu.classList.toggle('open', isMenuOpen.value)
+  }
+  if (navToggle) {
+    navToggle.classList.toggle('active', isMenuOpen.value)
   }
 }
 
@@ -288,6 +292,20 @@ body {
   background: rgba(255, 255, 255, 0.15);
 }
 
+.nav-toggle.active .hamburger {
+  background-color: transparent;
+}
+
+.nav-toggle.active .hamburger::before {
+  top: 0;
+  transform: rotate(45deg);
+}
+
+.nav-toggle.active .hamburger::after {
+  top: 0;
+  transform: rotate(-45deg);
+}
+
 .hamburger {
   width: 24px;
   height: 2px;
@@ -322,14 +340,26 @@ body {
   left: 0;
   right: 0;
   background: rgba(255, 255, 255, 0.98);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
   padding: 1rem 0;
   z-index: 100;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .dark .nav-menu.open {
   background: rgba(30, 30, 30, 0.98);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
 .nav-menu.open .nav-item {
@@ -340,6 +370,18 @@ body {
 .nav-menu.open .nav-link {
   width: 100%;
   justify-content: center;
+  padding: 0.75rem 1rem;
+  transition: all 0.2s ease;
+}
+
+.nav-menu.open .nav-link:hover {
+  background: rgba(67, 97, 238, 0.1);
+  color: white;
+}
+
+.nav-menu.open .nav-link.router-link-active {
+  background: rgba(67, 97, 238, 0.2);
+  color: white;
 }
 
 @media (min-width: 993px) {
