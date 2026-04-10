@@ -39,8 +39,10 @@
       </div>
 
       <div class="preview-section">
-        <div class="qrcode-wrapper" v-if="content" @click="randomizeColors">
+        <div class="qrcode-wrapper" v-if="content">
           <QRCodeVue
+            ref="qrcodeRef"
+            id="qrcodeCanvas"
             :value="content"
             :size="size"
             :level="errorLevel"
@@ -49,10 +51,6 @@
             :margin="2"
             class="qrcode-image"
           />
-          <div class="qrcode-overlay">
-            <Icon icon="fa7-solid:sync-alt" />
-            <span>点击随机换色</span>
-          </div>
         </div>
         <div class="empty-state" v-else>
           <Icon icon="fa7-solid:qrcode" />
@@ -77,14 +75,14 @@
 
       <div class="tips">
         <Icon icon="fa7-solid:info-circle" />
-        <span>提示：点击二维码或按钮可随机更换颜色，支持文本、URL、联系方式等内容</span>
+        <span>提示：点击按钮可随机更换颜色，支持文本、URL、联系方式等内容</span>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, nextTick } from 'vue'
 import { Icon } from '@iconify/vue'
 import QRCodeVue from 'qrcode.vue'
 
@@ -93,6 +91,7 @@ const size = ref(200)
 const errorLevel = ref('M')
 const fgColor = ref('#000000')
 const bgColor = ref('#07C160')
+const qrcodeRef = ref(null)
 
 const sizes = [200, 250, 300, 350, 400, 450, 500]
 const errorLevels = [
@@ -112,16 +111,60 @@ const randomizeColors = () => {
   bgColor.value = getRandomHex()
 }
 
-const downloadQRCode = () => {
-  if (!content.value) return
+const downloadQRCode = async () => {
+  try {
+    // 参数校验
+    if (!content.value?.trim()) {
+      throw new Error('请输入二维码内容')
+    }
+    
+    // 获取 canvas 元素
+    await nextTick()
+    const canvas = document.querySelector('#qrcodeCanvas')
+    if (!canvas) {
+      throw new Error('二维码未生成')
+    }
+    
+    // 选择方案1（简单场景）或方案2（大文件）
+    const useBlob = canvas.width * canvas.height > 1000000 // 超过100万像素用Blob
+    
+    if (useBlob) {
+      // 方案2：Blob（大文件）
+      await new Promise((resolve) => {
+        canvas.toBlob((blob) => {
+          const url = URL.createObjectURL(blob)
+          const link = document.createElement('a')
+          link.download = getFilename()
+          link.href = url
+          document.body.appendChild(link)
+          link.click()
+          document.body.removeChild(link)
+          URL.revokeObjectURL(url)
+          resolve()
+        }, 'image/png')
+      })
+    } else {
+      // 方案1：DataURL（小文件）
+      const link = document.createElement('a')
+      link.download = getFilename()
+      link.href = canvas.toDataURL('image/png', 0.92)
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+    }
+    
+    // 下载成功反馈
+    return true
+  } catch (error) {
+    console.error('下载失败:', error)
+    alert(error.message || '下载失败')
+    return false
+  }
+}
 
-  const canvas = document.querySelector('.qrcode-image canvas')
-  if (!canvas) return
-
-  const link = document.createElement('a')
-  link.download = `qrcode-${Date.now()}.png`
-  link.href = canvas.toDataURL('image/png')
-  link.click()
+const getFilename = () => {
+  const timestamp = new Date().getTime()
+  return `qrcode-${timestamp}.png`
 }
 
 const reset = () => {
@@ -271,50 +314,16 @@ const reset = () => {
 
 .qrcode-wrapper {
   display: inline-block;
-  position: relative;
   padding: 16px;
   background: bgColor;
   border-radius: 8px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  cursor: pointer;
   transition: all 0.3s ease;
-}
-
-.qrcode-wrapper:hover {
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
-  transform: scale(1.02);
-}
-
-.qrcode-wrapper:hover .qrcode-overlay {
-  opacity: 1;
 }
 
 .qrcode-image {
   display: block;
   border-radius: 4px;
-}
-
-.qrcode-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.6);
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  opacity: 0;
-  transition: all 0.3s ease;
-  gap: 8px;
-}
-
-.qrcode-overlay svg {
-  width: 32px;
-  height: 32px;
 }
 
 .empty-state {
@@ -461,11 +470,6 @@ const reset = () => {
 
   .qrcode-wrapper {
     padding: 12px;
-  }
-
-  .qrcode-overlay svg {
-    width: 24px;
-    height: 24px;
   }
 
   .btn {
