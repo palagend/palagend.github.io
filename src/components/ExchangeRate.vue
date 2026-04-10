@@ -569,14 +569,20 @@ onMounted(() => {
 
 .quick-btn {
   padding: 4px 12px;
-  border: 1px solid var(--border-color);
+  border: 1px solid rgba(67, 97, 238, 0.2);
   border-radius: 6px;
-  background: var(--btn-secondary-bg);
-  color: var(--text-primary);
+  background: rgba(67, 97, 238, 0.05);
+  color: var(--primary-color);
   font-size: 12px;
   cursor: pointer;
   transition: all 0.2s;
   flex-shrink: 0;
+}
+
+.quick-btn:hover {
+  background: rgba(67, 97, 238, 0.1);
+  border-color: var(--primary-color);
+  transform: translateY(-1px);
 }
 
 input, select {
@@ -649,8 +655,8 @@ select::-ms-expand {
   width: 40px;
   height: 40px;
   border-radius: 10px;
-  border: 1px solid var(--border-color);
-  background: var(--btn-secondary-bg);
+  border: 1px solid rgba(67, 97, 238, 0.2);
+  background: rgba(67, 97, 238, 0.05);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -666,9 +672,10 @@ select::-ms-expand {
 }
 
 .swap-btn:hover {
-  background: var(--primary-color);
-  color: white;
+  background: rgba(67, 97, 238, 0.1);
+  color: var(--primary-color);
   border-color: var(--primary-color);
+  transform: rotate(180deg);
 }
 
 .btn {
@@ -692,7 +699,7 @@ select::-ms-expand {
 }
 
 .btn-query {
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  background: linear-gradient(135deg, #4361ee, #3f37c9);
   color: white;
   box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
 }
@@ -700,6 +707,7 @@ select::-ms-expand {
 .btn-query:hover:not(:disabled) {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(67, 97, 238, 0.4);
+  background: linear-gradient(135deg, #3f37c9, #3a2db3);
 }
 
 .btn-query:disabled {
@@ -709,14 +717,15 @@ select::-ms-expand {
 }
 
 .btn-calc-loss {
-  background: linear-gradient(135deg, #f093fb, #f5576c);
+  background: linear-gradient(135deg, #ff6b6b, #ee5a24);
   color: white;
-  box-shadow: 0 4px 15px rgba(245, 87, 108, 0.3);
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
 }
 
 .btn-calc-loss:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(245, 87, 108, 0.4);
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+  background: linear-gradient(135deg, #ee5a24, #d64520);
 }
 
 .message {
@@ -818,9 +827,9 @@ select::-ms-expand {
   position: absolute;
   right: 16px;
   top: 16px;
-  background: var(--primary-color);
-  color: white;
-  border: none;
+  background: rgba(67, 97, 238, 0.1);
+  color: var(--primary-color);
+  border: 1px solid rgba(67, 97, 238, 0.2);
   border-radius: 6px;
   padding: 4px 8px;
   cursor: pointer;
@@ -830,19 +839,20 @@ select::-ms-expand {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   flex-shrink: 0;
   z-index: 10;
-  box-shadow: 0 2px 8px rgba(67, 97, 238, 0.3);
 }
 
 .copy-btn:hover {
-  background: var(--primary-color);
+  background: rgba(67, 97, 238, 0.15);
+  border-color: var(--primary-color);
   transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(67, 97, 238, 0.4);
+  box-shadow: 0 4px 12px rgba(67, 97, 238, 0.2);
 }
 
 .copy-btn.copied {
-  background: #28a745;
+  background: rgba(40, 167, 69, 0.1);
+  color: #28a745;
+  border-color: rgba(40, 167, 69, 0.3);
   transform: scale(0.95);
-  box-shadow: 0 2px 8px rgba(40, 167, 69, 0.3);
 }
 
 .result-footer {
@@ -903,7 +913,7 @@ select::-ms-expand {
 }
 
 .section-subtitle svg {
-  color: #f5576c;
+  color: var(--primary-color);
   width: 16px;
   height: 16px;
 }
@@ -920,8 +930,8 @@ select::-ms-expand {
 }
 
 .toggle-btn:hover {
-  background: var(--border-color);
-  color: var(--text-primary);
+  background: rgba(67, 97, 238, 0.1);
+  color: var(--primary-color);
 }
 
 .clear-history-btn {
@@ -936,8 +946,8 @@ select::-ms-expand {
 }
 
 .clear-history-btn:hover {
-  background: rgba(245, 87, 108, 0.1);
-  color: #f5576c;
+  background: rgba(255, 107, 107, 0.1);
+  color: #ff6b6b;
 }
 
 .loss-content {
