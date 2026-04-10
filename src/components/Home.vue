@@ -48,19 +48,18 @@
         </div>
       </router-link>
 
-      <div class="tool-card disabled">
+      <router-link to="/qrcode-generator" class="tool-card">
         <div class="tool-icon">
-          <Icon icon="fa7-solid:rocket" />
+          <Icon icon="fa7-solid:qrcode" />
         </div>
-        <div class="tool-title">即将上线</div>
+        <div class="tool-title">二维码生成器</div>
         <div class="tool-description">
-          持续更新更多实用功能，提升工作效率
+          快速生成高质量二维码，支持自定义尺寸和颜色
         </div>
-        <div class="tool-badge">
-          <Icon icon="fa7-solid:clock" />
-          <span>敬请期待</span>
+        <div class="tool-arrow">
+          <Icon icon="fa7-solid:arrow-right" />
         </div>
-      </div>
+      </router-link>
     </div>
   </div>
 </template>

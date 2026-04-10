@@ -22,6 +22,7 @@
   "dependencies": {
     "@vitejs/plugin-vue": "^5.2.4",
     "axios": "^1.14.0",
+    "qrcode.vue": "^3.8.1",
     "vite": "^6.4.2",
     "vue": "^3.5.32",
     "vue-router": "^4.6.4"
