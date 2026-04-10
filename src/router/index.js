@@ -10,7 +10,7 @@ const routes = [
   { path: '/exchange-rate', component: ExchangeRate },
   { path: '/calculator', component: Calculator },
   { path: '/crypto-portfolio', component: CryptoPortfolio },
-  { path: '/qrcode', component: QRCodeGenerator }
+  { path: '/qrcode-generator', component: QRCodeGenerator }
 ]
 
 const router = createRouter({

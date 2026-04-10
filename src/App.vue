@@ -28,13 +28,13 @@
           <li class="nav-item">
             <router-link to="/crypto-portfolio" class="nav-link">
               <Icon icon="fa7-solid:wallet" />
-              <span>加密货币</span>
+              <span>加密资产组合</span>
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/qrcode" class="nav-link">
+            <router-link to="/qrcode-generator" class="nav-link">
               <Icon icon="fa7-solid:qrcode" />
-              <span>二维码</span>
+              <span>二维码生成器</span>
             </router-link>
           </li>
         </ul>
@@ -342,7 +342,7 @@ body {
   justify-content: center;
 }
 
-@media (min-width: 577px) {
+@media (min-width: 993px) {
   .nav-menu {
     display: flex;
   }
@@ -373,6 +373,44 @@ body {
   }
 }
 
+@media (min-width: 577px) and (max-width: 992px) {
+  .nav-menu {
+    display: none;
+  }
+
+  .nav-menu.open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 1rem 0;
+    z-index: 100;
+  }
+
+  .dark .nav-menu.open {
+    background: rgba(30, 30, 30, 0.98);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  .nav-menu.open .nav-item {
+    width: 100%;
+    text-align: center;
+  }
+
+  .nav-menu.open .nav-link {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .nav-toggle {
+    display: flex;
+  }
+}
+
 @media (max-width: 992px) {
   .nav-container {
     flex-direction: column;
@@ -385,9 +423,35 @@ body {
   }
 
   .nav-menu {
-    flex-wrap: wrap;
+    display: none;
+  }
+
+  .nav-menu.open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 1rem 0;
+    z-index: 100;
+  }
+
+  .dark .nav-menu.open {
+    background: rgba(30, 30, 30, 0.98);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  .nav-menu.open .nav-item {
+    width: 100%;
+    text-align: center;
+  }
+
+  .nav-menu.open .nav-link {
+    width: 100%;
     justify-content: center;
-    gap: 0.5rem;
   }
 
   .nav-link {
@@ -401,6 +465,12 @@ body {
 
   .container {
     padding: 1rem;
+  }
+}
+
+@media (min-width: 993px) {
+  .nav-toggle {
+    display: none;
   }
 }
 
