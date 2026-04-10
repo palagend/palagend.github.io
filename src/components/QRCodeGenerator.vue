@@ -46,7 +46,7 @@
             :level="errorLevel"
             :color="fgColor"
             :background="bgColor"
-            :margin="20"
+            :margin="2"
             class="qrcode-image"
           />
           <div class="qrcode-overlay">
