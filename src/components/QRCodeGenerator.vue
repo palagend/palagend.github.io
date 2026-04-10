@@ -11,7 +11,7 @@
           <label><Icon icon="fa7-solid:text-height" /> 内容</label>
           <textarea
             v-model="content"
-            placeholder="请输入要生成二维码的内容（文本、URL等）"
+            placeholder="请输入要生成二维码的内容（文本、URL 等）"
             maxlength="512"
           ></textarea>
           <div class="char-count">
@@ -39,19 +39,19 @@
       </div>
 
       <div class="preview-section">
-        <div class="qrcode-wrapper" v-if="content">
+        <div class="qrcode-wrapper" v-if="content" @click="randomizeColors">
           <QRCodeVue
             :value="content"
             :size="size"
             :level="errorLevel"
-            :fgColor="fgColor"
-            :bgColor="bgColor"
+            :color="fgColor"
+            :background="bgColor"
             :margin="20"
             class="qrcode-image"
           />
-          <div class="qrcode-overlay" @click="downloadQRCode">
-            <Icon icon="fa7-solid:download" />
-            <span>点击下载</span>
+          <div class="qrcode-overlay">
+            <Icon icon="fa7-solid:sync-alt" />
+            <span>点击随机换色</span>
           </div>
         </div>
         <div class="empty-state" v-else>
@@ -65,6 +65,10 @@
           <Icon icon="fa7-solid:download" />
           <span>下载二维码</span>
         </button>
+        <button class="btn btn-random" @click="randomizeColors" :disabled="!content">
+          <Icon icon="fa7-solid:sync-alt" />
+          <span>随机换色</span>
+        </button>
         <button class="btn btn-reset" @click="reset">
           <Icon icon="fa7-solid:trash-alt" />
           <span>清空</span>
@@ -73,30 +77,40 @@
 
       <div class="tips">
         <Icon icon="fa7-solid:info-circle" />
-        <span>提示：支持文本、URL、联系方式等内容，建议内容不超过256字符以保证扫描效果</span>
+        <span>提示：点击二维码或按钮可随机更换颜色，支持文本、URL、联系方式等内容</span>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { Icon } from '@iconify/vue'
 import QRCodeVue from 'qrcode.vue'
 
 const content = ref('')
-const size = ref(300)
+const size = ref(200)
 const errorLevel = ref('M')
 const fgColor = ref('#000000')
 const bgColor = ref('#07C160')
 
 const sizes = [200, 250, 300, 350, 400, 450, 500]
 const errorLevels = [
-  { value: 'L', label: 'L级 (7%)' },
-  { value: 'M', label: 'M级 (15%)' },
-  { value: 'Q', label: 'Q级 (25%)' },
-  { value: 'H', label: 'H级 (30%)' }
+  { value: 'L', label: 'L 级 (7%)' },
+  { value: 'M', label: 'M 级 (15%)' },
+  { value: 'Q', label: 'Q 级 (25%)' },
+  { value: 'H', label: 'H 级 (30%)' }
 ]
+
+const getRandomHex = () => {
+  return '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')
+}
+
+const randomizeColors = () => {
+  if (!content.value) return
+  fgColor.value = getRandomHex()
+  bgColor.value = getRandomHex()
+}
 
 const downloadQRCode = () => {
   if (!content.value) return
@@ -112,6 +126,8 @@ const downloadQRCode = () => {
 
 const reset = () => {
   content.value = ''
+  fgColor.value = '#000000'
+  bgColor.value = '#07C160'
 }
 </script>
 
@@ -256,16 +272,16 @@ const reset = () => {
 .qrcode-wrapper {
   display: inline-block;
   position: relative;
-  padding: 20px;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  background: bgColor;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .qrcode-wrapper:hover {
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
   transform: scale(1.02);
 }
 
@@ -275,6 +291,7 @@ const reset = () => {
 
 .qrcode-image {
   display: block;
+  border-radius: 4px;
 }
 
 .qrcode-overlay {
@@ -283,8 +300,8 @@ const reset = () => {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
-  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -319,28 +336,28 @@ const reset = () => {
 
 .actions {
   display: flex;
-  gap: 16px;
+  gap: 12px;
   margin-bottom: 20px;
 }
 
 .btn {
   flex: 1;
-  padding: 14px 20px;
+  padding: 14px 16px;
   border: none;
   border-radius: 12px;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 8px;
   transition: all 0.3s ease;
 }
 
 .btn svg {
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
 }
 
 .btn-download {
@@ -355,6 +372,22 @@ const reset = () => {
 }
 
 .btn-download:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-random {
+  background: linear-gradient(135deg, #16a085, #1abc9c);
+  color: white;
+  box-shadow: 0 4px 15px rgba(22, 160, 133, 0.3);
+}
+
+.btn-random:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(22, 160, 133, 0.4);
+}
+
+.btn-random:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
@@ -436,13 +469,13 @@ const reset = () => {
   }
 
   .btn {
-    padding: 12px 16px;
-    font-size: 15px;
+    padding: 12px 14px;
+    font-size: 14px;
   }
 
   .btn svg {
-    width: 16px;
-    height: 16px;
+    width: 14px;
+    height: 14px;
   }
 }
 </style>
