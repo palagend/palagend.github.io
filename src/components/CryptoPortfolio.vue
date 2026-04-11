@@ -396,58 +396,80 @@ const rechargeAmount = ref(null)
 const protectHistory = ref(false)
 let refreshTimer = null
 
-const assetColors = {
-  USDT: '#26a17b',
-  BTC: '#f7931a',
-  ETH: '#627eea',
-  BNB: '#f0b90b',
-  XRP: '#0033ad',
-  ADA: '#0033ad',
-  SOL: '#00ffa3',
-  DOGE: '#c2a633',
-  TRX: '#eb0029',
-  AVAX: '#e84142',
-  HYPE: '#89F0E6'
+const STORAGE_KEYS = {
+  PORTFOLIO: 'cryptoPortfolio',
+  TRADES: 'cryptoTrades',
+  REALIZED_PL: 'cryptoRealizedPL',
+  PROTECT_HISTORY: 'cryptoProtectHistory'
 }
 
-const assetIcons = {
-  USDT: 'cryptocurrency-color:usdt',
-  BTC: 'cryptocurrency-color:btc',
-  ETH: 'cryptocurrency-color:eth',
-  BNB: 'cryptocurrency-color:bnb',
-  XRP: 'cryptocurrency-color:xrp',
-  ADA: 'cryptocurrency-color:ada',
-  SOL: 'cryptocurrency-color:sol',
-  DOGE: 'cryptocurrency-color:doge',
-  TRX: 'cryptocurrency-color:trx',
-  AVAX: 'cryptocurrency-color:avax',
-  HYPE: 'token:hyper-evm'
+const ASSET_CONFIG = {
+  COLORS: {
+    USDT: '#26a17b',
+    BTC: '#f7931a',
+    ETH: '#627eea',
+    BNB: '#f0b90b',
+    XRP: '#0033ad',
+    ADA: '#0033ad',
+    SOL: '#00ffa3',
+    DOGE: '#c2a633',
+    TRX: '#eb0029',
+    AVAX: '#e84142',
+    HYPE: '#89F0E6'
+  },
+  ICONS: {
+    USDT: 'cryptocurrency-color:usdt',
+    BTC: 'cryptocurrency-color:btc',
+    ETH: 'cryptocurrency-color:eth',
+    BNB: 'cryptocurrency-color:bnb',
+    XRP: 'cryptocurrency-color:xrp',
+    ADA: 'cryptocurrency-color:ada',
+    SOL: 'cryptocurrency-color:sol',
+    DOGE: 'cryptocurrency-color:doge',
+    TRX: 'cryptocurrency-color:trx',
+    AVAX: 'cryptocurrency-color:avax',
+    HYPE: 'token:hyper-evm'
+  },
+  NAMES: {
+    USDT: 'Tether',
+    BTC: 'Bitcoin',
+    ETH: 'Ethereum',
+    BNB: 'Binance Coin',
+    XRP: 'Ripple',
+    ADA: 'Cardano',
+    SOL: 'Solana',
+    DOGE: 'Dogecoin',
+    TRX: 'Tron',
+    AVAX: 'Avalanche',
+    HYPE: 'Hyperliquid'
+  }
 }
 
-const chartColors = [
+const CHART_COLORS = [
   '#6366f1', '#8b5cf6', '#d946ef', '#ec4899', '#f43f5e',
   '#fb7185', '#fda4af', '#fca5a5', '#f87171', '#fb923c'
 ]
 
-const assetNames = {
-  USDT: 'Tether',
-  BTC: 'Bitcoin',
-  ETH: 'Ethereum',
-  BNB: 'Binance Coin',
-  XRP: 'Ripple',
-  ADA: 'Cardano',
-  SOL: 'Solana',
-  DOGE: 'Dogecoin',
-  TRX: 'Tron',
-  AVAX: 'Avalanche',
-  HYPE: 'Hyperliquid'
+const TRADE_TYPES = {
+  BUY: 'buy',
+  SELL: 'sell',
+  RECHARGE: 'recharge'
+}
+
+const getTradeTypeText = (type) => {
+  const map = {
+    [TRADE_TYPES.BUY]: '买入',
+    [TRADE_TYPES.SELL]: '卖出',
+    [TRADE_TYPES.RECHARGE]: '充值'
+  }
+  return map[type] || type
 }
 
 const loadPortfolio = () => {
-  const savedPortfolio = localStorage.getItem('cryptoPortfolio')
-  const savedTrades = localStorage.getItem('cryptoTrades')
-  const savedRealizedPL = localStorage.getItem('cryptoRealizedPL')
-  const savedProtectHistory = localStorage.getItem('cryptoProtectHistory')
+  const savedPortfolio = localStorage.getItem(STORAGE_KEYS.PORTFOLIO)
+  const savedTrades = localStorage.getItem(STORAGE_KEYS.TRADES)
+  const savedRealizedPL = localStorage.getItem(STORAGE_KEYS.REALIZED_PL)
+  const savedProtectHistory = localStorage.getItem(STORAGE_KEYS.PROTECT_HISTORY)
   
   if (savedPortfolio) {
     const parsed = JSON.parse(savedPortfolio)
@@ -471,19 +493,19 @@ const loadPortfolio = () => {
 }
 
 const savePortfolio = () => {
-  localStorage.setItem('cryptoPortfolio', JSON.stringify(portfolio.value))
+  localStorage.setItem(STORAGE_KEYS.PORTFOLIO, JSON.stringify(portfolio.value))
 }
 
 const saveTrades = () => {
-  localStorage.setItem('cryptoTrades', JSON.stringify(trades.value))
+  localStorage.setItem(STORAGE_KEYS.TRADES, JSON.stringify(trades.value))
 }
 
 const saveRealizedPL = () => {
-  localStorage.setItem('cryptoRealizedPL', realizedProfitLoss.value.toString())
+  localStorage.setItem(STORAGE_KEYS.REALIZED_PL, realizedProfitLoss.value.toString())
 }
 
 const saveProtectHistory = () => {
-  localStorage.setItem('cryptoProtectHistory', JSON.stringify(protectHistory.value))
+  localStorage.setItem(STORAGE_KEYS.PROTECT_HISTORY, JSON.stringify(protectHistory.value))
 }
 
 const toggleProtectHistory = () => {
@@ -546,13 +568,92 @@ const calculateEstimatedRealizedPL = () => {
   return (newTrade.value.price - existing.price) * newTrade.value.amount
 }
 
-const getTradeTypeText = (type) => {
-  const map = {
-    buy: '买入',
-    sell: '卖出',
-    recharge: '充值'
+const executeBuyTrade = (symbol, amount, price) => {
+  const totalAmount = amount * price
+  const usdtIndex = portfolio.value.findIndex(c => c.symbol === 'USDT')
+  
+  if (usdtIndex === -1 || portfolio.value[usdtIndex].amount < totalAmount) {
+    errorMessage.value = 'USDT余额不足，请先充值'
+    setTimeout(() => errorMessage.value = '', 3000)
+    return false
   }
-  return map[type] || type
+
+  portfolio.value[usdtIndex].amount -= totalAmount
+  if (portfolio.value[usdtIndex].amount === 0) {
+    portfolio.value.splice(usdtIndex, 1)
+  }
+
+  const existingIndex = portfolio.value.findIndex(crypto => crypto.symbol === symbol)
+  
+  if (existingIndex !== -1) {
+    const existing = portfolio.value[existingIndex]
+    const totalAmountHeld = existing.amount + amount
+    const totalCost = (existing.amount * existing.price) + (amount * price)
+    const averagePrice = totalCost / totalAmountHeld
+    
+    portfolio.value[existingIndex] = {
+      ...existing,
+      amount: totalAmountHeld,
+      price: averagePrice
+    }
+  } else {
+    portfolio.value.push({
+      id: Date.now(),
+      symbol: symbol,
+      amount: amount,
+      price: price,
+      currentPrice: prices.value[symbol] || 0,
+      profitLoss: 0,
+      profitLossRate: 0
+    })
+  }
+  
+  return true
+}
+
+const executeSellTrade = (symbol, amount, price) => {
+  const totalAmount = amount * price
+  const existingIndex = portfolio.value.findIndex(crypto => crypto.symbol === symbol)
+  
+  if (existingIndex === -1) {
+    errorMessage.value = '未持有该资产'
+    setTimeout(() => errorMessage.value = '', 3000)
+    return false
+  }
+
+  const existing = portfolio.value[existingIndex]
+  
+  if (existing.amount < amount) {
+    errorMessage.value = '卖出数量超过持有量'
+    setTimeout(() => errorMessage.value = '', 3000)
+    return false
+  }
+
+  const realizedPL = (price - existing.price) * amount
+  realizedProfitLoss.value += realizedPL
+
+  existing.amount -= amount
+  
+  if (existing.amount === 0) {
+    portfolio.value.splice(existingIndex, 1)
+  }
+
+  const usdtIndex = portfolio.value.findIndex(c => c.symbol === 'USDT')
+  if (usdtIndex !== -1) {
+    portfolio.value[usdtIndex].amount += totalAmount
+  } else {
+    portfolio.value.push({
+      id: Date.now(),
+      symbol: 'USDT',
+      amount: totalAmount,
+      price: 1,
+      currentPrice: 1,
+      profitLoss: 0,
+      profitLossRate: 0
+    })
+  }
+  
+  return { success: true, realizedPL }
 }
 
 const rechargeUSDT = () => {
@@ -619,82 +720,15 @@ const addTrade = () => {
   let realizedPL = 0
 
   if (newTrade.value.type === 'buy') {
-    const usdtIndex = portfolio.value.findIndex(c => c.symbol === 'USDT')
-    if (usdtIndex === -1 || portfolio.value[usdtIndex].amount < totalAmount) {
-      errorMessage.value = 'USDT余额不足，请先充值'
-      setTimeout(() => errorMessage.value = '', 3000)
+    if (!executeBuyTrade(newTrade.value.symbol, newTrade.value.amount, newTrade.value.price)) {
       return
-    }
-
-    portfolio.value[usdtIndex].amount -= totalAmount
-    if (portfolio.value[usdtIndex].amount === 0) {
-      portfolio.value.splice(usdtIndex, 1)
-    }
-
-    const existingIndex = portfolio.value.findIndex(crypto => crypto.symbol === newTrade.value.symbol)
-    
-    if (existingIndex !== -1) {
-      const existing = portfolio.value[existingIndex]
-      const totalAmountHeld = existing.amount + newTrade.value.amount
-      const totalCost = (existing.amount * existing.price) + (newTrade.value.amount * newTrade.value.price)
-      const averagePrice = totalCost / totalAmountHeld
-      
-      portfolio.value[existingIndex] = {
-        ...existing,
-        amount: totalAmountHeld,
-        price: averagePrice
-      }
-    } else {
-      portfolio.value.push({
-        id: Date.now(),
-        symbol: newTrade.value.symbol,
-        amount: newTrade.value.amount,
-        price: newTrade.value.price,
-        currentPrice: prices.value[newTrade.value.symbol] || 0,
-        profitLoss: 0,
-        profitLossRate: 0
-      })
     }
   } else {
-    const existingIndex = portfolio.value.findIndex(crypto => crypto.symbol === newTrade.value.symbol)
-    
-    if (existingIndex === -1) {
-      errorMessage.value = '未持有该资产'
-      setTimeout(() => errorMessage.value = '', 3000)
+    const sellResult = executeSellTrade(newTrade.value.symbol, newTrade.value.amount, newTrade.value.price)
+    if (!sellResult || !sellResult.success) {
       return
     }
-
-    const existing = portfolio.value[existingIndex]
-    
-    if (existing.amount < newTrade.value.amount) {
-      errorMessage.value = '卖出数量超过持有量'
-      setTimeout(() => errorMessage.value = '', 3000)
-      return
-    }
-
-    realizedPL = (newTrade.value.price - existing.price) * newTrade.value.amount
-    realizedProfitLoss.value += realizedPL
-
-    existing.amount -= newTrade.value.amount
-    
-    if (existing.amount === 0) {
-      portfolio.value.splice(existingIndex, 1)
-    }
-
-    const usdtIndex = portfolio.value.findIndex(c => c.symbol === 'USDT')
-    if (usdtIndex !== -1) {
-      portfolio.value[usdtIndex].amount += totalAmount
-    } else {
-      portfolio.value.push({
-        id: Date.now(),
-        symbol: 'USDT',
-        amount: totalAmount,
-        price: 1,
-        currentPrice: 1,
-        profitLoss: 0,
-        profitLossRate: 0
-      })
-    }
+    realizedPL = sellResult.realizedPL
   }
 
   const trade = {
@@ -722,6 +756,78 @@ const addTrade = () => {
   }
 }
 
+const restoreTradeForBuy = (trade) => {
+  const usdtIndex = portfolio.value.findIndex(c => c.symbol === 'USDT')
+  if (usdtIndex !== -1) {
+    portfolio.value[usdtIndex].amount += trade.total
+  } else {
+    portfolio.value.push({
+      id: Date.now(),
+      symbol: 'USDT',
+      amount: trade.total,
+      price: 1,
+      currentPrice: 1,
+      profitLoss: 0,
+      profitLossRate: 0
+    })
+  }
+
+  const portfolioIndex = portfolio.value.findIndex(crypto => crypto.symbol === trade.symbol)
+  
+  if (portfolioIndex !== -1) {
+    const crypto = portfolio.value[portfolioIndex]
+    crypto.amount -= trade.amount
+    
+    if (crypto.amount <= 0) {
+      portfolio.value.splice(portfolioIndex, 1)
+    } else {
+      recalculateCostBasis(trade.symbol)
+    }
+  }
+}
+
+const restoreTradeForSell = (trade) => {
+  if (trade.realizedPL !== undefined) {
+    realizedProfitLoss.value -= trade.realizedPL
+  }
+
+  const usdtIndex = portfolio.value.findIndex(c => c.symbol === 'USDT')
+  if (usdtIndex !== -1) {
+    portfolio.value[usdtIndex].amount -= trade.total
+    if (portfolio.value[usdtIndex].amount <= 0) {
+      portfolio.value.splice(usdtIndex, 1)
+    }
+  }
+
+  const portfolioIndex = portfolio.value.findIndex(crypto => crypto.symbol === trade.symbol)
+  
+  if (portfolioIndex !== -1) {
+    const crypto = portfolio.value[portfolioIndex]
+    crypto.amount += trade.amount
+  } else {
+    portfolio.value.push({
+      id: Date.now(),
+      symbol: trade.symbol,
+      amount: trade.amount,
+      price: trade.price,
+      currentPrice: prices.value[trade.symbol] || 0,
+      profitLoss: 0,
+      profitLossRate: 0
+    })
+    recalculateCostBasis(trade.symbol)
+  }
+}
+
+const restoreTradeForRecharge = (trade) => {
+  const usdtIndex = portfolio.value.findIndex(c => c.symbol === 'USDT')
+  if (usdtIndex !== -1) {
+    portfolio.value[usdtIndex].amount -= trade.amount
+    if (portfolio.value[usdtIndex].amount <= 0) {
+      portfolio.value.splice(usdtIndex, 1)
+    }
+  }
+}
+
 const deleteTrade = (id) => {
   if (protectHistory.value) {
     errorMessage.value = '保护开关已开启，禁止删除交易历史'
@@ -737,71 +843,11 @@ const deleteTrade = (id) => {
     const trade = trades.value[index]
     
     if (trade.type === 'buy') {
-      const usdtIndex = portfolio.value.findIndex(c => c.symbol === 'USDT')
-      if (usdtIndex !== -1) {
-        portfolio.value[usdtIndex].amount += trade.total
-      } else {
-        portfolio.value.push({
-          id: Date.now(),
-          symbol: 'USDT',
-          amount: trade.total,
-          price: 1,
-          currentPrice: 1,
-          profitLoss: 0,
-          profitLossRate: 0
-        })
-      }
-
-      const portfolioIndex = portfolio.value.findIndex(crypto => crypto.symbol === trade.symbol)
-      
-      if (portfolioIndex !== -1) {
-        const crypto = portfolio.value[portfolioIndex]
-        crypto.amount -= trade.amount
-        
-        if (crypto.amount <= 0) {
-          portfolio.value.splice(portfolioIndex, 1)
-        } else {
-          recalculateCostBasis(trade.symbol)
-        }
-      }
+      restoreTradeForBuy(trade)
     } else if (trade.type === 'sell') {
-      if (trade.realizedPL !== undefined) {
-        realizedProfitLoss.value -= trade.realizedPL
-      }
-
-      const usdtIndex = portfolio.value.findIndex(c => c.symbol === 'USDT')
-      if (usdtIndex !== -1) {
-        portfolio.value[usdtIndex].amount -= trade.total
-        if (portfolio.value[usdtIndex].amount <= 0) {
-          portfolio.value.splice(usdtIndex, 1)
-        }
-      }
-
-      const portfolioIndex = portfolio.value.findIndex(crypto => crypto.symbol === trade.symbol)
-      
-      if (portfolioIndex !== -1) {
-        const crypto = portfolio.value[portfolioIndex]
-        crypto.amount += trade.amount
-      } else {
-        portfolio.value.push({
-          id: Date.now(),
-          symbol: trade.symbol,
-          amount: trade.amount,
-          price: trade.price,
-          currentPrice: prices.value[trade.symbol] || 0,
-          profitLoss: 0,
-          profitLossRate: 0
-        })
-        recalculateCostBasis(trade.symbol)
-      }
+      restoreTradeForSell(trade)
     } else if (trade.type === 'recharge') {
-      const usdtIndex = portfolio.value.findIndex(c => c.symbol === 'USDT')
-      if (usdtIndex !== -1) {
-        portfolio.value[usdtIndex].amount -= trade.amount
-        if (portfolio.value[usdtIndex].amount <= 0) {
-          portfolio.value.splice(usdtIndex, 1)
-        }
-      }
+      restoreTradeForRecharge(trade)
     }
     
     trades.value.splice(index, 1)
@@ -886,15 +932,15 @@ const quickBuy = (crypto) => {
 }
 
 const getAssetName = (symbol) => {
-  return assetNames[symbol] || symbol
+  return ASSET_CONFIG.NAMES[symbol] || symbol
 }
 
 const getAssetColor = (symbol) => {
-  return assetColors[symbol] || '#667eea'
+  return ASSET_CONFIG.COLORS[symbol] || '#667eea'
 }
 
 const getAssetIcon = (symbol) => {
-  return assetIcons[symbol] || symbol.charAt(0)
+  return ASSET_CONFIG.ICONS[symbol] || symbol.charAt(0)
 }
 
 const formatNumber = (num) => {
@@ -954,6 +1000,18 @@ const getPricesFromCoincap = async () => {
   }
 }
 
+const calculateAssetProfit = (crypto, currentPrice) => {
+  if (crypto.symbol === 'USDT') {
+    return { currentPrice: 1, profitLoss: 0, profitLossRate: 0 }
+  }
+  
+  const price = currentPrice || crypto.currentPrice || 0
+  const profitLoss = crypto.amount * (price - crypto.price)
+  const profitLossRate = crypto.price > 0 ? ((price - crypto.price) / crypto.price) * 100 : 0
+  
+  return { currentPrice: price, profitLoss, profitLossRate }
+}
+
 const refreshPrices = async () => {
   refreshing.value = true
   errorMessage.value = ''
@@ -967,15 +1025,10 @@ const refreshPrices = async () => {
   }
 
   portfolio.value.forEach(crypto => {
-    if (crypto.symbol === 'USDT') {
-      crypto.currentPrice = 1
-      crypto.profitLoss = 0
-      crypto.profitLossRate = 0
-    } else {
-      crypto.currentPrice = prices.value[crypto.symbol] || crypto.currentPrice || 0
-      crypto.profitLoss = crypto.amount * (crypto.currentPrice - crypto.price)
-      crypto.profitLossRate = crypto.price > 0 ? ((crypto.currentPrice - crypto.price) / crypto.price) * 100 : 0
-    }
+    const { currentPrice, profitLoss, profitLossRate } = calculateAssetProfit(crypto, prices.value[crypto.symbol])
+    crypto.currentPrice = currentPrice
+    crypto.profitLoss = profitLoss
+    crypto.profitLossRate = profitLossRate
   })
 
   lastUpdateTime.value = new Date().toLocaleTimeString('zh-CN', {
@@ -999,60 +1052,53 @@ const toggleAutoRefresh = () => {
   }
 }
 
-const totalValue = computed(() => {
-  return portfolio.value.reduce((total, crypto) => {
-    return total + (crypto.amount * (crypto.currentPrice || crypto.price))
-  }, 0)
-})
-
-const unrealizedProfitLoss = computed(() => {
-  return portfolio.value.reduce((total, crypto) => {
-    if (crypto.symbol === 'USDT') return total
-    return total + (crypto.amount * ((crypto.currentPrice || crypto.price) - crypto.price))
-  }, 0)
-})
-
-const unrealizedProfitLossRate = computed(() => {
-  const totalInvestment = portfolio.value.reduce((total, crypto) => {
-    if (crypto.symbol === 'USDT') return total
-    return total + (crypto.amount * crypto.price)
-  }, 0)
-
-  if (totalInvestment === 0) return 0
-  return (unrealizedProfitLoss.value / totalInvestment) * 100
-})
-
-const realizedProfitLossRate = computed(() => {
-  const totalInvestment = portfolio.value.reduce((total, crypto) => {
-    if (crypto.symbol === 'USDT') return total
-    return total + (crypto.amount * crypto.price)
-  }, 0)
-
-  if (totalInvestment === 0) return 0
-  return (realizedProfitLoss.value / totalInvestment) * 100
-})
-
-const totalValueChange24h = computed(() => {
+const calculatePortfolioStats = () => {
+  let totalValue = 0
+  let totalInvestment = 0
+  let unrealizedPL = 0
   let currentTotalValue = 0
   let value24hAgo = 0
 
   portfolio.value.forEach(crypto => {
-    if (crypto.symbol === 'USDT') return
+    if (crypto.symbol === 'USDT') {
+      totalValue += crypto.amount
+      return
+    }
 
     const currentPrice = crypto.currentPrice || crypto.price
-    const currentValue = crypto.amount * currentPrice
-    currentTotalValue += currentValue
+    const value = crypto.amount * currentPrice
+    totalValue += value
+    totalInvestment += crypto.amount * crypto.price
+    unrealizedPL += crypto.amount * (currentPrice - crypto.price)
+    currentTotalValue += value
 
     const change24h = priceChanges24h.value[crypto.symbol] || 0
     const price24hAgo = currentPrice / (1 + change24h / 100)
-    const value24hAgoForAsset = crypto.amount * price24hAgo
-    value24hAgo += value24hAgoForAsset
+    value24hAgo += crypto.amount * price24hAgo
   })
 
-  if (value24hAgo === 0) return 0
+  const totalInvestmentForRate = totalInvestment > 0 ? totalInvestment : 1
+  const value24hAgoForRate = value24hAgo > 0 ? value24hAgo : 1
 
-  return ((currentTotalValue - value24hAgo) / value24hAgo) * 100
-})
+  return {
+    totalValue,
+    totalInvestment,
+    unrealizedPL,
+    unrealizedPLRate: (unrealizedPL / totalInvestmentForRate) * 100,
+    realizedProfitLossRate: (realizedProfitLoss.value / totalInvestmentForRate) * 100,
+    totalValueChange24h: ((currentTotalValue - value24hAgo) / value24hAgoForRate) * 100
+  }
+}
+
+const totalValue = computed(() => calculatePortfolioStats().totalValue)
+
+const unrealizedProfitLoss = computed(() => calculatePortfolioStats().unrealizedPL)
+
+const unrealizedProfitLossRate = computed(() => calculatePortfolioStats().unrealizedPLRate)
+
+const realizedProfitLossRate = computed(() => calculatePortfolioStats().realizedProfitLossRate)
+
+const totalValueChange24h = computed(() => calculatePortfolioStats().totalValueChange24h)
 
 const filteredPortfolio = computed(() => {
   const nonUSDT = portfolio.value.filter(c => c.symbol !== 'USDT')
@@ -1078,7 +1124,7 @@ const assetAllocation = computed(() => {
   const allocation = portfolio.value.map((crypto, index) => {
     const value = crypto.amount * (crypto.currentPrice || crypto.price)
     const percentage = ((value / total) * 100).toFixed(1)
-    const color = assetColors[crypto.symbol] || chartColors[index % chartColors.length]
+    const color = ASSET_CONFIG.COLORS[crypto.symbol] || CHART_COLORS[index % CHART_COLORS.length]
 
     return {
       name: crypto.symbol,
