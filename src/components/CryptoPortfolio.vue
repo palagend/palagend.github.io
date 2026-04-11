@@ -41,14 +41,6 @@
           <section class="chart-section">
             <div class="chart-header">
               <h2 class="chart-title"><Icon icon="mdi:chart-pie" /> 资产分布</h2>
-              <div class="chart-actions">
-                <select v-model="chartTimeRange" class="time-filter">
-                  <option value="7d">7 天</option>
-                  <option value="30d">30 天</option>
-                  <option value="90d">90 天</option>
-                  <option value="1y">1 年</option>
-                </select>
-              </div>
             </div>
 
             <div class="chart-container">
@@ -77,14 +69,18 @@
             </div>
           </section>
 
-          <!-- 添加加密货币 -->
+          <!-- 添加交易 -->
           <section class="add-crypto-section">
             <div class="section-header">
               <h3><Icon icon="mdi:plus-circle" /> 添加交易</h3>
+              <button class="btn-clear-form" @click="clearForm" title="清空表单">
+                <Icon icon="mdi:clear" />
+              </button>
             </div>
             <div class="input-row">
-              <select v-model="newTrade.symbol">
+              <select v-model="newTrade.symbol" @change="onSymbolChange" ref="symbolSelect">
                 <option value="">选择加密货币</option>
+                <option value="USDT">Tether (USDT)</option>
                 <option value="BTC">Bitcoin (BTC)</option>
                 <option value="ETH">Ethereum (ETH)</option>
                 <option value="BNB">Binance Coin (BNB)</option>
@@ -100,23 +96,38 @@
                 <option value="buy">买入</option>
                 <option value="sell">卖出</option>
               </select>
-              <input
-                type="number"
-                v-model.number="newTrade.amount"
-                placeholder="数量"
-                min="0.00000001"
-                step="0.00000001"
-              >
+              <div class="input-group">
+                <input
+                  type="number"
+                  v-model.number="newTrade.amount"
+                  placeholder="数量"
+                  min="0.00001"
+                  step="0.00001"
+                  ref="amountInput"
+                >
+              </div>
               <input
                 type="number"
                 v-model.number="newTrade.price"
                 placeholder="价格 (USD)"
-                min="0.00000001"
-                step="0.00000001"
+                min="0.00001"
+                step="0.00001"
               >
-              <button class="btn-add" @click="addTrade">
+              <button class="btn-add" @click="addTrade" :disabled="!isFormValid">
                 <Icon icon="mdi:plus" /> 添加
               </button>
+            </div>
+            <div class="trade-summary" v-if="newTrade.symbol && newTrade.amount && newTrade.price && newTrade.symbol !== 'USDT'">
+              <div class="summary-item">
+                <span class="label">预计总金额：</span>
+                <span class="value">${{ formatNumber(newTrade.amount * newTrade.price) }}</span>
+              </div>
+              <div class="summary-item" v-if="newTrade.type === 'buy' && portfolio.find(c => c.symbol === newTrade.symbol)">
+                <span class="label">摊薄成本：</span>
+                <span class="value" :class="getAvgCostClass(newTrade.symbol, newTrade.price)">
+                  ${{ formatNumber(calculateAvgCost(newTrade.symbol, newTrade.price)) }}
+                </span>
+              </div>
             </div>
           </section>
 
@@ -142,6 +153,7 @@
                 <div class="filter-group">
                   <select v-model="selectedFilter" class="filter-select">
                     <option value="all">全部资产</option>
+                    <option value="USDT">Tether (USDT)</option>
                     <option value="BTC">Bitcoin (BTC)</option>
                     <option value="ETH">Ethereum (ETH)</option>
                     <option value="BNB">Binance Coin (BNB)</option>
@@ -229,7 +241,14 @@
             <div class="section-header">
               <h2 class="section-title"><Icon icon="mdi:history" /> 交易历史</h2>
               <div class="section-actions">
-                <button class="btn-clear" @click="clearTrades" v-if="trades.length > 0">
+                <div class="filter-group">
+                  <select v-model="tradeFilter" class="filter-select">
+                    <option value="all">全部交易</option>
+                    <option value="buy">买入</option>
+                    <option value="sell">卖出</option>
+                  </select>
+                </div>
+                <button class="btn-clear" @click="clearTrades" v-if="filteredTrades.length > 0">
                   <Icon icon="mdi:delete-sweep" /> 清空历史
                 </button>
               </div>
@@ -250,7 +269,7 @@
                 </thead>
                 <tbody>
                   <tr
-                    v-for="trade in trades"
+                    v-for="trade in filteredTrades"
                     :key="trade.id"
                     class="trade-row"
                   >
@@ -275,7 +294,7 @@
                       </button>
                     </td>
                   </tr>
-                  <tr v-if="trades.length === 0">
+                  <tr v-if="filteredTrades.length === 0">
                     <td colspan="7" class="empty-state">
                       <Icon icon="mdi:clock-outline" />
                       <p>暂无交易历史</p>
@@ -292,7 +311,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
 import axios from 'axios'
 import { Icon } from '@iconify/vue'
 
@@ -304,6 +323,7 @@ const newTrade = ref({
   amount: null,
   price: null
 })
+const tradeFilter = ref('all')
 const prices = ref({})
 const refreshing = ref(false)
 const lastUpdateTime = ref('')
@@ -312,10 +332,12 @@ const errorMessage = ref('')
 const autoRefresh = ref(false)
 const refreshInterval = ref(60)
 const selectedFilter = ref('all')
-const chartTimeRange = ref('90d')
+const symbolSelect = ref(null)
+const amountInput = ref(null)
 let refreshTimer = null
 
 const assetColors = {
+  USDT: '#26a17b',
   BTC: '#f7931a',
   ETH: '#627eea',
   BNB: '#f0b90b',
@@ -329,6 +351,7 @@ const assetColors = {
 }
 
 const assetIcons = {
+  USDT: 'cryptocurrency-color:usdt',
   BTC: 'cryptocurrency-color:btc',
   ETH: 'cryptocurrency-color:eth',
   BNB: 'cryptocurrency-color:bnb',
@@ -347,6 +370,7 @@ const chartColors = [
 ]
 
 const assetNames = {
+  USDT: 'Tether',
   BTC: 'Bitcoin',
   ETH: 'Ethereum',
   BNB: 'Binance Coin',
@@ -384,6 +408,55 @@ const saveTrades = () => {
   localStorage.setItem('cryptoTrades', JSON.stringify(trades.value))
 }
 
+const clearForm = () => {
+  newTrade.value = {
+    symbol: '',
+    type: 'buy',
+    amount: null,
+    price: null
+  }
+  nextTick(() => {
+    if (symbolSelect.value) {
+      symbolSelect.value.focus()
+    }
+  })
+}
+
+const onSymbolChange = () => {
+  nextTick(() => {
+    if (amountInput.value) {
+      amountInput.value.focus()
+    }
+  })
+}
+
+const isFormValid = computed(() => {
+  return newTrade.value.symbol && 
+         newTrade.value.amount && 
+         newTrade.value.amount > 0 && 
+         newTrade.value.price && 
+         newTrade.value.price > 0
+})
+
+const calculateAvgCost = (symbol, newPrice) => {
+  const existing = portfolio.value.find(c => c.symbol === symbol)
+  if (!existing) return newPrice
+  
+  const totalAmount = existing.amount + newTrade.value.amount
+  const totalCost = (existing.amount * existing.price) + (newTrade.value.amount * newPrice)
+  return totalCost / totalAmount
+}
+
+const getAvgCostClass = (symbol, newPrice) => {
+  const existing = portfolio.value.find(c => c.symbol === symbol)
+  if (!existing) return ''
+  
+  const avgCost = calculateAvgCost(symbol, newPrice)
+  if (newPrice < existing.price) return 'better'
+  if (newPrice > existing.price) return 'worse'
+  return ''
+}
+
 const addTrade = () => {
   if (!newTrade.value.symbol) {
     errorMessage.value = '请选择加密货币'
@@ -416,46 +489,74 @@ const addTrade = () => {
   saveTrades()
 
   if (newTrade.value.type === 'buy') {
-    const existingIndex = portfolio.value.findIndex(crypto => crypto.symbol === newTrade.value.symbol)
-    
-    if (existingIndex !== -1) {
-      const existing = portfolio.value[existingIndex]
-      const totalAmount = existing.amount + newTrade.value.amount
-      const totalCost = (existing.amount * existing.price) + (newTrade.value.amount * newTrade.value.price)
-      const averagePrice = totalCost / totalAmount
-      
-      portfolio.value[existingIndex] = {
-        ...existing,
-        amount: totalAmount,
-        price: averagePrice
-      }
-    } else {
+    if (newTrade.value.symbol === 'USDT') {
       portfolio.value.push({
         id: Date.now(),
-        symbol: newTrade.value.symbol,
+        symbol: 'USDT',
         amount: newTrade.value.amount,
-        price: newTrade.value.price,
-        currentPrice: 0,
+        price: 1.0,
+        currentPrice: 1.0,
         profitLoss: 0,
         profitLossRate: 0
       })
+    } else {
+      const existingIndex = portfolio.value.findIndex(crypto => crypto.symbol === newTrade.value.symbol)
+      
+      if (existingIndex !== -1) {
+        const existing = portfolio.value[existingIndex]
+        const totalAmount = existing.amount + newTrade.value.amount
+        const totalCost = (existing.amount * existing.price) + (newTrade.value.amount * newTrade.value.price)
+        const averagePrice = totalCost / totalAmount
+        
+        portfolio.value[existingIndex] = {
+          ...existing,
+          amount: totalAmount,
+          price: averagePrice
+        }
+      } else {
+        portfolio.value.push({
+          id: Date.now(),
+          symbol: newTrade.value.symbol,
+          amount: newTrade.value.amount,
+          price: newTrade.value.price,
+          currentPrice: 0,
+          profitLoss: 0,
+          profitLossRate: 0
+        })
+      }
     }
   } else {
-    const existingIndex = portfolio.value.findIndex(crypto => crypto.symbol === newTrade.value.symbol)
-    
-    if (existingIndex !== -1) {
-      const existing = portfolio.value[existingIndex]
-      
-      if (existing.amount < newTrade.value.amount) {
-        errorMessage.value = '卖出数量超过持有量'
-        setTimeout(() => errorMessage.value = '', 3000)
-        return
+    if (newTrade.value.symbol === 'USDT') {
+      const existingIndex = portfolio.value.findIndex(crypto => crypto.symbol === 'USDT')
+      if (existingIndex !== -1) {
+        const existing = portfolio.value[existingIndex]
+        if (existing.amount < newTrade.value.amount) {
+          errorMessage.value = '转出数量超过USDT余额'
+          setTimeout(() => errorMessage.value = '', 3000)
+          return
+        }
+        existing.amount -= newTrade.value.amount
+        if (existing.amount === 0) {
+          portfolio.value.splice(existingIndex, 1)
+        }
       }
+    } else {
+      const existingIndex = portfolio.value.findIndex(crypto => crypto.symbol === newTrade.value.symbol)
       
-      existing.amount -= newTrade.value.amount
-      
-      if (existing.amount === 0) {
-        portfolio.value.splice(existingIndex, 1)
+      if (existingIndex !== -1) {
+        const existing = portfolio.value[existingIndex]
+        
+        if (existing.amount < newTrade.value.amount) {
+          errorMessage.value = '卖出数量超过持有量'
+          setTimeout(() => errorMessage.value = '', 3000)
+          return
+        }
+        
+        existing.amount -= newTrade.value.amount
+        
+        if (existing.amount === 0) {
+          portfolio.value.splice(existingIndex, 1)
+        }
       }
     }
   }
@@ -524,18 +625,18 @@ const getAssetIcon = (symbol) => {
 }
 
 const formatNumber = (num) => {
-  if (!num && num !== 0) return '0.00'
+  if (!num && num !== 0) return '0.0000'
   return Math.abs(num).toLocaleString('en-US', {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2
+    minimumFractionDigits: 4,
+    maximumFractionDigits: 4
   })
 }
 
 const formatAmount = (amount) => {
-  if (!amount) return '0'
+  if (!amount) return '0.0000'
   return amount.toLocaleString('en-US', {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 8
+    minimumFractionDigits: 4,
+    maximumFractionDigits: 4
   })
 }
 
@@ -652,6 +753,13 @@ const filteredPortfolio = computed(() => {
     return portfolio.value
   }
   return portfolio.value.filter(crypto => crypto.symbol === selectedFilter.value)
+})
+
+const filteredTrades = computed(() => {
+  if (tradeFilter.value === 'all') {
+    return trades.value
+  }
+  return trades.value.filter(trade => trade.type === tradeFilter.value)
 })
 
 const assetAllocation = computed(() => {
@@ -973,6 +1081,22 @@ onUnmounted(() => {
   font-size: 18px;
 }
 
+.btn-clear-form {
+  background: none;
+  border: none;
+  color: #6c757d;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.btn-clear-form:hover {
+  background-color: #e74c3c;
+  color: white;
+}
+
 .input-row {
   display: flex;
   flex-wrap: wrap;
@@ -1008,6 +1132,16 @@ onUnmounted(() => {
   min-width: 100px;
 }
 
+.input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-group input {
+  flex: 1;
+}
+
 .btn-add {
   padding: 10px 24px;
   background-color: #4361ee;
@@ -1023,13 +1157,18 @@ onUnmounted(() => {
   transition: all 0.3s ease;
 }
 
-.btn-add:hover {
+.btn-add:hover:not(:disabled) {
   background-color: #3a0ca3;
   transform: translateY(-1px);
 }
 
-.btn-add:active {
+.btn-add:active:not(:disabled) {
   transform: translateY(0);
+}
+
+.btn-add:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .error-message {
@@ -1444,6 +1583,52 @@ onUnmounted(() => {
   transform: translateY(-1px);
 }
 
+.trade-summary {
+  margin-top: 12px;
+  padding: 12px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.dark .trade-summary {
+  background-color: #2d2d2d;
+}
+
+.summary-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.summary-item .label {
+  color: #6c757d;
+}
+
+.dark .summary-item .label {
+  color: #adb5bd;
+}
+
+.summary-item .value {
+  font-weight: 600;
+  color: #212529;
+}
+
+.dark .summary-item .value {
+  color: #e9ecef;
+}
+
+.summary-item .value.better {
+  color: #2ecc71;
+}
+
+.summary-item .value.worse {
+  color: #e74c3c;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -1557,6 +1742,16 @@ onUnmounted(() => {
   .btn-delete,
   .btn-delete-small {
     padding: 4px;
+  }
+
+  .trade-summary {
+    padding: 8px;
+    gap: 12px;
+  }
+
+  .summary-item {
+    flex: 1;
+    min-width: 120px;
   }
 }
 
