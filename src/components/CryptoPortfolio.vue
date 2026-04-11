@@ -25,7 +25,9 @@
               <div class="value" :class="realizedProfitLoss >= 0 ? 'positive' : 'negative'">
                 {{ realizedProfitLoss >= 0 ? '+' : '-' }}${{ formatNumber(Math.abs(realizedProfitLoss)) }}
               </div>
-              <div class="change">累计已实现</div>
+              <div class="change" :class="realizedProfitLossRate >= 0 ? 'positive' : 'negative'">
+                {{ realizedProfitLossRate >= 0 ? '+' : '-' }}{{ Math.abs(realizedProfitLossRate).toFixed(2) }}%
+              </div>
             </div>
             <div class="overview-card usdt-card">
               <h3><Icon icon="mdi:cash-usd" /> USDT余额</h3>
@@ -68,9 +70,6 @@
           <section class="add-crypto-section">
             <div class="section-header">
               <h3><Icon icon="mdi:swap-horizontal" /> 交易</h3>
-              <button class="btn-clear-form" @click="clearForm" title="清空表单">
-                <Icon icon="mdi:clear" />
-              </button>
             </div>
             <div class="input-row">
               <select v-model="newTrade.symbol" @change="onSymbolChange" ref="symbolSelect">
@@ -496,20 +495,6 @@ const usdtBalance = computed(() => {
   const usdt = portfolio.value.find(c => c.symbol === 'USDT')
   return usdt ? usdt.amount : 0
 })
-
-const clearForm = () => {
-  newTrade.value = {
-    symbol: '',
-    type: 'buy',
-    amount: null,
-    price: null
-  }
-  nextTick(() => {
-    if (symbolSelect.value) {
-      symbolSelect.value.focus()
-    }
-  })
-}
 
 const onSymbolChange = () => {
   if (newTrade.value.symbol && prices.value[newTrade.value.symbol]) {
@@ -1037,6 +1022,16 @@ const unrealizedProfitLossRate = computed(() => {
   return (unrealizedProfitLoss.value / totalInvestment) * 100
 })
 
+const realizedProfitLossRate = computed(() => {
+  const totalInvestment = portfolio.value.reduce((total, crypto) => {
+    if (crypto.symbol === 'USDT') return total
+    return total + (crypto.amount * crypto.price)
+  }, 0)
+
+  if (totalInvestment === 0) return 0
+  return (realizedProfitLoss.value / totalInvestment) * 100
+})
+
 const totalValueChange24h = computed(() => {
   let currentTotalValue = 0
   let value24hAgo = 0
@@ -1226,6 +1221,16 @@ onUnmounted(() => {
   font-weight: 600;
 }
 
+.dark .change.positive,
+.dark .value.positive {
+  color: #69f0ae;
+}
+
+.dark .change.negative,
+.dark .value.negative {
+  color: #ff5252;
+}
+
 .usdt-card {
   position: relative;
 }
@@ -1411,22 +1416,6 @@ onUnmounted(() => {
 
 .section-header h3 .iconify {
   font-size: 18px;
-}
-
-.btn-clear-form {
-  background: none;
-  border: none;
-  color: #6c757d;
-  font-size: 20px;
-  cursor: pointer;
-  padding: 8px;
-  border-radius: 4px;
-  transition: all 0.3s ease;
-}
-
-.btn-clear-form:hover {
-  background-color: #e74c3c;
-  color: white;
 }
 
 .input-row {
@@ -1854,6 +1843,22 @@ onUnmounted(() => {
   font-weight: 600;
 }
 
+.dark .asset-profit.positive .profit-value {
+  color: #69f0ae;
+}
+
+.dark .asset-profit.negative .profit-value {
+  color: #ff5252;
+}
+
+.dark .asset-profit.positive .profit-rate {
+  color: #69f0ae;
+}
+
+.dark .asset-profit.negative .profit-rate {
+  color: #ff5252;
+}
+
 .action-cell {
   display: flex;
   gap: 8px;
@@ -1986,6 +1991,14 @@ onUnmounted(() => {
 
 .trade-pl.negative {
   color: #ff1744;
+}
+
+.dark .trade-pl.positive {
+  color: #69f0ae;
+}
+
+.dark .trade-pl.negative {
+  color: #ff5252;
 }
 
 .trade-time {
