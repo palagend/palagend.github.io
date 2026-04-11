@@ -365,8 +365,8 @@ const assetIcons = {
 }
 
 const chartColors = [
-  '#4361ee', '#3a0ca3', '#7209b7', '#f72585', '#4cc9f0',
-  '#4ade80', '#facc15', '#f97316', '#ec4899', '#8b5cf6'
+  '#6366f1', '#8b5cf6', '#d946ef', '#ec4899', '#f43f5e',
+  '#fb7185', '#fda4af', '#fca5a5', '#f87171', '#fb923c'
 ]
 
 const assetNames = {
@@ -573,6 +573,10 @@ const addTrade = () => {
 }
 
 const deleteTrade = (id) => {
+  if (!confirm('确认删除该交易？该操作将同步更新资产详情中的持仓量和成本价。')) {
+    return
+  }
+  
   const index = trades.value.findIndex(trade => trade.id === id)
   if (index !== -1) {
     const trade = trades.value[index]
@@ -586,7 +590,16 @@ const deleteTrade = (id) => {
         
         if (crypto.amount <= 0) {
           portfolio.value.splice(portfolioIndex, 1)
+        } else {
+          crypto.price = crypto.price
         }
+      }
+    } else {
+      const portfolioIndex = portfolio.value.findIndex(crypto => crypto.symbol === trade.symbol)
+      
+      if (portfolioIndex !== -1) {
+        const crypto = portfolio.value[portfolioIndex]
+        crypto.amount += trade.amount
       }
     }
     
@@ -606,7 +619,7 @@ const deleteCrypto = (id) => {
 }
 
 const clearTrades = () => {
-  if (confirm('确定要清空所有交易历史吗？')) {
+  if (confirm('确认清空所有交易历史？此操作仅删除交易记录，不影响资产详情中的持仓和成本。')) {
     trades.value = []
     saveTrades()
   }
@@ -771,7 +784,7 @@ const assetAllocation = computed(() => {
   const allocation = portfolio.value.map((crypto, index) => {
     const value = crypto.amount * crypto.currentPrice
     const percentage = ((value / total) * 100).toFixed(1)
-    const color = chartColors[index % chartColors.length]
+    const color = assetColors[crypto.symbol] || chartColors[index % chartColors.length]
 
     return {
       name: crypto.symbol,
@@ -933,14 +946,14 @@ onUnmounted(() => {
 .chart-title {
   font-size: 20px;
   font-weight: 600;
-  color: #212529;
+  color: #1e293b;
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
 .dark .chart-title {
-  color: #e9ecef;
+  color: #f1f5f9;
 }
 
 .chart-title .iconify {
@@ -996,27 +1009,32 @@ onUnmounted(() => {
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  color: #212529;
+  color: #1e293b;
 }
 
 .dark .pie-center {
-  color: #e9ecef;
+  color: #f1f5f9;
 }
 
 .pie-center span:first-child {
   display: block;
   font-size: 24px;
   font-weight: 700;
+  color: #1e293b;
+}
+
+.dark .pie-center span:first-child {
+  color: #f1f5f9;
 }
 
 .pie-center span:last-child {
   display: block;
   font-size: 12px;
-  color: #6c757d;
+  color: #64748b;
 }
 
 .dark .pie-center span:last-child {
-  color: #adb5bd;
+  color: #94a3b8;
 }
 
 .chart-legend {
@@ -1031,11 +1049,11 @@ onUnmounted(() => {
   gap: 8px;
   padding: 8px 0;
   font-size: 14px;
-  color: #212529;
+  color: #1e293b;
 }
 
 .dark .legend-item {
-  color: #e9ecef;
+  color: #f1f5f9;
 }
 
 .legend-color {
@@ -1283,7 +1301,7 @@ onUnmounted(() => {
 
 .btn-refresh {
   padding: 8px 16px;
-  background-color: #6c757d;
+  background-color: #4361ee;
   color: white;
   border: none;
   border-radius: 6px;
@@ -1297,7 +1315,7 @@ onUnmounted(() => {
 }
 
 .btn-refresh:hover:not(:disabled) {
-  background-color: #5a6268;
+  background-color: #3a0ca3;
   transform: translateY(-1px);
 }
 
@@ -1437,7 +1455,7 @@ onUnmounted(() => {
 .btn-delete {
   background: none;
   border: none;
-  color: #6c757d;
+  color: #e74c3c;
   font-size: 20px;
   cursor: pointer;
   padding: 8px;
@@ -1446,8 +1464,8 @@ onUnmounted(() => {
 }
 
 .btn-delete:hover {
-  background-color: #e74c3c;
-  color: white;
+  background-color: rgba(231, 76, 60, 0.1);
+  color: #e74c3c;
 }
 
 .empty-state {
@@ -1550,7 +1568,7 @@ onUnmounted(() => {
 .btn-delete-small {
   background: none;
   border: none;
-  color: #6c757d;
+  color: #e74c3c;
   font-size: 18px;
   cursor: pointer;
   padding: 6px;
@@ -1559,8 +1577,8 @@ onUnmounted(() => {
 }
 
 .btn-delete-small:hover {
-  background-color: #e74c3c;
-  color: white;
+  background-color: rgba(231, 76, 60, 0.1);
+  color: #e74c3c;
 }
 
 .btn-clear {
