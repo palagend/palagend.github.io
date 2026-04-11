@@ -1,11 +1,8 @@
 <template>
   <div class="crypto-container">
     <div class="container">
-      <!-- 主仪表板 -->
       <div class="dashboard">
-        <!-- 主要内容区域 -->
         <main class="main-content">
-          <!-- 概览卡片 -->
           <section class="overview">
             <div class="overview-card">
               <h3><Icon icon="mdi:wallet" /> 总资产价值</h3>
@@ -15,36 +12,36 @@
               </div>
             </div>
             <div class="overview-card">
-              <h3><Icon icon="mdi:trending-up" /> 总盈亏</h3>
-              <div class="value" :class="totalProfitLoss >= 0 ? 'positive' : 'negative'">
-                {{ totalProfitLoss >= 0 ? '+' : '' }}${{ formatNumber(Math.abs(totalProfitLoss)) }}
+              <h3><Icon icon="mdi:trending-up" /> 浮动盈亏</h3>
+              <div class="value" :class="unrealizedProfitLoss >= 0 ? 'positive' : 'negative'">
+                {{ unrealizedProfitLoss >= 0 ? '+' : '' }}${{ formatNumber(Math.abs(unrealizedProfitLoss)) }}
               </div>
-              <div class="change" :class="totalProfitLoss >= 0 ? 'positive' : 'negative'">
-                {{ totalProfitLoss >= 0 ? '+' : '' }}{{ totalProfitLossRate.toFixed(2) }}%
+              <div class="change" :class="unrealizedProfitLoss >= 0 ? 'positive' : 'negative'">
+                {{ unrealizedProfitLossRate >= 0 ? '+' : '' }}{{ unrealizedProfitLossRate.toFixed(2) }}%
               </div>
             </div>
             <div class="overview-card">
-              <h3><Icon icon="mdi:coin" /> 持有资产数量</h3>
-              <div class="value">{{ portfolio.length }}</div>
-              <div class="change">种加密货币</div>
-            </div>
-            <div class="overview-card">
-              <h3><Icon icon="mdi:percent" /> 投资回报率</h3>
-              <div class="value" :class="totalROI >= 0 ? 'positive' : 'negative'">
-                {{ totalROI >= 0 ? '+' : '' }}{{ totalROI.toFixed(2) }}%
+              <h3><Icon icon="mdi:cash-multiple" /> 实现盈亏</h3>
+              <div class="value" :class="realizedProfitLoss >= 0 ? 'positive' : 'negative'">
+                {{ realizedProfitLoss >= 0 ? '+' : '' }}${{ formatNumber(Math.abs(realizedProfitLoss)) }}
               </div>
-              <div class="change">累计收益</div>
+              <div class="change">累计已实现</div>
+            </div>
+            <div class="overview-card usdt-card">
+              <h3><Icon icon="mdi:cash-usd" /> USDT余额</h3>
+              <div class="value">${{ formatNumber(usdtBalance) }}</div>
+              <button class="btn-recharge" @click="showRechargeModal = true">
+                <Icon icon="mdi:plus" /> 充值
+              </button>
             </div>
           </section>
 
-          <!-- 图表区域 -->
           <section class="chart-section">
             <div class="chart-header">
               <h2 class="chart-title"><Icon icon="mdi:chart-pie" /> 资产分布</h2>
             </div>
 
             <div class="chart-container">
-              <!-- 饼图 -->
               <div class="chart">
                 <div class="pie-chart-wrapper">
                   <div class="pie-chart" :style="pieChartStyle"></div>
@@ -55,7 +52,6 @@
                 </div>
               </div>
 
-              <!-- 图例 -->
               <div class="chart-legend">
                 <div
                   v-for="(item, index) in assetAllocation"
@@ -69,10 +65,9 @@
             </div>
           </section>
 
-          <!-- 添加交易 -->
           <section class="add-crypto-section">
             <div class="section-header">
-              <h3><Icon icon="mdi:plus-circle" /> 添加交易</h3>
+              <h3><Icon icon="mdi:swap-horizontal" /> 交易</h3>
               <button class="btn-clear-form" @click="clearForm" title="清空表单">
                 <Icon icon="mdi:clear" />
               </button>
@@ -80,7 +75,6 @@
             <div class="input-row">
               <select v-model="newTrade.symbol" @change="onSymbolChange" ref="symbolSelect">
                 <option value="">选择加密货币</option>
-                <option value="USDT">Tether (USDT)</option>
                 <option value="BTC">Bitcoin (BTC)</option>
                 <option value="ETH">Ethereum (ETH)</option>
                 <option value="BNB">Binance Coin (BNB)</option>
@@ -114,13 +108,25 @@
                 step="0.00001"
               >
               <button class="btn-add" @click="addTrade" :disabled="!isFormValid">
-                <Icon icon="mdi:plus" /> 添加
+                <Icon icon="mdi:check" /> 确认
               </button>
             </div>
-            <div class="trade-summary" v-if="newTrade.symbol && newTrade.amount && newTrade.price && newTrade.symbol !== 'USDT'">
+            <div class="trade-summary" v-if="newTrade.symbol && newTrade.amount && newTrade.price">
               <div class="summary-item">
                 <span class="label">预计总金额：</span>
                 <span class="value">${{ formatNumber(newTrade.amount * newTrade.price) }}</span>
+              </div>
+              <div class="summary-item" v-if="newTrade.type === 'buy'">
+                <span class="label">USDT余额：</span>
+                <span class="value" :class="usdtBalance >= newTrade.amount * newTrade.price ? '' : 'warning'">
+                  ${{ formatNumber(usdtBalance) }}
+                </span>
+              </div>
+              <div class="summary-item" v-if="newTrade.type === 'sell'">
+                <span class="label">持有量：</span>
+                <span class="value" :class="getHoldingAmount(newTrade.symbol) >= newTrade.amount ? '' : 'warning'">
+                  {{ formatAmount(getHoldingAmount(newTrade.symbol)) }}
+                </span>
               </div>
               <div class="summary-item" v-if="newTrade.type === 'buy' && portfolio.find(c => c.symbol === newTrade.symbol)">
                 <span class="label">摊薄成本：</span>
@@ -128,10 +134,15 @@
                   ${{ formatNumber(calculateAvgCost(newTrade.symbol, newTrade.price)) }}
                 </span>
               </div>
+              <div class="summary-item" v-if="newTrade.type === 'sell' && portfolio.find(c => c.symbol === newTrade.symbol)">
+                <span class="label">预计实现盈亏：</span>
+                <span class="value" :class="calculateEstimatedRealizedPL() >= 0 ? 'positive' : 'negative'">
+                  {{ calculateEstimatedRealizedPL() >= 0 ? '+' : '' }}${{ formatNumber(Math.abs(calculateEstimatedRealizedPL())) }}
+                </span>
+              </div>
             </div>
           </section>
 
-          <!-- 错误提示 -->
           <div v-if="errorMessage" class="error-message">
             <div class="error-content">
               <Icon icon="mdi:alert-circle" class="error-icon" />
@@ -145,7 +156,6 @@
             </button>
           </div>
 
-          <!-- 资产列表 -->
           <section class="assets-section">
             <div class="section-header">
               <h2 class="section-title"><Icon icon="mdi:list" /> 资产详情</h2>
@@ -153,7 +163,6 @@
                 <div class="filter-group">
                   <select v-model="selectedFilter" class="filter-select">
                     <option value="all">全部资产</option>
-                    <option value="USDT">Tether (USDT)</option>
                     <option value="BTC">Bitcoin (BTC)</option>
                     <option value="ETH">Ethereum (ETH)</option>
                     <option value="BNB">Binance Coin (BNB)</option>
@@ -186,7 +195,7 @@
                     <th>成本均价</th>
                     <th>当前价格</th>
                     <th>当前市值</th>
-                    <th>持仓盈亏</th>
+                    <th>浮动盈亏</th>
                     <th>操作</th>
                   </tr>
                 </thead>
@@ -195,12 +204,12 @@
                     v-for="crypto in filteredPortfolio"
                     :key="crypto.id"
                     class="asset-row"
+                    :class="{ 'selected': selectedAsset === crypto.symbol }"
+                    @click="selectAsset(crypto.symbol)"
                   >
                     <td>
                       <div class="asset-info">
-                        
-                          <Icon width="32" height="32" :icon="getAssetIcon(crypto.symbol)" :style="{ color: getAssetColor(crypto.symbol) }" />
-                        
+                        <Icon width="32" height="32" :icon="getAssetIcon(crypto.symbol)" :style="{ color: getAssetColor(crypto.symbol) }" />
                         <div>
                           <div class="asset-name">{{ getAssetName(crypto.symbol) }}</div>
                           <div class="asset-symbol">{{ crypto.symbol }}</div>
@@ -219,8 +228,14 @@
                         {{ crypto.profitLossRate >= 0 ? '+' : '' }}{{ crypto.profitLossRate.toFixed(2) }}%
                       </div>
                     </td>
-                    <td>
-                      <button class="btn-delete" @click="deleteCrypto(crypto.id)">
+                    <td class="action-cell">
+                      <button class="btn-action btn-sell" @click.stop="quickSell(crypto)" title="快速卖出">
+                        <Icon icon="mdi:sell" />
+                      </button>
+                      <button class="btn-action btn-buy" @click.stop="quickBuy(crypto)" title="快速买入">
+                        <Icon icon="mdi:shopping" />
+                      </button>
+                      <button class="btn-delete" @click.stop="deleteCrypto(crypto.id)" title="删除">
                         <Icon icon="mdi:trash-can" />
                       </button>
                     </td>
@@ -228,7 +243,7 @@
                   <tr v-if="filteredPortfolio.length === 0">
                     <td colspan="7" class="empty-state">
                       <Icon icon="mdi:inbox" />
-                      <p>暂无资产数据，请添加交易</p>
+                      <p>暂无资产数据，请充值USDT后开始交易</p>
                     </td>
                   </tr>
                 </tbody>
@@ -236,7 +251,6 @@
             </div>
           </section>
 
-          <!-- 交易历史 -->
           <section class="trades-section">
             <div class="section-header">
               <h2 class="section-title"><Icon icon="mdi:history" /> 交易历史</h2>
@@ -246,6 +260,7 @@
                     <option value="all">全部交易</option>
                     <option value="buy">买入</option>
                     <option value="sell">卖出</option>
+                    <option value="recharge">充值</option>
                   </select>
                 </div>
                 <button class="btn-clear" @click="clearTrades" v-if="filteredTrades.length > 0">
@@ -264,6 +279,7 @@
                     <th>数量</th>
                     <th>价格</th>
                     <th>总金额</th>
+                    <th>实现盈亏</th>
                     <th>操作</th>
                   </tr>
                 </thead>
@@ -282,12 +298,15 @@
                     </td>
                     <td>
                       <span class="trade-type-badge" :class="trade.type">
-                        {{ trade.type === 'buy' ? '买入' : '卖出' }}
+                        {{ getTradeTypeText(trade.type) }}
                       </span>
                     </td>
                     <td class="trade-amount">{{ formatAmount(trade.amount) }}</td>
-                    <td class="trade-price">${{ formatNumber(trade.price) }}</td>
-                    <td class="trade-total">${{ formatNumber(trade.amount * trade.price) }}</td>
+                    <td class="trade-price">{{ trade.type === 'recharge' ? '-' : '$' + formatNumber(trade.price) }}</td>
+                    <td class="trade-total">${{ formatNumber(trade.total) }}</td>
+                    <td class="trade-pl" :class="{ positive: trade.realizedPL > 0, negative: trade.realizedPL < 0 }">
+                      {{ trade.realizedPL !== undefined ? (trade.realizedPL >= 0 ? '+' : '') + '$' + formatNumber(Math.abs(trade.realizedPL)) : '-' }}
+                    </td>
                     <td>
                       <button class="btn-delete-small" @click="deleteTrade(trade.id)">
                         <Icon icon="mdi:close" />
@@ -295,7 +314,7 @@
                     </td>
                   </tr>
                   <tr v-if="filteredTrades.length === 0">
-                    <td colspan="7" class="empty-state">
+                    <td colspan="8" class="empty-state">
                       <Icon icon="mdi:clock-outline" />
                       <p>暂无交易历史</p>
                     </td>
@@ -305,6 +324,36 @@
             </div>
           </section>
         </main>
+      </div>
+    </div>
+
+    <div v-if="showRechargeModal" class="modal-overlay" @click.self="showRechargeModal = false">
+      <div class="modal">
+        <div class="modal-header">
+          <h3><Icon icon="mdi:cash-plus" /> USDT充值</h3>
+          <button class="modal-close" @click="showRechargeModal = false">
+            <Icon icon="mdi:close" />
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="input-group">
+            <label>充值金额 (USDT)</label>
+            <input
+              type="number"
+              v-model.number="rechargeAmount"
+              placeholder="请输入充值金额"
+              min="0.01"
+              step="0.01"
+              @keyup.enter="rechargeUSDT"
+            >
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-cancel" @click="showRechargeModal = false">取消</button>
+          <button class="btn-confirm" @click="rechargeUSDT" :disabled="!rechargeAmount || rechargeAmount <= 0">
+            确认充值
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -317,6 +366,7 @@ import { Icon } from '@iconify/vue'
 
 const portfolio = ref([])
 const trades = ref([])
+const realizedProfitLoss = ref(0)
 const newTrade = ref({
   symbol: '',
   type: 'buy',
@@ -327,13 +377,15 @@ const tradeFilter = ref('all')
 const prices = ref({})
 const refreshing = ref(false)
 const lastUpdateTime = ref('')
-
 const errorMessage = ref('')
 const autoRefresh = ref(false)
 const refreshInterval = ref(60)
 const selectedFilter = ref('all')
+const selectedAsset = ref(null)
 const symbolSelect = ref(null)
 const amountInput = ref(null)
+const showRechargeModal = ref(false)
+const rechargeAmount = ref(null)
 let refreshTimer = null
 
 const assetColors = {
@@ -386,6 +438,7 @@ const assetNames = {
 const loadPortfolio = () => {
   const savedPortfolio = localStorage.getItem('cryptoPortfolio')
   const savedTrades = localStorage.getItem('cryptoTrades')
+  const savedRealizedPL = localStorage.getItem('cryptoRealizedPL')
   
   if (savedPortfolio) {
     const parsed = JSON.parse(savedPortfolio)
@@ -398,6 +451,10 @@ const loadPortfolio = () => {
   if (savedTrades) {
     trades.value = JSON.parse(savedTrades)
   }
+
+  if (savedRealizedPL) {
+    realizedProfitLoss.value = parseFloat(savedRealizedPL)
+  }
 }
 
 const savePortfolio = () => {
@@ -407,6 +464,15 @@ const savePortfolio = () => {
 const saveTrades = () => {
   localStorage.setItem('cryptoTrades', JSON.stringify(trades.value))
 }
+
+const saveRealizedPL = () => {
+  localStorage.setItem('cryptoRealizedPL', realizedProfitLoss.value.toString())
+}
+
+const usdtBalance = computed(() => {
+  const usdt = portfolio.value.find(c => c.symbol === 'USDT')
+  return usdt ? usdt.amount : 0
+})
 
 const clearForm = () => {
   newTrade.value = {
@@ -423,6 +489,9 @@ const clearForm = () => {
 }
 
 const onSymbolChange = () => {
+  if (newTrade.value.symbol && prices.value[newTrade.value.symbol]) {
+    newTrade.value.price = prices.value[newTrade.value.symbol]
+  }
   nextTick(() => {
     if (amountInput.value) {
       amountInput.value.focus()
@@ -437,6 +506,11 @@ const isFormValid = computed(() => {
          newTrade.value.price && 
          newTrade.value.price > 0
 })
+
+const getHoldingAmount = (symbol) => {
+  const asset = portfolio.value.find(c => c.symbol === symbol)
+  return asset ? asset.amount : 0
+}
 
 const calculateAvgCost = (symbol, newPrice) => {
   const existing = portfolio.value.find(c => c.symbol === symbol)
@@ -455,6 +529,63 @@ const getAvgCostClass = (symbol, newPrice) => {
   if (newPrice < existing.price) return 'better'
   if (newPrice > existing.price) return 'worse'
   return ''
+}
+
+const calculateEstimatedRealizedPL = () => {
+  if (newTrade.value.type !== 'sell') return 0
+  const existing = portfolio.value.find(c => c.symbol === newTrade.value.symbol)
+  if (!existing) return 0
+  return (newTrade.value.price - existing.price) * newTrade.value.amount
+}
+
+const getTradeTypeText = (type) => {
+  const map = {
+    buy: '买入',
+    sell: '卖出',
+    recharge: '充值'
+  }
+  return map[type] || type
+}
+
+const rechargeUSDT = () => {
+  if (!rechargeAmount.value || rechargeAmount.value <= 0) {
+    errorMessage.value = '请输入有效的充值金额'
+    setTimeout(() => errorMessage.value = '', 3000)
+    return
+  }
+
+  const trade = {
+    id: Date.now(),
+    symbol: 'USDT',
+    type: 'recharge',
+    amount: rechargeAmount.value,
+    price: 1,
+    total: rechargeAmount.value,
+    timestamp: Date.now()
+  }
+
+  trades.value.unshift(trade)
+
+  const existingIndex = portfolio.value.findIndex(c => c.symbol === 'USDT')
+  if (existingIndex !== -1) {
+    portfolio.value[existingIndex].amount += rechargeAmount.value
+  } else {
+    portfolio.value.push({
+      id: Date.now(),
+      symbol: 'USDT',
+      amount: rechargeAmount.value,
+      price: 1,
+      currentPrice: 1,
+      profitLoss: 0,
+      profitLossRate: 0
+    })
+  }
+
+  saveTrades()
+  savePortfolio()
+
+  rechargeAmount.value = null
+  showRechargeModal.value = false
 }
 
 const addTrade = () => {
@@ -476,90 +607,104 @@ const addTrade = () => {
     return
   }
 
+  const totalAmount = newTrade.value.amount * newTrade.value.price
+  let realizedPL = 0
+
+  if (newTrade.value.type === 'buy') {
+    const usdtIndex = portfolio.value.findIndex(c => c.symbol === 'USDT')
+    if (usdtIndex === -1 || portfolio.value[usdtIndex].amount < totalAmount) {
+      errorMessage.value = 'USDT余额不足，请先充值'
+      setTimeout(() => errorMessage.value = '', 3000)
+      return
+    }
+
+    portfolio.value[usdtIndex].amount -= totalAmount
+    if (portfolio.value[usdtIndex].amount === 0) {
+      portfolio.value.splice(usdtIndex, 1)
+    }
+
+    const existingIndex = portfolio.value.findIndex(crypto => crypto.symbol === newTrade.value.symbol)
+    
+    if (existingIndex !== -1) {
+      const existing = portfolio.value[existingIndex]
+      const totalAmountHeld = existing.amount + newTrade.value.amount
+      const totalCost = (existing.amount * existing.price) + (newTrade.value.amount * newTrade.value.price)
+      const averagePrice = totalCost / totalAmountHeld
+      
+      portfolio.value[existingIndex] = {
+        ...existing,
+        amount: totalAmountHeld,
+        price: averagePrice
+      }
+    } else {
+      portfolio.value.push({
+        id: Date.now(),
+        symbol: newTrade.value.symbol,
+        amount: newTrade.value.amount,
+        price: newTrade.value.price,
+        currentPrice: prices.value[newTrade.value.symbol] || 0,
+        profitLoss: 0,
+        profitLossRate: 0
+      })
+    }
+  } else {
+    const existingIndex = portfolio.value.findIndex(crypto => crypto.symbol === newTrade.value.symbol)
+    
+    if (existingIndex === -1) {
+      errorMessage.value = '未持有该资产'
+      setTimeout(() => errorMessage.value = '', 3000)
+      return
+    }
+
+    const existing = portfolio.value[existingIndex]
+    
+    if (existing.amount < newTrade.value.amount) {
+      errorMessage.value = '卖出数量超过持有量'
+      setTimeout(() => errorMessage.value = '', 3000)
+      return
+    }
+
+    realizedPL = (newTrade.value.price - existing.price) * newTrade.value.amount
+    realizedProfitLoss.value += realizedPL
+
+    existing.amount -= newTrade.value.amount
+    
+    if (existing.amount === 0) {
+      portfolio.value.splice(existingIndex, 1)
+    }
+
+    const usdtIndex = portfolio.value.findIndex(c => c.symbol === 'USDT')
+    if (usdtIndex !== -1) {
+      portfolio.value[usdtIndex].amount += totalAmount
+    } else {
+      portfolio.value.push({
+        id: Date.now(),
+        symbol: 'USDT',
+        amount: totalAmount,
+        price: 1,
+        currentPrice: 1,
+        profitLoss: 0,
+        profitLossRate: 0
+      })
+    }
+  }
+
   const trade = {
     id: Date.now(),
     symbol: newTrade.value.symbol,
     type: newTrade.value.type,
     amount: newTrade.value.amount,
     price: newTrade.value.price,
+    total: totalAmount,
+    realizedPL: newTrade.value.type === 'sell' ? realizedPL : undefined,
     timestamp: Date.now()
   }
 
   trades.value.unshift(trade)
   saveTrades()
-
-  if (newTrade.value.type === 'buy') {
-    if (newTrade.value.symbol === 'USDT') {
-      portfolio.value.push({
-        id: Date.now(),
-        symbol: 'USDT',
-        amount: newTrade.value.amount,
-        price: 1.0,
-        currentPrice: 1.0,
-        profitLoss: 0,
-        profitLossRate: 0
-      })
-    } else {
-      const existingIndex = portfolio.value.findIndex(crypto => crypto.symbol === newTrade.value.symbol)
-      
-      if (existingIndex !== -1) {
-        const existing = portfolio.value[existingIndex]
-        const totalAmount = existing.amount + newTrade.value.amount
-        const totalCost = (existing.amount * existing.price) + (newTrade.value.amount * newTrade.value.price)
-        const averagePrice = totalCost / totalAmount
-        
-        portfolio.value[existingIndex] = {
-          ...existing,
-          amount: totalAmount,
-          price: averagePrice
-        }
-      } else {
-        portfolio.value.push({
-          id: Date.now(),
-          symbol: newTrade.value.symbol,
-          amount: newTrade.value.amount,
-          price: newTrade.value.price,
-          currentPrice: 0,
-          profitLoss: 0,
-          profitLossRate: 0
-        })
-      }
-    }
-  } else {
-    if (newTrade.value.symbol === 'USDT') {
-      const existingIndex = portfolio.value.findIndex(crypto => crypto.symbol === 'USDT')
-      if (existingIndex !== -1) {
-        const existing = portfolio.value[existingIndex]
-        if (existing.amount < newTrade.value.amount) {
-          errorMessage.value = '转出数量超过USDT余额'
-          setTimeout(() => errorMessage.value = '', 3000)
-          return
-        }
-        existing.amount -= newTrade.value.amount
-        if (existing.amount === 0) {
-          portfolio.value.splice(existingIndex, 1)
-        }
-      }
-    } else {
-      const existingIndex = portfolio.value.findIndex(crypto => crypto.symbol === newTrade.value.symbol)
-      
-      if (existingIndex !== -1) {
-        const existing = portfolio.value[existingIndex]
-        
-        if (existing.amount < newTrade.value.amount) {
-          errorMessage.value = '卖出数量超过持有量'
-          setTimeout(() => errorMessage.value = '', 3000)
-          return
-        }
-        
-        existing.amount -= newTrade.value.amount
-        
-        if (existing.amount === 0) {
-          portfolio.value.splice(existingIndex, 1)
-        }
-      }
-    }
-  }
+  savePortfolio()
+  saveRealizedPL()
+  refreshPrices()
 
   newTrade.value = {
     symbol: '',
@@ -567,9 +712,6 @@ const addTrade = () => {
     amount: null,
     price: null
   }
-
-  savePortfolio()
-  refreshPrices()
 }
 
 const deleteTrade = (id) => {
@@ -582,6 +724,21 @@ const deleteTrade = (id) => {
     const trade = trades.value[index]
     
     if (trade.type === 'buy') {
+      const usdtIndex = portfolio.value.findIndex(c => c.symbol === 'USDT')
+      if (usdtIndex !== -1) {
+        portfolio.value[usdtIndex].amount += trade.total
+      } else {
+        portfolio.value.push({
+          id: Date.now(),
+          symbol: 'USDT',
+          amount: trade.total,
+          price: 1,
+          currentPrice: 1,
+          profitLoss: 0,
+          profitLossRate: 0
+        })
+      }
+
       const portfolioIndex = portfolio.value.findIndex(crypto => crypto.symbol === trade.symbol)
       
       if (portfolioIndex !== -1) {
@@ -591,26 +748,82 @@ const deleteTrade = (id) => {
         if (crypto.amount <= 0) {
           portfolio.value.splice(portfolioIndex, 1)
         } else {
-          crypto.price = crypto.price
+          recalculateCostBasis(trade.symbol)
         }
       }
-    } else {
+    } else if (trade.type === 'sell') {
+      if (trade.realizedPL !== undefined) {
+        realizedProfitLoss.value -= trade.realizedPL
+      }
+
+      const usdtIndex = portfolio.value.findIndex(c => c.symbol === 'USDT')
+      if (usdtIndex !== -1) {
+        portfolio.value[usdtIndex].amount -= trade.total
+        if (portfolio.value[usdtIndex].amount <= 0) {
+          portfolio.value.splice(usdtIndex, 1)
+        }
+      }
+
       const portfolioIndex = portfolio.value.findIndex(crypto => crypto.symbol === trade.symbol)
       
       if (portfolioIndex !== -1) {
         const crypto = portfolio.value[portfolioIndex]
         crypto.amount += trade.amount
+      } else {
+        portfolio.value.push({
+          id: Date.now(),
+          symbol: trade.symbol,
+          amount: trade.amount,
+          price: trade.price,
+          currentPrice: prices.value[trade.symbol] || 0,
+          profitLoss: 0,
+          profitLossRate: 0
+        })
+        recalculateCostBasis(trade.symbol)
+      }
+    } else if (trade.type === 'recharge') {
+      const usdtIndex = portfolio.value.findIndex(c => c.symbol === 'USDT')
+      if (usdtIndex !== -1) {
+        portfolio.value[usdtIndex].amount -= trade.amount
+        if (portfolio.value[usdtIndex].amount <= 0) {
+          portfolio.value.splice(usdtIndex, 1)
+        }
       }
     }
     
     trades.value.splice(index, 1)
     saveTrades()
     savePortfolio()
+    saveRealizedPL()
     refreshPrices()
   }
 }
 
+const recalculateCostBasis = (symbol) => {
+  const symbolTrades = trades.value
+    .filter(t => (t.symbol === symbol && t.type === 'buy') || (t.symbol === 'USDT' && t.type === 'recharge'))
+    .sort((a, b) => a.timestamp - b.timestamp)
+  
+  let totalAmount = 0
+  let totalCost = 0
+  
+  symbolTrades.forEach(trade => {
+    if (trade.type === 'buy') {
+      totalAmount += trade.amount
+      totalCost += trade.amount * trade.price
+    }
+  })
+
+  const existingIndex = portfolio.value.findIndex(c => c.symbol === symbol)
+  if (existingIndex !== -1 && totalAmount > 0) {
+    portfolio.value[existingIndex].price = totalCost / totalAmount
+  }
+}
+
 const deleteCrypto = (id) => {
+  if (!confirm('确认删除该资产？这不会删除相关交易记录。')) {
+    return
+  }
   const index = portfolio.value.findIndex(crypto => crypto.id === id)
   if (index !== -1) {
     portfolio.value.splice(index, 1)
@@ -619,10 +832,39 @@ const deleteCrypto = (id) => {
 }
 
 const clearTrades = () => {
-  if (confirm('确认清空所有交易历史？此操作仅删除交易记录，不影响资产详情中的持仓和成本。')) {
+  if (confirm('确认清空所有交易历史？此操作将重置所有数据。')) {
     trades.value = []
+    portfolio.value = []
+    realizedProfitLoss.value = 0
     saveTrades()
+    savePortfolio()
+    saveRealizedPL()
   }
+}
+
+const selectAsset = (symbol) => {
+  selectedAsset.value = selectedAsset.value === symbol ? null : symbol
+  if (selectedAsset.value) {
+    selectedFilter.value = symbol
+  }
+}
+
+const quickSell = (crypto) => {
+  newTrade.value.symbol = crypto.symbol
+  newTrade.value.type = 'sell'
+  newTrade.value.amount = crypto.amount
+  newTrade.value.price = crypto.currentPrice || crypto.price
+}
+
+const quickBuy = (crypto) => {
+  newTrade.value.symbol = crypto.symbol
+  newTrade.value.type = 'buy'
+  newTrade.value.price = crypto.currentPrice || crypto.price
+  nextTick(() => {
+    if (amountInput.value) {
+      amountInput.value.focus()
+    }
+  })
 }
 
 const getAssetName = (symbol) => {
@@ -670,7 +912,6 @@ const getChangeClass = (change) => {
   return ''
 }
 
-
 const getPricesFromCoincap = async () => {
   try {
     const response = await axios.get('https://rest.coincap.io/v3/assets', {
@@ -706,9 +947,15 @@ const refreshPrices = async () => {
   }
 
   portfolio.value.forEach(crypto => {
-    crypto.currentPrice = prices.value[crypto.symbol] || 0
-    crypto.profitLoss = crypto.amount * (crypto.currentPrice - crypto.price)
-    crypto.profitLossRate = ((crypto.currentPrice - crypto.price) / crypto.price) * 100
+    if (crypto.symbol === 'USDT') {
+      crypto.currentPrice = 1
+      crypto.profitLoss = 0
+      crypto.profitLossRate = 0
+    } else {
+      crypto.currentPrice = prices.value[crypto.symbol] || crypto.currentPrice || 0
+      crypto.profitLoss = crypto.amount * (crypto.currentPrice - crypto.price)
+      crypto.profitLossRate = crypto.price > 0 ? ((crypto.currentPrice - crypto.price) / crypto.price) * 100 : 0
+    }
   })
 
   lastUpdateTime.value = new Date().toLocaleTimeString('zh-CN', {
@@ -734,38 +981,37 @@ const toggleAutoRefresh = () => {
 
 const totalValue = computed(() => {
   return portfolio.value.reduce((total, crypto) => {
-    return total + (crypto.amount * crypto.currentPrice)
+    return total + (crypto.amount * (crypto.currentPrice || crypto.price))
   }, 0)
 })
 
-const totalProfitLoss = computed(() => {
+const unrealizedProfitLoss = computed(() => {
   return portfolio.value.reduce((total, crypto) => {
-    return total + (crypto.amount * (crypto.currentPrice - crypto.price))
+    if (crypto.symbol === 'USDT') return total
+    return total + (crypto.amount * ((crypto.currentPrice || crypto.price) - crypto.price))
   }, 0)
 })
 
-const totalProfitLossRate = computed(() => {
+const unrealizedProfitLossRate = computed(() => {
   const totalInvestment = portfolio.value.reduce((total, crypto) => {
+    if (crypto.symbol === 'USDT') return total
     return total + (crypto.amount * crypto.price)
   }, 0)
 
   if (totalInvestment === 0) return 0
-  return (totalProfitLoss.value / totalInvestment) * 100
-})
-
-const totalROI = computed(() => {
-  return totalProfitLossRate.value
+  return (unrealizedProfitLoss.value / totalInvestment) * 100
 })
 
 const totalValueChange24h = computed(() => {
-  return totalProfitLossRate.value / 10
+  return 0
 })
 
 const filteredPortfolio = computed(() => {
+  const nonUSDT = portfolio.value.filter(c => c.symbol !== 'USDT')
   if (selectedFilter.value === 'all') {
-    return portfolio.value
+    return nonUSDT
   }
-  return portfolio.value.filter(crypto => crypto.symbol === selectedFilter.value)
+  return nonUSDT.filter(crypto => crypto.symbol === selectedFilter.value)
 })
 
 const filteredTrades = computed(() => {
@@ -782,7 +1028,7 @@ const assetAllocation = computed(() => {
   if (total === 0) return []
 
   const allocation = portfolio.value.map((crypto, index) => {
-    const value = crypto.amount * crypto.currentPrice
+    const value = crypto.amount * (crypto.currentPrice || crypto.price)
     const percentage = ((value / total) * 100).toFixed(1)
     const color = assetColors[crypto.symbol] || chartColors[index % chartColors.length]
 
@@ -923,6 +1169,33 @@ onUnmounted(() => {
   color: #e74c3c;
 }
 
+.usdt-card {
+  position: relative;
+}
+
+.btn-recharge {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  padding: 8px 16px;
+  background-color: #26a17b;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.3s ease;
+}
+
+.btn-recharge:hover {
+  background-color: #1e8462;
+  transform: translateY(-1px);
+}
+
 .chart-section {
   background-color: white;
   border-radius: 12px;
@@ -958,22 +1231,6 @@ onUnmounted(() => {
 
 .chart-title .iconify {
   font-size: 20px;
-}
-
-.time-filter {
-  padding: 8px 16px;
-  border: 1px solid #e0e0e0;
-  border-radius: 6px;
-  background-color: white;
-  color: #212529;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.dark .time-filter {
-  background-color: #1e1e1e;
-  border-color: #2d2d2d;
-  color: #e9ecef;
 }
 
 .chart-container {
@@ -1395,6 +1652,19 @@ onUnmounted(() => {
   background-color: #2d2d2d;
 }
 
+.asset-row {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.asset-row.selected {
+  background-color: #eef2ff;
+}
+
+.dark .asset-row.selected {
+  background-color: #2a2d4e;
+}
+
 .asset-info {
   display: flex;
   align-items: center;
@@ -1450,6 +1720,34 @@ onUnmounted(() => {
 
 .asset-profit.negative .profit-value {
   color: #e74c3c;
+}
+
+.action-cell {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-action {
+  background: none;
+  border: none;
+  color: #4361ee;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.btn-action:hover {
+  background-color: rgba(67, 97, 238, 0.1);
+}
+
+.btn-sell {
+  color: #e74c3c;
+}
+
+.btn-sell:hover {
+  background-color: rgba(231, 76, 60, 0.1);
 }
 
 .btn-delete {
@@ -1526,6 +1824,11 @@ onUnmounted(() => {
   color: #721c24;
 }
 
+.trade-type-badge.recharge {
+  background-color: #d1ecf1;
+  color: #0c5460;
+}
+
 .dark .trade-type-badge.buy {
   background-color: #155724;
   color: #d4edda;
@@ -1534,6 +1837,11 @@ onUnmounted(() => {
 .dark .trade-type-badge.sell {
   background-color: #721c24;
   color: #f8d7da;
+}
+
+.dark .trade-type-badge.recharge {
+  background-color: #0c5460;
+  color: #d1ecf1;
 }
 
 .trade-time {
@@ -1647,10 +1955,186 @@ onUnmounted(() => {
   color: #e74c3c;
 }
 
+.summary-item .value.warning {
+  color: #ff9800;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease;
+}
+
+.modal {
+  background-color: white;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.3s ease;
+}
+
+.dark .modal {
+  background-color: #1e1e1e;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.dark .modal-header {
+  border-color: #3d3d3d;
+}
+
+.modal-header h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #212529;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dark .modal-header h3 {
+  color: #e9ecef;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  color: #6c757d;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.modal-close:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: #e74c3c;
+}
+
+.dark .modal-close:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.modal-body .input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.modal-body label {
+  font-size: 14px;
+  color: #6c757d;
+  font-weight: 500;
+}
+
+.dark .modal-body label {
+  color: #adb5bd;
+}
+
+.modal-body input {
+  padding: 12px 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.dark .modal-body input {
+  background-color: #1e1e1e;
+  border-color: #2d2d2d;
+  color: #e9ecef;
+}
+
+.modal-body input:focus {
+  outline: none;
+  border-color: #4361ee;
+}
+
+.modal-footer {
+  display: flex;
+  gap: 12px;
+  padding: 20px;
+  border-top: 1px solid #e9ecef;
+  justify-content: flex-end;
+}
+
+.dark .modal-footer {
+  border-color: #3d3d3d;
+}
+
+.btn-cancel {
+  padding: 10px 24px;
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-cancel:hover {
+  background-color: #5a6268;
+}
+
+.btn-confirm {
+  padding: 10px 24px;
+  background-color: #26a17b;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-confirm:hover:not(:disabled) {
+  background-color: #1e8462;
+  transform: translateY(-1px);
+}
+
+.btn-confirm:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
     transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
@@ -1798,6 +2282,13 @@ onUnmounted(() => {
   }
 
   .btn-clear {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .btn-recharge {
+    position: static;
+    margin-top: 12px;
     width: 100%;
     justify-content: center;
   }
