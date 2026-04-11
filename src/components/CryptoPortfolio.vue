@@ -1903,10 +1903,7 @@ onUnmounted(() => {
   color: #ff5252;
 }
 
-.action-cell {
-  display: flex;
-  gap: 8px;
-}
+
 
 .btn-action {
   background: none;
@@ -1917,6 +1914,7 @@ onUnmounted(() => {
   padding: 6px;
   border-radius: 4px;
   transition: all 0.3s ease;
+  margin-right: 4px;
 }
 
 .btn-action:hover {
@@ -1940,6 +1938,7 @@ onUnmounted(() => {
   padding: 8px;
   border-radius: 4px;
   transition: all 0.3s ease;
+  margin-right: 4px;
 }
 
 .btn-delete:hover {
