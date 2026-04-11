@@ -106,6 +106,9 @@
                 min="0.00001"
                 step="0.00001"
               >
+              <button class="btn-clear-form" @click="clearForm" title="清空表单">
+                <Icon icon="mdi:refresh" />
+              </button>
               <button class="btn-add" @click="addTrade" :disabled="!isFormValid">
                 <Icon icon="mdi:check" /> 确认
               </button>
@@ -272,6 +275,13 @@
                 <button class="btn-clear" @click="clearTrades" v-if="filteredTrades.length > 0 && !protectHistory">
                   <Icon icon="mdi:delete-sweep" /> 清空历史
                 </button>
+                <button class="btn-export" @click="exportData">
+                  <Icon icon="mdi:download" /> 导出数据
+                </button>
+                <label class="btn-import">
+                  <Icon icon="mdi:upload" /> 导入数据
+                  <input type="file" ref="importFileInput" accept=".json" @change="importData" hidden>
+                </label>
               </div>
             </div>
 
@@ -394,6 +404,7 @@ const amountInput = ref(null)
 const showRechargeModal = ref(false)
 const rechargeAmount = ref(null)
 const protectHistory = ref(false)
+const importFileInput = ref(null)
 let refreshTimer = null
 
 const STORAGE_KEYS = {
@@ -909,6 +920,76 @@ const clearTrades = () => {
     savePortfolio()
     saveRealizedPL()
   }
+}
+
+const clearForm = () => {
+  newTrade.value = {
+    symbol: '',
+    type: 'buy',
+    amount: null,
+    price: null
+  }
+  nextTick(() => {
+    if (symbolSelect.value) {
+      symbolSelect.value.focus()
+    }
+  })
+}
+
+const exportData = () => {
+  const exportData = {
+    version: '1.0',
+    exportTime: new Date().toISOString(),
+    portfolio: portfolio.value,
+    trades: trades.value,
+    realizedProfitLoss: realizedProfitLoss.value
+  }
+
+  const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' })
+  const url = URL.createObjectURL(blob)
+  const link = document.createElement('a')
+  link.href = url
+  const date = new Date().toISOString().slice(0, 10)
+  link.download = `crypto-portfolio-backup-${date}.json`
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
+  URL.revokeObjectURL(url)
+}
+
+const importData = (event) => {
+  const file = event.target.files[0]
+  if (!file) return
+
+  const reader = new FileReader()
+  reader.onload = (e) => {
+    try {
+      const data = JSON.parse(e.target.result)
+      
+      if (!data.portfolio || !data.trades) {
+        throw new Error('无效的数据格式')
+      }
+
+      if (confirm('导入数据将覆盖当前所有数据，确定要继续吗？')) {
+        portfolio.value = data.portfolio || []
+        trades.value = data.trades || []
+        realizedProfitLoss.value = data.realizedProfitLoss || 0
+        
+        savePortfolio()
+        saveTrades()
+        saveRealizedPL()
+        refreshPrices()
+        
+        errorMessage.value = ''
+      }
+    } catch (error) {
+      console.error('Import error:', error)
+      errorMessage.value = '导入失败，文件格式无效或数据已损坏'
+      setTimeout(() => errorMessage.value = '', 5000)
+    }
+  }
+  reader.readAsText(file)
+  event.target.value = ''
 }
 
 const selectAsset = (symbol) => {
@@ -1541,6 +1622,60 @@ onUnmounted(() => {
 .btn-add:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+.btn-clear-form {
+  padding: 10px 16px;
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.btn-clear-form:hover {
+  background-color: #5a6268;
+  transform: translateY(-1px);
+}
+
+.btn-clear-form:active {
+  transform: translateY(0);
+}
+
+.btn-export,
+.btn-import {
+  padding: 8px 16px;
+  background-color: #26a17b;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.btn-export:hover,
+.btn-import:hover {
+  background-color: #1e8462;
+  transform: translateY(-1px);
+}
+
+.btn-import {
+  background-color: #4361ee;
+}
+
+.btn-import:hover {
+  background-color: #3a0ca3;
 }
 
 .error-message {
