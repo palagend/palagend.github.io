@@ -984,6 +984,7 @@ const getPricesFromCoincap = async () => {
       }
     })
     const data = response.data.data
+    const serverTimestamp = response.data.timestamp
 
     data.forEach(item => {
       const symbol = item.symbol
@@ -994,6 +995,7 @@ const getPricesFromCoincap = async () => {
     })
 
     console.log('Successfully fetched prices from coincap')
+    return serverTimestamp
   } catch (error) {
     console.error('Failed to get prices from coincap:', error)
     throw error
@@ -1018,24 +1020,20 @@ const refreshPrices = async () => {
   prices.value = {}
 
   try {
-    await getPricesFromCoincap()
+    const serverTimestamp = await getPricesFromCoincap()
+    portfolio.value.forEach(crypto => {
+      const { currentPrice, profitLoss, profitLossRate } = calculateAssetProfit(crypto, prices.value[crypto.symbol])
+      crypto.currentPrice = currentPrice
+      crypto.profitLoss = profitLoss
+      crypto.profitLossRate = profitLossRate
+    })
+
+    lastUpdateTime.value = formatDate(serverTimestamp)
   } catch (error) {
     console.error('Failed to fetch prices:', error)
     errorMessage.value = '获取价格失败，请检查网络连接'
   }
 
-  portfolio.value.forEach(crypto => {
-    const { currentPrice, profitLoss, profitLossRate } = calculateAssetProfit(crypto, prices.value[crypto.symbol])
-    crypto.currentPrice = currentPrice
-    crypto.profitLoss = profitLoss
-    crypto.profitLossRate = profitLossRate
-  })
-
-  lastUpdateTime.value = new Date().toLocaleTimeString('zh-CN', {
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit'
-  })
   refreshing.value = false
 }
 
