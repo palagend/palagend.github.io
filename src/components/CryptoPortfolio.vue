@@ -137,7 +137,7 @@
               <div class="summary-item" v-if="newTrade.type === 'sell' && portfolio.find(c => c.symbol === newTrade.symbol)">
                 <span class="label">预计实现盈亏：</span>
                 <span class="value" :class="calculateEstimatedRealizedPL() >= 0 ? 'positive' : 'negative'">
-                  {{ calculateEstimatedRealizedPL() >= 0 ? '+' : '' }}${{ formatNumber(Math.abs(calculateEstimatedRealizedPL())) }}
+                  {{ calculateEstimatedRealizedPL() >= 0 ? '+' : '-' }}${{ formatNumber(Math.abs(calculateEstimatedRealizedPL())) }}
                 </span>
               </div>
             </div>
@@ -255,6 +255,13 @@
             <div class="section-header">
               <h2 class="section-title"><Icon icon="mdi:history" /> 交易历史</h2>
               <div class="section-actions">
+                <div class="protect-switch" @click="toggleProtectHistory">
+                  <Icon :icon="protectHistory ? 'mdi:shield-check' : 'mdi:shield-off'" />
+                  <span class="switch-label">保护</span>
+                  <div class="switch" :class="{ 'on': protectHistory }">
+                    <div class="switch-handle"></div>
+                  </div>
+                </div>
                 <div class="filter-group">
                   <select v-model="tradeFilter" class="filter-select">
                     <option value="all">全部交易</option>
@@ -263,7 +270,7 @@
                     <option value="recharge">充值</option>
                   </select>
                 </div>
-                <button class="btn-clear" @click="clearTrades" v-if="filteredTrades.length > 0">
+                <button class="btn-clear" @click="clearTrades" v-if="filteredTrades.length > 0 && !protectHistory">
                   <Icon icon="mdi:delete-sweep" /> 清空历史
                 </button>
               </div>
@@ -305,10 +312,10 @@
                     <td class="trade-price">{{ trade.type === 'recharge' ? '-' : '$' + formatNumber(trade.price) }}</td>
                     <td class="trade-total">${{ formatNumber(trade.total) }}</td>
                     <td class="trade-pl" :class="{ positive: trade.realizedPL > 0, negative: trade.realizedPL < 0 }">
-                      {{ trade.realizedPL !== undefined ? (trade.realizedPL >= 0 ? '+' : '') + '$' + formatNumber(Math.abs(trade.realizedPL)) : '-' }}
+                      {{ trade.realizedPL !== undefined ? (trade.realizedPL >= 0 ? '+' : '-') + '$' + formatNumber(Math.abs(trade.realizedPL)) : '-' }}
                     </td>
                     <td>
-                      <button class="btn-delete-small" @click="deleteTrade(trade.id)">
+                      <button v-if="!protectHistory" class="btn-delete-small" @click="deleteTrade(trade.id)">
                         <Icon icon="mdi:close" />
                       </button>
                     </td>
@@ -386,6 +393,7 @@ const symbolSelect = ref(null)
 const amountInput = ref(null)
 const showRechargeModal = ref(false)
 const rechargeAmount = ref(null)
+const protectHistory = ref(false)
 let refreshTimer = null
 
 const assetColors = {
@@ -439,6 +447,7 @@ const loadPortfolio = () => {
   const savedPortfolio = localStorage.getItem('cryptoPortfolio')
   const savedTrades = localStorage.getItem('cryptoTrades')
   const savedRealizedPL = localStorage.getItem('cryptoRealizedPL')
+  const savedProtectHistory = localStorage.getItem('cryptoProtectHistory')
   
   if (savedPortfolio) {
     const parsed = JSON.parse(savedPortfolio)
@@ -455,6 +464,10 @@ const loadPortfolio = () => {
   if (savedRealizedPL) {
     realizedProfitLoss.value = parseFloat(savedRealizedPL)
   }
+
+  if (savedProtectHistory) {
+    protectHistory.value = JSON.parse(savedProtectHistory)
+  }
 }
 
 const savePortfolio = () => {
@@ -467,6 +480,15 @@ const saveTrades = () => {
 
 const saveRealizedPL = () => {
   localStorage.setItem('cryptoRealizedPL', realizedProfitLoss.value.toString())
+}
+
+const saveProtectHistory = () => {
+  localStorage.setItem('cryptoProtectHistory', JSON.stringify(protectHistory.value))
+}
+
+const toggleProtectHistory = () => {
+  protectHistory.value = !protectHistory.value
+  saveProtectHistory()
 }
 
 const usdtBalance = computed(() => {
@@ -715,6 +737,11 @@ const addTrade = () => {
 }
 
 const deleteTrade = (id) => {
+  if (protectHistory.value) {
+    errorMessage.value = '保护开关已开启，禁止删除交易历史'
+    setTimeout(() => errorMessage.value = '', 3000)
+    return
+  }
   if (!confirm('确认删除该交易？该操作将同步更新资产详情中的持仓量和成本价。')) {
     return
   }
@@ -832,6 +859,11 @@ const deleteCrypto = (id) => {
 }
 
 const clearTrades = () => {
+  if (protectHistory.value) {
+    errorMessage.value = '保护开关已开启，禁止删除交易历史'
+    setTimeout(() => errorMessage.value = '', 3000)
+    return
+  }
   if (confirm('确认清空所有交易历史？此操作将重置所有数据。')) {
     trades.value = []
     portfolio.value = []
@@ -1665,10 +1697,73 @@ onUnmounted(() => {
   background-color: #2a2d4e;
 }
 
-.asset-info {
+.section-actions {
   display: flex;
   align-items: center;
   gap: 12px;
+}
+
+.protect-switch {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+.dark .protect-switch {
+  background-color: #2d2d2d;
+}
+
+.protect-switch:hover {
+  background-color: #e9ecef;
+}
+
+.dark .protect-switch:hover {
+  background-color: #3d3d3d;
+}
+
+.switch-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #495057;
+}
+
+.dark .switch-label {
+  color: #adb5bd;
+}
+
+.switch {
+  position: relative;
+  width: 40px;
+  height: 22px;
+  background-color: #adb5bd;
+  border-radius: 11px;
+  transition: all 0.3s ease;
+}
+
+.switch.on {
+  background-color: #26a17b;
+}
+
+.switch-handle {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  background-color: white;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.switch.on .switch-handle {
+  transform: translateX(18px);
 }
 
 .asset-info .iconify {
@@ -2206,6 +2301,11 @@ onUnmounted(() => {
   .section-actions {
     flex-direction: column;
     align-items: stretch;
+    gap: 8px;
+  }
+
+  .protect-switch {
+    justify-content: space-between;
   }
 
   .filter-group {
