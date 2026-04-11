@@ -234,7 +234,7 @@
                       <button class="btn-action btn-buy" @click.stop="quickBuy(crypto)" title="快速买入">
                         <Icon icon="mdi:shopping-cart-arrow-down" />
                       </button>
-                      <button class="btn-delete" @click.stop="deleteCrypto(crypto.id)" title="删除">
+                      <button class="btn-delete" @click.stop="deleteCrypto(crypto.id)" :disabled="protectHistory" title="删除">
                         <Icon icon="mdi:trash-can" />
                       </button>
                     </td>
@@ -880,6 +880,11 @@ const recalculateCostBasis = (symbol) => {
 }
 
 const deleteCrypto = (id) => {
+  if (protectHistory.value) {
+    errorMessage.value = '保护开关已开启，禁止删除资产详情'
+    setTimeout(() => errorMessage.value = '', 3000)
+    return
+  }
   if (!confirm('确认删除该资产？这不会删除相关交易记录。')) {
     return
   }
@@ -1945,6 +1950,16 @@ onUnmounted(() => {
 
 .btn-delete:hover {
   background-color: rgba(231, 76, 60, 0.1);
+  color: #e74c3c;
+}
+
+.btn-delete:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.btn-delete:disabled:hover {
+  background-color: transparent;
   color: #e74c3c;
 }
 
