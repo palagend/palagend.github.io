@@ -8,22 +8,22 @@
               <h3><Icon icon="mdi:wallet" /> 总资产价值</h3>
               <div class="value">${{ formatNumber(totalValue) }}</div>
               <div class="change" :class="getChangeClass(totalValueChange24h)">
-                {{ totalValueChange24h >= 0 ? '+' : '' }}{{ totalValueChange24h.toFixed(2) }}% (24h)
+                {{ totalValueChange24h >= 0 ? '+' : '-' }}{{ Math.abs(totalValueChange24h).toFixed(2) }}% (24h)
               </div>
             </div>
             <div class="overview-card">
               <h3><Icon icon="mdi:trending-up" /> 浮动盈亏</h3>
               <div class="value" :class="unrealizedProfitLoss >= 0 ? 'positive' : 'negative'">
-                {{ unrealizedProfitLoss >= 0 ? '+' : '' }}${{ formatNumber(Math.abs(unrealizedProfitLoss)) }}
+                {{ unrealizedProfitLoss >= 0 ? '+' : '-' }}${{ formatNumber(Math.abs(unrealizedProfitLoss)) }}
               </div>
               <div class="change" :class="unrealizedProfitLoss >= 0 ? 'positive' : 'negative'">
-                {{ unrealizedProfitLossRate >= 0 ? '+' : '' }}{{ unrealizedProfitLossRate.toFixed(2) }}%
+                {{ unrealizedProfitLossRate >= 0 ? '+' : '-' }}{{ Math.abs(unrealizedProfitLossRate).toFixed(2) }}%
               </div>
             </div>
             <div class="overview-card">
               <h3><Icon icon="mdi:cash-multiple" /> 实现盈亏</h3>
               <div class="value" :class="realizedProfitLoss >= 0 ? 'positive' : 'negative'">
-                {{ realizedProfitLoss >= 0 ? '+' : '' }}${{ formatNumber(Math.abs(realizedProfitLoss)) }}
+                {{ realizedProfitLoss >= 0 ? '+' : '-' }}${{ formatNumber(Math.abs(realizedProfitLoss)) }}
               </div>
               <div class="change">累计已实现</div>
             </div>
@@ -222,10 +222,10 @@
                     <td class="asset-value">${{ formatNumber(crypto.amount * crypto.currentPrice) }}</td>
                     <td class="asset-profit" :class="{ positive: crypto.profitLoss >= 0, negative: crypto.profitLoss < 0 }">
                       <div class="profit-value">
-                        {{ crypto.profitLoss >= 0 ? '+' : '' }}${{ formatNumber(Math.abs(crypto.profitLoss)) }}
+                        {{ crypto.profitLoss >= 0 ? '+' : '-' }}${{ formatNumber(Math.abs(crypto.profitLoss)) }}
                       </div>
                       <div class="profit-rate">
-                        {{ crypto.profitLossRate >= 0 ? '+' : '' }}{{ crypto.profitLossRate.toFixed(2) }}%
+                        {{ crypto.profitLossRate >= 0 ? '+' : '-' }}{{ Math.abs(crypto.profitLossRate).toFixed(2) }}%
                       </div>
                     </td>
                     <td class="action-cell">
@@ -382,6 +382,7 @@ const newTrade = ref({
 })
 const tradeFilter = ref('all')
 const prices = ref({})
+const priceChanges24h = ref({})
 const refreshing = ref(false)
 const lastUpdateTime = ref('')
 const errorMessage = ref('')
@@ -956,7 +957,9 @@ const getPricesFromCoincap = async () => {
     data.forEach(item => {
       const symbol = item.symbol
       const price = parseFloat(item.priceUsd)
+      const change24h = parseFloat(item.changePercent24Hr) || 0
       prices.value[symbol] = price
+      priceChanges24h.value[symbol] = change24h
     })
 
     console.log('Successfully fetched prices from coincap')
@@ -1035,7 +1038,25 @@ const unrealizedProfitLossRate = computed(() => {
 })
 
 const totalValueChange24h = computed(() => {
-  return 0
+  let currentTotalValue = 0
+  let value24hAgo = 0
+
+  portfolio.value.forEach(crypto => {
+    if (crypto.symbol === 'USDT') return
+
+    const currentPrice = crypto.currentPrice || crypto.price
+    const currentValue = crypto.amount * currentPrice
+    currentTotalValue += currentValue
+
+    const change24h = priceChanges24h.value[crypto.symbol] || 0
+    const price24hAgo = currentPrice / (1 + change24h / 100)
+    const value24hAgoForAsset = crypto.amount * price24hAgo
+    value24hAgo += value24hAgoForAsset
+  })
+
+  if (value24hAgo === 0) return 0
+
+  return ((currentTotalValue - value24hAgo) / value24hAgo) * 100
 })
 
 const filteredPortfolio = computed(() => {
@@ -1186,19 +1207,23 @@ onUnmounted(() => {
 }
 
 .change.positive {
-  color: #2ecc71;
+  color: #00c853;
+  font-weight: 600;
 }
 
 .change.negative {
-  color: #e74c3c;
+  color: #ff1744;
+  font-weight: 600;
 }
 
 .value.positive {
-  color: #2ecc71;
+  color: #00c853;
+  font-weight: 600;
 }
 
 .value.negative {
-  color: #e74c3c;
+  color: #ff1744;
+  font-weight: 600;
 }
 
 .usdt-card {
@@ -1810,11 +1835,23 @@ onUnmounted(() => {
 }
 
 .asset-profit.positive .profit-value {
-  color: #2ecc71;
+  color: #00c853;
+  font-weight: 700;
 }
 
 .asset-profit.negative .profit-value {
-  color: #e74c3c;
+  color: #ff1744;
+  font-weight: 700;
+}
+
+.asset-profit.positive .profit-rate {
+  color: #00c853;
+  font-weight: 600;
+}
+
+.asset-profit.negative .profit-rate {
+  color: #ff1744;
+  font-weight: 600;
 }
 
 .action-cell {
@@ -1937,6 +1974,18 @@ onUnmounted(() => {
 .dark .trade-type-badge.recharge {
   background-color: #0c5460;
   color: #d1ecf1;
+}
+
+.trade-pl {
+  font-weight: 600;
+}
+
+.trade-pl.positive {
+  color: #00c853;
+}
+
+.trade-pl.negative {
+  color: #ff1744;
 }
 
 .trade-time {
