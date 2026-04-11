@@ -229,10 +229,10 @@
                     </td>
                     <td class="action-cell">
                       <button class="btn-action btn-sell" @click.stop="quickSell(crypto)" title="快速卖出">
-                        <Icon icon="mdi:sell" />
+                        <Icon icon="mdi:shopping-cart-arrow-up" />
                       </button>
                       <button class="btn-action btn-buy" @click.stop="quickBuy(crypto)" title="快速买入">
-                        <Icon icon="mdi:shopping" />
+                        <Icon icon="mdi:shopping-cart-arrow-down" />
                       </button>
                       <button class="btn-delete" @click.stop="deleteCrypto(crypto.id)" title="删除">
                         <Icon icon="mdi:trash-can" />
