@@ -1015,6 +1015,8 @@ const calculateAssetProfit = (crypto, currentPrice) => {
 }
 
 const refreshPrices = async () => {
+  if (refreshing.value) return
+  
   refreshing.value = true
   errorMessage.value = ''
   prices.value = {}
