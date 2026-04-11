@@ -80,10 +80,10 @@
           <!-- 添加加密货币 -->
           <section class="add-crypto-section">
             <div class="section-header">
-              <h3><Icon icon="mdi:plus-circle" /> 添加加密货币</h3>
+              <h3><Icon icon="mdi:plus-circle" /> 添加交易</h3>
             </div>
             <div class="input-row">
-              <select v-model="newCrypto.symbol">
+              <select v-model="newTrade.symbol">
                 <option value="">选择加密货币</option>
                 <option value="BTC">Bitcoin (BTC)</option>
                 <option value="ETH">Ethereum (ETH)</option>
@@ -96,21 +96,25 @@
                 <option value="AVAX">Avalanche (AVAX)</option>
                 <option value="HYPE">Hyperliquid (HYPE)</option>
               </select>
+              <select v-model="newTrade.type" class="trade-type">
+                <option value="buy">买入</option>
+                <option value="sell">卖出</option>
+              </select>
               <input
                 type="number"
-                v-model.number="newCrypto.amount"
+                v-model.number="newTrade.amount"
                 placeholder="数量"
                 min="0.00000001"
                 step="0.00000001"
               >
               <input
                 type="number"
-                v-model.number="newCrypto.price"
-                placeholder="买入价格 (USD)"
+                v-model.number="newTrade.price"
+                placeholder="价格 (USD)"
                 min="0.00000001"
                 step="0.00000001"
               >
-              <button class="btn-add" @click="addCrypto">
+              <button class="btn-add" @click="addTrade">
                 <Icon icon="mdi:plus" /> 添加
               </button>
             </div>
@@ -167,7 +171,7 @@
                   <tr>
                     <th>资产</th>
                     <th>持有量</th>
-                    <th>成本价格</th>
+                    <th>成本均价</th>
                     <th>当前价格</th>
                     <th>当前市值</th>
                     <th>持仓盈亏</th>
@@ -212,7 +216,69 @@
                   <tr v-if="filteredPortfolio.length === 0">
                     <td colspan="7" class="empty-state">
                       <Icon icon="mdi:inbox" />
-                      <p>暂无资产数据，请添加加密货币</p>
+                      <p>暂无资产数据，请添加交易</p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- 交易历史 -->
+          <section class="trades-section">
+            <div class="section-header">
+              <h2 class="section-title"><Icon icon="mdi:history" /> 交易历史</h2>
+              <div class="section-actions">
+                <button class="btn-clear" @click="clearTrades" v-if="trades.length > 0">
+                  <Icon icon="mdi:delete-sweep" /> 清空历史
+                </button>
+              </div>
+            </div>
+
+            <div class="table-wrapper">
+              <table class="trades-table">
+                <thead>
+                  <tr>
+                    <th>时间</th>
+                    <th>资产</th>
+                    <th>类型</th>
+                    <th>数量</th>
+                    <th>价格</th>
+                    <th>总金额</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="trade in trades"
+                    :key="trade.id"
+                    class="trade-row"
+                  >
+                    <td class="trade-time">{{ formatDate(trade.timestamp) }}</td>
+                    <td>
+                      <div class="asset-info-small">
+                        <Icon width="24" height="24" :icon="getAssetIcon(trade.symbol)" :style="{ color: getAssetColor(trade.symbol) }" />
+                        <span>{{ trade.symbol }}</span>
+                      </div>
+                    </td>
+                    <td>
+                      <span class="trade-type-badge" :class="trade.type">
+                        {{ trade.type === 'buy' ? '买入' : '卖出' }}
+                      </span>
+                    </td>
+                    <td class="trade-amount">{{ formatAmount(trade.amount) }}</td>
+                    <td class="trade-price">${{ formatNumber(trade.price) }}</td>
+                    <td class="trade-total">${{ formatNumber(trade.amount * trade.price) }}</td>
+                    <td>
+                      <button class="btn-delete-small" @click="deleteTrade(trade.id)">
+                        <Icon icon="mdi:close" />
+                      </button>
+                    </td>
+                  </tr>
+                  <tr v-if="trades.length === 0">
+                    <td colspan="7" class="empty-state">
+                      <Icon icon="mdi:clock-outline" />
+                      <p>暂无交易历史</p>
                     </td>
                   </tr>
                 </tbody>
@@ -231,8 +297,10 @@ import axios from 'axios'
 import { Icon } from '@iconify/vue'
 
 const portfolio = ref([])
-const newCrypto = ref({
+const trades = ref([])
+const newTrade = ref({
   symbol: '',
+  type: 'buy',
   amount: null,
   price: null
 })
@@ -293,6 +361,8 @@ const assetNames = {
 
 const loadPortfolio = () => {
   const savedPortfolio = localStorage.getItem('cryptoPortfolio')
+  const savedTrades = localStorage.getItem('cryptoTrades')
+  
   if (savedPortfolio) {
     const parsed = JSON.parse(savedPortfolio)
     portfolio.value = parsed.map(item => ({
@@ -300,64 +370,130 @@ const loadPortfolio = () => {
       id: item.id || Date.now() + Math.random()
     }))
   }
+  
+  if (savedTrades) {
+    trades.value = JSON.parse(savedTrades)
+  }
 }
 
 const savePortfolio = () => {
   localStorage.setItem('cryptoPortfolio', JSON.stringify(portfolio.value))
 }
 
-const addCrypto = () => {
-  if (!newCrypto.value.symbol) {
+const saveTrades = () => {
+  localStorage.setItem('cryptoTrades', JSON.stringify(trades.value))
+}
+
+const addTrade = () => {
+  if (!newTrade.value.symbol) {
     errorMessage.value = '请选择加密货币'
     setTimeout(() => errorMessage.value = '', 3000)
     return
   }
 
-  if (newCrypto.value.amount <= 0) {
+  if (newTrade.value.amount <= 0) {
     errorMessage.value = '请输入大于 0 的数量'
     setTimeout(() => errorMessage.value = '', 3000)
     return
   }
 
-  if (newCrypto.value.price <= 0) {
-    errorMessage.value = '请输入大于 0 的买入价格'
+  if (newTrade.value.price <= 0) {
+    errorMessage.value = '请输入大于 0 的价格'
     setTimeout(() => errorMessage.value = '', 3000)
     return
   }
 
-  const existingIndex = portfolio.value.findIndex(crypto => crypto.symbol === newCrypto.value.symbol)
-  
-  if (existingIndex !== -1) {
-    const existing = portfolio.value[existingIndex]
-    const totalAmount = existing.amount + newCrypto.value.amount
-    const totalCost = (existing.amount * existing.price) + (newCrypto.value.amount * newCrypto.value.price)
-    const averagePrice = totalCost / totalAmount
-    
-    portfolio.value[existingIndex] = {
-      ...existing,
-      amount: totalAmount,
-      price: averagePrice
-    }
-  } else {
-    portfolio.value.push({
-      id: Date.now(),
-      symbol: newCrypto.value.symbol,
-      amount: newCrypto.value.amount,
-      price: newCrypto.value.price,
-      currentPrice: 0,
-      profitLoss: 0,
-      profitLossRate: 0
-    })
+  const trade = {
+    id: Date.now(),
+    symbol: newTrade.value.symbol,
+    type: newTrade.value.type,
+    amount: newTrade.value.amount,
+    price: newTrade.value.price,
+    timestamp: Date.now()
   }
 
-  newCrypto.value = {
+  trades.value.unshift(trade)
+  saveTrades()
+
+  if (newTrade.value.type === 'buy') {
+    const existingIndex = portfolio.value.findIndex(crypto => crypto.symbol === newTrade.value.symbol)
+    
+    if (existingIndex !== -1) {
+      const existing = portfolio.value[existingIndex]
+      const totalAmount = existing.amount + newTrade.value.amount
+      const totalCost = (existing.amount * existing.price) + (newTrade.value.amount * newTrade.value.price)
+      const averagePrice = totalCost / totalAmount
+      
+      portfolio.value[existingIndex] = {
+        ...existing,
+        amount: totalAmount,
+        price: averagePrice
+      }
+    } else {
+      portfolio.value.push({
+        id: Date.now(),
+        symbol: newTrade.value.symbol,
+        amount: newTrade.value.amount,
+        price: newTrade.value.price,
+        currentPrice: 0,
+        profitLoss: 0,
+        profitLossRate: 0
+      })
+    }
+  } else {
+    const existingIndex = portfolio.value.findIndex(crypto => crypto.symbol === newTrade.value.symbol)
+    
+    if (existingIndex !== -1) {
+      const existing = portfolio.value[existingIndex]
+      
+      if (existing.amount < newTrade.value.amount) {
+        errorMessage.value = '卖出数量超过持有量'
+        setTimeout(() => errorMessage.value = '', 3000)
+        return
+      }
+      
+      existing.amount -= newTrade.value.amount
+      
+      if (existing.amount === 0) {
+        portfolio.value.splice(existingIndex, 1)
+      }
+    }
+  }
+
+  newTrade.value = {
     symbol: '',
-    amount: 0,
-    price: 0
+    type: 'buy',
+    amount: null,
+    price: null
   }
 
   savePortfolio()
   refreshPrices()
+}
+
+const deleteTrade = (id) => {
+  const index = trades.value.findIndex(trade => trade.id === id)
+  if (index !== -1) {
+    const trade = trades.value[index]
+    
+    if (trade.type === 'buy') {
+      const portfolioIndex = portfolio.value.findIndex(crypto => crypto.symbol === trade.symbol)
+      
+      if (portfolioIndex !== -1) {
+        const crypto = portfolio.value[portfolioIndex]
+        crypto.amount -= trade.amount
+        
+        if (crypto.amount <= 0) {
+          portfolio.value.splice(portfolioIndex, 1)
+        }
+      }
+    }
+    
+    trades.value.splice(index, 1)
+    saveTrades()
+    savePortfolio()
+    refreshPrices()
+  }
 }
 
 const deleteCrypto = (id) => {
@@ -365,6 +501,13 @@ const deleteCrypto = (id) => {
   if (index !== -1) {
     portfolio.value.splice(index, 1)
     savePortfolio()
+  }
+}
+
+const clearTrades = () => {
+  if (confirm('确定要清空所有交易历史吗？')) {
+    trades.value = []
+    saveTrades()
   }
 }
 
@@ -393,6 +536,17 @@ const formatAmount = (amount) => {
   return amount.toLocaleString('en-US', {
     minimumFractionDigits: 2,
     maximumFractionDigits: 8
+  })
+}
+
+const formatDate = (timestamp) => {
+  return new Date(timestamp).toLocaleString('zh-CN', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit'
   })
 }
 
@@ -570,52 +724,6 @@ onUnmounted(() => {
   display: block;
 }
 
-.auto-refresh-section {
-  margin-top: 20px;
-  padding: 15px;
-  background-color: #f0f2f5;
-  border-radius: 8px;
-}
-
-.dark .auto-refresh-section {
-  background-color: #2d2d2d;
-}
-
-.auto-refresh-section label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  color: #6c757d;
-  margin-bottom: 8px;
-}
-
-.dark .auto-refresh-section label {
-  color: #adb5bd;
-}
-
-.auto-refresh-section input[type="number"] {
-  width: 70px;
-  padding: 8px;
-  border: 1px solid #e0e0e0;
-  border-radius: 6px;
-  background-color: white;
-  color: #212529;
-  font-size: 14px;
-  margin: 0 5px;
-}
-
-.dark .auto-refresh-section input[type="number"] {
-  background-color: #1e1e1e;
-  border-color: #2d2d2d;
-  color: #e9ecef;
-}
-
-.auto-refresh-section input:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
 .overview {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -728,7 +836,7 @@ onUnmounted(() => {
 }
 
 .chart-title .iconify {
-  color: #4361ee;
+  font-size: 20px;
 }
 
 .time-filter {
@@ -738,30 +846,33 @@ onUnmounted(() => {
   background-color: white;
   color: #212529;
   font-size: 14px;
+  cursor: pointer;
 }
 
 .dark .time-filter {
-  background-color: #2d2d2d;
+  background-color: #1e1e1e;
   border-color: #2d2d2d;
   color: #e9ecef;
 }
 
 .chart-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-wrap: wrap;
   gap: 30px;
+  justify-content: center;
 }
 
 .chart {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  flex: 1;
+  min-width: 280px;
+  max-width: 400px;
 }
 
 .pie-chart-wrapper {
   position: relative;
-  width: 220px;
-  height: 220px;
+  width: 280px;
+  height: 280px;
+  margin: 0 auto;
 }
 
 .pie-chart {
@@ -773,36 +884,25 @@ onUnmounted(() => {
 
 .pie-center {
   position: absolute;
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  background-color: white;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
-
-.dark .pie-center {
-  background-color: #2d2d2d;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-.pie-center span:first-child {
-  font-weight: 700;
-  font-size: 18px;
+  text-align: center;
   color: #212529;
 }
 
-.dark .pie-center span:first-child {
+.dark .pie-center {
   color: #e9ecef;
 }
 
+.pie-center span:first-child {
+  display: block;
+  font-size: 24px;
+  font-weight: 700;
+}
+
 .pie-center span:last-child {
+  display: block;
   font-size: 12px;
   color: #6c757d;
 }
@@ -812,16 +912,16 @@ onUnmounted(() => {
 }
 
 .chart-legend {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 12px;
+  flex: 1;
+  min-width: 200px;
+  max-width: 300px;
 }
 
 .legend-item {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
+  padding: 8px 0;
   font-size: 14px;
   color: #212529;
 }
@@ -831,10 +931,9 @@ onUnmounted(() => {
 }
 
 .legend-color {
-  width: 14px;
-  height: 14px;
-  border-radius: 3px;
-  flex-shrink: 0;
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
 }
 
 .add-crypto-section {
@@ -855,20 +954,176 @@ onUnmounted(() => {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+}
+
+.section-header h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #212529;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dark .section-header h3 {
+  color: #e9ecef;
+}
+
+.section-header h3 .iconify {
+  font-size: 18px;
+}
+
+.input-row {
+  display: flex;
   flex-wrap: wrap;
-  gap: 15px;
+  gap: 12px;
+  align-items: flex-end;
+}
+
+.input-row select,
+.input-row input {
+  padding: 10px 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: white;
+  color: #212529;
+  font-size: 14px;
+  min-width: 120px;
+}
+
+.dark .input-row select,
+.dark .input-row input {
+  background-color: #1e1e1e;
+  border-color: #2d2d2d;
+  color: #e9ecef;
+}
+
+.input-row select:focus,
+.input-row input:focus {
+  outline: none;
+  border-color: #4361ee;
+}
+
+.input-row .trade-type {
+  min-width: 100px;
+}
+
+.btn-add {
+  padding: 10px 24px;
+  background-color: #4361ee;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.btn-add:hover {
+  background-color: #3a0ca3;
+  transform: translateY(-1px);
+}
+
+.btn-add:active {
+  transform: translateY(0);
+}
+
+.error-message {
+  background-color: #fff3cd;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  animation: fadeIn 0.3s ease;
+}
+
+.dark .error-message {
+  background-color: #3d2e18;
+}
+
+.error-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.error-icon {
+  color: #ffc107;
+  flex-shrink: 0;
+}
+
+.error-title {
+  font-weight: 600;
+  color: #212529;
+  margin-bottom: 4px;
+}
+
+.dark .error-title {
+  color: #e9ecef;
+}
+
+.error-message-text {
+  color: #212529;
+  margin: 0;
+}
+
+.dark .error-message-text {
+  color: #e9ecef;
+}
+
+.error-close {
+  background: none;
+  border: none;
+  color: #6c757d;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.error-close:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: #dc3545;
+}
+
+.dark .error-close:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.assets-section,
+.trades-section {
+  background-color: white;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  margin-bottom: 30px;
+}
+
+.dark .assets-section,
+.dark .trades-section {
+  background-color: #1e1e1e;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .section-actions {
   display: flex;
-  align-items: center;
-  gap: 15px;
   flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 .filter-group {
   display: flex;
   align-items: center;
+  gap: 8px;
 }
 
 .filter-select {
@@ -882,27 +1137,29 @@ onUnmounted(() => {
 }
 
 .dark .filter-select {
-  background-color: #2d2d2d;
+  background-color: #1e1e1e;
   border-color: #2d2d2d;
   color: #e9ecef;
 }
 
 .btn-refresh {
-  display: flex;
-  align-items: center;
-  gap: 8px;
   padding: 8px 16px;
-  background-color: #4361ee;
+  background-color: #6c757d;
   color: white;
   border: none;
   border-radius: 6px;
   font-size: 14px;
+  font-weight: 600;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   transition: all 0.3s ease;
 }
 
 .btn-refresh:hover:not(:disabled) {
-  background-color: #3a56d4;
+  background-color: #5a6268;
+  transform: translateY(-1px);
 }
 
 .btn-refresh:disabled {
@@ -910,112 +1167,15 @@ onUnmounted(() => {
   cursor: not-allowed;
 }
 
-.btn-refresh i {
-  font-size: 14px;
-}
-
-.section-header h3 {
-  font-size: 18px;
-  color: #212529;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.dark .section-header h3 {
-  color: #e9ecef;
-}
-
-.section-header h3 i {
-  color: #4361ee;
-}
-
-.input-row {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr auto;
-  gap: 12px;
-  align-items: end;
-}
-
-.input-row select,
-.input-row input {
-  padding: 12px 16px;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  font-size: 15px;
-  background-color: #f0f2f5;
-  color: #212529;
-  transition: all 0.3s ease;
-}
-
-.dark .input-row select,
-.dark .input-row input {
-  background-color: #2d2d2d;
-  border-color: #2d2d2d;
-  color: #e9ecef;
-}
-
-.input-row select:focus,
-.input-row input:focus {
-  outline: none;
-  border-color: #4361ee;
-  box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
-}
-
-.btn-add {
-  padding: 12px 24px;
-  border: none;
-  border-radius: 8px;
-  background: linear-gradient(135deg, #4361ee, #3a0ca3);
-  color: white;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.btn-add:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-}
-
-.assets-section {
-  background-color: white;
-  border-radius: 12px;
-  padding: 25px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
-
-.dark .assets-section {
-  background-color: #1e1e1e;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-.section-title {
-  font-size: 20px;
-  font-weight: 600;
-  color: #212529;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.dark .section-title {
-  color: #e9ecef;
-}
-
-.section-title .iconify {
-  color: #4361ee;
+.btn-refresh.spin .iconify {
+  animation: spin 1s linear infinite;
 }
 
 .last-update {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 14px;
+  gap: 6px;
+  font-size: 13px;
   color: #6c757d;
 }
 
@@ -1023,52 +1183,58 @@ onUnmounted(() => {
   color: #adb5bd;
 }
 
-.last-update .iconify {
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.assets-table,
+.trades-table {
+  width: 100%;
+  border-collapse: collapse;
   font-size: 14px;
 }
 
-.table-wrapper {
-  overflow-x: auto;
-  margin-top: 20px;
-}
-
-.assets-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.assets-table th {
+.assets-table th,
+.trades-table th {
+  background-color: #f8f9fa;
+  padding: 12px 16px;
   text-align: left;
-  padding: 16px;
-  border-bottom: 2px solid #e0e0e0;
-  color: #6c757d;
   font-weight: 600;
-  font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.dark .assets-table th {
-  border-bottom-color: #2d2d2d;
-  color: #adb5bd;
-}
-
-.assets-table td {
-  padding: 18px 16px;
-  border-bottom: 1px solid #e0e0e0;
   color: #212529;
+  border-bottom: 2px solid #dee2e6;
 }
 
-.dark .assets-table td {
-  border-bottom-color: #2d2d2d;
+.dark .assets-table th,
+.dark .trades-table th {
+  background-color: #2d2d2d;
   color: #e9ecef;
 }
 
-.asset-row:hover {
-  background-color: #f0f2f5;
+.assets-table td,
+.trades-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #dee2e6;
+  color: #212529;
 }
 
-.dark .asset-row:hover {
+.dark .assets-table td,
+.dark .trades-table td {
+  border-color: #3d3d3d;
+  color: #e9ecef;
+}
+
+.assets-table tr:last-child td,
+.trades-table tr:last-child td {
+  border-bottom: none;
+}
+
+.assets-table tr:hover,
+.trades-table tr:hover {
+  background-color: #f8f9fa;
+}
+
+.dark .assets-table tr:hover,
+.dark .trades-table tr:hover {
   background-color: #2d2d2d;
 }
 
@@ -1078,21 +1244,14 @@ onUnmounted(() => {
   gap: 12px;
 }
 
-.asset-icon {
-  width: 56px;
-  height: 56px;
+.asset-info .iconify {
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 28px;
-  flex-shrink: 0;
+  background-color: #f8f9fa;
+  padding: 4px;
 }
 
-.asset-icon .iconify {
-  font-size: inherit;
-  color: inherit;
+.dark .asset-info .iconify {
+  background-color: #2d2d2d;
 }
 
 .asset-name {
@@ -1105,7 +1264,7 @@ onUnmounted(() => {
 }
 
 .asset-symbol {
-  font-size: 13px;
+  font-size: 12px;
   color: #6c757d;
 }
 
@@ -1119,42 +1278,32 @@ onUnmounted(() => {
   font-weight: 500;
 }
 
-.asset-profit {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.profit-value {
+.asset-profit .profit-value {
   font-weight: 600;
+  font-size: 15px;
 }
 
-.profit-rate {
+.asset-profit .profit-rate {
   font-size: 13px;
 }
 
-.asset-profit.positive .profit-value,
-.asset-profit.positive .profit-rate {
+.asset-profit.positive .profit-value {
   color: #2ecc71;
 }
 
-.asset-profit.negative .profit-value,
-.asset-profit.negative .profit-rate {
+.asset-profit.negative .profit-value {
   color: #e74c3c;
 }
 
 .btn-delete {
-  padding: 8px 12px;
+  background: none;
   border: none;
-  border-radius: 6px;
-  background-color: transparent;
   color: #6c757d;
+  font-size: 20px;
   cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
   transition: all 0.3s ease;
-}
-
-.dark .btn-delete {
-  color: #adb5bd;
 }
 
 .btn-delete:hover {
@@ -1164,7 +1313,7 @@ onUnmounted(() => {
 
 .empty-state {
   text-align: center;
-  padding: 60px 20px !important;
+  padding: 40px 20px !important;
   color: #6c757d;
 }
 
@@ -1173,13 +1322,137 @@ onUnmounted(() => {
 }
 
 .empty-state .iconify {
+  display: block;
   font-size: 48px;
   margin-bottom: 12px;
-  opacity: 0.5;
+  color: #dee2e6;
 }
 
-.spin {
-  animation: spin 1s linear infinite;
+.dark .empty-state .iconify {
+  color: #3d3d3d;
+}
+
+.empty-state p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.trades-section {
+  margin-top: 30px;
+  border-top: 2px solid #f8f9fa;
+}
+
+.dark .trades-section {
+  border-color: #2d2d2d;
+}
+
+.trade-row {
+  transition: all 0.3s ease;
+}
+
+.trade-type-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.trade-type-badge.buy {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.trade-type-badge.sell {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.dark .trade-type-badge.buy {
+  background-color: #155724;
+  color: #d4edda;
+}
+
+.dark .trade-type-badge.sell {
+  background-color: #721c24;
+  color: #f8d7da;
+}
+
+.trade-time {
+  font-size: 13px;
+  color: #6c757d;
+}
+
+.dark .trade-time {
+  color: #adb5bd;
+}
+
+.asset-info-small {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.asset-info-small .iconify {
+  border-radius: 50%;
+  background-color: #f8f9fa;
+  padding: 3px;
+}
+
+.dark .asset-info-small .iconify {
+  background-color: #2d2d2d;
+}
+
+.asset-info-small span {
+  font-weight: 500;
+}
+
+.btn-delete-small {
+  background: none;
+  border: none;
+  color: #6c757d;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.btn-delete-small:hover {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.btn-clear {
+  padding: 8px 16px;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.btn-clear:hover {
+  background-color: #c0392b;
+  transform: translateY(-1px);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes spin {
@@ -1191,212 +1464,14 @@ onUnmounted(() => {
   }
 }
 
-.empty-state p {
-  margin: 0;
-  font-size: 16px;
-}
-
-.error-message {
-  margin: 20px auto;
-  max-width: 600px;
-  padding: 20px 24px;
-  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a5a 100%);
-  border: none;
-  border-radius: 12px;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  box-shadow: 0 8px 24px rgba(231, 76, 60, 0.3);
-  animation: slideInDown 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  position: relative;
-  overflow: hidden;
-}
-
-.error-message::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, #ff4757, #ff6b6b, #ff4757);
-  animation: shimmer 2s infinite;
-}
-
-.error-content {
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  flex: 1;
-}
-
-.error-icon {
-  flex-shrink: 0;
-  font-size: 28px;
-  margin-top: 2px;
-  animation: pulse 2s infinite;
-}
-
-.error-text {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.error-title {
-  margin: 0;
-  font-size: 14px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  opacity: 0.95;
-}
-
-.error-message-text {
-  margin: 0;
-  font-size: 16px;
-  line-height: 1.5;
-  font-weight: 500;
-  color: white;
-}
-
-.error-close {
-  flex-shrink: 0;
-  width: 36px;
-  height: 36px;
-  border: none;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
-  padding: 0;
-  margin-left: 10px;
-}
-
-.error-close:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: rotate(90deg);
-}
-
-.error-close:active {
-  transform: scale(0.9);
-}
-
-.error-close .iconify {
-  font-size: 18px;
-}
-
-@keyframes slideInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-50px) scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.8;
-    transform: scale(1.1);
-  }
-}
-
-@keyframes shimmer {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-.dark .error-message {
-  background: linear-gradient(135deg, #ff4757 0%, #ff6b6b 100%);
-  box-shadow: 0 8px 24px rgba(255, 71, 87, 0.4);
-}
-
-@media (max-width: 1200px) {
-  .dashboard {
-    grid-template-columns: 1fr;
-  }
-
-  .sidebar {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-  }
-}
-
-@media (max-width: 992px) {
-  .chart-container {
-    grid-template-columns: 1fr;
-  }
-
-  .chart-legend {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-}
-
 @media (max-width: 768px) {
-  .crypto-container {
-    padding: 0;
+  .container {
+    padding: 0 16px;
   }
 
   .overview {
     grid-template-columns: repeat(2, 1fr);
-  }
-
-  .input-row {
-    grid-template-columns: 1fr;
-  }
-
-  .section-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .section-actions {
-    width: 100%;
-    justify-content: flex-start;
-  }
-
-  .filter-select,
-  .btn-refresh {
-    flex: 1;
-    min-width: 120px;
-  }
-
-  .assets-table {
-    font-size: 14px;
-  }
-
-  .assets-table th,
-  .assets-table td {
-    padding: 12px 8px;
-  }
-}
-
-@media (max-width: 576px) {
-  .overview {
-    grid-template-columns: 1fr;
+    gap: 12px;
   }
 
   .overview-card {
@@ -1404,44 +1479,71 @@ onUnmounted(() => {
   }
 
   .overview-card .value {
-    font-size: 24px;
+    font-size: 20px;
   }
 
-  .chart-section,
-  .add-crypto-section,
-  .assets-section {
-    padding: 16px;
+  .overview-card h3 {
+    font-size: 12px;
   }
 
-  .chart-title,
-  .section-title {
-    font-size: 16px;
-  }
-
-  .section-header {
+  .chart-container {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
+    align-items: center;
   }
 
-  .table-wrapper {
+  .pie-chart-wrapper {
+    width: 240px;
+    height: 240px;
+  }
+
+  .chart-legend {
+    max-width: 100%;
+  }
+
+  .input-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .input-row select,
+  .input-row input {
+    width: 100%;
+    min-width: auto;
+  }
+
+  .btn-add {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .section-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-group {
+    justify-content: space-between;
+  }
+
+  .assets-table,
+  .trades-table {
     font-size: 12px;
   }
 
   .assets-table th,
-  .assets-table td {
-    padding: 10px 6px;
-    white-space: nowrap;
-  }
-
-  .asset-icon {
-    width: 48px;
-    height: 48px;
-    font-size: 24px;
+  .assets-table td,
+  .trades-table th,
+  .trades-table td {
+    padding: 8px 12px;
   }
 
   .asset-info {
     gap: 8px;
+  }
+
+  .asset-info .iconify {
+    width: 24px;
+    height: 24px;
   }
 
   .asset-name {
@@ -1452,43 +1554,39 @@ onUnmounted(() => {
     font-size: 11px;
   }
 
-  .profit-rate {
-    font-size: 11px;
+  .btn-delete,
+  .btn-delete-small {
+    padding: 4px;
   }
 }
 
-@media (max-width: 768px) {
-  .error-message {
+@media (max-width: 480px) {
+  .overview {
+    grid-template-columns: 1fr;
+  }
+
+  .pie-chart-wrapper {
+    width: 200px;
+    height: 200px;
+  }
+
+  .pie-center span:first-child {
+    font-size: 20px;
+  }
+
+  .section-header {
     flex-direction: column;
-    text-align: center;
-    padding: 16px;
+    align-items: flex-start;
+    gap: 12px;
   }
 
-  .error-content {
-    flex-direction: column;
-    text-align: center;
-    margin-bottom: 12px;
+  .section-actions {
+    width: 100%;
   }
 
-  .error-close {
-    margin-left: 0;
-    width: 32px;
-    height: 32px;
-  }
-}
-
-@media (max-width: 576px) {
-  .error-message {
-    max-width: 100%;
-    border-radius: 8px;
-  }
-
-  .error-icon {
-    font-size: 24px;
-  }
-
-  .error-message-text {
-    font-size: 14px;
+  .btn-clear {
+    width: 100%;
+    justify-content: center;
   }
 }
 </style>
