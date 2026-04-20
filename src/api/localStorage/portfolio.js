@@ -279,13 +279,24 @@ function calculateHoldings(trades) {
 
     switch (type) {
       case 'recharge':
+        // 充值：增加 USDT 余额
         holdings[symbol] += amount
         break
       case 'buy':
+        // 买入：增加加密资产持仓，减少 USDT 余额
         holdings[symbol] += amount
+        if (!holdings['USDT']) {
+          holdings['USDT'] = 0
+        }
+        holdings['USDT'] -= total
         break
       case 'sell':
+        // 卖出：减少加密资产持仓，增加 USDT 余额
         holdings[symbol] -= amount
+        if (!holdings['USDT']) {
+          holdings['USDT'] = 0
+        }
+        holdings['USDT'] += total
         break
     }
   })
