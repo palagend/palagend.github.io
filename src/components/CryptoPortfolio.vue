@@ -1062,7 +1062,7 @@ const clearTrades = async () => {
   isSubmitting.value.clear = true
 
   try {
-    const result = await portfolioStore.clearAllTrades()
+    const result = portfolioStore.clearAllTrades()
     if (!result.success) {
       errorMessage.value = result.error
       setTimeout(() => errorMessage.value = '', 3000)
