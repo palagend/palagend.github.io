@@ -21,6 +21,7 @@
   "homepage": "https://github.com/palagend/palagend.github.io#readme",
   "dependencies": {
     "axios": "^1.14.0",
+    "pinia": "^3.0.4",
     "qrcode.vue": "^3.8.1",
     "vue": "^3.5.32",
     "vue-router": "^4.6.4"
