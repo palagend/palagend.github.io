@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/palagend/palagend.github.io#readme",
   "dependencies": {
+    "@iconify/vue": "^5.0.0",
     "axios": "^1.14.0",
     "pinia": "^3.0.4",
     "qrcode.vue": "^3.8.1",
@@ -27,7 +28,6 @@
     "vue-router": "^4.6.4"
   },
   "devDependencies": {
-    "@iconify/vue": "^5.0.0",
     "@vitejs/plugin-vue": "^6.0.5",
     "vite": "^8.0.8"
   }

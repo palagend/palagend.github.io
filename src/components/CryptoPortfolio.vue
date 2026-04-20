@@ -2,7 +2,25 @@
   <div class="crypto-container">
     <div class="container">
       <div class="dashboard">
+        <!-- 运行模式标识 -->
+        <div class="mode-indicator" :class="config.mode">
+          <Icon :icon="config.isBackend ? 'mdi:server' : 'mdi:database-outline'" />
+          <span>{{ config.isBackend ? '后端模式' : '本地模式' }}</span>
+        </div>
         <main class="main-content">
+          <!-- 未登录提示 -->
+          <section v-if="!userStore.isLoggedIn" class="login-prompt">
+            <div class="prompt-content">
+              <Icon icon="mdi:lock" class="prompt-icon" />
+              <h3>请先登录</h3>
+              <p>登录后可查看和管理您的加密资产组合</p>
+              <button class="btn-login" @click="userStore.openLoginModal">
+                <Icon icon="mdi:login" /> 立即登录
+              </button>
+            </div>
+          </section>
+
+          <template v-else>
             <section class="overview">
               <div class="overview-card">
                 <h3><Icon icon="mdi:wallet" /> 加密资产价值</h3>
@@ -205,10 +223,10 @@
 
                   <!-- 交易按钮 -->
                   <div class="trade-submit" v-if="newTrade.symbol">
-                    <button
-                      class="btn-submit"
-                      @click="addTrade"
-                      :disabled="!isFormValid || portfolioStore.refreshing || isSubmitting.trade"
+                    <button 
+                      class="btn-submit" 
+                      @click="addTrade" 
+                      :disabled="!isFormValid || portfolioStore.isLoading || isSubmitting.trade"
                       :class="newTrade.type"
                     >
                       <Icon :icon="newTrade.type === 'buy' ? 'mdi:arrow-down' : 'mdi:arrow-up'" />
@@ -271,7 +289,7 @@
                         </div>
                         <div class="preview-item">
                           <span class="label">当前成本价</span>
-                          <span class="value">${{ formatAmount(portfolio.value.find(c => c.symbol === newTrade.symbol)?.avg_cost || 0) }}</span>
+                          <span class="value">${{ formatAmount(portfolio.value?.find(c => c.symbol === newTrade.symbol)?.avg_cost || 0) }}</span>
                         </div>
                         <div class="preview-item">
                           <span class="label">卖出后持仓</span>
@@ -510,6 +528,7 @@
                 </table>
               </div>
             </section>
+          </template>
         </main>
       </div>
     </div>
@@ -678,11 +697,14 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
+import { ref, computed, onMounted, onUnmounted, nextTick, watch } from 'vue'
 import { Icon } from '@iconify/vue'
-import { useCryptoStore } from '../stores/cryptoStore'
+import { usePortfolioStore } from '../stores/portfolio'
+import { useUserStore } from '../stores/user'
+import { config } from '../config'
 
-const portfolioStore = useCryptoStore()
+const portfolioStore = usePortfolioStore()
+const userStore = useUserStore()
 
 // 支持的加密货币列表
 const availableSymbols = ['BTC', 'ETH', 'BNB', 'XRP', 'ADA', 'SOL', 'DOGE', 'TRX', 'AVAX', 'HYPE']
@@ -699,7 +721,9 @@ const tradeFilter = ref('all')
 const refreshing = ref(false)
 const lastUpdateTime = ref('')
 const errorMessage = ref('')
+const autoRefresh = ref(false)
 const hoveredLegend = ref(null) // 当前hover的图例索引
+const refreshInterval = ref(60)
 const selectedFilter = ref('all')
 const selectedAsset = ref(null)
 const symbolSelect = ref(null)
@@ -740,17 +764,17 @@ const importResult = ref({
 })
 const importError = ref('')
 
-// 从store获取数据
-const portfolio = computed(() => portfolioStore.holdings)
+// 从store获取数据（后端已计算好）
+const portfolio = computed(() => portfolioStore.portfolio)
 const trades = computed(() => portfolioStore.trades)
-const cryptoAssetsValue = computed(() => portfolioStore.cryptoMarketValue) // 加密资产市值（不含 USDT）
-const cashBalance = computed(() => portfolioStore.usdtBalance) // USDT现金余额
-const unrealizedPL = computed(() => portfolioStore.totalUnrealizedPL) // 浮动盈亏
+const cryptoAssetsValue = computed(() => portfolioStore.cryptoAssetsValue) // 加密资产市值（不含 USDT）
+const cashBalance = computed(() => portfolioStore.cashBalance) // USDT现金余额
+const unrealizedPL = computed(() => portfolioStore.unrealizedPL) // 浮动盈亏
 const unrealizedPLRate = computed(() => portfolioStore.unrealizedPLRate) // 浮动盈亏率
-const realizedPL = computed(() => portfolioStore.totalRealizedPL) // 实现盈亏
+const realizedPL = computed(() => portfolioStore.realizedPL) // 实现盈亏
 const realizedPLRate = computed(() => portfolioStore.realizedPLRate) // 实现盈亏率
-const totalPL = computed(() => portfolioStore.totalProfitLoss) // 总盈亏
-const cryptoValueChange24h = computed(() => portfolioStore.totalValueChange24h) // 24小时价值变化率
+const totalPL = computed(() => portfolioStore.totalPL) // 总盈亏
+const cryptoValueChange24h = computed(() => portfolioStore.cryptoValueChange24h) // 24小时价值变化率
 
 // 格式化的显示值（避免模板中重复计算）
 const displayUnrealizedPL = computed(() => {
@@ -861,7 +885,23 @@ const selectSymbol = async (symbol) => {
   })
 }
 
-
+const onSymbolChange = async () => {
+  if (newTrade.value.symbol) {
+    // 使用 GetAssetPrice 接口获取最新价格
+    const result = await portfolioStore.fetchAssetPrice(newTrade.value.symbol)
+    if (result.success) {
+      newTrade.value.price = result.price
+      currentMarketPrice.value = result.price
+    }
+  } else {
+    currentMarketPrice.value = 0
+  }
+  nextTick(() => {
+    if (amountInput.value) {
+      amountInput.value.focus()
+    }
+  })
+}
 
 const isFormValid = computed(() => {
   return newTrade.value.symbol && 
@@ -1037,7 +1077,7 @@ const deleteTrade = async (id) => {
   isSubmitting.value.delete = true
 
   try {
-    const result = portfolioStore.deleteTrade(id)
+    const result = await portfolioStore.deleteTrade(id)
     if (!result.success) {
       errorMessage.value = result.error
       setTimeout(() => errorMessage.value = '', 3000)
@@ -1062,7 +1102,7 @@ const clearTrades = async () => {
   isSubmitting.value.clear = true
 
   try {
-    const result = portfolioStore.clearAllTrades()
+    const result = await portfolioStore.clearAllTrades()
     if (!result.success) {
       errorMessage.value = result.error
       setTimeout(() => errorMessage.value = '', 3000)
@@ -1107,7 +1147,7 @@ const quickSell = async (crypto) => {
     newTrade.value.price = result.price
     currentMarketPrice.value = result.price
   } else {
-    newTrade.value.price = crypto.current_price || (crypto.avg_cost || crypto.price)
+    newTrade.value.price = crypto.currentPrice || (crypto.avg_cost || crypto.price)
   }
 }
 
@@ -1120,7 +1160,7 @@ const quickBuy = async (crypto) => {
     newTrade.value.price = result.price
     currentMarketPrice.value = result.price
   } else {
-    newTrade.value.price = crypto.current_price || (crypto.avg_cost || crypto.price)
+    newTrade.value.price = crypto.currentPrice || (crypto.avg_cost || crypto.price)
   }
   nextTick(() => {
     if (amountInput.value) {
@@ -1209,9 +1249,22 @@ const refreshPrices = async () => {
   refreshing.value = false
 }
 
+const toggleAutoRefresh = () => {
+  if (autoRefresh.value) {
+    refreshTimer = setInterval(() => {
+      refreshPrices()
+    }, refreshInterval.value * 60 * 1000)
+  } else {
+    if (refreshTimer) {
+      clearInterval(refreshTimer)
+      refreshTimer = null
+    }
+  }
+}
+
 const filteredHoldings = computed(() => {
   const filter = selectedFilter.value
-  return portfolio.value.filter(c =>
+  return portfolio.value?.filter(c =>
     c.symbol !== 'USDT' &&
     c.amount > 0 &&
     (filter === 'all' || c.symbol === filter)
@@ -1220,7 +1273,7 @@ const filteredHoldings = computed(() => {
 
 const filteredTrades = computed(() => {
   const filter = tradeFilter.value
-  return filter === 'all' ? trades.value : trades.value.filter(t => t.type === filter)
+  return filter === 'all' ? trades.value : trades.value?.filter(t => t.type === filter)
 })
 
 // 总资产净值 = 加密资产市值 + USDT余额
@@ -1306,7 +1359,9 @@ const pieChartStyle = computed(() => {
 })
 
 onMounted(() => {
-  portfolioStore.fetchDashboard()
+  if (userStore.isLoggedIn) {
+    portfolioStore.fetchDashboard()
+  }
 })
 
 onUnmounted(() => {
@@ -1323,10 +1378,10 @@ const exportData = async () => {
 
   isSubmitting.value.export = true
   try {
-    const result = portfolioStore.exportData()
-    if (result) {
+    const result = await portfolioStore.exportData()
+    if (result.success) {
       // 生成 JSON 文件并下载
-      const blob = new Blob([JSON.stringify(result, null, 2)], {
+      const blob = new Blob([JSON.stringify(result.data, null, 2)], {
         type: 'application/json'
       })
       const url = URL.createObjectURL(blob)
@@ -1337,6 +1392,9 @@ const exportData = async () => {
       a.click()
       document.body.removeChild(a)
       URL.revokeObjectURL(url)
+    } else {
+      errorMessage.value = result.error || '导出失败'
+      setTimeout(() => errorMessage.value = '', 3000)
     }
   } catch (error) {
     console.error('Export error:', error)
@@ -1486,6 +1544,12 @@ const formatTradeType = (type) => {
   return typeMap[type] || type
 }
 
+// 监听登录状态变化
+watch(() => userStore.isLoggedIn, async (isLoggedIn) => {
+  if (isLoggedIn) {
+    await portfolioStore.fetchDashboard()
+  }
+})
 </script>
 
 <style scoped>
@@ -1500,6 +1564,100 @@ const formatTradeType = (type) => {
 
 .dashboard {
   display: block;
+}
+
+/* 运行模式标识 */
+.mode-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  width: fit-content;
+}
+
+.mode-indicator.backend {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.mode-indicator.frontend {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  color: white;
+}
+
+.mode-indicator svg {
+  font-size: 16px;
+}
+
+/* 登录提示 */
+.login-prompt {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+  padding: 40px;
+}
+
+.prompt-content {
+  text-align: center;
+  background: white;
+  padding: 60px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.dark .prompt-content {
+  background: #1e1e1e;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.prompt-icon {
+  font-size: 64px;
+  color: #6366f1;
+  margin-bottom: 20px;
+}
+
+.prompt-content h3 {
+  font-size: 24px;
+  margin-bottom: 12px;
+  color: #1f2937;
+}
+
+.dark .prompt-content h3 {
+  color: #f3f4f6;
+}
+
+.prompt-content p {
+  color: #6b7280;
+  margin-bottom: 24px;
+}
+
+.dark .prompt-content p {
+  color: #9ca3af;
+}
+
+.btn-login {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 32px;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-login:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
 }
 
 .overview {

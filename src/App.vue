@@ -2,17 +2,14 @@
   <div id="app" :class="{ dark: isDark }">
     <nav class="navbar">
       <div class="nav-container">
-        <router-link to="/" class="nav-logo">
-          <Icon icon="fa7-solid:tools" />
-          <span>工具集合</span>
-        </router-link>
+        <div class="nav-left">
+          <UserProfile v-if="config.isBackend" />
+          <router-link to="/" class="nav-logo">
+            <Icon icon="fa7-solid:tools" />
+            <span>工具集合</span>
+          </router-link>
+        </div>
         <ul class="nav-menu">
-          <li class="nav-item">
-            <router-link to="/" class="nav-link" @click="closeMenu">
-              <Icon icon="fa7-solid:home" />
-              <span>首页</span>
-            </router-link>
-          </li>
           <li class="nav-item">
             <router-link to="/exchange-rate" class="nav-link" @click="closeMenu">
               <Icon icon="fa7-solid:exchange-alt" />
@@ -57,6 +54,8 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { Icon } from '@iconify/vue'
+import UserProfile from './components/UserProfile.vue'
+import { config } from './config'
 
 const isDark = ref(false)
 
@@ -173,6 +172,12 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
 }
 
 .nav-logo {
@@ -425,13 +430,23 @@ body {
 
 @media (max-width: 992px) {
   .nav-container {
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     gap: 1rem;
-    padding: 0 1rem;
+    padding: 0.75rem 1rem;
+  }
+
+  .nav-left {
+    flex: 1;
+    gap: 0.75rem;
   }
 
   .nav-logo {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
+  }
+
+  .nav-logo span {
+    display: none;
   }
 
   .nav-menu {

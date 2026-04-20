@@ -239,20 +239,20 @@ const saveToHistory = () => {
     time: new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' })
   }
   
-  const existingIndex = history.value.findIndex(item => 
-    item.amount === historyItem.amount && 
-    item.from === historyItem.from && 
+  const existingIndex = history.value?.findIndex(item =>
+    item.amount === historyItem.amount &&
+    item.from === historyItem.from &&
     item.to === historyItem.to
   )
-  
-  if (existingIndex !== -1) {
-    history.value.splice(existingIndex, 1)
+
+  if (existingIndex !== -1 && existingIndex !== undefined) {
+    history.value?.splice(existingIndex, 1)
   }
-  
-  history.value.unshift(historyItem)
-  
-  if (history.value.length > 6) {
-    history.value.pop()
+
+  history.value?.unshift(historyItem)
+
+  if (history.value?.length > 6) {
+    history.value?.pop()
   }
   
   localStorage.setItem('exchangeRateHistory', JSON.stringify(history.value))
