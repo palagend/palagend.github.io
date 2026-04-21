@@ -836,7 +836,7 @@ const ASSET_CONFIG = {
     BNB: 'cryptocurrency-color:bnb',
     XRP: 'cryptocurrency-color:xrp',
     ADA: 'cryptocurrency-color:ada',
-    SOL: 'cryptocurrency-color:sol',
+    SOL: 'token-branded:sol',
     DOGE: 'cryptocurrency-color:doge',
     TRX: 'cryptocurrency-color:trx',
     AVAX: 'cryptocurrency-color:avax',
