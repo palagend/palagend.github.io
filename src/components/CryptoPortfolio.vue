@@ -1141,26 +1141,40 @@ const quickSell = async (crypto) => {
   newTrade.value.symbol = crypto.symbol
   newTrade.value.type = 'sell'
   newTrade.value.amount = crypto.amount
-  // 使用 GetAssetPrice 接口获取最新价格
-  const result = await portfolioStore.fetchAssetPrice(crypto.symbol)
-  if (result.success) {
-    newTrade.value.price = result.price
-    currentMarketPrice.value = result.price
+  // 优先使用 store 中已有的最新价格
+  const cachedPrice = portfolioStore.prices[crypto.symbol]
+  if (cachedPrice) {
+    newTrade.value.price = cachedPrice
+    currentMarketPrice.value = cachedPrice
   } else {
-    newTrade.value.price = crypto.currentPrice || (crypto.avg_cost || crypto.price)
+    // 异步获取最新价格
+    const result = await portfolioStore.fetchAssetPrice(crypto.symbol)
+    if (result.success) {
+      newTrade.value.price = result.price
+      currentMarketPrice.value = result.price
+    } else {
+      newTrade.value.price = crypto.currentPrice || (crypto.avg_cost || crypto.price)
+    }
   }
 }
 
 const quickBuy = async (crypto) => {
   newTrade.value.symbol = crypto.symbol
   newTrade.value.type = 'buy'
-  // 使用 GetAssetPrice 接口获取最新价格
-  const result = await portfolioStore.fetchAssetPrice(crypto.symbol)
-  if (result.success) {
-    newTrade.value.price = result.price
-    currentMarketPrice.value = result.price
+  // 优先使用 store 中已有的最新价格
+  const cachedPrice = portfolioStore.prices[crypto.symbol]
+  if (cachedPrice) {
+    newTrade.value.price = cachedPrice
+    currentMarketPrice.value = cachedPrice
   } else {
-    newTrade.value.price = crypto.currentPrice || (crypto.avg_cost || crypto.price)
+    // 异步获取最新价格
+    const result = await portfolioStore.fetchAssetPrice(crypto.symbol)
+    if (result.success) {
+      newTrade.value.price = result.price
+      currentMarketPrice.value = result.price
+    } else {
+      newTrade.value.price = crypto.currentPrice || (crypto.avg_cost || crypto.price)
+    }
   }
   nextTick(() => {
     if (amountInput.value) {
@@ -1249,10 +1263,35 @@ const refreshPrices = async () => {
   refreshing.value = false
 }
 
+// 页面可见性状态
+const isPageVisible = ref(true)
+let visibilityRefreshTimer = null
+
+// 处理页面可见性变化
+const handleVisibilityChange = () => {
+  const wasVisible = isPageVisible.value
+  isPageVisible.value = !document.hidden
+
+  if (isPageVisible.value && !wasVisible) {
+    // 页面从隐藏变为可见，延迟刷新一次数据（避免频繁切换时重复请求）
+    if (visibilityRefreshTimer) {
+      clearTimeout(visibilityRefreshTimer)
+    }
+    visibilityRefreshTimer = setTimeout(() => {
+      if (userStore.isLoggedIn && !refreshing.value) {
+        refreshPrices()
+      }
+    }, 1000)
+  }
+}
+
 const toggleAutoRefresh = () => {
   if (autoRefresh.value) {
     refreshTimer = setInterval(() => {
-      refreshPrices()
+      // 只在页面可见时执行刷新
+      if (isPageVisible.value) {
+        refreshPrices()
+      }
     }, refreshInterval.value * 60 * 1000)
   } else {
     if (refreshTimer) {
@@ -1362,12 +1401,19 @@ onMounted(() => {
   if (userStore.isLoggedIn) {
     portfolioStore.fetchDashboard()
   }
+  // 监听页面可见性变化
+  document.addEventListener('visibilitychange', handleVisibilityChange)
 })
 
 onUnmounted(() => {
   if (refreshTimer) {
     clearInterval(refreshTimer)
   }
+  if (visibilityRefreshTimer) {
+    clearTimeout(visibilityRefreshTimer)
+  }
+  // 移除页面可见性监听
+  document.removeEventListener('visibilitychange', handleVisibilityChange)
 })
 
 // ========== 导入/导出方法 ==========
